@@ -14,7 +14,7 @@ export const MainLayout = ({ children }) => {
           <li className="text-white rounded-md transition-colors hover:bg-white hover:text-black">Blog</li>
           <li className="text-white rounded-md transition-colors hover:bg-white hover:text-black">Mis Documentos</li>
         </ul>
-        <button className="px-4 group hover:bg-white hover:text-black transition-colors py-2 flex items-center rounded-md text-white">
+        <button onClick={() =>window.location.replace('/')} className="px-4 group hover:bg-white hover:text-black transition-colors py-2 flex items-center rounded-md text-white">
           <LogOut className="text-white mr-2 group-hover:text-black" /> Cerrar Sesion
         </button>
       </div>
