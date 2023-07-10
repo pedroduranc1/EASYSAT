@@ -1,5 +1,4 @@
 import React from "react";
-import { Building2, LogOut } from "lucide-react";
 import { Navbar } from "../components/Navbar";
 
 export const MainLayout = ({ children }) => {
