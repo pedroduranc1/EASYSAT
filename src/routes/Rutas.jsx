@@ -1,22 +1,47 @@
 import React from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { Main } from "../pages/Main";
+import { Contabilidad } from "../pages/Contabilidad";
+import { Cursos } from "../pages/Cursos";
+import { Blogs } from "../pages/Blogs";
 import { LoginPage } from "../pages/LoginPage";
 import { RegistroPage } from "../pages/RegistroPage";
-import { Main } from "../pages/Main";
+import { Blog } from "../pages/Blog";
+import { Curso } from "../pages/Curso";
 
 const router = createBrowserRouter([
   {
     path: "/",
+    element: <Main/>,
+  },
+  {
+    path: "/Contabilidad",
+    element: <Contabilidad/>,
+  },
+  {
+    path: "/Cursos",
+    element: <Cursos/>,
+  },
+  {
+    path: "/curso/:cursoId",
+    element: <Curso/>,
+  },
+  {
+    path: "/Blogs",
+    element: <Blogs/>,
+  },
+  {
+    path: "/Blog/:slug",
+    element: <Blog/>,
+  },
+  {
+    path: "/Login",
     element: <LoginPage/>,
   },
   {
-    path:"/registro",
-    element:<RegistroPage/>
+    path: "/Registro",
+    element: <RegistroPage/>,
   },
-  {
-    path:'/inicio',
-    element:<Main/>
-  }
 ]);
 
 export const Rutas = () => {
