@@ -13,11 +13,12 @@ export const Blog = () => {
 
   const queryClient = useQueryClient();
   const { isLoading, isError } = useQuery("markdown", () => {
-    fetch("/src/data/blogPrueba.mdx")
-      .then((response) =>response.text())
+    fetch(
+      "./public/data/blogPrueba.mdx",
+    )
+      .then((response) => response.text())
       .then((data) => {
-        console.log(data)
-        setmarkdown(`${data}`)
+        setmarkdown(`${data}`);
       });
   });
 
@@ -28,7 +29,11 @@ export const Blog = () => {
           <>Cargando Blog {slug}</>
         ) : (
           <>
-            <AutorCard mxauto={true} autor={"Armando de DGYA"} cargo={"Presidente"} />
+            <AutorCard
+              mxauto={true}
+              autor={"Armando de DGYA"}
+              cargo={"Presidente"}
+            />
             <ReactMarkdown children={markdown} />
           </>
         )}
