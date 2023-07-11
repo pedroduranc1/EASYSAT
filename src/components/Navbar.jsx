@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { FerrisWheel, Menu } from "lucide-react";
 import { Link } from "react-router-dom";
+import { motion,AnimatePresence } from "framer-motion";
 
 export const Navbar = () => {
   const [toggleMenu, settoggleMenu] = useState(false);
@@ -79,37 +80,43 @@ export const Navbar = () => {
         </div>
       </div>
       {/* toggle menu */}
+      <AnimatePresence>
       {toggleMenu && (
-        <div className="flex flex-col w-full px-6 py-4 md:hidden">
+        <motion.div 
+        initial={{height:0,opacity:0}}
+        animate={{height:"auto",opacity:1}}
+        exit={{height:0,opacity:0}}
+        className="flex flex-col w-full px-6 py-4 md:hidden">
           <ul>
-            <li className="border-b-2 hover:bg-slate-100 rounded-md hover:text-black transition-all p-2">
+            <li className="border-b-2 hover:bg-slate-100 hover:rounded-md hover:text-black transition-all p-2">
               <Link className="w-full block" to="/">
                 Inicio
               </Link>
             </li>
-            <li className="border-b-2 hover:bg-slate-100 rounded-md hover:text-black transition-all p-2">
+            <li className="border-b-2 hover:bg-slate-100 hover:rounded-md hover:text-black transition-all p-2">
               <Link className="w-full block" to="/Contabilidad">
                 Contabilidad
               </Link>
             </li>
-            <li className="border-b-2 hover:bg-slate-100 rounded-md hover:text-black transition-all p-2">
+            <li className="border-b-2 hover:bg-slate-100 hover:rounded-md hover:text-black transition-all p-2">
               <Link className="w-full block" to="/Cursos">
                 Cursos
               </Link>
             </li>
-            <li className="border-b-2 hover:bg-slate-100 rounded-md hover:text-black transition-all p-2">
+            <li className="border-b-2 hover:bg-slate-100 hover:rounded-md hover:text-black transition-all p-2">
               <Link className="w-full block" to="/Blogs">
                 Blogs
               </Link>
             </li>
-            <li className="border-b-2 hover:bg-slate-100 rounded-md hover:text-black transition-all p-2">
+            <li className="border-b-2 hover:bg-slate-100 hover:rounded-md hover:text-black transition-all p-2">
               <Link className="w-full block" to="/Login">
                 Iniciar Sesion
               </Link>
             </li>
           </ul>
-        </div>
+        </motion.div>
       )}
+      </AnimatePresence>
     </div>
   );
 };
