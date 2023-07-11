@@ -4,7 +4,7 @@ export const AutorCard = ({autor,cargo,img,mxauto}) => {
   return (
     <div className={`${mxauto ?'mx-auto' : ''} w-full md:max-w-md items-center shadow-md flex p-5`}>
       <img
-        class="w-16 h-16 rounded-full mx-auto"
+        className="w-16 h-16 rounded-full mx-auto"
         src={img ? img : "https://randomuser.me/api/portraits/men/34.jpg"}
         alt=""
         width="384"

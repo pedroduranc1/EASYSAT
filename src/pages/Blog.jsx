@@ -14,8 +14,11 @@ export const Blog = () => {
   const queryClient = useQueryClient();
   const { isLoading, isError } = useQuery("markdown", () => {
     fetch("/src/data/blogPrueba.mdx")
-      .then((response) => response.text())
-      .then((data) => setmarkdown(`${data}`));
+      .then((response) =>response.text())
+      .then((data) => {
+        console.log(data)
+        setmarkdown(`${data}`)
+      });
   });
 
   return (
