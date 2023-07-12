@@ -69,9 +69,9 @@ export const Blogs = () => {
                         className="w-full"
                         to={`/blog/${blog?.id}`}
                       >
-                        <div className="flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row  hover:bg-gray-100 ">
+                        <div className="flex flex-col p-4 items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row  hover:bg-gray-100 ">
                           <img
-                            className="object-contain w-full md:w-[30%] aspect-[200px] rounded-t-lg h-full md:rounded-none md:rounded-l-lg"
+                            className="object-contain w-[40%]  md:w-32 md:h-32 rounded-t-lg  md:rounded-none md:rounded-l-lg"
                             src={`${ENV.SERVER_HOST}${blog?.attributes?.img_title?.data?.attributes?.formats?.thumbnail?.url}`}
                             alt=""
                           />
