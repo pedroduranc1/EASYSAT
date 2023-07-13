@@ -1,9 +1,12 @@
 import React, { useState } from "react";
-import { FerrisWheel, Menu } from "lucide-react";
+import { FerrisWheel, Menu, LogOut } from "lucide-react";
 import { Link } from "react-router-dom";
-import { motion,AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
+import { useAuth } from "../hooks/useAuth";
 
-export const Navbar = () => {
+export const Navbar = ({ user }) => {
+  const { logout } = useAuth();
+
   const [toggleMenu, settoggleMenu] = useState(false);
 
   const handleMenuToggle = () => {
@@ -64,14 +67,26 @@ export const Navbar = () => {
         {/* settings */}
         <div>
           <ul className="hidden md:flex [&>li]:text-slate-600 [&>li]:font-semibold">
-            <li>
-              <Link
-                className="px-2 py-4 hover:border-b-2 hover:border-slate-500 transition-all"
-                to="/Login"
-              >
-                Iniciar Sesion
-              </Link>
-            </li>
+            {user ? (
+              <div className="flex items-center space-x-3">
+                <Link
+                  to="/Perfil"
+                  className="first-letter:uppercase font-semibold"
+                >
+                  {user.username}
+                </Link>
+                <LogOut onClick={logout} className="w-5 h-5 cursor-pointer" />
+              </div>
+            ) : (
+              <li>
+                <Link
+                  className="px-2 py-4 hover:border-b-2 hover:border-slate-500 transition-all"
+                  to="/Login"
+                >
+                  Iniciar Sesion
+                </Link>
+              </li>
+            )}
           </ul>
           <Menu
             onClick={handleMenuToggle}
@@ -81,41 +96,57 @@ export const Navbar = () => {
       </div>
       {/* toggle menu */}
       <AnimatePresence>
-      {toggleMenu && (
-        <motion.div 
-        initial={{height:0,opacity:0}}
-        animate={{height:"auto",opacity:1}}
-        exit={{height:0,opacity:0}}
-        className="flex flex-col w-full px-6 py-4 md:hidden">
-          <ul>
-            <li className="border-b-2 hover:bg-slate-100 hover:rounded-md hover:text-black transition-all p-2">
-              <Link className="w-full block" to="/">
-                Inicio
-              </Link>
-            </li>
-            <li className="border-b-2 hover:bg-slate-100 hover:rounded-md hover:text-black transition-all p-2">
-              <Link className="w-full block" to="/Contabilidad">
-                Contabilidad
-              </Link>
-            </li>
-            <li className="border-b-2 hover:bg-slate-100 hover:rounded-md hover:text-black transition-all p-2">
-              <Link className="w-full block" to="/Cursos">
-                Cursos
-              </Link>
-            </li>
-            <li className="border-b-2 hover:bg-slate-100 hover:rounded-md hover:text-black transition-all p-2">
-              <Link className="w-full block" to="/Blogs">
-                Blogs
-              </Link>
-            </li>
-            <li className="border-b-2 hover:bg-slate-100 hover:rounded-md hover:text-black transition-all p-2">
-              <Link className="w-full block" to="/Login">
-                Iniciar Sesion
-              </Link>
-            </li>
-          </ul>
-        </motion.div>
-      )}
+        {toggleMenu && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            className="flex flex-col w-full px-6 py-4 md:hidden"
+          >
+            <ul>
+              <li className="border-b-2 hover:bg-slate-100 hover:rounded-md hover:text-black transition-all p-2">
+                <Link className="w-full block" to="/">
+                  Inicio
+                </Link>
+              </li>
+              <li className="border-b-2 hover:bg-slate-100 hover:rounded-md hover:text-black transition-all p-2">
+                <Link className="w-full block" to="/Contabilidad">
+                  Contabilidad
+                </Link>
+              </li>
+              <li className="border-b-2 hover:bg-slate-100 hover:rounded-md hover:text-black transition-all p-2">
+                <Link className="w-full block" to="/Cursos">
+                  Cursos
+                </Link>
+              </li>
+              <li className="border-b-2 hover:bg-slate-100 hover:rounded-md hover:text-black transition-all p-2">
+                <Link className="w-full block" to="/Blogs">
+                  Blogs
+                </Link>
+              </li>
+              {user ? (
+                <div className="flex px-2 py-2 hover:border-b-2 cursor-pointer hover:border-slate-500 transition-all items-center justify-between md:justify-start md:space-x-3">
+                  <Link
+                    to="/Perfil"
+                    className="w-full first-letter:uppercase font-semibold"
+                  >
+                    {user.username}
+                  </Link>
+                  <LogOut onClick={logout} className="w-5 h-5 cursor-pointer" />
+                </div>
+              ) : (
+                <li>
+                  <Link
+                    className="px-2 py-4 hover:border-b-2 hover:border-slate-500 transition-all"
+                    to="/Login"
+                  >
+                    Iniciar Sesion
+                  </Link>
+                </li>
+              )}
+            </ul>
+          </motion.div>
+        )}
       </AnimatePresence>
     </div>
   );

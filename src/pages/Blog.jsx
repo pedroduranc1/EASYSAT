@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { MainLayout } from "../layouts/MainLayout";
 import { useParams } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
-import { useQuery } from "react-query";
+import { useQuery, useQueryClient } from "react-query";
 import "../css/blog.css";
 import { AutorCard } from "../components/AutorCard";
 import { ENV } from "../utils/constans";
@@ -38,7 +38,7 @@ export const Blog = () => {
 
   return (
     <MainLayout>
-      <div id="blog" className="w-full h-full  md:pt-6 md:pl-7">
+      <div id="blog" className="w-full h-full p-4 md:pt-6 md:pl-7">
         <>
           <AutorCard
             mxauto={true}

@@ -1,100 +1,111 @@
 import React, { useState } from "react";
 import { AuthLayout } from "../layouts/AuthLayout";
-import { FerrisWheel, Check } from "lucide-react";
-import { Link } from "react-router-dom";
+import { FerrisWheel, Check,Eye,EyeOff } from "lucide-react";
 import { motion } from "framer-motion";
+import { initialValues, validationSchema } from "../utils/login.form";
+import { useAuth } from "../hooks/useAuth";
+import { useFormik } from "formik";
+import { Auth } from "../api/auth";
+
+const authCtrl = new Auth();
 
 export const LoginPage = () => {
+  const { login } = useAuth();
+
   const [togglePassword, settogglePassword] = useState(false);
-  const [userInfo, setuserInfo] = useState({
-    email: "prueba@gmail.com",
-    pass: "prueba",
+  const handleTogglePassword = () => {
+    settogglePassword(!togglePassword)
+  }
+
+  const formik = useFormik({
+    initialValues: initialValues(),
+    validationSchema: validationSchema(),
+    validateOnChange: false,
+    onSubmit: async (formValue) => {
+      try {
+
+        const response = await authCtrl.login(formValue);
+        login(response.jwt);
+        window.location.href = "/"
+      } catch (error) {
+        console.error(error);
+      }
+    },
   });
-
-  const HandleToggle = () => {
-    settogglePassword(!togglePassword);
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const datosFormulario = new FormData(e.target);
-    const datos = {};
-    for (let [nombre, valor] of datosFormulario.entries()) {
-      datos[nombre] = valor;
-    }
-    if (userInfo.email == datos.email && userInfo.pass == datos.pass) {
-      window.location.href = "/inicio";
-    } else {
-      console.log("error de credenciales");
-    }
-  };
 
   return (
     <AuthLayout>
       <div className="w-full h-full">
         <div className="grid grid-cols-1 md:grid-cols-2">
-          <section class=" dark:bg-gray-900">
-            <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
+          <section className=" bg-gray-900">
+            <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
               <a
                 href="#"
-                class="flex items-center mb-6 text-4xl font-semibold text-gray-900 dark:text-white"
+                className="flex items-center mb-6 text-4xl font-semibold text-white"
               >
                 <FerrisWheel className="h-full w-full" />
                 DGYA
               </a>
-              <div class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
-                <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
-                  <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
+              <div className="w-full bg-white rounded-lg shadow  md:mt-0 sm:max-w-md xl:p-0 ">
+                <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
+                  <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl ">
                     Inicia Sesion
                   </h1>
-                  <form class="space-y-4 md:space-y-6" action="#">
+                  <form className="space-y-4 md:space-y-6" onSubmit={formik.handleSubmit} >
                     <div>
                       <label
-                        for="email"
-                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                        htmlFor="email"
+                        className="block mb-2 text-sm font-medium text-gray-900 "
                       >
                         Correo
                       </label>
                       <input
-                        type="email"
-                        name="email"
-                        id="email"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        name="identifier"
+                        type="text"
                         placeholder="name@company.com"
-                        required=""
+                        value={formik.values.identifier}
+                        onChange={formik.handleChange}
+                        className={`bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5
+                        ${formik.errors.identifier && 'bg-red-500 text-white placeholder:text-white'}
+                        `}
+                        
                       />
                     </div>
                     <div>
                       <label
-                        for="password"
-                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                        htmlFor="password"
+                        className="block mb-2 text-sm font-medium text-gray-900 "
                       >
                         Contrasena
                       </label>
+                      <div className={`bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 w-full p-2.5 flex justify-between
+                      ${formik.errors.password && 'bg-red-500'}
+                      `}>
                       <input
-                        type="password"
+                      className={`w-full bg-transparent outline-none border-0 focus:border-0 focus:ring-0 active:ring-0 active:border-0
+                      ${formik.errors.password && 'placeholder:text-white text-white'}
+                      `}
+                        type={togglePassword ? 'text' : 'password'}
                         name="password"
-                        id="password"
-                        placeholder="••••••••"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                        required=""
+                        placeholder="*********"
+                        value={formik.values.password}
+                        onChange={formik.handleChange}
                       />
+                      {
+                        togglePassword ? <EyeOff className={`cursor-pointer ${formik.errors.password && 'text-white'}`} onClick={handleTogglePassword} />
+                                       : <Eye className={`cursor-pointer ${formik.errors.password && 'text-white'}`} onClick={handleTogglePassword} />
+                      }
+                      
+                      </div>
+                      
                     </div>
                     <button
                       type="submit"
-                      class="w-full text-white bg-black hover:bg-black/70 transition-colors focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+                      className="w-full text-white bg-black hover:bg-black/70 transition-colors focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center "
                     >
                       Iniciar Sesion
                     </button>
-                    <p class="text-sm font-light text-gray-500 dark:text-gray-400">
-                      Todavia no tienes una cuenta?{" "}
-                      <Link
-                        to="/Registro"
-                        class="font-medium text-primary-600 hover:underline dark:text-primary-500"
-                      >
-                        Registrate Aqui
-                      </Link>
-                    </p>
+                    
                   </form>
                 </div>
               </div>

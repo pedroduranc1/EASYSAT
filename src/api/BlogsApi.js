@@ -1,20 +1,14 @@
 import { ENV } from "../utils/constans";
 
 export class Blogs {
-  async getBlog(id) {
-    try {
-      const filters = "populate=*";
-      const url = `${ENV.API_URL}/${ENV.ENDPOINTS.BLOGS}/${id}?${filters}`;
+  async getMD(id) {
+    const filters = "populate=*";
+    const url = `${ENV.API_URL}/${ENV.ENDPOINTS.BLOGS}/${id}?${filters}`;
 
-      const response = await fetch(url);
-      const result = await response.json();
+    const response = await fetch(url);
+    const data = await response.json();
 
-      if (response.status !== 200) throw result;
-
-      return result;
-    } catch (error) {
-      throw error;
-    }
+    return data;
   }
 
   async getBlogs() {

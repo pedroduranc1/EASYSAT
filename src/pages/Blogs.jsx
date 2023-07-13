@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { MainLayout } from "../layouts/MainLayout";
-import { useQuery } from "react-query";
+import { useQuery, useQueryClient } from "react-query";
 import { Blogs as BlogsCtrl } from "../api/BlogsApi";
 import { ENV } from "../utils/constans";
 
@@ -9,6 +9,8 @@ const blogsCtrl = new BlogsCtrl();
 
 export const Blogs = () => {
   
+  const queryClient = useQueryClient()
+
   const { data, isLoading, isError } = useQuery("blogs", blogsCtrl.getBlogs);
 
   return (

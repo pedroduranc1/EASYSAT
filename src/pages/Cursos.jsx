@@ -1,12 +1,30 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { MainLayout } from "../layouts/MainLayout";
 import { Link } from "react-router-dom";
+import { useAuth } from "../hooks/useAuth";
+import { useQuery } from "react-query";
+import { Cursos as CursosCtrl } from "../api/cursos";
+import { ENV } from "../utils/constans";
+
+const CursosF = new CursosCtrl();
 
 export const Cursos = () => {
+  const { user } = useAuth();
+  if (!user) return (window.location.href = "/Login");
+  const [Course, setCourse] = useState([{}]);
+
+  useEffect(() => {
+    (async () => {
+      const resp = await CursosF.getCursos();
+      setCourse(resp.data);
+    })();
+  }, []);
+  
+
   return (
     <MainLayout>
       <div className="h-[86vh] md:px-[2%] md:mt-5">
-      <form className="my-3">
+        <form className="my-3">
           <label
             htmlFor="default-search"
             className="mb-2 text-sm font-medium text-gray-900 sr-only "
@@ -48,24 +66,30 @@ export const Cursos = () => {
         </form>
         <h1 className="text-3xl font-bold mb-4 md:mb-10">Nuestros Cursos</h1>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-          <Link to={`/curso/1`} className="z-[1] mx-auto">
-            <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow ">
-              <img
-                className="rounded-t-lg"
-                src="https://flowbite.com/docs/images/products/apple-watch.png"
-                alt=""
-              />
-              <div className="p-5">
-                <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 ">
-                  Como sobrevivir al SAT
-                </h5>
-                <p className="mb-3 font-normal text-gray-700 ">
-                  Se que es imposible pero con este curso lo podras lograr
-                </p>
+          {Course?.map((course) => (
+            <Link to={`/curso/${course?.id}`} className="z-[1] mx-auto">
+              <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow ">
+                <img
+                  className="rounded-t-lg px-[5%] pt-5"
+                  src={`${ENV.SERVER_HOST}${course?.attributes?.imagen_curso?.data.attributes?.url}`}
+                  alt=""
+                />
+                <div className="p-5">
+                  <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 ">
+                    {course?.attributes?.titulo}
+                  </h5>
+                  <p className="mb-3 font-normal text-gray-700 ">
+                    {course?.attributes?.descripcion}
+                  </p>
+                  <p className="mb-3 font-normal text-gray-800 bg-slate-200 flex items-center rounded-md py-2 px-2">
+                   <span className="font-bold mr-2">Creador por:</span> {course?.attributes?.instructor?.data?.attributes?.username}
+                  </p>
+                </div>
               </div>
-            </div>
-          </Link>
-          <Link to={`/curso/2`} className="z-[1] mx-auto">
+            </Link>
+          ))}
+
+          {/* <Link to={`/curso/2`} className="z-[1] mx-auto">
             <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow ">
               <img
                 className="rounded-t-lg"
@@ -98,7 +122,7 @@ export const Cursos = () => {
                 </p>
               </div>
             </div>
-          </Link>
+          </Link> */}
         </div>
       </div>
     </MainLayout>

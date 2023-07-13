@@ -8,6 +8,8 @@ import { LoginPage } from "../pages/LoginPage";
 import { RegistroPage } from "../pages/RegistroPage";
 import { Blog } from "../pages/Blog";
 import { Curso } from "../pages/Curso";
+import { ErrorPage } from "../pages/404";
+import { Perfil } from "../pages/Perfil";
 
 const router = createBrowserRouter([
   {
@@ -39,9 +41,17 @@ const router = createBrowserRouter([
     element: <LoginPage/>,
   },
   {
-    path: "/Registro",
-    element: <RegistroPage/>,
+    path: "/Perfil",
+    element: <Perfil/>,
   },
+  {
+    path:"*",
+    element: <ErrorPage/>
+  }
+  // {
+  //   path: "/Registro",
+  //   element: <RegistroPage/>,
+  // },
 ]);
 
 export const Rutas = () => {
