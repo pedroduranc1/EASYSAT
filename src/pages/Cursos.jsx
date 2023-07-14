@@ -67,7 +67,7 @@ export const Cursos = () => {
         <h1 className="text-3xl font-bold mb-4 md:mb-10">Nuestros Cursos</h1>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
           {Course?.map((course) => (
-            <Link to={`/curso/${course?.id}`} className="z-[1] mx-auto">
+            <Link key={course?.id} to={`/curso/${course?.id}`} className="z-[1] mx-auto">
               <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow ">
                 <img
                   className="rounded-t-lg px-[5%] pt-5"
