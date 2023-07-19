@@ -42,6 +42,11 @@ export class CursosCtrl {
   }
 
   async getVideo(id){
+    const docRefVideo = doc(db,'Modulos',id)
+    const docSnapVideo = await getDoc(docRefVideo)
 
+    if(!docSnapVideo.exists()) throw 'Error'
+
+    return docSnapVideo.data()
   }
 }

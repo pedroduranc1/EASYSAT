@@ -17,8 +17,6 @@ export const Cursos = () => {
     isError,
   } = useQuery("Cursos", () => CursosCtrlr.getCursos());
 
-  console.log(Cursos);
-
   if (isLoading)
     return (
       <MainLayout>

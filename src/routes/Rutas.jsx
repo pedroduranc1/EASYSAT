@@ -9,6 +9,7 @@ import { Blog } from "../pages/Blog";
 import { Curso } from "../pages/Curso";
 import { ErrorPage } from "../pages/404";
 import { Perfil } from "../pages/Perfil";
+import { Video } from "../pages/Video";
 
 const router = createBrowserRouter([
   {
@@ -29,7 +30,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/curso/:cursoId/video/:id",
-    element: <Curso/>,
+    element: <Video/>,
   },
   {
     path: "/Blogs",

@@ -4,7 +4,7 @@ import { MainLayout } from "../layouts/MainLayout";
 export const Main = () => {
   return (
     <MainLayout>
-      <div>Main</div>
+      <div className="h-screen">Main</div>
     </MainLayout>
   );
 };

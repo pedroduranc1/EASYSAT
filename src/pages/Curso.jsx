@@ -1,15 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { MainLayout } from "../layouts/MainLayout";
 import { useParams } from "react-router-dom";
-import ReactPlayer from "react-player";
 import { AutorCard } from "../components/AutorCard";
 import { useQuery } from "react-query";
 import { CursosCtrl } from "../api/fb.cursos";
 import { Link } from "react-router-dom";
 import { AlertCircle } from "lucide-react";
+import { useAuth } from "../hooks/useAuth";
 
 const CursosApi = new CursosCtrl();
 export const Curso = () => {
+  const { User } = useAuth();
+  if (!User) return (window.location.href = "/Login");
   const { cursoId } = useParams();
   const [Videos, setVideos] = useState([]);
 
@@ -62,6 +64,7 @@ export const Curso = () => {
         <div className="flex flex-wrap gap-4 mb-5">
           {Videos.length>0 ? Videos.map((video) => (
             <Link
+              key={video.id}
               className="aspect-square  cursor-pointer shadow-md "
               to={`/curso/${cursoId}/video/${video.id}`}
             >

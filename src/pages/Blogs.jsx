@@ -24,7 +24,7 @@ export const Blogs = () => {
 
   return (
     <MainLayout>
-      <div className="w-full flex flex-1 h-screen">
+      <div className="w-full flex flex-1 h-full">
         <div className="max-w-6xl w-full px-4 mt-4 md:mt-10 md:ml-7">
           <form className="my-3">
             <label

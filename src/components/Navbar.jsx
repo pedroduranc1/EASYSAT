@@ -5,7 +5,6 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useAuth } from "../hooks/useAuth";
 
 export const Navbar = ({ user }) => {
-
   const { logout } = useAuth();
 
   const [toggleMenu, settoggleMenu] = useState(false);
@@ -129,9 +128,11 @@ export const Navbar = ({ user }) => {
                 <div className="flex px-2 py-2 hover:border-b-2 cursor-pointer hover:border-slate-500 transition-all items-center justify-between md:justify-start md:space-x-3">
                   <Link
                     to="/Perfil"
-                    className="w-full first-letter:uppercase font-semibold"
+                    className="w-full"
                   >
-                    {user.username}
+                    <div className="w-10 h-10 p-2 bg-black rounded-full  flex items-center justify-center">
+                      <User className="text-white" />
+                    </div>
                   </Link>
                   <LogOut onClick={logout} className="w-5 h-5 cursor-pointer" />
                 </div>

@@ -7,7 +7,9 @@ export const Contabilidad = () => {
   if(!User) return window.location.href = "/Login"
   return (
     <MainLayout>
-      <div>Contabilidad</div>
+      <div className="h-full w-full">
+        Contabilidad
+      </div>
     </MainLayout>
   );
 };
