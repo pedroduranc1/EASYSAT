@@ -1,52 +1,50 @@
 import React, { useEffect, useState } from "react";
 import { MainLayout } from "../layouts/MainLayout";
 import { useParams } from "react-router-dom";
-import ReactMarkdown from "react-markdown";
-import { useQuery, useQueryClient } from "react-query";
+import { useQuery } from "react-query";
 import "../css/blog.css";
 import { AutorCard } from "../components/AutorCard";
-import { ENV } from "../utils/constans";
+import { BlogsCtrl } from "../api/fb.blogs";
+import { ReactMarkdown } from "react-markdown/lib/react-markdown";
+
+const BlogCtrl = new BlogsCtrl();
 
 export const Blog = () => {
   const { slug } = useParams();
+  const [MDX, setMDX] = useState(`# Cargando..`)
 
-  const [blog, setblog] = useState(null);
-  const [markdown, setmarkdown] = useState("");
-
-  useEffect(() => {
-    async function getBlog() {
-      const url = `${ENV.API_URL}/${ENV.ENDPOINTS.BLOGS}/${slug}?populate=*`;
-      const resp = await fetch(url);
-      const data = await resp.json();
-
-      setblog(data);
-    }
-
-    getBlog();
-  }, []);
+  const {
+    data: blog,
+    isLoading,
+    isError,
+  } = useQuery(`${slug}`,() => BlogCtrl.getBlog(slug));
 
   useEffect(() => {
-    async function getMD() {
-      const url = `${ENV.SERVER_HOST}${blog?.data?.attributes?.blog?.data?.attributes?.url}`;
-      const resp = await fetch(url);
-      const md = await resp.text();
-      setmarkdown(md);
-    }
+    (async()=>{
+      const resp = await BlogCtrl.getBlogMDX(blog?.blogFileName)
+      setMDX(resp);
+    })()
+  }, [!isLoading]);
 
-    getMD();
-  }, [blog]);
 
+  if (isLoading)
+    return (
+      <MainLayout>
+        <h2>Cargando Blog</h2>
+      </MainLayout>
+    );
+
+  if (isError)
+    return (
+      <MainLayout>
+        <h2>Ocurrio un error buscando la informacion.</h2>
+      </MainLayout>
+    );
   return (
     <MainLayout>
-      <div id="blog" className="w-full h-full p-4 md:pt-6 md:pl-7">
-        <>
-          <AutorCard
-            mxauto={true}
-            autor={"Armando de DGYA"}
-            cargo={"Presidente"}
-          />
-          <ReactMarkdown children={markdown} />
-        </>
+      <div id="blog" className="w-full h-screen p-4 md:pt-6 md:pl-7">
+        <AutorCard mxauto={true} autor={blog.Autor} />
+        <ReactMarkdown children={MDX} />
       </div>
     </MainLayout>
   );

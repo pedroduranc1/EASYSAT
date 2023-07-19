@@ -5,7 +5,6 @@ import { Contabilidad } from "../pages/Contabilidad";
 import { Cursos } from "../pages/Cursos";
 import { Blogs } from "../pages/Blogs";
 import { LoginPage } from "../pages/LoginPage";
-import { RegistroPage } from "../pages/RegistroPage";
 import { Blog } from "../pages/Blog";
 import { Curso } from "../pages/Curso";
 import { ErrorPage } from "../pages/404";
@@ -26,6 +25,10 @@ const router = createBrowserRouter([
   },
   {
     path: "/curso/:cursoId",
+    element: <Curso/>,
+  },
+  {
+    path: "/curso/:cursoId/video/:id",
     element: <Curso/>,
   },
   {

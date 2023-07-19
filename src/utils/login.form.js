@@ -2,14 +2,14 @@ import * as Yup from "yup";
 
 export function initialValues() {
   return {
-    identifier: "",
+    email: "",
     password: "",
   };
 }
 
 export function validationSchema() {
   return Yup.object({
-    identifier: Yup.string().required(true),
+    email: Yup.string().required(true),
     password: Yup.string().required(true),
   });
 }

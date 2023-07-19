@@ -1,29 +1,41 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { MainLayout } from "../layouts/MainLayout";
 import { Link } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
 import { useQuery } from "react-query";
-import { Cursos as CursosCtrl } from "../api/cursos";
+import { CursosCtrl } from "../api/fb.cursos";
 import { ENV } from "../utils/constans";
 
-const CursosF = new CursosCtrl();
-
+const CursosCtrlr = new CursosCtrl();
 export const Cursos = () => {
-  const { user } = useAuth();
-  if (!user) return (window.location.href = "/Login");
-  const [Course, setCourse] = useState([{}]);
+  const { User } = useAuth();
+  if (!User) return (window.location.href = "/Login");
 
-  useEffect(() => {
-    (async () => {
-      const resp = await CursosF.getCursos();
-      setCourse(resp.data);
-    })();
-  }, []);
-  
+  const {
+    data: Cursos,
+    isLoading,
+    isError,
+  } = useQuery("Cursos", () => CursosCtrlr.getCursos());
+
+  console.log(Cursos);
+
+  if (isLoading)
+    return (
+      <MainLayout>
+        <h2>Cargando Blog</h2>
+      </MainLayout>
+    );
+
+  if (isError)
+    return (
+      <MainLayout>
+        <h2>Ocurrio un error buscando la informacion.</h2>
+      </MainLayout>
+    );
 
   return (
     <MainLayout>
-      <div className="h-[86vh] md:px-[2%] md:mt-5">
+      <div className="h-screen md:px-[2%] md:mt-5">
         <form className="my-3">
           <label
             htmlFor="default-search"
@@ -66,63 +78,33 @@ export const Cursos = () => {
         </form>
         <h1 className="text-3xl font-bold mb-4 md:mb-10">Nuestros Cursos</h1>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-          {Course?.map((course) => (
-            <Link key={course?.id} to={`/curso/${course?.id}`} className="z-[1] mx-auto">
+          {Cursos.map((curso,item) => (
+            <Link
+              key={item}
+              to={`/curso/${curso.id}`}
+              className="z-[1] mx-auto"
+            >
               <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow ">
                 <img
                   className="rounded-t-lg px-[5%] pt-5"
-                  src={`${ENV.SERVER_HOST}${course?.attributes?.imagen_curso?.data.attributes?.url}`}
+                  src={curso.curso_img}
                   alt=""
                 />
                 <div className="p-5">
                   <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 ">
-                    {course?.attributes?.titulo}
+                    {curso.Titulo}
                   </h5>
                   <p className="mb-3 font-normal text-gray-700 ">
-                    {course?.attributes?.descripcion}
+                    {curso.Descripcion}
                   </p>
                   <p className="mb-3 font-normal text-gray-800 bg-slate-200 flex items-center rounded-md py-2 px-2">
-                   <span className="font-bold mr-2">Creador por:</span> {course?.attributes?.instructor?.data?.attributes?.username}
+                    <span className="font-bold mr-2">Creador por:</span>{" "}
+                    {curso.Autor}
                   </p>
                 </div>
               </div>
             </Link>
           ))}
-
-          {/* <Link to={`/curso/2`} className="z-[1] mx-auto">
-            <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow ">
-              <img
-                className="rounded-t-lg"
-                src="https://flowbite.com/docs/images/products/apple-watch.png"
-                alt=""
-              />
-              <div className="p-5">
-                <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 ">
-                  Como sobrevivir al SAT
-                </h5>
-                <p className="mb-3 font-normal text-gray-700 ">
-                  Se que es imposible pero con este curso lo podras lograr
-                </p>
-              </div>
-            </div>
-          </Link>
-          <Link to={`/curso/3`} className="z-[1] mx-auto">
-            <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow ">
-              <img
-                className="rounded-t-lg"
-                src="https://flowbite.com/docs/images/products/apple-watch.png"
-                alt=""
-              />
-              <div className="p-5">
-                <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 ">
-                  Como sobrevivir al SAT
-                </h5>
-                <p className="mb-3 font-normal text-gray-700 ">
-                  Se que es imposible pero con este curso lo podras lograr
-                </p>
-              </div>
-            </div>
-          </Link> */}
         </div>
       </div>
     </MainLayout>

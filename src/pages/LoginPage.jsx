@@ -5,9 +5,9 @@ import { motion } from "framer-motion";
 import { initialValues, validationSchema } from "../utils/login.form";
 import { useAuth } from "../hooks/useAuth";
 import { useFormik } from "formik";
-import { Auth } from "../api/auth";
+import { Auth } from "../api/fb.auth";
 
-const authCtrl = new Auth();
+const AuthCtrl = new Auth()
 
 export const LoginPage = () => {
   const { login } = useAuth();
@@ -23,9 +23,9 @@ export const LoginPage = () => {
     validateOnChange: false,
     onSubmit: async (formValue) => {
       try {
-
-        const response = await authCtrl.login(formValue);
-        login(response.jwt);
+        const response = await AuthCtrl.login(formValue.email,formValue.password)
+        const {accessToken,email} = response
+        login(accessToken,email);
         window.location.href = "/"
       } catch (error) {
         console.error(error);
@@ -60,13 +60,13 @@ export const LoginPage = () => {
                         Correo
                       </label>
                       <input
-                        name="identifier"
+                        name="email"
                         type="text"
                         placeholder="name@company.com"
-                        value={formik.values.identifier}
+                        value={formik.values.email}
                         onChange={formik.handleChange}
                         className={`bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5
-                        ${formik.errors.identifier && 'bg-red-500 text-white placeholder:text-white'}
+                        ${formik.errors.email && 'bg-red-500 text-white placeholder:text-white'}
                         `}
                         
                       />

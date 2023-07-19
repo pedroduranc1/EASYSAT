@@ -9,7 +9,7 @@ export const AuthContext = createContext();
 
 export function AuthProvider(props) {
   const { children } = props;
-  const [user, setUser] = useState(null);
+  const [User, setUser] = useState(null);
   const [token, setToken] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -29,14 +29,12 @@ export function AuthProvider(props) {
         await login(token);
       }
     })();
-  }, [])
+  }, []);
 
-  
-  const login = async (token) => {
+  const login = async (token, email) => {
     try {
       tokenCtrl.setToken(token);
-      const response = await userCtrl.getMe();
-      setUser(response);
+      setUser(token);
       setToken(token);
       setLoading(false);
     } catch (error) {
@@ -53,21 +51,20 @@ export function AuthProvider(props) {
 
   const updateUser = (key, value) => {
     setUser({
-      ...user,
+      ...User,
       [key]: value,
     });
   };
 
   const data = {
     accessToken: token,
-    user,
+    User,
     login,
     logout,
     updateUser,
   };
 
   if (loading) return null;
-  
 
   return <AuthContext.Provider value={data}>{children}</AuthContext.Provider>;
 }

@@ -4,9 +4,9 @@ import { BlogsCtrl } from "../api/fb.blogs";
 import { useQuery } from "react-query";
 import { Link } from "react-router-dom";
 
-const BlogsCtrlr = new BlogsCtrl();
-export const Blogs = () => {
-  const { data: blogs, isLoading, isError } = useQuery("Blogs", BlogsCtrlr.getBlogs);
+const Blogs = new BlogsCtrl();
+export const Prueba = () => {
+  const { data: blogs, isLoading, isError } = useQuery("Blogs", Blogs.getBlogs);
   
   if (isLoading)
     return (
