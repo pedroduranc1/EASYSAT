@@ -1,21 +1,32 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { MainLayout } from "../layouts/MainLayout";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
 import { useQuery } from "react-query";
 import { CursosCtrl } from "../api/fb.cursos";
-import { ENV } from "../utils/constans";
+import { AlertCircle } from "lucide-react";
 
 const CursosCtrlr = new CursosCtrl();
 export const Cursos = () => {
   const { User } = useAuth();
-  if (!User) return (window.location.href = "/Login");
+  const navigate = useNavigate()
+  if (!User) return (navigate('/Login',{replace:true}));
+
+  const [searchTerm, setSearchTerm] = useState('');
 
   const {
     data: Cursos,
     isLoading,
     isError,
   } = useQuery("Cursos", () => CursosCtrlr.getCursos());
+
+  const filteredCourses = Cursos?.filter(course =>
+    course.Titulo.toLowerCase().includes(searchTerm.toLowerCase())
+  ) || [];
+
+  const handleSearch = (event) => {
+    setSearchTerm(event.target.value);
+  }
 
   if (isLoading)
     return (
@@ -33,8 +44,8 @@ export const Cursos = () => {
 
   return (
     <MainLayout>
-      <div className="h-screen md:px-[2%] md:mt-5">
-        <form className="my-3">
+      <div className="h-full md:px-[2%] md:mt-5">
+        <div className="my-3">
           <label
             htmlFor="default-search"
             className="mb-2 text-sm font-medium text-gray-900 sr-only "
@@ -65,20 +76,16 @@ export const Cursos = () => {
               className="block w-full p-4 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 "
               placeholder="Busca un blog aqui"
               required
+              onChange={handleSearch}
             />
-            <button
-              type="submit"
-              className="text-white absolute right-2.5 bottom-2.5 bg-black hover:bg-black/70 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 "
-            >
-              Search
-            </button>
           </div>
-        </form>
+        </div>
         <h1 className="text-3xl font-bold mb-4 md:mb-10">Nuestros Cursos</h1>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-          {Cursos.map((curso,item) => (
+        <div className={`grid grid-cols-1 md:grid-cols-3 gap-5 ${filteredCourses.length == 0 && 'md:grid-cols-1'}`}>
+          {filteredCourses.length > 0 ? filteredCourses.map((curso, index) => (
+            // Rest of your code...
             <Link
-              key={item}
+              key={index}
               to={`/curso/${curso.id}`}
               className="z-[1] mx-auto"
             >
@@ -102,7 +109,15 @@ export const Cursos = () => {
                 </div>
               </div>
             </Link>
-          ))}
+          )):(
+            <div className=" bg-slate-100 w-full flex  h-[66vh]">
+              <div className="flex w-full justify-center gap-x-3">
+              <AlertCircle className="text-red-500" />
+                <h3 className="flex">No se encontro ningun curso con el nombre: <p className="text-black font-bold ml-2">{searchTerm}</p> </h3>
+              </div>
+                
+            </div>
+          )}
         </div>
       </div>
     </MainLayout>

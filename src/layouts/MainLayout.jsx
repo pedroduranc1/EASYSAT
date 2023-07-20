@@ -4,7 +4,6 @@ import { useAuth } from "../hooks/useAuth";
 
 export const MainLayout = ({ children }) => {
   const { User } = useAuth();
-
   return (
     <div className="flex flex-col bg-gray-100 w-full h-full">
       <Navbar user={User}/>

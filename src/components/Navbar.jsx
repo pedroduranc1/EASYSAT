@@ -71,9 +71,13 @@ export const Navbar = ({ user }) => {
               <div className="flex items-center space-x-3">
                 <Link
                   to="/Perfil"
-                  className="w-10 h-10 p-2 bg-black rounded-full  flex items-center justify-center"
+                  className=" flex items-center justify-center space-x-3"
                 >
-                  <User className="text-white" />
+                  <div className="w-10 h-10 p-2 bg-black rounded-full ">
+                    <User className="text-white" />
+                    
+                  </div>
+                  {user?.Username && <p>{user.Username}</p>}
                 </Link>
                 <LogOut onClick={logout} className="w-5 h-5 cursor-pointer" />
               </div>
@@ -126,13 +130,12 @@ export const Navbar = ({ user }) => {
               </li>
               {user ? (
                 <div className="flex px-2 py-2 hover:border-b-2 cursor-pointer hover:border-slate-500 transition-all items-center justify-between md:justify-start md:space-x-3">
-                  <Link
-                    to="/Perfil"
-                    className="w-full"
-                  >
+                  <Link to="/Perfil" className="w-full flex space-x-3 items-center">
                     <div className="w-10 h-10 p-2 bg-black rounded-full  flex items-center justify-center">
                       <User className="text-white" />
+                      
                     </div>
+                    {user?.Username && <p>{user.Username}</p>}
                   </Link>
                   <LogOut onClick={logout} className="w-5 h-5 cursor-pointer" />
                 </div>

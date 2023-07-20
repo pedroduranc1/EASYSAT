@@ -6,11 +6,13 @@ import { initialValues, validationSchema } from "../utils/login.form";
 import { useAuth } from "../hooks/useAuth";
 import { useFormik } from "formik";
 import { Auth } from "../api/fb.auth";
+import { useNavigate } from "react-router-dom";
 
 const AuthCtrl = new Auth()
 
 export const LoginPage = () => {
   const { login } = useAuth();
+  const navigate = useNavigate()
 
   const [togglePassword, settogglePassword] = useState(false);
   const handleTogglePassword = () => {
@@ -24,9 +26,9 @@ export const LoginPage = () => {
     onSubmit: async (formValue) => {
       try {
         const response = await AuthCtrl.login(formValue.email,formValue.password)
-        const {accessToken,email} = response
-        login(accessToken,email);
-        window.location.href = "/"
+        const {accessToken,uid} = response
+        login(accessToken,uid);
+        navigate('/',{replace:true})
       } catch (error) {
         console.error(error);
       }

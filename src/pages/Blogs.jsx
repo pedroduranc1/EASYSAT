@@ -1,13 +1,29 @@
-import React from "react";
+import React, { useState } from "react";
 import { MainLayout } from "../layouts/MainLayout";
 import { BlogsCtrl } from "../api/fb.blogs";
 import { useQuery } from "react-query";
 import { Link } from "react-router-dom";
+import { AlertCircle } from "lucide-react";
 
 const BlogsCtrlr = new BlogsCtrl();
 export const Blogs = () => {
-  const { data: blogs, isLoading, isError } = useQuery("Blogs", BlogsCtrlr.getBlogs);
-  
+  const {
+    data: blogs,
+    isLoading,
+    isError,
+  } = useQuery("Blogs", BlogsCtrlr.getBlogs);
+
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const handleSearch = (event) => {
+    setSearchTerm(event.target.value);
+  };
+
+  const filteredBlogs =
+    blogs?.filter((blog) =>
+      blog.Titulo.toLowerCase().includes(searchTerm.toLowerCase())
+    ) || [];
+
   if (isLoading)
     return (
       <MainLayout>
@@ -24,9 +40,13 @@ export const Blogs = () => {
 
   return (
     <MainLayout>
-      <div className="w-full flex flex-1 h-full">
+      <div
+        className={`w-full flex flex-1 ${
+          filteredBlogs.length > 2 ? "h-full" : "h-screen"
+        }`}
+      >
         <div className="max-w-6xl w-full px-4 mt-4 md:mt-10 md:ml-7">
-          <form className="my-3">
+          <form className="my-3" onSubmit={(e) => e.preventDefault()}>
             <label
               htmlFor="default-search"
               className="mb-2 text-sm font-medium text-gray-900 sr-only "
@@ -57,13 +77,8 @@ export const Blogs = () => {
                 className="block w-full p-4 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 "
                 placeholder="Busca un blog aqui"
                 required
+                onChange={handleSearch}
               />
-              <button
-                type="submit"
-                className="text-white absolute right-2.5 bottom-2.5 bg-black hover:bg-black/70 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 "
-              >
-                Search
-              </button>
             </div>
           </form>
 
@@ -72,27 +87,39 @@ export const Blogs = () => {
           {/* LISTA DE BLOGS */}
           <div className="grid grid-cols-1">
             <ul className="grid grid-cols-1 [&>li]:my-5 divide-slate-700">
-              {blogs.map((blog, index) => (
-                <li key={index}>
-                  <Link className="w-full" to={`/blog/${blog.Slug}`}>
-                    <div className="flex flex-col p-4 items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row  hover:bg-gray-100 ">
-                      <img
-                        className="object-contain w-[40%]  md:w-32 md:h-32 rounded-t-lg  md:rounded-none md:rounded-l-lg"
-                        src={`${blog.blog_img}`}
-                        alt=""
-                      />
-                      <div className="flex flex-col justify-between p-4 leading-normal">
-                        <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 ">
-                          {blog.Titulo}
-                        </h5>
-                        <p className="mb-3 font-normal text-gray-700 ">
-                          {blog.Descripcion}
-                        </p>
-                      </div>
-                    </div>{" "}
-                  </Link>
-                </li>
-              ))}
+              {filteredBlogs.length > 0 ? (
+                filteredBlogs.map((blog, index) => (
+                  <li key={index}>
+                    <Link className="w-full" to={`/blog/${blog.Slug}`}>
+                      <div className="flex flex-col p-4 items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row  hover:bg-gray-100 ">
+                        <img
+                          className="object-contain w-[40%]  md:w-32 md:h-32 rounded-t-lg  md:rounded-none md:rounded-l-lg"
+                          src={`${blog.blog_img}`}
+                          alt=""
+                        />
+                        <div className="flex flex-col justify-between p-4 leading-normal">
+                          <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 ">
+                            {blog.Titulo}
+                          </h5>
+                          <p className="mb-3 font-normal text-gray-700 ">
+                            {blog.Descripcion}
+                          </p>
+                        </div>
+                      </div>{" "}
+                    </Link>
+                  </li>
+                ))
+              ) : (
+                <div className=" bg-slate-100 w-full flex  h-[66vh]">
+                  <div className="flex w-full justify-center gap-x-3">
+                    <AlertCircle className="text-red-500" />
+                    <h3 className="flex">
+                      No se encontro ningun blog con el nombre:{" "}
+                      <p className="text-black font-bold ml-2">{searchTerm}</p>{" "}
+                    </h3>
+                  </div>
+                </div>
+              )}
             </ul>
           </div>
         </div>
