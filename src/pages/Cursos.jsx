@@ -5,12 +5,16 @@ import { useAuth } from "../hooks/useAuth";
 import { useQuery } from "react-query";
 import { CursosCtrl } from "../api/fb.cursos";
 import { AlertCircle } from "lucide-react";
+import { CreatedBy } from "../components/CreatedBy";
 
 const CursosCtrlr = new CursosCtrl();
 export const Cursos = () => {
   const { User } = useAuth();
   const navigate = useNavigate()
-  if (!User) return (navigate('/Login',{replace:true}));
+  useEffect(() => {
+    if (!User) return (navigate('/Login',{replace:true}));
+  }, [User])
+  
 
   const [searchTerm, setSearchTerm] = useState('');
 
@@ -102,10 +106,7 @@ export const Cursos = () => {
                   <p className="mb-3 font-normal text-gray-700 ">
                     {curso.Descripcion}
                   </p>
-                  <p className="mb-3 font-normal text-gray-800 bg-slate-200 flex items-center rounded-md py-2 px-2">
-                    <span className="font-bold mr-2">Creador por:</span>{" "}
-                    {curso.Autor}
-                  </p>
+                  <CreatedBy autor={curso.Autor} />
                 </div>
               </div>
             </Link>

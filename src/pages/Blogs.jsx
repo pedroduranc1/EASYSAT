@@ -4,6 +4,7 @@ import { BlogsCtrl } from "../api/fb.blogs";
 import { useQuery } from "react-query";
 import { Link } from "react-router-dom";
 import { AlertCircle } from "lucide-react";
+import { CreatedBy } from "../components/CreatedBy";
 
 const BlogsCtrlr = new BlogsCtrl();
 export const Blogs = () => {
@@ -91,19 +92,23 @@ export const Blogs = () => {
                 filteredBlogs.map((blog, index) => (
                   <li key={index}>
                     <Link className="w-full" to={`/blog/${blog.Slug}`}>
-                      <div className="flex flex-col p-4 items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row  hover:bg-gray-100 ">
+                      <div className="flex flex-col p-0 md:p-4 items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row  hover:bg-gray-100 ">
                         <img
-                          className="object-contain w-[40%]  md:w-32 md:h-32 rounded-t-lg  md:rounded-none md:rounded-l-lg"
+                          className="object-contain w-full max-w-xs  md:w-32 md:h-32 rounded-t-lg  md:rounded-none md:rounded-l-lg"
                           src={`${blog.blog_img}`}
                           alt=""
                         />
-                        <div className="flex flex-col justify-between p-4 leading-normal">
+                        <div className="flex w-full flex-col justify-between p-4 leading-normal">
                           <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 ">
                             {blog.Titulo}
                           </h5>
                           <p className="mb-3 font-normal text-gray-700 ">
                             {blog.Descripcion}
                           </p>
+                          <div className="w-full md:w-1/4">
+                          <CreatedBy autor={blog.Autor} />
+
+                          </div>
                         </div>
                       </div>{" "}
                     </Link>

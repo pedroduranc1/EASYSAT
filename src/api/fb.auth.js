@@ -14,11 +14,10 @@ export class Auth {
 
       return user;
     } catch (error) {
-      const errorCode = error.code;
       const errorMessage = error.message;
       // Handle Errors here.
-      console.error("Error code:", errorCode);
-      console.error("Error message:", errorMessage);
+      // console.error("Error code:", errorCode);
+      // console.error("Error message:", errorMessage);
       throw error;
     }
   }

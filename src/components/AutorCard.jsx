@@ -1,19 +1,30 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useQuery } from "react-query";
+import { User } from "../api/fb.user";
+import { User2 } from "lucide-react";
 
-export const AutorCard = ({autor,cargo,img,mxauto}) => {
+const AutorCtrl = new User() 
+export const AutorCard = ({autor,mxauto}) => {
+
+  const {data:Autor,isLoading,isError} = useQuery(`${autor}`,() => AutorCtrl.getMe(autor))
+
   return (
     <div className={`${mxauto ?'mx-auto' : ''} w-full md:max-w-md items-center shadow-md flex p-5`}>
       <img
         className="w-16 h-16 rounded-full mx-auto"
-        src={img ? img : "https://randomuser.me/api/portraits/men/34.jpg"}
+        src={Autor && Autor?.Img_url }
         alt=""
         width="384"
         height="512"
       />
       <div className="w-[70%]">
         <h4 className="text-xl font-semibold">Author:</h4>
-        <h3>{autor}</h3>
-        <h5>{cargo}</h5>
+        <div className="flex gap-x-4">
+        <h3>{Autor?.Username}</h3>
+        -
+        <h5>{Autor?.Cargo}</h5>
+        </div>
+        
       </div>
     </div>
   );

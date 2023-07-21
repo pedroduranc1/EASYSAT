@@ -1,16 +1,23 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { MainLayout } from "../layouts/MainLayout";
-import { Link, useParams } from "react-router-dom";
-import { QueryClient, useQuery } from "react-query";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import { useQuery } from "react-query";
 import { CursosCtrl } from "../api/fb.cursos";
 import { CornerDownLeft } from "lucide-react";
 import ReactPlayer from "react-player";
 import { AutorCard } from "../components/AutorCard";
+import { useAuth } from "../hooks/useAuth";
 
 const VideoCtrl = new CursosCtrl();
 export const Video = () => {
   const { id, cursoId } = useParams();
-  const queryClient = new QueryClient();
+  const { User } = useAuth()
+  const navigate = useNavigate()
+
+  useEffect(() => {
+   if(!User) return navigate('/Login',{replace:true})
+  }, [User])
+  
 
   const {
     data: video,
@@ -18,8 +25,8 @@ export const Video = () => {
     isLoading,
   } = useQuery(`${id}`, () => VideoCtrl.getVideo(id));
 
-  const data = queryClient.getQueryData(cursoId);
-  console.log(data);
+  const {data:curso} = useQuery(`${cursoId}`,()=>VideoCtrl.getCurso(cursoId))
+
 
   if (isLoading)
     return (
@@ -53,7 +60,7 @@ export const Video = () => {
         </div>
 
         <div className="mt-3">
-          <AutorCard autor={"pedroduranc1"} />
+          <AutorCard autor={curso.Autor} />
         </div>
 
         <div className="my-6">

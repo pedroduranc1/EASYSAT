@@ -1,10 +1,10 @@
 import * as Yup from "yup";
 
-export function initialValues() {
+export function initialValues(user) {
   return {
-    Nombre: "",
-    Apellido: "",
-    Username:"",
+    Nombre: "" || user?.Nombre,
+    Apellido: "" || user?.Apellido,
+    Username:"" || user?.Username,
    // User_img:""
   };
 }
