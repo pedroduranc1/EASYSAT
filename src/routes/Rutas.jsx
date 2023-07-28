@@ -11,6 +11,12 @@ import { ErrorPage } from "../pages/404";
 import { Perfil } from "../pages/Perfil";
 import { Video } from "../pages/Video";
 
+//Admin Routes
+import { AdminBlog } from "../pages/admin/Create.Blog";
+import { UpdateBlogPage } from "../pages/admin/Update.Blog";
+import { ActualizarCursoPage } from "../pages/admin/Update.Curso";
+import { PageCurso } from "../pages/admin/Create.Curso";
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -49,9 +55,25 @@ const router = createBrowserRouter([
     element: <Perfil/>,
   },
   {
+    path:"/admin/crear-blog",
+    element: <AdminBlog/>
+  },
+  {
+    path:"/admin/actualizar-blog",
+    element: <UpdateBlogPage/>
+  },
+  {
+    path:"/admin/crear-curso",
+    element: <PageCurso/>
+  },
+  {
+    path:"/admin/actualizar-curso",
+    element: <ActualizarCursoPage/>
+  },
+  {
     path:"*",
     element: <ErrorPage/>
-  }
+  },
   // {
   //   path: "/Registro",
   //   element: <RegistroPage/>,

@@ -1,4 +1,4 @@
-import { doc, getDoc, setDoc } from "firebase/firestore";
+import { collection, doc, getDoc, getDocs, query, setDoc,updateDoc, where } from "firebase/firestore";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { db, storage } from "../utils/firebase";
 
@@ -76,7 +76,24 @@ export class User {
 
   async updateMe(uid, data) {
     const userRef = doc(db,'User',uid)
-    await setDoc(userRef,data)
+    await updateDoc(userRef,data)
     return data;
+  }
+
+  async getUsersWithRole(){
+    const q = query(
+      collection(db, "User"),
+      where("UserRole", "in", ['Admin','subAdmin'])
+    );
+  
+    const querySnapshot = await getDocs(q);
+    const blogData = querySnapshot.docs.map((doc) => {
+      return {
+        id: doc.id,
+        ...doc.data()
+      }
+    });
+
+    return blogData
   }
 }

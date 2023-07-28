@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import { useQuery } from "react-query";
 import { User } from "../api/fb.user";
-import { User2 } from "lucide-react";
 
 const AutorCtrl = new User() 
 export const AutorCard = ({autor,mxauto}) => {

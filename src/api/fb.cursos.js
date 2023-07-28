@@ -1,5 +1,6 @@
-import { collection,getDocs,doc,getDoc, query, where } from "firebase/firestore";
-import { db } from "../utils/firebase";
+import { collection,getDocs,doc,getDoc, query, where, updateDoc, addDoc } from "firebase/firestore";
+import { db,storage } from "../utils/firebase";
+import { getDownloadURL, ref, uploadBytesResumable } from "@firebase/storage";
 
 export class CursosCtrl {
   async getCursos() {
@@ -48,5 +49,58 @@ export class CursosCtrl {
     if(!docSnapVideo.exists()) throw 'Error'
 
     return docSnapVideo.data()
+  }
+
+  async updateCurso(blogId, blogData) {
+    try {
+      const blogRef = doc(db, "Cursos", blogId);
+      await updateDoc(blogRef, blogData);
+      return true;
+    } catch (error) {
+      console.error("Error updating blog: ", error);
+      return false;
+    }
+  }
+
+  async uploadCursoImage(file, uid, slug) {
+    // Obtén la extensión del archivo
+    const fileExtension = file.name.split(".").pop();
+
+    // Crea el nombre del archivo en Firebase Storage
+    const firebaseFileName = `${slug}.${fileExtension}`;
+
+    const fileRef = ref(storage, `${uid}/cursoImages/${firebaseFileName}`);
+    const uploadTask = uploadBytesResumable(fileRef, file);
+
+    // Espera a que la carga se complete
+    await new Promise((resolve, reject) => {
+      uploadTask.on(
+        "state_changed",
+        (snapshot) => {
+          // Progreso de la carga
+        },
+        (error) => {
+          // Error
+          reject(error);
+        },
+        () => {
+          // Completado
+          resolve();
+        }
+      );
+    });
+
+    // Obtiene la URL de descarga
+    const downloadURL = await getDownloadURL(fileRef);
+    return downloadURL;
+  }
+
+  async createCurso(cursoData) {
+    try {
+      await addDoc(collection(db, "Cursos"), cursoData);
+      return true;
+    } catch (error) {
+      return false;
+    }
   }
 }

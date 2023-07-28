@@ -119,8 +119,7 @@ export const Blogs = () => {
                   <div className="flex w-full justify-center gap-x-3">
                     <AlertCircle className="text-red-500" />
                     <h3 className="flex">
-                      No se encontro ningun blog con el nombre:{" "}
-                      <p className="text-black font-bold ml-2">{searchTerm}</p>{" "}
+                      No se encontro ningun blog 
                     </h3>
                   </div>
                 </div>

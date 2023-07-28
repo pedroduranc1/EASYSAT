@@ -33,9 +33,7 @@ export function AuthProvider(props) {
     })();
   }, []);
 
-  useEffect(() => {
-  }, [User]);
-  
+  useEffect(() => {}, [User]);
 
   const login = async (token, uid) => {
     try {
@@ -49,7 +47,6 @@ export function AuthProvider(props) {
       setLoading(false);
     }
   };
-  
 
   const logout = () => {
     tokenCtrl.removeToken();
@@ -57,8 +54,9 @@ export function AuthProvider(props) {
     setUser(null);
   };
 
-  const updateUser = (data) => {
-    setUser(data);
+  const updateUser = async (data) => {
+    const newUserData = await UserCtrl.getMe(data.uid)
+    setUser(newUserData);
   };
 
   const data = {
