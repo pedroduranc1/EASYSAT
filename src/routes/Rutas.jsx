@@ -16,6 +16,10 @@ import { AdminBlog } from "../pages/admin/Create.Blog";
 import { UpdateBlogPage } from "../pages/admin/Update.Blog";
 import { ActualizarCursoPage } from "../pages/admin/Update.Curso";
 import { PageCurso } from "../pages/admin/Create.Curso";
+import { PageCliente } from "../pages/admin/Create.Cliente";
+import { PageClienteUpdate } from "../pages/admin/Update.Cliente";
+import { CreateVideoCursoPage } from "../pages/admin/Create.Video.Curso";
+import { UpdateVideoCursoPage } from "../pages/admin/Update.Video.Curso";
 
 const router = createBrowserRouter([
   {
@@ -69,6 +73,22 @@ const router = createBrowserRouter([
   {
     path:"/admin/actualizar-curso",
     element: <ActualizarCursoPage/>
+  },
+  {
+    path:"/admin/crear-video-curso",
+    element: <CreateVideoCursoPage/>
+  },
+  {
+    path:"/admin/actualizar-video-curso",
+    element: <UpdateVideoCursoPage/>
+  },
+  {
+    path:"/admin/crear-cliente",
+    element: <PageCliente/>
+  },
+  {
+    path:"/admin/actualizar-cliente",
+    element: <PageClienteUpdate/>
   },
   {
     path:"*",

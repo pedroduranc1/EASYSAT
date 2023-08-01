@@ -2,6 +2,7 @@ export const services = [
     {
         title: "Tramite ante el SAT",
         description:"Inscripcion RPC y STATUS",
+        Plan:'RPC',
         contents:[
             {
                 title:"Tramite de RFC y Contraseña SAT"
@@ -21,6 +22,7 @@ export const services = [
     {
         title: "Atraso con Declaraciones?",
         description:"Actualiza tus años pendientes",
+        Plan:'Pendientes',
         contents:[
             {
                 title:"Pide tu estatus de atrasos sin costo"
@@ -37,6 +39,7 @@ export const services = [
     {
         title: "Subscripcion Paquete Basico",
         description:"Cumple a tiempo con tus declaraciones",
+        Plan:'Personal',
         contents:[
             {
                 title:"Cálculo previo de impuestos"
@@ -53,6 +56,7 @@ export const services = [
     {
         title: "Subscripcion Paquete Empresa",
         description:"Cumple a tiempo con las declaraciones de tu empresa",
+        Plan:'Empresas',
         contents:[
             {
                 title:"Atención de documentos SAT"

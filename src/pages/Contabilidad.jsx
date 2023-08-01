@@ -23,9 +23,14 @@ export const Contabilidad = () => {
               to="/Contabilidad"
               className="relative flex flex-col w-full p-5 bg-slate-100 rounded-md shadow-md "
             >
-              <div className="absolute w-10 h-10 flex items-center justify-center -right-2 -top-2 bg-white rounded-full shadow-md">
-                <Lock className="w-5 h-5" />
-              </div>
+              {servicio.Plan == User.UserPlan ? (
+                ""
+              ) : (
+                <div className="absolute w-10 h-10 flex items-center justify-center -right-2 -top-2 bg-white rounded-full shadow-md">
+                  <Lock className="w-5 h-5" />
+                </div>
+              )}
+
               <h2 className="text-2xl font-bold mb-5">
                 {servicio.description}
               </h2>

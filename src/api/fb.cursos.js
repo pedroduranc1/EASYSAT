@@ -103,4 +103,57 @@ export class CursosCtrl {
       return false;
     }
   }
+
+  async createVideoCurso(videoData){
+    try {
+      await addDoc(collection(db, "Modulos"), videoData);
+      return true;
+    } catch (error) {
+      return false;
+    }
+  }
+
+  async updateVideo(videoId, videoData) {
+    try {
+      const blogRef = doc(db, "Modulos", videoId);
+      await updateDoc(blogRef, videoData);
+      return true;
+    } catch (error) {
+      console.error("Error updating blog: ", error);
+      return false;
+    }
+  }
+
+  async uploadVideoImage(file, uid, slug) {
+    // Obtén la extensión del archivo
+    const fileExtension = file.name.split(".").pop();
+
+    // Crea el nombre del archivo en Firebase Storage
+    const firebaseFileName = `${slug}.${fileExtension}`;
+
+    const fileRef = ref(storage, `${uid}/videoImages/${firebaseFileName}`);
+    const uploadTask = uploadBytesResumable(fileRef, file);
+
+    // Espera a que la carga se complete
+    await new Promise((resolve, reject) => {
+      uploadTask.on(
+        "state_changed",
+        (snapshot) => {
+          // Progreso de la carga
+        },
+        (error) => {
+          // Error
+          reject(error);
+        },
+        () => {
+          // Completado
+          resolve();
+        }
+      );
+    });
+
+    // Obtiene la URL de descarga
+    const downloadURL = await getDownloadURL(fileRef);
+    return downloadURL;
+  }
 }

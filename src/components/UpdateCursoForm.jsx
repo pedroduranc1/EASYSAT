@@ -6,7 +6,7 @@ import { Loader2 } from "lucide-react";
 import { CursosCtrl } from "../api/fb.cursos";
 import { toast } from "../components/ui/use-toast";
 
-const cursoCtrl = new CursosCtrl()
+const cursoCtrl = new CursosCtrl();
 export const UpdateCursoForm = ({
   cursoSelected,
   setcursoSelected,
@@ -19,26 +19,31 @@ export const UpdateCursoForm = ({
     validationSchema: validationSchema(),
     validateOnChange: false,
     onSubmit: async (formValue) => {
-        const Slug = formValue.Titulo.replace(/\s+/g, "-");
-        let UpdatedCursoData = {
-            ...formValue,
-            Slug:Slug,
-            curso_img: CursoImg ? await cursoCtrl.uploadCursoImage(CursoImg,cursoSelected.id,Slug) : cursoSelected?.curso_img,
-          }
-          const resp = await cursoCtrl.updateCurso(cursoSelected.id,UpdatedCursoData)
-          if(resp){
-            setcursoSelected(null)
-            toast({
-                title: "Curso actualizado exitosamente",
-              });
-          }else{
-            toast({
-                variant: "destructive",
-                title: "Ocurrio un error al actualizar el Curso",
-                description:
-                  "algo paso al monento de registrar los datos suministrados.",
-              });
-          }
+      const Slug = formValue.Titulo.replace(/\s+/g, "-");
+      let UpdatedCursoData = {
+        ...formValue,
+        Slug: Slug,
+        curso_img: CursoImg
+          ? await cursoCtrl.uploadCursoImage(CursoImg, cursoSelected.id, Slug)
+          : cursoSelected?.curso_img,
+      };
+      const resp = await cursoCtrl.updateCurso(
+        cursoSelected.id,
+        UpdatedCursoData
+      );
+      if (resp) {
+        setcursoSelected(null);
+        toast({
+          title: "Curso actualizado exitosamente",
+        });
+      } else {
+        toast({
+          variant: "destructive",
+          title: "Ocurrio un error al actualizar el Curso",
+          description:
+            "algo paso al monento de registrar los datos suministrados.",
+        });
+      }
     },
   });
 

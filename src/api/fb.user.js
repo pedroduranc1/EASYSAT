@@ -1,6 +1,16 @@
-import { collection, doc, getDoc, getDocs, query, setDoc,updateDoc, where } from "firebase/firestore";
+import {
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+  query,
+  setDoc,
+  updateDoc,
+  where,
+} from "firebase/firestore";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
-import { db, storage } from "../utils/firebase";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { db, storage, auth } from "../utils/firebase";
 
 export class User {
   async getMe(uid) {
@@ -75,25 +85,75 @@ export class User {
   }
 
   async updateMe(uid, data) {
-    const userRef = doc(db,'User',uid)
-    await updateDoc(userRef,data)
+    const userRef = doc(db, "User", uid);
+    await updateDoc(userRef, data);
     return data;
   }
 
-  async getUsersWithRole(){
+  async getUsersWithRole() {
     const q = query(
       collection(db, "User"),
-      where("UserRole", "in", ['Admin','subAdmin'])
+      where("UserRole", "in", ["Admin", "SubAdmin"])
     );
-  
+
     const querySnapshot = await getDocs(q);
     const blogData = querySnapshot.docs.map((doc) => {
       return {
         id: doc.id,
-        ...doc.data()
-      }
+        ...doc.data(),
+      };
     });
 
-    return blogData
+    return blogData;
   }
+
+  async getUsersWithOutRole() {
+    const q = query(
+      collection(db, "User")
+    );
+
+    const querySnapshot = await getDocs(q);
+    const blogData = querySnapshot.docs.map((doc) => {
+      return {
+        id: doc.id,
+        ...doc.data(),
+      };
+    });
+
+    return blogData;
+  }
+
+  async createUser(userData) {
+    try {
+      const { email, password } = userData;
+      //crea el email y password en firebase auth
+      const userCredentials = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+
+      const {uid} = userCredentials.user;
+
+      let UserCollectionData = {
+        Nombre: userData.Nombre,
+        Apellido: userData.Apellido,
+        Cargo: userData.Cargo,
+        Empresa: userData.Empresa,
+        Img_url: "",
+        uid: uid,
+        Username: userData.Username,
+        UserPlan: userData.UserPlan,
+        UserRole: userData.UserRole,
+      };
+
+      const userDocRef = doc(db, "User", uid);
+
+      await setDoc(userDocRef, UserCollectionData);
+      return true;
+    } catch (error) {
+      return error.message;
+    }
+  }
+
 }
