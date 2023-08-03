@@ -5,14 +5,17 @@ import { useFormik } from "formik";
 import { initialValues, validationSchema } from "../utils/perfil.blog.form";
 import { toast } from "../components/ui/use-toast";
 
-
 import { BlogsCtrl } from "../api/fb.blogs";
+import { useAuth } from "../hooks/useAuth";
 
-const blogCtrl = new BlogsCtrl()
-export const UpdateBlogForm = ({ BlogSelected, AutorUsername,setBlogSelected }) => {
-
-    const [BlogMD, setBlogMD] = useState(null)
-    const [BlogImg, setBlogImg] = useState(null)
+const blogCtrl = new BlogsCtrl();
+export const UpdateBlogForm = ({
+  BlogSelected,
+  AutorUsername,
+  setBlogSelected,
+}) => {
+  const [BlogMD, setBlogMD] = useState(null);
+  const [BlogImg, setBlogImg] = useState(null);
 
   const formik = useFormik({
     initialValues: initialValues(BlogSelected),
@@ -22,24 +25,28 @@ export const UpdateBlogForm = ({ BlogSelected, AutorUsername,setBlogSelected }) 
       const Slug = formValue.Titulo.replace(/\s+/g, "-");
       let UpdatedBlogData = {
         ...formValue,
-        Slug:Slug,
-        blogFileName: BlogMD ? await blogCtrl.uploadBlogMD(BlogMD,BlogSelected.id,Slug) : BlogSelected?.blogFileName,
-        blog_img:BlogImg ? await blogCtrl.uploadBlogImage(BlogImg,BlogSelected.id,Slug) : BlogSelected?.blog_img
-      }
+        Slug: Slug,
+        blogFileName: BlogMD
+          ? await blogCtrl.uploadBlogMD(BlogMD, BlogSelected.Autor, BlogSelected.id)
+          : BlogSelected?.blogFileName,
+        blog_img: BlogImg
+          ? await blogCtrl.uploadBlogImage(BlogImg, BlogSelected.Autor, BlogSelected.id)
+          : BlogSelected?.blog_img,
+      };
 
-      const resp = await blogCtrl.updateBlog(BlogSelected.id,UpdatedBlogData)
-      if(resp){
-        setBlogSelected(null)
+      const resp = await blogCtrl.updateBlog(BlogSelected.id, UpdatedBlogData);
+      if (resp) {
+        setBlogSelected(null);
         toast({
-            title: "Blog actualizado exitosamente",
-          });
-      }else{
+          title: "Blog actualizado exitosamente",
+        });
+      } else {
         toast({
-            variant: "destructive",
-            title: "Ocurrio un error al actualizar el blog",
-            description:
-              "algo paso al monento de registrar los datos suministrados.",
-          });
+          variant: "destructive",
+          title: "Ocurrio un error al actualizar el blog",
+          description:
+            "algo paso al monento de registrar los datos suministrados.",
+        });
       }
     },
   });

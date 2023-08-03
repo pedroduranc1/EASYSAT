@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import { FerrisWheel, Menu, LogOut, User } from "lucide-react";
+import { FerrisWheel, Menu, LogOut, User as UserIcon } from "lucide-react";
 import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { useAuth } from "../hooks/useAuth";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
-export const Navbar = ({ user }) => {
-  const { logout } = useAuth();
+export const Navbar = () => {
+  const { User, logout } = useAuth();
 
   const [toggleMenu, settoggleMenu] = useState(false);
 
@@ -68,17 +68,17 @@ export const Navbar = ({ user }) => {
         {/* settings */}
         <div>
           <ul className="hidden md:flex [&>li]:text-slate-600 [&>li]:font-semibold">
-            {user ? (
+            {User ? (
               <div className="flex items-center space-x-3">
                 <Link
                   to="/Perfil"
                   className=" flex items-center justify-center space-x-3"
                 >
                   <Avatar>
-                    <AvatarImage src={user.Img_url} />
-                    <AvatarFallback className="bg-black"><User className="text-white" /></AvatarFallback>
+                    <AvatarImage src={User.Img_url} />
+                    <AvatarFallback className="bg-black"><UserIcon className="text-white" /></AvatarFallback>
                   </Avatar>
-                   {user?.Username && <p>{user.Username}</p>}
+                   {User?.Username && <p>{User.Username}</p>}
                 </Link>
                 <LogOut onClick={logout} className="w-5 h-5 cursor-pointer" />
               </div>
@@ -129,17 +129,17 @@ export const Navbar = ({ user }) => {
                   Blogs
                 </Link>
               </li>
-              {user ? (
+              {User ? (
                 <div className="flex px-2 py-2 hover:border-b-2 cursor-pointer hover:border-slate-500 transition-all items-center justify-between md:justify-start md:space-x-3">
                   <Link
                     to="/Perfil"
                     className="w-full flex space-x-3 items-center"
                   >
                     <Avatar>
-                    <AvatarImage src={user.Img_url}  />
-                    <AvatarFallback className="bg-black"><User className="text-white" /></AvatarFallback>
+                    <AvatarImage src={User.Img_url}  />
+                    <AvatarFallback className="bg-black"><UserIcon className="text-white" /></AvatarFallback>
                   </Avatar>
-                   {user?.Username && <p>{user.Username}</p>}
+                   {User.Username && <p>{User.Username}</p>}
                   </Link>
                   <LogOut onClick={logout} className="w-5 h-5 cursor-pointer" />
                 </div>

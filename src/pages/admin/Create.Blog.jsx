@@ -8,6 +8,7 @@ import { BlogsCtrl } from "../../api/fb.blogs";
 import { useQuery } from "react-query";
 import { toast } from "../../components/ui/use-toast";
 import { Loader2 } from "lucide-react";
+import { uid } from 'uid';
 
 const BlogCtrl = new BlogsCtrl();
 const UserCtrl = new User();
@@ -26,27 +27,25 @@ export const AdminBlog = () => {
     validationSchema: validationSchema(),
     validateOnChange: false,
     onSubmit: async (formValue) => {
-      const Slug = formValue.Titulo.replace(/\s+/g, "-");
-      const imgBlog = await BlogCtrl.uploadBlogImage(
-        BlogImg,
-        formValue.Autor,
-        Slug
-      );
-      const mdBlog = await BlogCtrl.uploadBlogMD(BlogMD, formValue.Autor, Slug);
+      const Slug = uid(25);
 
       let BlogData = {
         ...formValue,
         Slug: Slug,
-        blogFileName: mdBlog,
-        blog_img: imgBlog,
+        blogFileName: BlogMD
+          ? await BlogCtrl.uploadBlogMD(BlogMD, formValue.Autor, Slug)
+          : "",
+        blog_img: BlogImg
+          ? await BlogCtrl.uploadBlogImage(BlogImg, formValue.Autor, Slug)
+          : "",
       };
-      const result = await BlogCtrl.createBlog(BlogData);
+      const result = await BlogCtrl.createBlog(Slug,BlogData);
       if (result) {
         // El blog se creó correctamente
         toast({
           title: "Blog Creado Exitosamente",
         });
-        
+
         formik.resetForm();
       } else {
         // Hubo un error al crear el blog
@@ -109,8 +108,11 @@ export const AdminBlog = () => {
                 Selecciona al Autor{" "}
               </option>
               {users &&
-                users.map((user,index) => (
-                  <option key={index} value={user.uid}> {user.Username}</option>
+                users.map((user, index) => (
+                  <option key={index} value={user.uid}>
+                    {" "}
+                    {user.Username}
+                  </option>
                 ))}
             </select>
 

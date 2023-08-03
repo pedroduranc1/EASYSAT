@@ -16,6 +16,14 @@ export function initialValues(user) {
   };
 }
 
+export function initialValuesDelete(user) {
+  return {
+    Username:user?.Username || "",
+    uid: user?.uid
+  };
+}
+
+
 export function initialValuesUpdate(user) {
   return {
     Nombre: user?.Nombre || "",
@@ -53,5 +61,11 @@ export function validationSchema2() {
     Username: Yup.string().required(true),
     UserPlan: Yup.string().required(true),
     UserRole: Yup.string().required(true),
+  });
+}
+
+export function validationSchemaDelete() {
+  return Yup.object({
+    Username: Yup.string(),
   });
 }

@@ -7,12 +7,10 @@ import { Loader2, User2 } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Input } from "../../components/ui/Input";
 
-
 const userCtrl = new UserCtrl();
 export const UpdateDatos = () => {
   const { User, updateUser } = useAuth();
 
-  
   const [Imagen, setImagen] = useState(null);
   const [handleImagen, sethandleImagen] = useState(null);
 
@@ -21,30 +19,18 @@ export const UpdateDatos = () => {
     validationSchema: validationSchema(),
     validateOnChange: false,
     onSubmit: async (formValue) => {
-      let userInfo;
-      if (Imagen) {
-        const imgUrl = await userCtrl.uploadImage(Imagen, User?.uid);
-        sethandleImagen(imgUrl);
-        userInfo = {
-          ...formValue,
-          uid: User.uid,
-          Img_url: imgUrl,
-          Cargo: User.Cargo,
-          Empresa: User.Empresa,
-        };
-        await userCtrl.updateMe(User?.uid, userInfo);
-        updateUser(userInfo);
-      } else {
-        userInfo = {
-          ...formValue,
-          uid: User.uid,
-          Img_url: User.Img_url,
-          Cargo: User.Cargo,
-          Empresa: User.Empresa,
-        };
-        await userCtrl.updateMe(User?.uid, userInfo);
-        updateUser(userInfo);
+
+      let userInfo = {
+        ...formValue,
+        uid: User?.uid,
+        Cargo: User?.Cargo,
+        Empresa: User?.Empresa,
+        Img_url: Imagen ? await userCtrl.uploadImage(Imagen, User?.uid) : "",
       }
+
+      formik.resetForm()
+      await userCtrl.updateMe(userInfo.uid, userInfo);
+      updateUser(userInfo);
     },
   });
   return (

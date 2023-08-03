@@ -1,5 +1,6 @@
 import {
   collection,
+  deleteDoc,
   doc,
   getDoc,
   getDocs,
@@ -8,10 +9,14 @@ import {
   updateDoc,
   where,
 } from "firebase/firestore";
-import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+import { ref, uploadBytesResumable, getDownloadURL, deleteObject } from "firebase/storage";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { db, storage, auth } from "../utils/firebase";
+import { CursosCtrl } from "./fb.cursos";
+import { BlogsCtrl } from "./fb.blogs";
 
+const blogsCtrl = new BlogsCtrl();
+const cursoCtrl = new CursosCtrl();
 export class User {
   async getMe(uid) {
     try {
@@ -108,9 +113,7 @@ export class User {
   }
 
   async getUsersWithOutRole() {
-    const q = query(
-      collection(db, "User")
-    );
+    const q = query(collection(db, "User"));
 
     const querySnapshot = await getDocs(q);
     const blogData = querySnapshot.docs.map((doc) => {
@@ -133,7 +136,7 @@ export class User {
         password
       );
 
-      const {uid} = userCredentials.user;
+      const { uid } = userCredentials.user;
 
       let UserCollectionData = {
         Nombre: userData.Nombre,
@@ -156,4 +159,71 @@ export class User {
     }
   }
 
+  async deleteUserCollection(User) {
+    try {
+      // Eliminar el documento del blog de la colección "blogs"
+      const blogRef = doc(db, "User", User.id);
+      await deleteDoc(blogRef);
+
+      const storageImgRef = ref(storage, User.Img_url); // blogImageRefPath debe ser la referencia al archivo en Storage
+      await deleteObject(storageImgRef);
+
+      return true;
+    } catch (error) {
+      return false;
+    }
+  }
+
+  async deleteUserAuth(uid) {
+    try {
+      await deleteUser(auth, uid);
+      // Realizar acciones adicionales después de eliminar la cuenta, si es necesario
+      return true
+    } catch (error) {
+      return false
+    }
+  }
+
+  async deleteUser(user) {
+    try {
+      let UserData;
+
+      const UserInfo = await this.getMe(user.uid);
+      const UserCursos = await cursoCtrl.getCursosByUser(user.uid);
+      const BlogsUser = await blogsCtrl.getBlogsPorCriterio(user.uid);
+
+      UserData = {
+        UserInfo: UserInfo,
+        UserCursos: UserCursos,
+        UserBlogs: BlogsUser,
+      };
+
+      // if (UserData.UserInfo) await this.deleteUserCollection(user);
+      if (UserData.UserCursos.length > 0) {
+        UserData.UserCursos.map(async (curso)=>{
+          const Curso = curso;
+          const VideosCurso = await cursoCtrl.createVideoCurso(curso.id)
+          let cursoInfo = {
+            ...Curso,
+            videos: VideosCurso
+          }
+          console.log(cursoInfo)
+          // await cursoCtrl.deleteCurso(curso)
+        })
+      };
+      if (UserData.UserBlogs.length > 0) {
+        UserData.UserBlogs.map(async (blog) =>{
+          console.log(blog)
+          // await blogsCtrl.deleteBlog(blog.id,blog.blog_img,blog.blogFileName)
+        })
+      }
+
+      // await this.deleteUserAuth(user.uid)
+
+      return true;
+    } catch (error) {
+      console.log(error)
+      return false;
+    }
+  }
 }

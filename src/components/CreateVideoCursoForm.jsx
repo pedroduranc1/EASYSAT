@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import { useQuery } from "react-query";
 import { CursosCtrl } from "../api/fb.cursos";
 import { Input } from "./ui/Input";
 import { Loader2 } from "lucide-react";
 import { initialValues, validationSchema } from "../utils/perfil.video.form";
 import { useFormik } from "formik";
 import { toast } from "../components/ui/use-toast";
+import { uid } from "uid";
 
 const cursoCtrl = new CursosCtrl();
 export const CreateVideoCursoForm = ({ cursoSelected, setcursoSelected }) => {
@@ -16,13 +16,13 @@ export const CreateVideoCursoForm = ({ cursoSelected, setcursoSelected }) => {
     validationSchema: validationSchema(),
     validateOnChange: false,
     onSubmit: async (formValues) => {
-      const Slug = formValues.Titulo.replace(/\s+/g, "-");
+      const Slug = uid(25);
       let videoData = {
         ...formValues,
-        modulo_img: videoImg ? await cursoCtrl.uploadCursoImage(videoImg,formValues.Curso,Slug) : "",
+        modulo_img: videoImg ? await cursoCtrl.uploadVideoImage(videoImg,cursoSelected.Autor,Slug) : "",
       };
 
-      const resp = await cursoCtrl.createVideoCurso(videoData)
+      const resp = await cursoCtrl.createVideoCurso(Slug,videoData)
 
       if(resp){
         toast({

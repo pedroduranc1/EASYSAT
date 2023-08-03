@@ -26,10 +26,13 @@ export const AdminPanel = () => {
           <h1 className="text-2xl font-bold">Modificar un Blog</h1>
           <PenLine className="absolute bottom-[10%] right-[5%]" />
         </Link>
-        <div className="relative w-full h-[200px] cursor-pointer hover:bg-slate-50 transition-colors flex justify-between p-3 bg-slate-100 rounded-md shadow-md">
+        <Link
+          to="/admin/eliminar-blog"
+          className="relative w-full h-[200px] cursor-pointer hover:bg-slate-50 transition-colors flex justify-between p-3 bg-slate-100 rounded-md shadow-md"
+        >
           <h1 className="text-2xl font-bold">Eliminar un Blog</h1>
           <Trash2 className="absolute bottom-[10%] right-[5%]" />
-        </div>
+        </Link>
         <Link
           to="/admin/crear-curso"
           className="relative w-full h-[200px] cursor-pointer hover:bg-slate-50 transition-colors flex justify-between p-3 bg-slate-100 rounded-md shadow-md"
@@ -44,10 +47,13 @@ export const AdminPanel = () => {
           <h1 className="text-2xl font-bold">Modificar un Curso</h1>
           <PenLine className="absolute bottom-[10%] right-[5%]" />
         </Link>
-        <div className="relative w-full h-[200px] cursor-pointer hover:bg-slate-50 transition-colors flex justify-between p-3 bg-slate-100 rounded-md shadow-md">
+        <Link
+          to="/admin/eliminar-curso"
+          className="relative w-full h-[200px] cursor-pointer hover:bg-slate-50 transition-colors flex justify-between p-3 bg-slate-100 rounded-md shadow-md"
+        >
           <h1 className="text-2xl font-bold">Eliminar un Curso</h1>
           <Trash2 className="absolute bottom-[10%] right-[5%]" />
-        </div>
+        </Link>
         <Link
           to="/admin/crear-video-curso"
           className="relative w-full h-[200px] cursor-pointer hover:bg-slate-50 transition-colors flex justify-between p-3 bg-slate-100 rounded-md shadow-md"
@@ -62,10 +68,13 @@ export const AdminPanel = () => {
           <h1 className="text-2xl font-bold">Modificar videos de un Curso</h1>
           <PenLine className="absolute bottom-[10%] right-[5%]" />
         </Link>
-        <div className="relative w-full h-[200px] cursor-pointer hover:bg-slate-50 transition-colors flex justify-between p-3 bg-slate-100 rounded-md shadow-md">
+        <Link
+          to="/admin/eliminar-video-curso"
+          className="relative w-full h-[200px] cursor-pointer hover:bg-slate-50 transition-colors flex justify-between p-3 bg-slate-100 rounded-md shadow-md"
+        >
           <h1 className="text-2xl font-bold">Eliminar videos de un Curso</h1>
           <Trash2 className="absolute bottom-[10%] right-[5%]" />
-        </div>
+        </Link>
       </div>
 
       {User?.UserRole?.toLowerCase().trim() === "admin" ? (
@@ -90,7 +99,10 @@ export const AdminPanel = () => {
               <h1 className="text-2xl font-bold">Actualizar cliente</h1>
               <PenLine className="absolute bottom-[10%] right-[5%]" />
             </Link>
-            <div className="relative w-full h-[200px] cursor-pointer hover:bg-slate-50 transition-colors flex justify-between p-3 bg-slate-100 rounded-md shadow-md">
+            <div
+              to="/admin/eliminar-cliente"
+              className="relative w-full h-[200px] cursor-pointer hover:bg-slate-50 transition-colors flex justify-between p-3 bg-slate-100 rounded-md shadow-md"
+            >
               <h1 className="text-2xl font-bold">Eliminar cliente</h1>
               <Trash2 className="absolute bottom-[10%] right-[5%]" />
             </div>

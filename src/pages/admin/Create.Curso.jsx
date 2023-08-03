@@ -8,6 +8,7 @@ import { initialValues, validationSchema } from "../../utils/perfil.curso.form";
 import { Input } from "../../components/ui/Input";
 import { Loader2 } from "lucide-react";
 import { toast } from "../../components/ui/use-toast";
+import { uid } from "uid";
 
 const UserCtrl = new User();
 const cursoCtrl = new CursosCtrl();
@@ -25,13 +26,13 @@ export const PageCurso = () => {
     validationSchema: validationSchema(),
     validateOnChange: false,
     onSubmit: async (formValue) => {
-      const Slug = formValue.Titulo.replace(/\s+/g, "-");
+      const Slug = uid(25);
       let CursoData = {
         ...formValue,
         Slug: Slug,
         curso_img: CursoImg ? await cursoCtrl.uploadCursoImage(CursoImg,formValue.Autor,Slug) : '',
       };
-      const result = await cursoCtrl.createCurso(CursoData);
+      const result = await cursoCtrl.createCurso(Slug,CursoData);
       if (result) {
         // El blog se creó correctamente
         toast({

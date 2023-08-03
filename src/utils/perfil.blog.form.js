@@ -15,3 +15,11 @@ export function validationSchema() {
     Autor: Yup.string().required(true),
   });
 }
+
+export function validationSchemaDelete() {
+  return Yup.object({
+    Titulo: Yup.string(),
+    Descripcion: Yup.string(),
+    Autor: Yup.string(),
+  });
+}

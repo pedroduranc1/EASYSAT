@@ -20,6 +20,10 @@ import { PageCliente } from "../pages/admin/Create.Cliente";
 import { PageClienteUpdate } from "../pages/admin/Update.Cliente";
 import { CreateVideoCursoPage } from "../pages/admin/Create.Video.Curso";
 import { UpdateVideoCursoPage } from "../pages/admin/Update.Video.Curso";
+import { DeleteBlogPage } from "../pages/admin/Delete.Blog";
+import { DeleteCursoPage } from "../pages/admin/Detele.Curso";
+import { DeleteVideoPage } from "../pages/admin/Delete.Video";
+import { DeleteUserPage } from "../pages/admin/Delete.User";
 
 const router = createBrowserRouter([
   {
@@ -67,12 +71,20 @@ const router = createBrowserRouter([
     element: <UpdateBlogPage/>
   },
   {
+    path:"/admin/eliminar-blog",
+    element: <DeleteBlogPage/>
+  },
+  {
     path:"/admin/crear-curso",
     element: <PageCurso/>
   },
   {
     path:"/admin/actualizar-curso",
     element: <ActualizarCursoPage/>
+  },
+  {
+    path:"/admin/eliminar-curso",
+    element: <DeleteCursoPage/>
   },
   {
     path:"/admin/crear-video-curso",
@@ -83,12 +95,20 @@ const router = createBrowserRouter([
     element: <UpdateVideoCursoPage/>
   },
   {
+    path:"/admin/eliminar-video-curso",
+    element: <DeleteVideoPage/>
+  },
+  {
     path:"/admin/crear-cliente",
     element: <PageCliente/>
   },
   {
     path:"/admin/actualizar-cliente",
     element: <PageClienteUpdate/>
+  },
+  {
+    path:"/admin/eliminar-cliente",
+    element: <DeleteUserPage/>
   },
   {
     path:"*",

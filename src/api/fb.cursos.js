@@ -1,6 +1,22 @@
-import { collection,getDocs,doc,getDoc, query, where, updateDoc, addDoc } from "firebase/firestore";
-import { db,storage } from "../utils/firebase";
-import { getDownloadURL, ref, uploadBytesResumable } from "@firebase/storage";
+import {
+  collection,
+  getDocs,
+  doc,
+  getDoc,
+  query,
+  where,
+  updateDoc,
+  addDoc,
+  setDoc,
+  deleteDoc,
+} from "firebase/firestore";
+import { db, storage } from "../utils/firebase";
+import {
+  deleteObject,
+  getDownloadURL,
+  ref,
+  uploadBytesResumable,
+} from "@firebase/storage";
 
 export class CursosCtrl {
   async getCursos() {
@@ -14,41 +30,52 @@ export class CursosCtrl {
     return newData;
   }
 
-  async getCurso(id){
-    const docRef = doc(db,'Cursos',id)
-    const docSnap = await getDoc(docRef)
+  async getCurso(id) {
+    const docRef = doc(db, "Cursos", id);
+    const docSnap = await getDoc(docRef);
 
-    if(docSnap.exists()){
-      return docSnap.data()
-    }else{
-      return 'Error'
+    if (docSnap.exists()) {
+      return docSnap.data();
+    } else {
+      return "Error";
     }
   }
 
-  async getVideosCurso(id){
-    const q = query(
-      collection(db, "Modulos"),
-      where("curso", "==", id)
-    );
-  
+  async getCursosByUser(uid) {
+    const q = query(collection(db, "Cursos"), where("Autor", "==", uid));
+
     const querySnapshot = await getDocs(q);
     const blogData = querySnapshot.docs.map((doc) => {
       return {
         id: doc.id,
-        ...doc.data()
-      }
+        ...doc.data(),
+      };
     });
 
-    return blogData
+    return blogData;
   }
 
-  async getVideo(id){
-    const docRefVideo = doc(db,'Modulos',id)
-    const docSnapVideo = await getDoc(docRefVideo)
+  async getVideosCurso(id) {
+    const q = query(collection(db, "Modulos"), where("curso", "==", id));
 
-    if(!docSnapVideo.exists()) throw 'Error'
+    const querySnapshot = await getDocs(q);
+    const blogData = querySnapshot.docs.map((doc) => {
+      return {
+        id: doc.id,
+        ...doc.data(),
+      };
+    });
 
-    return docSnapVideo.data()
+    return blogData;
+  }
+
+  async getVideo(id) {
+    const docRefVideo = doc(db, "Modulos", id);
+    const docSnapVideo = await getDoc(docRefVideo);
+
+    if (!docSnapVideo.exists()) throw "Error";
+
+    return docSnapVideo.data();
   }
 
   async updateCurso(blogId, blogData) {
@@ -67,9 +94,12 @@ export class CursosCtrl {
     const fileExtension = file.name.split(".").pop();
 
     // Crea el nombre del archivo en Firebase Storage
-    const firebaseFileName = `${slug}.${fileExtension}`;
+    const firebaseFileName = `${uid}.${fileExtension}`;
 
-    const fileRef = ref(storage, `${uid}/cursoImages/${firebaseFileName}`);
+    const fileRef = ref(
+      storage,
+      `${uid}/cursoImages/${slug}/${firebaseFileName}`
+    );
     const uploadTask = uploadBytesResumable(fileRef, file);
 
     // Espera a que la carga se complete
@@ -95,18 +125,21 @@ export class CursosCtrl {
     return downloadURL;
   }
 
-  async createCurso(cursoData) {
+  async createCurso(uid, cursoData) {
     try {
-      await addDoc(collection(db, "Cursos"), cursoData);
+      const blogRef = doc(db, "Cursos", uid);
+      await setDoc(blogRef, cursoData);
       return true;
     } catch (error) {
+      console.log(error);
       return false;
     }
   }
 
-  async createVideoCurso(videoData){
+  async createVideoCurso(uid, videoData) {
     try {
-      await addDoc(collection(db, "Modulos"), videoData);
+      const blogRef = doc(db, "Modulos", uid);
+      await setDoc(blogRef, videoData);
       return true;
     } catch (error) {
       return false;
@@ -124,14 +157,17 @@ export class CursosCtrl {
     }
   }
 
-  async uploadVideoImage(file, uid, slug) {
+  async uploadVideoImage(file, autorId, slug) {
     // Obtén la extensión del archivo
     const fileExtension = file.name.split(".").pop();
 
     // Crea el nombre del archivo en Firebase Storage
-    const firebaseFileName = `${slug}.${fileExtension}`;
+    const firebaseFileName = `${autorId}.${fileExtension}`;
 
-    const fileRef = ref(storage, `${uid}/videoImages/${firebaseFileName}`);
+    const fileRef = ref(
+      storage,
+      `${autorId}/videoImages/${slug}/${firebaseFileName}`
+    );
     const uploadTask = uploadBytesResumable(fileRef, file);
 
     // Espera a que la carga se complete
@@ -156,4 +192,45 @@ export class CursosCtrl {
     const downloadURL = await getDownloadURL(fileRef);
     return downloadURL;
   }
+
+  async deleteCurso(curso) {
+    try {
+      // Eliminar el documento del blog de la colección "blogs"
+      const cursoRef = doc(db, "Cursos", curso.id);
+      await deleteDoc(cursoRef);
+
+      // Eliminar la información de la imagen (u otro archivo) relacionada con el blog en Storage
+      const storageImgRef = ref(storage, curso.curso_img); // blogImageRefPath debe ser la referencia al archivo en Storage
+      await deleteObject(storageImgRef);
+
+      if (curso.videos.length > 0) {
+        curso.videos.map(async (video) => {
+          await this.deleteVideo(video);
+        });
+      }
+
+      return true;
+    } catch (error) {
+      console.error("Error al eliminar el Curso:", error);
+      return false;
+    }
+  }
+
+  async deleteVideo(video) {
+    try {
+      // Eliminar el documento del blog de la colección "blogs"
+      const videoRef = doc(db, "Modulos", video.id);
+      await deleteDoc(videoRef);
+
+      // Eliminar la información de la imagen (u otro archivo) relacionada con el blog en Storage
+      const storageImgRef = ref(storage, video.modulo_img); // blogImageRefPath debe ser la referencia al archivo en Storage
+      await deleteObject(storageImgRef);
+
+      return true;
+    } catch (error) {
+      console.error("Error al eliminar el Video:", error);
+      return false;
+    }
+  }
+
 }

@@ -1,17 +1,21 @@
-import { addDoc, collection, doc, getDocs, query, updateDoc, where } from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  deleteDoc,
+  doc,
+  getDocs,
+  query,
+  setDoc,
+  updateDoc,
+  where,
+} from "firebase/firestore";
 
 import { db } from "../utils/firebase";
-import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+import { ref, uploadBytesResumable, getDownloadURL, deleteObject } from "firebase/storage";
 import axios from "axios";
 import { storage } from "../utils/firebase";
 
 export class BlogsCtrl {
-  async getBlogMDX(blogName) {
-    const res = await axios.get(blogName);
-    const mdxText = res.data;
-    return mdxText;
-  }
-
   async getBlog(slug) {
     const q = query(collection(db, "blogs"), where("Slug", "==", slug));
 
@@ -37,9 +41,16 @@ export class BlogsCtrl {
     return newData;
   }
 
-  async createBlog(blogData) {
+  async getBlogMDX(blogName) {
+    const res = await axios.get(blogName);
+    const mdxText = res.data;
+    return mdxText;
+  }
+
+  async createBlog(uid, blogData) {
     try {
-      await addDoc(collection(db, "blogs"), blogData);
+      const blogRef = doc(db, "blogs", uid);
+      await setDoc(blogRef, blogData);
       return true;
     } catch (error) {
       return false;
@@ -51,9 +62,12 @@ export class BlogsCtrl {
     const fileExtension = file.name.split(".").pop();
 
     // Crea el nombre del archivo en Firebase Storage
-    const firebaseFileName = `${slug}.${fileExtension}`;
+    const firebaseFileName = `${uid}.${fileExtension}`;
 
-    const fileRef = ref(storage, `${uid}/blogImages/${firebaseFileName}`);
+    const fileRef = ref(
+      storage,
+      `${uid}/blogImages/${slug}/${firebaseFileName}`
+    );
     const uploadTask = uploadBytesResumable(fileRef, file);
 
     // Espera a que la carga se complete
@@ -84,9 +98,9 @@ export class BlogsCtrl {
     const fileExtension = file.name.split(".").pop();
 
     // Crea el nombre del archivo en Firebase Storage
-    const firebaseFileName = `${slug}.${fileExtension}`;
+    const firebaseFileName = `${uid}.${fileExtension}`;
 
-    const fileRef = ref(storage, `${uid}/blogs/${firebaseFileName}`);
+    const fileRef = ref(storage, `${uid}/blogs/${slug}/${firebaseFileName}`);
     const uploadTask = uploadBytesResumable(fileRef, file);
 
     // Espera a que la carga se complete
@@ -119,6 +133,47 @@ export class BlogsCtrl {
       return true;
     } catch (error) {
       console.error("Error updating blog: ", error);
+      return false;
+    }
+  }
+
+  async deleteBlog(blogId, blogImageRefPath, blogMdRefPath) {
+    try {
+      // Eliminar el documento del blog de la colección "blogs"
+      const blogRef = doc(db, "blogs", blogId);
+      await deleteDoc(blogRef);
+      console.log("Documento de blog eliminado con éxito.");
+
+      // Eliminar la información de la imagen (u otro archivo) relacionada con el blog en Storage
+      const storageImgRef = ref(storage, blogImageRefPath); // blogImageRefPath debe ser la referencia al archivo en Storage
+      await deleteObject(storageImgRef);
+      console.log("Imagen de blog en Storage eliminada con éxito.");
+
+      // Eliminar la información de la imagen (u otro archivo) relacionada con el blog en Storage
+      const storageMDRef = ref(storage, blogMdRefPath); // blogImageRefPath debe ser la referencia al archivo en Storage
+      await deleteObject(storageMDRef);
+      console.log("MD de blog en Storage eliminada con éxito.");
+
+      return true;
+    } catch (error) {
+      console.error("Error al eliminar el blog:", error);
+      return false;
+    }
+  }
+
+  async getBlogsPorCriterio(uid) {
+    try {
+      const cursosRef = collection(db, "blogs");
+      const q = query(cursosRef, where("Autor", "==", uid));
+      const querySnapshot = await getDocs(q);
+
+      let blogs = []
+      querySnapshot.docs.map((videos)=>{
+        blogs.push(videos.data())
+      })
+      return blogs;
+    } catch (error) {
+      console.log(error.message);
       return false;
     }
   }

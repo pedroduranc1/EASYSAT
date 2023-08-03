@@ -5,6 +5,7 @@ import { Input } from "./ui/Input";
 import { Loader2 } from "lucide-react";
 import { CursosCtrl } from "../api/fb.cursos";
 import { toast } from "../components/ui/use-toast";
+import { uid } from "uid";
 
 const cursoCtrl = new CursosCtrl();
 export const UpdateCursoForm = ({
@@ -19,7 +20,7 @@ export const UpdateCursoForm = ({
     validationSchema: validationSchema(),
     validateOnChange: false,
     onSubmit: async (formValue) => {
-      const Slug = formValue.Titulo.replace(/\s+/g, "-");
+      const Slug = uid(25);
       let UpdatedCursoData = {
         ...formValue,
         Slug: Slug,

@@ -106,8 +106,7 @@ export const Blogs = () => {
                             {blog.Descripcion}
                           </p>
                           <div className="w-full md:w-1/4">
-                          <CreatedBy autor={blog.Autor} />
-
+                            <CreatedBy autor={blog.Autor} />
                           </div>
                         </div>
                       </div>{" "}
@@ -116,12 +115,17 @@ export const Blogs = () => {
                 ))
               ) : (
                 <div className=" bg-slate-100 w-full flex  h-[66vh]">
-                  <div className="flex w-full justify-center gap-x-3">
-                    <AlertCircle className="text-red-500" />
-                    <h3 className="flex">
-                      No se encontro ningun blog 
-                    </h3>
-                  </div>
+                  {searchTerm === "" ? (
+                    <div className="flex w-full justify-center gap-x-3">
+                      <AlertCircle className="text-red-500" />
+                      <h3 className="flex">No se encontro ningun blog en nuestros registros</h3>
+                    </div>
+                  ) : (
+                    <div className="flex w-full justify-center gap-x-3">
+                      <AlertCircle className="text-red-500" />
+                      <h3 className="flex">No se encontro ningun blog con el nombre: {searchTerm}</h3>
+                    </div>
+                  )}
                 </div>
               )}
             </ul>

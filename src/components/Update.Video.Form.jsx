@@ -5,6 +5,8 @@ import { initialValuesUpdate, validationSchema } from "../utils/perfil.video.for
 import { CursosCtrl } from "../api/fb.cursos";
 import { toast } from "../components/ui/use-toast";
 import { Loader2 } from "lucide-react";
+import { useAuth } from "../hooks/useAuth";
+import { uid } from "uid";
 
 const cursosCtrl = new CursosCtrl();
 export const UpdateVideo = ({
@@ -13,17 +15,17 @@ export const UpdateVideo = ({
   setcursoSelected,
 }) => {
   const [videoImg, setvideoImg] = useState(null);
-
+  const { User } = useAuth()
 
   const formik = useFormik({
     initialValues: initialValuesUpdate(videoSelected),
     validationSchema: validationSchema(),
     validateOnChange: false,
     onSubmit: async (formValues) => {
-      const Slug = formValues.Titulo.replace(/\s+/g, "-");
+      const Slug = uid(25);
       let UpdatedVideoData = {
         ...formValues,
-        modulo_img: videoImg ? await cursosCtrl.uploadVideoImage(videoImg,videoSelected.id,Slug) : videoSelected.modulo_img
+        modulo_img: videoImg ? await cursosCtrl.uploadVideoImage(videoImg,User.uid,Slug) : videoSelected.modulo_img
       }
 
       const resp = await cursosCtrl.updateVideo(videoSelected.id,UpdatedVideoData)

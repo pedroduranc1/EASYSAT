@@ -10,13 +10,12 @@ import { CreatedBy } from "../components/CreatedBy";
 const CursosCtrlr = new CursosCtrl();
 export const Cursos = () => {
   const { User } = useAuth();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   useEffect(() => {
-    if (!User) return (navigate('/Login',{replace:true}));
-  }, [User])
-  
+    if (!User) return navigate("/Login", { replace: true });
+  }, [User]);
 
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useState("");
 
   const {
     data: Cursos,
@@ -24,13 +23,14 @@ export const Cursos = () => {
     isError,
   } = useQuery("Cursos", () => CursosCtrlr.getCursos());
 
-  const filteredCourses = Cursos?.filter(course =>
-    course.Titulo.toLowerCase().includes(searchTerm.toLowerCase())
-  ) || [];
+  const filteredCourses =
+    Cursos?.filter((course) =>
+      course.Titulo.toLowerCase().includes(searchTerm.toLowerCase())
+    ) || [];
 
   const handleSearch = (event) => {
     setSearchTerm(event.target.value);
-  }
+  };
 
   if (isLoading)
     return (
@@ -85,38 +85,56 @@ export const Cursos = () => {
           </div>
         </div>
         <h1 className="text-3xl font-bold mb-4 md:mb-10">Nuestros Cursos</h1>
-        <div className={`grid grid-cols-1 md:grid-cols-3 gap-5 ${filteredCourses.length == 0 && 'md:grid-cols-1'}`}>
-          {filteredCourses.length > 0 ? filteredCourses.map((curso, index) => (
-            // Rest of your code...
-            <Link
-              key={index}
-              to={`/curso/${curso.id}`}
-              className="z-[1] mx-auto"
-            >
-              <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow ">
-                <img
-                  className="rounded-t-lg px-[5%] pt-5"
-                  src={curso.curso_img}
-                  alt=""
-                />
-                <div className="p-5">
-                  <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 ">
-                    {curso.Titulo}
-                  </h5>
-                  <p className="mb-3 font-normal text-gray-700 ">
-                    {curso.Descripcion}
-                  </p>
-                  <CreatedBy autor={curso.Autor} />
+        <div
+          className={`grid grid-cols-1 md:grid-cols-3 gap-5 ${
+            filteredCourses.length == 0 && "md:grid-cols-1"
+          }`}
+        >
+          {filteredCourses.length > 0 ? (
+            filteredCourses.map((curso, index) => (
+              // Rest of your code...
+              <Link
+                key={index}
+                to={`/curso/${curso.id}`}
+                className="z-[1] mx-auto"
+              >
+                <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow ">
+                  <img
+                    className="rounded-t-lg px-[5%] pt-5"
+                    src={curso.curso_img}
+                    alt=""
+                  />
+                  <div className="p-5">
+                    <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 ">
+                      {curso.Titulo}
+                    </h5>
+                    <p className="mb-3 font-normal text-gray-700 ">
+                      {curso.Descripcion}
+                    </p>
+                    <CreatedBy autor={curso.Autor} />
+                  </div>
                 </div>
-              </div>
-            </Link>
-          )):(
-            <div className=" bg-slate-100 w-full flex  h-[66vh]">
-              <div className="flex w-full justify-center gap-x-3">
-              <AlertCircle className="text-red-500" />
-                <h3 className="flex">No se encontro ningun curso con el nombre: <p className="text-black font-bold ml-2">{searchTerm}</p> </h3>
-              </div>
-                
+              </Link>
+            ))
+          ) : (
+            <div className=" bg-slate-100 col-span-1 md:col-span-3 w-full flex  h-[66vh]">
+              {searchTerm === "" ? (
+                <div className="flex w-full justify-center gap-x-3">
+                  <AlertCircle className="text-red-500" />
+                  <h3 className="flex">
+                    No se encontro cursos en nuestros registros
+                    <p className="text-black font-bold ml-2">{searchTerm}</p>{" "}
+                  </h3>
+                </div>
+              ) : (
+                <div className="flex w-full justify-center gap-x-3">
+                  <AlertCircle className="text-red-500" />
+                  <h3 className="flex">
+                    No se encontro ningun curso con el nombre:{" "}
+                    <p className="text-black font-bold ml-2">{searchTerm}</p>{" "}
+                  </h3>
+                </div>
+              )}
             </div>
           )}
         </div>
