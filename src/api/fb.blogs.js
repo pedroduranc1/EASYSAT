@@ -11,7 +11,12 @@ import {
 } from "firebase/firestore";
 
 import { db } from "../utils/firebase";
-import { ref, uploadBytesResumable, getDownloadURL, deleteObject } from "firebase/storage";
+import {
+  ref,
+  uploadBytesResumable,
+  getDownloadURL,
+  deleteObject,
+} from "firebase/storage";
 import axios from "axios";
 import { storage } from "../utils/firebase";
 
@@ -161,16 +166,43 @@ export class BlogsCtrl {
     }
   }
 
+  async deleteBlogPorCriterio(blogAutor, blogImageRefPath, blogMdRefPath) {
+    try {
+      // Eliminar el documento del blog de la colección "blogs"
+      const blogsRef = collection(db, "blogs");
+      const q = query(blogsRef, where("Autor", "==", blogAutor));
+      const querySnapshot = await getDocs(q);
+
+      // Eliminar cada documento encontrado
+      querySnapshot.forEach(async(doc) => {
+        await deleteDoc(doc.ref)
+      });
+
+      // Eliminar la información de la imagen (u otro archivo) relacionada con el blog en Storage
+      const storageImgRef = ref(storage, blogImageRefPath); // blogImageRefPath debe ser la referencia al archivo en Storage
+      await deleteObject(storageImgRef);
+
+      // Eliminar la información de la imagen (u otro archivo) relacionada con el blog en Storage
+      const storageMDRef = ref(storage, blogMdRefPath); // blogImageRefPath debe ser la referencia al archivo en Storage
+      await deleteObject(storageMDRef);
+
+      return true;
+    } catch (error) {
+      console.error("Error al eliminar el blog:", error);
+      return false;
+    }
+  }
+
   async getBlogsPorCriterio(uid) {
     try {
       const cursosRef = collection(db, "blogs");
       const q = query(cursosRef, where("Autor", "==", uid));
       const querySnapshot = await getDocs(q);
 
-      let blogs = []
-      querySnapshot.docs.map((videos)=>{
-        blogs.push(videos.data())
-      })
+      let blogs = [];
+      querySnapshot.docs.map((videos) => {
+        blogs.push(videos.data());
+      });
       return blogs;
     } catch (error) {
       console.log(error.message);

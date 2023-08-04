@@ -9,12 +9,19 @@ import {
   updateDoc,
   where,
 } from "firebase/firestore";
-import { ref, uploadBytesResumable, getDownloadURL, deleteObject } from "firebase/storage";
+import {
+  ref,
+  uploadBytesResumable,
+  getDownloadURL,
+  deleteObject,
+} from "firebase/storage";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { db, storage, auth } from "../utils/firebase";
+import { db, storage, auth,deleteUser } from "../utils/firebase";
 import { CursosCtrl } from "./fb.cursos";
 import { BlogsCtrl } from "./fb.blogs";
+import { Auth } from "./fb.auth";
 
+const AuthCtrl = new Auth();
 const blogsCtrl = new BlogsCtrl();
 const cursoCtrl = new CursosCtrl();
 export class User {
@@ -36,7 +43,7 @@ export class User {
         });
         // Obtener los datos del usuario recién creado
         userData = {
-          id: uid,
+          uid: uid,
           Nombre: "",
           Apellido: "",
           Empresa: "",
@@ -159,13 +166,14 @@ export class User {
     }
   }
 
-  async deleteUserCollection(User) {
+  async deleteUserCollection(user) {
     try {
       // Eliminar el documento del blog de la colección "blogs"
-      const blogRef = doc(db, "User", User.id);
+      const blogRef = doc(db, "User", user.uid);
       await deleteDoc(blogRef);
 
-      const storageImgRef = ref(storage, User.Img_url); // blogImageRefPath debe ser la referencia al archivo en Storage
+      // Eliminar la información de la imagen (u otro archivo) relacionada con el blog en Storage
+      const storageImgRef = ref(storage, user.Img_url); // blogImageRefPath debe ser la referencia al archivo en Storage
       await deleteObject(storageImgRef);
 
       return true;
@@ -174,17 +182,8 @@ export class User {
     }
   }
 
-  async deleteUserAuth(uid) {
-    try {
-      await deleteUser(auth, uid);
-      // Realizar acciones adicionales después de eliminar la cuenta, si es necesario
-      return true
-    } catch (error) {
-      return false
-    }
-  }
 
-  async deleteUser(user) {
+  async delUser(user) {
     try {
       let UserData;
 
@@ -198,31 +197,23 @@ export class User {
         UserBlogs: BlogsUser,
       };
 
-      // if (UserData.UserInfo) await this.deleteUserCollection(user);
-      if (UserData.UserCursos.length > 0) {
-        UserData.UserCursos.map(async (curso)=>{
-          const Curso = curso;
-          const VideosCurso = await cursoCtrl.createVideoCurso(curso.id)
-          let cursoInfo = {
-            ...Curso,
-            videos: VideosCurso
-          }
-          console.log(cursoInfo)
-          // await cursoCtrl.deleteCurso(curso)
-        })
-      };
-      if (UserData.UserBlogs.length > 0) {
-        UserData.UserBlogs.map(async (blog) =>{
-          console.log(blog)
-          // await blogsCtrl.deleteBlog(blog.id,blog.blog_img,blog.blogFileName)
-        })
+      await this.deleteUserCollection(user);
+
+      if (UserData.UserCursos && UserData.UserCursos.length > 0) {
+        UserData.UserCursos.map(async (curso) => {
+          await cursoCtrl.deleteCurso(curso)
+        });
       }
 
-      // await this.deleteUserAuth(user.uid)
+      if (UserData.UserBlogs && UserData.UserBlogs.length > 0) {
+        UserData.UserBlogs.map(async (blog) => {
+          await blogsCtrl.deleteBlogPorCriterio(blog.Autor,blog.blog_img,blog.blogFileName)
+        });
+      }
 
       return true;
     } catch (error) {
-      console.log(error)
+      console.log(error);
       return false;
     }
   }

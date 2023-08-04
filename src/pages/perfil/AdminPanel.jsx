@@ -99,13 +99,13 @@ export const AdminPanel = () => {
               <h1 className="text-2xl font-bold">Actualizar cliente</h1>
               <PenLine className="absolute bottom-[10%] right-[5%]" />
             </Link>
-            <div
+            <Link
               to="/admin/eliminar-cliente"
               className="relative w-full h-[200px] cursor-pointer hover:bg-slate-50 transition-colors flex justify-between p-3 bg-slate-100 rounded-md shadow-md"
             >
               <h1 className="text-2xl font-bold">Eliminar cliente</h1>
               <Trash2 className="absolute bottom-[10%] right-[5%]" />
-            </div>
+            </Link>
           </div>
         </>
       ) : (

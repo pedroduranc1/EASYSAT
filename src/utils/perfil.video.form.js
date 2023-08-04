@@ -27,3 +27,11 @@ export function validationSchema() {
     modulo_url: Yup.string().required(true),
   });
 }
+
+export function validationSchemaDelete() {
+  return Yup.object({
+    Titulo: Yup.string(),
+    Descripcion: Yup.string(),
+    modulo_url: Yup.string(),
+  });
+}

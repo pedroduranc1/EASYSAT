@@ -203,7 +203,7 @@ export class CursosCtrl {
       const storageImgRef = ref(storage, curso.curso_img); // blogImageRefPath debe ser la referencia al archivo en Storage
       await deleteObject(storageImgRef);
 
-      if (curso.videos.length > 0) {
+      if (curso.videos && curso.videos.length > 0) {
         curso.videos.map(async (video) => {
           await this.deleteVideo(video);
         });
@@ -219,8 +219,8 @@ export class CursosCtrl {
   async deleteVideo(video) {
     try {
       // Eliminar el documento del blog de la colección "blogs"
-      const videoRef = doc(db, "Modulos", video.id);
-      await deleteDoc(videoRef);
+      const cursoRef = doc(db, "Modulos", video.id);
+      await deleteDoc(cursoRef);
 
       // Eliminar la información de la imagen (u otro archivo) relacionada con el blog en Storage
       const storageImgRef = ref(storage, video.modulo_img); // blogImageRefPath debe ser la referencia al archivo en Storage

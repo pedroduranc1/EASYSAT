@@ -2,7 +2,10 @@ import React, { useEffect, useState } from "react";
 import { MainLayout } from "../../layouts/MainLayout";
 import { useQuery } from "react-query";
 import { CursosCtrl } from "../../api/fb.cursos";
-import { Trash2 } from "lucide-react";
+import { Loader2, Trash2 } from "lucide-react";
+import { useFormik } from "formik";
+import { toast } from "../../components/ui/use-toast";
+import { initialValuesUpdate, validationSchemaDelete } from "../../utils/perfil.video.form";
 
 const cursosCtrl = new CursosCtrl();
 export const DeleteVideoPage = () => {
@@ -36,7 +39,28 @@ export const DeleteVideoPage = () => {
     })();
   }, [CursoSelected]);
 
-  console.log(videoSelected);
+  const formik = useFormik({
+    initialValues:initialValuesUpdate(CursoSelected),
+    validationSchema:validationSchemaDelete(),
+    validateOnChange:false,
+    onSubmit: async () => {
+      const resp = await cursosCtrl.deleteVideo(videoSelected)
+      if (resp) {
+        setCursoSelected(null);
+        toast({
+          title: "Usuario eliminado exitosamente",
+        });
+      } else {
+        toast({
+          variant: "destructive",
+          title: "Ocurrio un error al eliminar el Usuario",
+          description:
+            "algo paso al monento de registrar los datos suministrados.",
+        });
+      }
+    }
+  })
+
 
   return (
     <MainLayout>
@@ -55,7 +79,7 @@ export const DeleteVideoPage = () => {
               value={searchTerm}
               onChange={handleSearch}
               onFocus={handleFocus}
-              autocomplete="off"
+              autoComplete="off"
             />
             <ul
               className={`${
@@ -114,7 +138,7 @@ export const DeleteVideoPage = () => {
               </div>
 
               {videoSelected && (
-                <form className="pt-5 space-y-3">
+                <form onSubmit={formik.handleSubmit} className="pt-5 space-y-3">
                   <h2 className="text-2xl font-semibold">
                     Video a Eliminar: {videoSelected.Titulo}
                   </h2>
@@ -122,14 +146,13 @@ export const DeleteVideoPage = () => {
                     type="submit"
                     className="w-full px-2 py-2 flex items-center justify-center hover:bg-red-400 transition-colors bg-red-500 text-white rounded-md"
                   >
-                    {/* {formik.isSubmitting ? (
-                  <Loader2 className="animate-spin animate-infinite" />
-                ) : (
-                  <>
-                    Eliminar Blog <Trash2 className="ml-3" />
-                  </>
-                )} */}
-                    Eliminar Video <Trash2 className="ml-3" />
+                    {formik.isSubmitting ? (
+                      <Loader2 className="animate-spin animate-infinite" />
+                    ) : (
+                      <>
+                        Eliminar Blog <Trash2 className="ml-3" />
+                      </>
+                    )}
                   </button>
                 </form>
               )}

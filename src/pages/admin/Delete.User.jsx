@@ -41,7 +41,7 @@ export const DeleteUserPage = () => {
     validationSchema: validationSchemaDelete(),
     validateOnChange: false,
     onSubmit: async () => {
-      const resp = await userCtrl.deleteUser(UserSelected)
+      const resp = await userCtrl.delUser(UserSelected)
 
       if (resp) {
         setUserSelected(null);
