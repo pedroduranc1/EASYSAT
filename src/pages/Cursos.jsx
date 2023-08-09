@@ -6,6 +6,7 @@ import { useQuery } from "react-query";
 import { CursosCtrl } from "../api/fb.cursos";
 import { AlertCircle } from "lucide-react";
 import { CreatedBy } from "../components/CreatedBy";
+import { Skeleton } from "../components/ui/skeleton";
 
 const CursosCtrlr = new CursosCtrl();
 export const Cursos = () => {
@@ -35,7 +36,37 @@ export const Cursos = () => {
   if (isLoading)
     return (
       <MainLayout>
-        <h2>Cargando Blog</h2>
+        <div className="h-full md:px-[2%] md:mt-5">
+          <h1 className="text-3xl font-bold mb-4 md:mb-10">Nuestros Cursos</h1>
+          <div className={`grid grid-cols-1 md:grid-cols-3 gap-5 pb-[13%] `}>
+            <div className="w-full flex gap-3 ">
+              <div className="max-w-md bg-white p-4 shadow-md rounded-md">
+                <Skeleton className="w-full bg-slate-200 h-[200px] rounded-md" />
+                <Skeleton className="w-[70%]  mt-5 bg-slate-200 h-[20px] rounded-md" />
+                <Skeleton className="w-full  mt-5 bg-slate-200 h-[60px] rounded-md" />
+
+                <div className="flex mt-5 items-center space-x-4">
+                  <Skeleton className="h-12 w-12 rounded-full" />
+                  <div className="space-y-2">
+                    <Skeleton className="h-4 w-[150px]" />
+                  </div>
+                </div>
+              </div>
+              <div className="max-w-md bg-white p-4 shadow-md rounded-md">
+                <Skeleton className="w-full bg-slate-200 h-[200px] rounded-md" />
+                <Skeleton className="w-[70%]  mt-5 bg-slate-200 h-[20px] rounded-md" />
+                <Skeleton className="w-full  mt-5 bg-slate-200 h-[60px] rounded-md" />
+
+                <div className="flex mt-5 items-center space-x-4">
+                  <Skeleton className="h-12 w-12 rounded-full" />
+                  <div className="space-y-2">
+                    <Skeleton className="h-4 w-[150px]" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </MainLayout>
     );
 
@@ -123,7 +154,9 @@ export const Cursos = () => {
                   <AlertCircle className="text-red-500" />
                   <h3 className="flex">
                     No se encontro cursos en nuestros registros
-                    <p className="text-black font-bold ml-2">{searchTerm}</p>{" "}
+                    <p className="text-black font-bold ml-2">
+                      {searchTerm}
+                    </p>{" "}
                   </h3>
                 </div>
               ) : (

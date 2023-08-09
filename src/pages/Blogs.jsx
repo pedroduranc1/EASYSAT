@@ -5,6 +5,7 @@ import { useQuery } from "react-query";
 import { Link } from "react-router-dom";
 import { AlertCircle } from "lucide-react";
 import { CreatedBy } from "../components/CreatedBy";
+import { Skeleton } from "../components/ui/skeleton";
 
 const BlogsCtrlr = new BlogsCtrl();
 export const Blogs = () => {
@@ -28,7 +29,54 @@ export const Blogs = () => {
   if (isLoading)
     return (
       <MainLayout>
-        <h2>Cargando Blogs</h2>
+        <div className="max-w-6xl w-full px-4 mt-4 md:mt-10 md:ml-7">
+          <h1 className="text-3xl font-bold mb-4 md:mb-10">Nuestros Blogs</h1>
+          {/* LISTA DE BLOGS */}
+          <div className="grid grid-cols-1">
+            <ul className="grid grid-cols-1 [&>li]:my-5 divide-slate-700">
+              <li>
+                <div className="w-full">
+                  <div className="flex flex-col p-0 md:p-4 items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row  hover:bg-gray-100 ">
+                    <Skeleton className="w-full max-w-xs bg-slate-200 md:w-32 md:h-32 rounded-md" />
+
+                    <div className="flex w-full flex-col justify-between p-4 leading-normal">
+                      <Skeleton className=" bg-slate-200 w-1/2 h-5 my-5 rounded-full" />
+
+                      <Skeleton className=" bg-slate-200 w-full h-5 rounded-full" />
+
+                      <div className="flex mt-5 items-center space-x-4">
+                        <Skeleton className=" bg-slate-200 h-12 w-12 rounded-full" />
+                        <div className="space-y-2">
+                          <Skeleton className=" bg-slate-200 h-4 w-[150px]" />
+                        </div>
+                      </div>
+                    </div>
+                  </div>{" "}
+                </div>
+              </li>
+              <li>
+                <div className="w-full">
+                  <div className="flex flex-col p-0 md:p-4 items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row  hover:bg-gray-100 ">
+                    <Skeleton className="w-full max-w-xs bg-slate-200 md:w-32 md:h-32 rounded-md" />
+
+                    <div className="flex w-full flex-col justify-between p-4 leading-normal">
+                      <Skeleton className=" bg-slate-200 w-1/2 h-5 my-5 rounded-full" />
+
+                      <Skeleton className=" bg-slate-200 w-full h-5 rounded-full" />
+
+                      <div className="flex mt-5 items-center space-x-4">
+                        <Skeleton className=" bg-slate-200 h-12 w-12 rounded-full" />
+                        <div className="space-y-2">
+                          <Skeleton className=" bg-slate-200 h-4 w-[150px]" />
+                        </div>
+                      </div>
+                    </div>
+                  </div>{" "}
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
       </MainLayout>
     );
 
@@ -118,12 +166,16 @@ export const Blogs = () => {
                   {searchTerm === "" ? (
                     <div className="flex w-full justify-center gap-x-3">
                       <AlertCircle className="text-red-500" />
-                      <h3 className="flex">No se encontro ningun blog en nuestros registros</h3>
+                      <h3 className="flex">
+                        No se encontro ningun blog en nuestros registros
+                      </h3>
                     </div>
                   ) : (
                     <div className="flex w-full justify-center gap-x-3">
                       <AlertCircle className="text-red-500" />
-                      <h3 className="flex">No se encontro ningun blog con el nombre: {searchTerm}</h3>
+                      <h3 className="flex">
+                        No se encontro ningun blog con el nombre: {searchTerm}
+                      </h3>
                     </div>
                   )}
                 </div>
