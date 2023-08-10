@@ -7,6 +7,7 @@ import { CursosCtrl } from "../api/fb.cursos";
 import { AlertCircle } from "lucide-react";
 import { CreatedBy } from "../components/CreatedBy";
 import { Skeleton } from "../components/ui/skeleton";
+import { motion, AnimatePresence } from "framer-motion";
 
 const CursosCtrlr = new CursosCtrl();
 export const Cursos = () => {
@@ -79,7 +80,7 @@ export const Cursos = () => {
 
   return (
     <MainLayout>
-      <div className="h-full md:px-[2%] md:mt-5">
+      <div className="h-full px-[3%] md:px-0 md:mt-5">
         <div className="my-3">
           <label
             htmlFor="default-search"
@@ -121,55 +122,63 @@ export const Cursos = () => {
             filteredCourses.length == 0 && "md:grid-cols-1"
           }`}
         >
-          {filteredCourses.length > 0 ? (
-            filteredCourses.map((curso, index) => (
-              // Rest of your code...
-              <Link
-                key={index}
-                to={`/curso/${curso.id}`}
-                className="z-[1] mx-auto"
-              >
-                <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow ">
-                  <img
-                    className="rounded-t-lg px-[5%] pt-5"
-                    src={curso.curso_img}
-                    alt=""
-                  />
-                  <div className="p-5">
-                    <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 ">
-                      {curso.Titulo}
-                    </h5>
-                    <p className="mb-3 font-normal text-gray-700 ">
-                      {curso.Descripcion}
-                    </p>
-                    <CreatedBy autor={curso.Autor} />
+          <AnimatePresence>
+            {filteredCourses.length > 0 ? (
+              filteredCourses.map((curso, index) => (
+                // Rest of your code...
+                <Link
+                  key={index}
+                  to={`/curso/${curso.id}`}
+                  className="z-[1] mx-auto"
+                >
+                  <motion.div
+                    initial={{ opacity: 0, translateX: "-50%" }}
+                    whileInView={{ opacity: 1, translateX: 0 }}
+                    transition={{ delay: 0.2 }}
+                    exit={{ opacity: 0, translateX: "50%" }}
+                    className="max-w-sm bg-white border border-gray-200 rounded-lg shadow "
+                  >
+                    <img
+                      className="rounded-t-lg px-[5%] pt-5"
+                      src={curso.curso_img}
+                      alt=""
+                    />
+                    <div className="p-5">
+                      <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 ">
+                        {curso.Titulo}
+                      </h5>
+                      <p className="mb-3 font-normal text-gray-700 ">
+                        {curso.Descripcion}
+                      </p>
+                      <CreatedBy autor={curso.Autor} />
+                    </div>
+                  </motion.div>
+                </Link>
+              ))
+            ) : (
+              <div className=" bg-slate-100 col-span-1 md:col-span-3 w-full flex  h-[66vh]">
+                {searchTerm === "" ? (
+                  <div className="flex w-full justify-center gap-x-3">
+                    <AlertCircle className="text-red-500" />
+                    <h3 className="flex">
+                      No se encontro cursos en nuestros registros
+                      <p className="text-black font-bold ml-2">
+                        {searchTerm}
+                      </p>{" "}
+                    </h3>
                   </div>
-                </div>
-              </Link>
-            ))
-          ) : (
-            <div className=" bg-slate-100 col-span-1 md:col-span-3 w-full flex  h-[66vh]">
-              {searchTerm === "" ? (
-                <div className="flex w-full justify-center gap-x-3">
-                  <AlertCircle className="text-red-500" />
-                  <h3 className="flex">
-                    No se encontro cursos en nuestros registros
-                    <p className="text-black font-bold ml-2">
-                      {searchTerm}
-                    </p>{" "}
-                  </h3>
-                </div>
-              ) : (
-                <div className="flex w-full justify-center gap-x-3">
-                  <AlertCircle className="text-red-500" />
-                  <h3 className="flex">
-                    No se encontro ningun curso con el nombre:{" "}
-                    <p className="text-black font-bold ml-2">{searchTerm}</p>{" "}
-                  </h3>
-                </div>
-              )}
-            </div>
-          )}
+                ) : (
+                  <div className="flex w-full justify-center gap-x-3">
+                    <AlertCircle className="text-red-500" />
+                    <h3 className="flex">
+                      No se encontro ningun curso con el nombre:{" "}
+                      <p className="text-black font-bold ml-2">{searchTerm}</p>{" "}
+                    </h3>
+                  </div>
+                )}
+              </div>
+            )}
+          </AnimatePresence>
         </div>
       </div>
     </MainLayout>

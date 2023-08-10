@@ -160,11 +160,19 @@ export const LoginPage = () => {
             </div>
           </section>
           <div className="flex flex-col justify-center gap-y-5">
-            <h1 className="text-xl text-center md:text-start md:ml-[10%] mb-5 md:text-2xl font-bold">
+            <motion.h1 
+            initial={{ opacity: 0,translateY:'-50%'}}
+            whileInView={{ opacity: 1,translateY:0}}
+            transition={{ delay: 0.5 }}
+            className="text-xl text-center md:text-start md:ml-[10%] mb-5 md:text-2xl font-bold">
               Iniciando Sesion tendras acceso <br /> a los siguientes productos
-            </h1>
-            <ul className="space-y-5 px-6 mb-5">
-              <li className="flex">
+            </motion.h1>
+            <ul className="space-y-5 px-6 mb-5 overflow-hidden">
+              <motion.li 
+              initial={{ opacity: 0,translateX:'-50%'}}
+              whileInView={{ opacity: 1,translateX:0}}
+              transition={{ delay: 0.4 }}
+              className="flex">
                 <div className="w-5 h-5 md:w-7 md:h-7 p-1 mr-2 flex justify-center items-center bg-black rounded-full text-white">
                   <Check />
                 </div>
@@ -177,8 +185,12 @@ export const LoginPage = () => {
                     maneja y archiva todos tus registros contables y mucho mas
                   </p>
                 </div>
-              </li>
-              <li className="flex">
+              </motion.li>
+              <motion.li 
+              initial={{ opacity: 0,translateX:'-50%'}}
+              whileInView={{ opacity: 1,translateX:0}}
+              transition={{ delay: 0.5 }}
+              className="flex">
                 <div className="w-5 h-5 md:w-7 md:h-7 p-1 mr-2 flex justify-center items-center bg-black rounded-full text-white">
                   <Check />
                 </div>
@@ -189,8 +201,12 @@ export const LoginPage = () => {
                   </h2>
                   <p>Obten Cursos de los mejores en el area.</p>
                 </div>
-              </li>
-              <li className="flex">
+              </motion.li>
+              <motion.li 
+              initial={{ opacity: 0,translateX:'-50%'}}
+              whileInView={{ opacity: 1,translateX:0}}
+              transition={{ delay: 0.6 }}
+              className="flex">
                 <div className="w-5 h-5 md:w-7 md:h-7 p-1 mr-2 flex justify-center items-center bg-black rounded-full text-white">
                   <Check />
                 </div>
@@ -200,7 +216,7 @@ export const LoginPage = () => {
                     Y muchas cosas mas..
                   </h2>
                 </div>
-              </li>
+              </motion.li>
             </ul>
           </div>
         </div>

@@ -46,7 +46,7 @@ export const Perfil = () => {
           </TabsList>
           {/* mis datos section */}
           <TabsContent
-            className="w-full h-[70vh] justify-center items-center px-2  mt-14 md:mt-0"
+            className="w-full h-[70vh] justify-center items-center px-2  mt-[20%] md:mt-0"
             value="account"
           >
             <MisDatos/>
@@ -54,19 +54,19 @@ export const Perfil = () => {
 
           {/* actualizar datos section */}
           <TabsContent
-            className="w-full h-[70vh] justify-center items-center px-2 mt-14 md:mt-0"
+            className="w-full h-[70vh] justify-center items-center px-2 mt-[20%] md:mt-0"
             value="updateAccount"
           >
             <UpdateDatos/>
           </TabsContent>
 
-          <TabsContent className="mt-14 h-[70vh] md:mt-0" value="password">
+          <TabsContent className="mt-[20%] h-[70vh] md:mt-0" value="password">
             Change your password here.
           </TabsContent>
           
           <TabsContent
             value="admin"
-            className="w-full justify-center items-center px-2  mt-14 md:mt-0"
+            className="w-full justify-center items-center px-2  mt-[20%] md:mt-0"
           >
             <AdminPanel/>
           </TabsContent>

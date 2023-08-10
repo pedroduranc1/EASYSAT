@@ -4,10 +4,12 @@ import { useAuth } from "../hooks/useAuth";
 import { Link, useNavigate } from "react-router-dom";
 import { services } from "../assets/services";
 import { ArrowBigRightIcon, Check, Lock } from "lucide-react";
+import { motion } from "framer-motion";
 
 export const Contabilidad = () => {
   const { User } = useAuth();
   const navigate = useNavigate();
+  const [animatorNumber, setanimatorNumber] = useState(1)
   useEffect(() => {
     if (!User) return navigate("/Login", { replace: true });
   }, [User]);
@@ -16,9 +18,14 @@ export const Contabilidad = () => {
     <MainLayout>
       <div className="h-full mb-[3.9%] w-full px-[2%] ">
         {/* cartas de servicios */}
-        <div className=" grid grid-cols-1 md:grid-cols-2 w-full gap-4 bg-white shadow-md rounded-md p-8 mt-8">
+        <div className=" grid grid-cols-1 md:grid-cols-2 w-full gap-4 overflow-x-hidden bg-white shadow-md rounded-md p-8 mt-8">
           {services.map((servicio, index) => (
-            <Link
+            <motion.div
+              initial={{ opacity: 0, translateX: "-50%" }}
+              whileInView={{ opacity: 1, translateX: 0 }}
+              transition={{
+                delay: 0.2
+              }}
               key={index}
               to="/Contabilidad"
               className="relative flex flex-col w-full p-5 bg-slate-100 rounded-md shadow-md "
@@ -53,7 +60,7 @@ export const Contabilidad = () => {
               <div className="absolute left-[4%] bottom-[6%] flex items-end w-full">
                 Haz click aqui para empezar tramite <ArrowBigRightIcon />
               </div>
-            </Link>
+            </motion.div>
           ))}
         </div>
       </div>

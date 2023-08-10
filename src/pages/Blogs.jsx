@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import { AlertCircle } from "lucide-react";
 import { CreatedBy } from "../components/CreatedBy";
 import { Skeleton } from "../components/ui/skeleton";
+import { motion, AnimatePresence } from "framer-motion";
 
 const BlogsCtrlr = new BlogsCtrl();
 export const Blogs = () => {
@@ -134,52 +135,60 @@ export const Blogs = () => {
           <h1 className="text-3xl font-bold mb-4 md:mb-10">Nuestros Blogs</h1>
 
           {/* LISTA DE BLOGS */}
-          <div className="grid grid-cols-1">
+          <div className="grid grid-cols-1 overflow-hidden">
             <ul className="grid grid-cols-1 [&>li]:my-5 divide-slate-700">
-              {filteredBlogs.length > 0 ? (
-                filteredBlogs.map((blog, index) => (
-                  <li key={index}>
-                    <Link className="w-full" to={`/blog/${blog.Slug}`}>
-                      <div className="flex flex-col p-0 md:p-4 items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row  hover:bg-gray-100 ">
-                        <img
-                          className="object-contain w-full max-w-xs  md:w-32 md:h-32 rounded-t-lg  md:rounded-none md:rounded-l-lg"
-                          src={`${blog.blog_img}`}
-                          alt=""
-                        />
-                        <div className="flex w-full flex-col justify-between p-4 leading-normal">
-                          <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 ">
-                            {blog.Titulo}
-                          </h5>
-                          <p className="mb-3 font-normal text-gray-700 ">
-                            {blog.Descripcion}
-                          </p>
-                          <div className="w-full md:w-1/4">
-                            <CreatedBy autor={blog.Autor} />
+              <AnimatePresence>
+                {filteredBlogs.length > 0 ? (
+                  filteredBlogs.map((blog, index) => (
+                    <motion.li
+                      initial={{ opacity: 0,translateY:"-50%" }}
+                      animate={{opacity:1,translateY:0}}
+                      transition={{ delay: 0.2 }}
+                      exit={{ opacity: 0,translateY:"50%"  }}
+                      key={index}
+                    >
+                      <Link className="w-full" to={`/blog/${blog.Slug}`}>
+                        <div className="flex flex-col p-0 md:p-4 items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row  hover:bg-gray-100 ">
+                          <img
+                            className="object-contain w-full max-w-xs  md:w-32 md:h-32 rounded-t-lg  md:rounded-none md:rounded-l-lg"
+                            src={`${blog.blog_img}`}
+                            alt=""
+                          />
+                          <div className="flex w-full flex-col justify-between p-4 leading-normal">
+                            <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 ">
+                              {blog.Titulo}
+                            </h5>
+                            <p className="mb-3 font-normal text-gray-700 ">
+                              {blog.Descripcion}
+                            </p>
+                            <div className="w-full md:w-1/4">
+                              <CreatedBy autor={blog.Autor} />
+                            </div>
                           </div>
-                        </div>
-                      </div>{" "}
-                    </Link>
-                  </li>
-                ))
-              ) : (
-                <div className=" bg-slate-100 w-full flex  h-[66vh]">
-                  {searchTerm === "" ? (
-                    <div className="flex w-full justify-center gap-x-3">
-                      <AlertCircle className="text-red-500" />
-                      <h3 className="flex">
-                        No se encontro ningun blog en nuestros registros
-                      </h3>
-                    </div>
-                  ) : (
-                    <div className="flex w-full justify-center gap-x-3">
-                      <AlertCircle className="text-red-500" />
-                      <h3 className="flex">
-                        No se encontro ningun blog con el nombre: {searchTerm}
-                      </h3>
-                    </div>
-                  )}
-                </div>
-              )}
+                        </div>{" "}
+                      </Link>
+                    </motion.li>
+                  ))
+                ) : (
+                  <div className=" bg-slate-100 w-full flex  h-[66vh]">
+                    {searchTerm === "" ? (
+                      <div className="flex w-full justify-center gap-x-3">
+                        <AlertCircle className="text-red-500" />
+                        <h3 className="flex">
+                          No se encontro ningun blog en nuestros registros
+                        </h3>
+                      </div>
+                    ) : (
+                      <div className="flex w-full justify-center gap-x-3">
+                        <AlertCircle className="text-red-500" />
+                        <h3 className="flex">
+                          No se encontro ningun blog con el nombre: {searchTerm}
+                        </h3>
+                      </div>
+                    )}
+                  </div>
+                )}
+              </AnimatePresence>
             </ul>
           </div>
         </div>

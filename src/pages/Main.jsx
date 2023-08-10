@@ -3,18 +3,24 @@ import { MainLayout } from "../layouts/MainLayout";
 import { services } from "../assets/services";
 import { Link } from "react-router-dom";
 import { Input } from "../components/ui/Input";
+import { motion } from "framer-motion";
 
 export const Main = () => {
   return (
     <MainLayout>
       <div className="my-5"></div>
 
-      <div className="md:mx-auto bg-white rounded-md shadow-md md:container px-4">
+      <motion.div
+        initial={{ opacity: 0, translateY: "-50%" }}
+        animate={{ opacity: 1, translateY: 0 }}
+        transition={{ delay: 0.5 }}
+        className="md:mx-auto bg-white rounded-md shadow-md md:container px-4"
+      >
         <div className="pt-10 md:pt-20">
           <div className="container mx-auto">
             <div className="flex flex-wrap items-center pb-12">
               <div className="md:w-1/2 lg:w-2/3 w-full xl:pr-20 md:pr-6">
-                <div className="py-2 text-color">
+                <div className="py-2 space-y-3 text-color">
                   <h1 className="text-2xl lg:text-5xl md:leading-snug tracking-tighter f-f-l font-black">
                     Servicios de Contabilidad para el Pago de Impuestos SAT DGYA
                   </h1>
@@ -49,11 +55,11 @@ export const Main = () => {
                   </div>
                 </div>
               </div>
-              <div className="lg:w-1/3 md:w-1/2 w-full relative h-96 flex items-end justify-center">
+              <div className="hidden lg:w-1/3 md:w-1/2 w-full relative h-96 md:flex items-end justify-center">
                 <img
                   className="absolute w-full h-full -top-[20%] inset-0 object-cover object-center rounded-md"
                   src="https://cdn.tuk.dev/assets/templates/prodify/invoicing-system.png"
-                  alt
+                  alt="photo"
                 />
                 <div className="relative z-10 bg-white rounded shadow p-6 w-10/12 -mb-20">
                   <div className="flex items-center justify-between w-full sm:w-full mb-8">
@@ -126,106 +132,137 @@ export const Main = () => {
             </div>
           </div>
         </div>
-      </div>
+      </motion.div>
 
       <div className="w-full h-2 my-5 bg-white shadow-md rounded-full"></div>
 
-      <section class="bg-white shadow-md rounded-md dark:bg-gray-900">
-        <div class="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
-          <div class="mx-auto max-w-screen-md text-center mb-8 lg:mb-12">
-            <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">
+      <motion.section
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        transition={{ delay: 0.2 }}
+        className="bg-white shadow-md rounded-md dark:bg-gray-900 overflow-x-hidden"
+      >
+        <div className="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
+          <div className="mx-auto max-w-screen-md text-center mb-8 lg:mb-12">
+            <h2 className="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">
               Servicios
               <div className="bg-black/70 max-w-[25%] mt-2 mx-auto rounded-full h-2"></div>
             </h2>
-            <p class="mb-5 font-light text-gray-500 sm:text-xl dark:text-gray-400">
+            <p className="mb-5 font-light text-gray-500 sm:text-xl dark:text-gray-400">
               aqui en DGYA tenemos todo tipo de planes que podran ayudarte a
               cumplir todos tus requerimientos fiscales
             </p>
           </div>
-          <div class="space-y-8 md:grid md:grid-cols-2 lg:grid-cols-3 md:gap-12 md:space-y-0">
-            <div className="shadow-md p-4 rounded-md">
-              <div class="flex justify-center items-center mb-4 w-10 h-10 rounded-full bg-primary-100 lg:h-12 lg:w-12 dark:bg-primary-900">
-                <h3 class="mb-2 text-4xl font-bold dark:text-white">01</h3>
+          <div className="space-y-8 md:grid md:grid-cols-2 lg:grid-cols-3 md:gap-12 md:space-y-0">
+            <motion.div
+              initial={{ opacity: 0, translateX: "-50%" }}
+              whileInView={{ opacity: 1, translateX: 0 }}
+              transition={{ delay: 0.3 }}
+              className="shadow-md p-4 rounded-md"
+            >
+              <div className="flex justify-center items-center mb-4 w-10 h-10 rounded-full bg-primary-100 lg:h-12 lg:w-12 dark:bg-primary-900">
+                <h3 className="mb-2 text-4xl font-bold dark:text-white">01</h3>
               </div>
-              <h3 class="mb-2 text-xl font-bold dark:text-white">
+              <h3 className="mb-2 text-xl font-bold dark:text-white">
                 Declaración de Impuestos Personales y Empresariales
               </h3>
-              <p class="text-gray-500 dark:text-gray-400">
+              <p className="text-gray-500 dark:text-gray-400">
                 Nos encargamos de preparar y presentar tu declaración de
                 impuestos, asegurándonos de maximizar tus deducciones y
                 minimizar tu carga tributaria.
               </p>
-            </div>
-            <div className="shadow-md p-4 rounded-md">
-              <div class="flex justify-center items-center mb-4 w-10 h-10 rounded-full bg-primary-100 lg:h-12 lg:w-12 dark:bg-primary-900">
-                <h3 class="mb-2 text-4xl font-bold dark:text-white">02</h3>
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, translateX: "-50%" }}
+              whileInView={{ opacity: 1, translateX: 0 }}
+              transition={{ delay: 0.5 }}
+              className="shadow-md p-4 rounded-md"
+            >
+              <div className="flex justify-center items-center mb-4 w-10 h-10 rounded-full bg-primary-100 lg:h-12 lg:w-12 dark:bg-primary-900">
+                <h3 className="mb-2 text-4xl font-bold dark:text-white">02</h3>
               </div>
-              <h3 class="mb-2 text-xl font-bold dark:text-white">
+              <h3 className="mb-2 text-xl font-bold dark:text-white">
                 Contabilidad y Nómina
               </h3>
-              <p class="text-gray-500 dark:text-gray-400">
+              <p className="text-gray-500 dark:text-gray-400">
                 Mantenemos tus registros contables actualizados y gestionamos la
                 nómina de tus empleados, asegurando la puntualidad en los pagos
                 y el cumplimiento de las obligaciones fiscales.
               </p>
-            </div>
-            <div className="shadow-md p-4 rounded-md">
-              <div class="flex justify-center items-center mb-4 w-10 h-10 rounded-full bg-primary-100 lg:h-12 lg:w-12 dark:bg-primary-900">
-                <h3 class="mb-2 text-4xl font-bold dark:text-white">03</h3>
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, translateX: "-50%" }}
+              whileInView={{ opacity: 1, translateX: 0 }}
+              transition={{ delay: 0.7 }}
+              className="shadow-md p-4 rounded-md"
+            >
+              <div className="flex justify-center items-center mb-4 w-10 h-10 rounded-full bg-primary-100 lg:h-12 lg:w-12 dark:bg-primary-900">
+                <h3 className="mb-2 text-4xl font-bold dark:text-white">03</h3>
               </div>
-              <h3 class="mb-2 text-xl font-bold dark:text-white">
+              <h3 className="mb-2 text-xl font-bold dark:text-white">
                 Asesoría Fiscal
               </h3>
-              <p class="text-gray-500 dark:text-gray-400">
+              <p className="text-gray-500 dark:text-gray-400">
                 Nuestros expertos te guiarán en la toma de decisiones
                 financieras y fiscales, optimizando tus estrategias para lograr
                 un crecimiento sostenible.
               </p>
-            </div>
+            </motion.div>
           </div>
         </div>
-      </section>
+      </motion.section>
 
       <div className="w-full h-2 bg-white rounded-full my-5 shadow-md"></div>
 
-      <section class="bg-white shadow-md rounded-md dark:bg-gray-900">
-        <div class="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
-          <div class="mx-auto max-w-screen-md text-center mb-8 lg:mb-12">
-            <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">
+      <motion.div
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        transition={{ delay: 0.3 }}
+        className="bg-white shadow-md rounded-md dark:bg-gray-900"
+      >
+        <div className="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
+          <div className="mx-auto max-w-screen-md text-center mb-8 lg:mb-12">
+            <h2 className="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">
               Tenemos planes diseñados para todo tipo de situacion
             </h2>
-            <p class="mb-5 font-light text-gray-500 sm:text-xl dark:text-gray-400">
+            <p className="mb-5 font-light text-gray-500 sm:text-xl dark:text-gray-400">
               aqui en DGYA tenemos todo tipo de planes que podran ayudarte a
               cumplir todos tus requerimientos fiscales
             </p>
           </div>
-          <div class="space-y-8 lg:grid lg:grid-cols-4 sm:gap-6 xl:gap-3 lg:space-y-0">
-            {services.map((servicio) => (
-              <div class="flex flex-col p-8 mx-auto max-w-lg text-center text-gray-900 bg-white rounded-lg border border-gray-100 shadow dark:border-gray-600 xl:p-8 dark:bg-gray-800 dark:text-white">
-                <h3 class="mb-4 text-2xl font-semibold">{servicio.title}</h3>
-                <p class="font-light text-gray-500 sm:text-lg dark:text-gray-400">
+          <div className="space-y-8 lg:grid lg:grid-cols-4 sm:gap-6 xl:gap-3 lg:space-y-0">
+            {services.map((servicio, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, translateY: "-50%" }}
+                whileInView={{ opacity: 1, translateY: 0 }}
+                transition={{ delay: index * 0.2 }}
+                className="flex flex-col p-8 mx-auto max-w-lg text-center text-gray-900 bg-white rounded-lg border border-gray-100 shadow dark:border-gray-600 xl:p-8 dark:bg-gray-800 dark:text-white"
+              >
+                <h3 className="mb-4 text-2xl font-semibold">{servicio.title}</h3>
+                <p className="font-light text-gray-500 sm:text-lg dark:text-gray-400">
                   {servicio.description}
                 </p>
-                <div class="flex justify-center items-baseline my-8">
-                  <span class="mr-2 text-5xl font-extrabold">
+                <div className="flex justify-center items-baseline my-8">
+                  <span className="mr-2 text-5xl font-extrabold">
                     ${servicio.precio}
                   </span>
-                  <span class="text-gray-500 dark:text-gray-400">/month</span>
+                  <span className="text-gray-500 dark:text-gray-400">/month</span>
                 </div>
 
-                <ul role="list" class="mb-8 space-y-4 text-left">
-                  {servicio.contents.map((contenido) => (
-                    <li class="flex items-center space-x-3">
+                <ul role="list" className="mb-8 space-y-4 text-left">
+                  {servicio.contents.map((contenido,index) => (
+                    <li key={index} className="flex items-center space-x-3">
                       <svg
-                        class="flex-shrink-0 w-5 h-5 text-green-500 dark:text-green-400"
+                        className="flex-shrink-0 w-5 h-5 text-green-500 dark:text-green-400"
                         fill="currentColor"
                         viewBox="0 0 20 20"
                         xmlns="http://www.w3.org/2000/svg"
                       >
                         <path
-                          fill-rule="evenodd"
+                          fillRule="evenodd"
                           d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                          clip-rule="evenodd"
+                          clipRule="evenodd"
                         ></path>
                       </svg>
                       <span>{contenido.title}</span>
@@ -237,31 +274,39 @@ export const Main = () => {
                     Suscribete Aqui
                   </button>
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>
-      </section>
+      </motion.div>
 
       <div className="w-full h-2 bg-white rounded-full my-5 shadow-md"></div>
 
-      <section class="bg-white shadow-md rounded-md dark:bg-gray-900">
-        <div class="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
-          <div class="mx-auto max-w-screen-md text-center mb-8 lg:mb-12">
-            <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">
+      <motion.section 
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      transition={{ delay: 0.3 }}
+      className="bg-white shadow-md rounded-md dark:bg-gray-900 overflow-x-hidden">
+        <div className="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
+          <div className="mx-auto max-w-screen-md text-center mb-8 lg:mb-12">
+            <h2 className="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">
               Cursos y Blogs de Contabilidad
             </h2>
-            <p class="mb-5 font-light text-gray-500 sm:text-xl dark:text-gray-400">
+            <p className="mb-5 font-light text-gray-500 sm:text-xl dark:text-gray-400">
               En DGyA, creemos en el poder del conocimiento. Por eso, te
               ofrecemos cursos y blogs que te mantendrán al tanto de las últimas
               tendencias y cambios en el mundo de la contabilidad y los
               impuestos. Nuestros recursos educativos incluyen:
             </p>
           </div>
-          <div class="space-y-8 lg:grid lg:grid-cols-2 sm:gap-6 xl:gap-3 lg:space-y-0">
-            <div class="flex flex-col p-8 mx-auto max-w-lg text-center text-gray-900 bg-white rounded-lg border border-gray-100 shadow dark:border-gray-600 xl:p-8 dark:bg-gray-800 dark:text-white">
-              <h3 class="mb-4 text-2xl font-semibold">Cursos en línea</h3>
-              <p class="font-light text-gray-500 sm:text-lg dark:text-gray-400">
+          <div className="space-y-8 lg:grid lg:grid-cols-2 sm:gap-6 xl:gap-3 lg:space-y-0">
+            <motion.div 
+            initial={{ opacity: 0,translateX: "-50%" }}
+            whileInView={{ opacity: 1,translateX:0 }}
+            transition={{ delay: 0.6 }}
+            className="flex flex-col p-8 mx-auto max-w-lg text-center text-gray-900 bg-white rounded-lg border border-gray-100 shadow dark:border-gray-600 xl:p-8 dark:bg-gray-800 dark:text-white">
+              <h3 className="mb-4 text-2xl font-semibold">Cursos en línea</h3>
+              <p className="font-light text-gray-500 sm:text-lg dark:text-gray-400">
                 Accede a cursos interactivos y actualizados que te permitirán
                 profundizar tus conocimientos en contabilidad, impuestos y
                 finanzas.
@@ -275,10 +320,14 @@ export const Main = () => {
                   Ve a Cursos
                 </Link>
               </div>
-            </div>
-            <div class="flex flex-col p-8 mx-auto max-w-lg text-center text-gray-900 bg-white rounded-lg border border-gray-100 shadow dark:border-gray-600 xl:p-8 dark:bg-gray-800 dark:text-white">
-              <h3 class="mb-4 text-2xl font-semibold">Blogs Informativos</h3>
-              <p class="font-light text-gray-500 sm:text-lg dark:text-gray-400">
+            </motion.div>
+            <motion.div 
+            initial={{ opacity: 0,translateX: "50%" }}
+            whileInView={{ opacity: 1,translateX:0 }}
+            transition={{ delay: 0.6 }}
+            className="flex flex-col p-8 mx-auto max-w-lg text-center text-gray-900 bg-white rounded-lg border border-gray-100 shadow dark:border-gray-600 xl:p-8 dark:bg-gray-800 dark:text-white">
+              <h3 className="mb-4 text-2xl font-semibold">Blogs Informativos</h3>
+              <p className="font-light text-gray-500 sm:text-lg dark:text-gray-400">
                 Nuestro equipo de expertos publica regularmente blogs sobre
                 temas relevantes de contabilidad, ofreciendo consejos prácticos
                 y análisis de las últimas regulaciones fiscales.
@@ -292,14 +341,18 @@ export const Main = () => {
                   Ve a Blogs
                 </Link>
               </div>
-            </div>
+            </motion.div>
           </div>
         </div>
-      </section>
+      </motion.section>
 
       <div className="w-full h-2 bg-white shadow-md rounded-full my-5"></div>
 
-      <div className="2xl:container bg-white rounded-md shadow-md 2xl:mx-auto lg:py-16 lg:px-20 md:py-12 md:px-6 py-9 px-4">
+      <motion.div 
+      initial={{ opacity: 0}}
+      whileInView={{ opacity: 1}}
+      transition={{ delay: 0.4 }}
+      className="2xl:container bg-white rounded-md shadow-md 2xl:mx-auto lg:py-16 lg:px-20 md:py-12 md:px-6 py-9 px-4">
         <div className="flex flex-col lg:flex-row justify-between gap-8">
           <div className="w-full lg:w-5/12 flex flex-col justify-center">
             <h1 className="text-3xl lg:text-4xl font-bold leading-9 text-gray-800 pb-4">
@@ -336,18 +389,18 @@ export const Main = () => {
             <h1 className="text-3xl lg:text-4xl font-bold leading-9 text-gray-800 pb-4">
               Por que elegirnos?
             </h1>
-            <ul role="list" class="mb-8 space-y-4 text-left">
-              <li class="flex items-center space-x-3">
+            <ul role="list" className="mb-8 space-y-4 text-left">
+              <li className="flex items-center space-x-3">
                 <svg
-                  class="flex-shrink-0 w-5 h-5 text-green-500 dark:text-green-400"
+                  className="flex-shrink-0 w-5 h-5 text-green-500 dark:text-green-400"
                   fill="currentColor"
                   viewBox="0 0 20 20"
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
-                    fill-rule="evenodd"
+                    fillRule="evenodd"
                     d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                    clip-rule="evenodd"
+                    clipRule="evenodd"
                   ></path>
                 </svg>
                 <span>
@@ -356,17 +409,17 @@ export const Main = () => {
                   conocimientos actualizados en materia fiscal.
                 </span>
               </li>
-              <li class="flex items-center space-x-3">
+              <li className="flex items-center space-x-3">
                 <svg
-                  class="flex-shrink-0 w-5 h-5 text-green-500 dark:text-green-400"
+                  className="flex-shrink-0 w-5 h-5 text-green-500 dark:text-green-400"
                   fill="currentColor"
                   viewBox="0 0 20 20"
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
-                    fill-rule="evenodd"
+                    fillRule="evenodd"
                     d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                    clip-rule="evenodd"
+                    clipRule="evenodd"
                   ></path>
                 </svg>
                 <span>
@@ -375,17 +428,17 @@ export const Main = () => {
                   conocimientos actualizados en materia fiscal.
                 </span>
               </li>
-              <li class="flex items-center space-x-3">
+              <li className="flex items-center space-x-3">
                 <svg
-                  class="flex-shrink-0 w-5 h-5 text-green-500 dark:text-green-400"
+                  className="flex-shrink-0 w-5 h-5 text-green-500 dark:text-green-400"
                   fill="currentColor"
                   viewBox="0 0 20 20"
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
-                    fill-rule="evenodd"
+                    fillRule="evenodd"
                     d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                    clip-rule="evenodd"
+                    clipRule="evenodd"
                   ></path>
                 </svg>
                 <span>
@@ -394,17 +447,17 @@ export const Main = () => {
                   conocimientos actualizados en materia fiscal.
                 </span>
               </li>
-              <li class="flex items-center space-x-3">
+              <li className="flex items-center space-x-3">
                 <svg
-                  class="flex-shrink-0 w-5 h-5 text-green-500 dark:text-green-400"
+                  className="flex-shrink-0 w-5 h-5 text-green-500 dark:text-green-400"
                   fill="currentColor"
                   viewBox="0 0 20 20"
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
-                    fill-rule="evenodd"
+                    fillRule="evenodd"
                     d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                    clip-rule="evenodd"
+                    clipRule="evenodd"
                   ></path>
                 </svg>
                 <span>
@@ -416,24 +469,33 @@ export const Main = () => {
             </ul>
           </div>
         </div>
-      </div>
+      </motion.div>
 
       <div className="w-full h-2 bg-white shadow-md rounded-full my-5"></div>
 
-      <div className="bg-white shadow-md rounded-md w-full flex items-center justify-center">
-        <div class="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
-          <div class="mx-auto max-w-screen-md text-center mb-8 lg:mb-12">
-            <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">
+      <motion.div 
+      initial={{ opacity: 0}}
+      whileInView={{ opacity: 1}}
+      transition={{ delay: 0.4 }}
+      className="bg-white shadow-md rounded-md w-full flex items-center justify-center">
+        <div className="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
+          <div className="mx-auto max-w-screen-md text-center mb-8 lg:mb-12">
+            <h2 className="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">
               Contactanos
             </h2>
-            <p class="mb-5 font-light text-gray-500 sm:text-xl dark:text-gray-400">
+            <p className="mb-5 font-light text-gray-500 sm:text-xl dark:text-gray-400">
               ¿Listo para llevar tus finanzas al siguiente nivel? ¡Contáctanos
               hoy mismo para una consulta gratuita! Estamos aquí para ayudarte a
               alcanzar el éxito financiero que mereces.
             </p>
           </div>
           <form className="space-y-3">
-            <Input className={'w-full'} name={"Nombre"} type={'text'} title={"Nombre de la persona o Empresa"} />
+            <Input
+              className={"w-full"}
+              name={"Nombre"}
+              type={"text"}
+              title={"Nombre de la persona o Empresa"}
+            />
             <div className="flex w-full gap-x-3 ">
               <Input
                 className={"w-1/2"}
@@ -455,10 +517,12 @@ export const Main = () => {
               name={"email"}
             />
 
-            <button className="w-full py-2 bg-black cursor-pointer text-white rounded-md transition-colors hover:bg-black/70">Contacto</button>
+            <button className="w-full py-2 bg-black cursor-pointer text-white rounded-md transition-colors hover:bg-black/70">
+              Contacto
+            </button>
           </form>
         </div>
-      </div>
+      </motion.div>
     </MainLayout>
   );
 };
