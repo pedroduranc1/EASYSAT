@@ -239,7 +239,9 @@ export const Main = () => {
                 transition={{ delay: index * 0.2 }}
                 className="flex flex-col p-8 mx-auto max-w-lg text-center text-gray-900 bg-white rounded-lg border border-gray-100 shadow dark:border-gray-600 xl:p-8 dark:bg-gray-800 dark:text-white"
               >
-                <h3 className="mb-4 text-2xl font-semibold">{servicio.title}</h3>
+                <h3 className="mb-4 text-2xl font-semibold">
+                  {servicio.title}
+                </h3>
                 <p className="font-light text-gray-500 sm:text-lg dark:text-gray-400">
                   {servicio.description}
                 </p>
@@ -247,11 +249,13 @@ export const Main = () => {
                   <span className="mr-2 text-5xl font-extrabold">
                     ${servicio.precio}
                   </span>
-                  <span className="text-gray-500 dark:text-gray-400">/month</span>
+                  <span className="text-gray-500 dark:text-gray-400">
+                    /month
+                  </span>
                 </div>
 
                 <ul role="list" className="mb-8 space-y-4 text-left">
-                  {servicio.contents.map((contenido,index) => (
+                  {servicio.contents.map((contenido, index) => (
                     <li key={index} className="flex items-center space-x-3">
                       <svg
                         className="flex-shrink-0 w-5 h-5 text-green-500 dark:text-green-400"
@@ -270,9 +274,12 @@ export const Main = () => {
                   ))}
                 </ul>
                 <div className="w-full h-full flex items-end justify-center ">
-                  <button className="bg-black text-white w-full py-2 rounded-md cursor-pointer hover:bg-black/70 transition-colors">
+                  <Link
+                    className="bg-black text-white w-full py-2 rounded-md cursor-pointer hover:bg-black/70 transition-colors"
+                    to={servicio.PayLink ? servicio.PayLink : "#" }
+                  >
                     Suscribete Aqui
-                  </button>
+                  </Link>
                 </div>
               </motion.div>
             ))}
@@ -282,11 +289,12 @@ export const Main = () => {
 
       <div className="w-full h-2 bg-white rounded-full my-5 shadow-md"></div>
 
-      <motion.section 
-      initial={{ opacity: 0 }}
-      whileInView={{ opacity: 1 }}
-      transition={{ delay: 0.3 }}
-      className="bg-white shadow-md rounded-md dark:bg-gray-900 overflow-x-hidden">
+      <motion.section
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        transition={{ delay: 0.3 }}
+        className="bg-white shadow-md rounded-md dark:bg-gray-900 overflow-x-hidden"
+      >
         <div className="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
           <div className="mx-auto max-w-screen-md text-center mb-8 lg:mb-12">
             <h2 className="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">
@@ -300,11 +308,12 @@ export const Main = () => {
             </p>
           </div>
           <div className="space-y-8 lg:grid lg:grid-cols-2 sm:gap-6 xl:gap-3 lg:space-y-0">
-            <motion.div 
-            initial={{ opacity: 0,translateX: "-50%" }}
-            whileInView={{ opacity: 1,translateX:0 }}
-            transition={{ delay: 0.6 }}
-            className="flex flex-col p-8 mx-auto max-w-lg text-center text-gray-900 bg-white rounded-lg border border-gray-100 shadow dark:border-gray-600 xl:p-8 dark:bg-gray-800 dark:text-white">
+            <motion.div
+              initial={{ opacity: 0, translateX: "-50%" }}
+              whileInView={{ opacity: 1, translateX: 0 }}
+              transition={{ delay: 0.6 }}
+              className="flex flex-col p-8 mx-auto max-w-lg text-center text-gray-900 bg-white rounded-lg border border-gray-100 shadow dark:border-gray-600 xl:p-8 dark:bg-gray-800 dark:text-white"
+            >
               <h3 className="mb-4 text-2xl font-semibold">Cursos en línea</h3>
               <p className="font-light text-gray-500 sm:text-lg dark:text-gray-400">
                 Accede a cursos interactivos y actualizados que te permitirán
@@ -321,12 +330,15 @@ export const Main = () => {
                 </Link>
               </div>
             </motion.div>
-            <motion.div 
-            initial={{ opacity: 0,translateX: "50%" }}
-            whileInView={{ opacity: 1,translateX:0 }}
-            transition={{ delay: 0.6 }}
-            className="flex flex-col p-8 mx-auto max-w-lg text-center text-gray-900 bg-white rounded-lg border border-gray-100 shadow dark:border-gray-600 xl:p-8 dark:bg-gray-800 dark:text-white">
-              <h3 className="mb-4 text-2xl font-semibold">Blogs Informativos</h3>
+            <motion.div
+              initial={{ opacity: 0, translateX: "50%" }}
+              whileInView={{ opacity: 1, translateX: 0 }}
+              transition={{ delay: 0.6 }}
+              className="flex flex-col p-8 mx-auto max-w-lg text-center text-gray-900 bg-white rounded-lg border border-gray-100 shadow dark:border-gray-600 xl:p-8 dark:bg-gray-800 dark:text-white"
+            >
+              <h3 className="mb-4 text-2xl font-semibold">
+                Blogs Informativos
+              </h3>
               <p className="font-light text-gray-500 sm:text-lg dark:text-gray-400">
                 Nuestro equipo de expertos publica regularmente blogs sobre
                 temas relevantes de contabilidad, ofreciendo consejos prácticos
@@ -348,11 +360,12 @@ export const Main = () => {
 
       <div className="w-full h-2 bg-white shadow-md rounded-full my-5"></div>
 
-      <motion.div 
-      initial={{ opacity: 0}}
-      whileInView={{ opacity: 1}}
-      transition={{ delay: 0.4 }}
-      className="2xl:container bg-white rounded-md shadow-md 2xl:mx-auto lg:py-16 lg:px-20 md:py-12 md:px-6 py-9 px-4">
+      <motion.div
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        transition={{ delay: 0.4 }}
+        className="2xl:container bg-white rounded-md shadow-md 2xl:mx-auto lg:py-16 lg:px-20 md:py-12 md:px-6 py-9 px-4"
+      >
         <div className="flex flex-col lg:flex-row justify-between gap-8">
           <div className="w-full lg:w-5/12 flex flex-col justify-center">
             <h1 className="text-3xl lg:text-4xl font-bold leading-9 text-gray-800 pb-4">
@@ -473,11 +486,12 @@ export const Main = () => {
 
       <div className="w-full h-2 bg-white shadow-md rounded-full my-5"></div>
 
-      <motion.div 
-      initial={{ opacity: 0}}
-      whileInView={{ opacity: 1}}
-      transition={{ delay: 0.4 }}
-      className="bg-white shadow-md rounded-md w-full flex items-center justify-center">
+      <motion.div
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        transition={{ delay: 0.4 }}
+        className="bg-white shadow-md rounded-md w-full flex items-center justify-center"
+      >
         <div className="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
           <div className="mx-auto max-w-screen-md text-center mb-8 lg:mb-12">
             <h2 className="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">

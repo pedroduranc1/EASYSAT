@@ -47,9 +47,18 @@ export class BlogsCtrl {
   }
 
   async getBlogMDX(blogName) {
-    const res = await axios.get(blogName);
-    const mdxText = res.data;
-    return mdxText;
+    if (blogName != null) {
+      const res = await fetch(blogName)
+      .then(response => response.text())
+      .then(data => {
+        // Aquí puedes manejar el contenido del archivo .md en 'data'
+        console.log(data);
+      })
+      .catch(error => {
+        // Manejo de errores
+        console.error('Error fetching the .md file:', error);
+      });
+    }
   }
 
   async createBlog(uid, blogData) {
@@ -174,8 +183,8 @@ export class BlogsCtrl {
       const querySnapshot = await getDocs(q);
 
       // Eliminar cada documento encontrado
-      querySnapshot.forEach(async(doc) => {
-        await deleteDoc(doc.ref)
+      querySnapshot.forEach(async (doc) => {
+        await deleteDoc(doc.ref);
       });
 
       // Eliminar la información de la imagen (u otro archivo) relacionada con el blog en Storage

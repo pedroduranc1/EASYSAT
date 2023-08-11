@@ -27,7 +27,6 @@ export const Blog = () => {
     })()
   }, [!isLoading]);
 
-
   if (isLoading)
     return (
       <MainLayout>

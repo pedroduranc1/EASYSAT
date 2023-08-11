@@ -51,7 +51,8 @@ export const services = [
                 title:"Envío de declaraciones SAT (IVA e ISR)"
             }
         ],
-        precio:199
+        precio:199,
+        PayLink: "https://buy.stripe.com/test_8wM15YelNc9XgG4bII"
     },
     {
         title: "Subscripcion Paquete Empresa",
@@ -74,6 +75,7 @@ export const services = [
                 title:"Devolución de impuestos"
             }
         ],
-        precio:3500
+        precio:3500,
+        PayLink: "https://buy.stripe.com/test_4gw6qi1z1de175ufYZ"
     },
 ]
