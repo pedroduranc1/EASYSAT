@@ -10,7 +10,7 @@ import {
   where,
 } from "firebase/firestore";
 
-import { db } from "../utils/firebase";
+import { db, storage } from "../utils/firebase";
 import {
   ref,
   uploadBytesResumable,
@@ -18,7 +18,6 @@ import {
   deleteObject,
 } from "firebase/storage";
 import axios from "axios";
-import { storage } from "../utils/firebase";
 
 export class BlogsCtrl {
   async getBlog(slug) {
@@ -48,16 +47,9 @@ export class BlogsCtrl {
 
   async getBlogMDX(blogName) {
     if (blogName != null) {
-      const res = await fetch(blogName)
-      .then(response => response.text())
-      .then(data => {
-        // Aquí puedes manejar el contenido del archivo .md en 'data'
-        console.log(data);
-      })
-      .catch(error => {
-        // Manejo de errores
-        console.error('Error fetching the .md file:', error);
-      });
+      const resp = await axios.get(blogName)
+      const mdx = resp.data
+      return mdx
     }
   }
 

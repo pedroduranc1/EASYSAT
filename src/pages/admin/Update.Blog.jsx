@@ -55,7 +55,7 @@ export const UpdateBlogPage = () => {
               value={searchTerm}
               onChange={handleSearch}
               onFocus={handleFocus}
-              autocomplete="off"
+              autoComplete="off"
             />
             <ul
               className={`${
