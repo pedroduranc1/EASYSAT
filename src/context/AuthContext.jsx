@@ -33,14 +33,25 @@ export function AuthProvider(props) {
     })();
   }, []);
 
-  useEffect(() => {}, [User]);
+  useEffect(() => {
+    const storedUser = JSON.parse(localStorage.getItem("ui"));
+    if (storedUser) {
+      setUser(storedUser);
+      setLoading(false);
+    }
+  }, []);
+
+  useEffect(() => {
+  }, [User]);
 
   const login = async (token, uid) => {
     try {
+      setLoading(true);
       tokenCtrl.setToken(token);
-      const response = await UserCtrl.getMe(uid); // Asegúrate de esperar a que esta promesa se resuelva
-      setUser(response); // Aquí probablemente quieras establecer el usuario en el estado, no el token
-      setToken(token);
+      const response = await UserCtrl.getMe(uid);
+      localStorage.setItem("ui", JSON.stringify(response));
+      const data = JSON.parse(localStorage.getItem('ui'));
+      setUser(data);
       setLoading(false);
     } catch (error) {
       console.error(error);
@@ -50,6 +61,7 @@ export function AuthProvider(props) {
 
   const logout = () => {
     tokenCtrl.removeToken();
+    localStorage.removeItem("ui")
     setToken(null);
     setUser(null);
   };

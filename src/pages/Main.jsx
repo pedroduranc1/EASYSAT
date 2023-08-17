@@ -1,11 +1,20 @@
 import React from "react";
 import { MainLayout } from "../layouts/MainLayout";
 import { services } from "../assets/services";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Input } from "../components/ui/Input";
 import { motion } from "framer-motion";
+import { POST } from "../api/checkout/route";
+import { useAuth } from "../hooks/useAuth";
+import { useQuery } from "react-query";
+import { UpdateClientsPlans } from "../api/compareSubs/route";
 
 export const Main = () => {
+  const { User } = useAuth();
+  const navigate = useNavigate();
+
+  useQuery('Subs',UpdateClientsPlans,{retry:false})  
+
   return (
     <MainLayout>
       <div className="my-5"></div>
@@ -274,12 +283,57 @@ export const Main = () => {
                   ))}
                 </ul>
                 <div className="w-full h-full flex items-end justify-center ">
-                  <Link
-                    className="bg-black text-white w-full py-2 rounded-md cursor-pointer hover:bg-black/70 transition-colors"
-                    to={servicio.PayLink ? servicio.PayLink : "#" }
-                  >
-                    Suscribete Aqui
-                  </Link>
+                  
+                  {User?.UserPlan == "Gratis" || User?.UserPlan == undefined ? (
+                    <button
+                      className="bg-black text-white w-full py-2 rounded-md cursor-pointer hover:bg-black/70 transition-colors"
+                      onClick={async () => {
+                        if (User) {
+                          let paymentData = {
+                            UserId: User.uid,
+                            Plan: servicio.Plan,
+                          };
+                          localStorage.setItem(
+                            "payData",
+                            JSON.stringify(paymentData)
+                          );
+                          const url = await POST(servicio.payId);
+                          window.location.href = url;
+                        } else {
+                          navigate("/Login");
+                        }
+                        // const url = await POST(servicio.payId)
+                        // window.location.href = url
+                      }}
+                    >
+                      Suscribete Aqui
+                    </button>
+                  ) : (
+                    <button
+                      disabled={User?.UserPlan == servicio.Plan ? true : false}
+                      className={` bg-black text-white w-full py-2 rounded-md cursor-pointer hover:bg-black/70 transition-colors`}
+                      onClick={async () => {
+                        if (User) {
+                          let paymentData = {
+                            UserId: User.uid,
+                            Plan: servicio.Plan,
+                          };
+                          localStorage.setItem(
+                            "payData",
+                            JSON.stringify(paymentData)
+                          );
+                          const url = await POST(servicio.payId);
+                          window.location.href = url;
+                        } else {
+                          navigate("/Login");
+                        }
+                      }}
+                    >
+                      {User?.UserPlan == servicio.Plan
+                        ? "Estas Subscrito"
+                        : "Cambiar Plan"}
+                    </button>
+                  )}
                 </div>
               </motion.div>
             ))}

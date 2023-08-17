@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { MainLayout } from "../layouts/MainLayout";
+import { MainLayout } from "../../../layouts/MainLayout";
 import { useParams } from "react-router-dom";
-import { AutorCard } from "../components/AutorCard";
+import { AutorCard } from "../../../components/AutorCard";
 import { useQuery } from "react-query";
-import { CursosCtrl } from "../api/fb.cursos";
+import { CursosCtrl } from "../../../api/fb.cursos";
 import { Link } from "react-router-dom";
 import { AlertCircle } from "lucide-react";
-import { useAuth } from "../hooks/useAuth";
-import { Skeleton } from "../components/ui/skeleton";
+import { useAuth } from "../../../hooks/useAuth";
+import { Skeleton } from "../../../components/ui/skeleton";
 
 const CursosApi = new CursosCtrl();
 export const Curso = () => {

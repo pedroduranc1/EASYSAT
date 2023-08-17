@@ -1,18 +1,31 @@
 import React, { useEffect, useState } from "react";
-import { MainLayout } from "../layouts/MainLayout";
-import { useAuth } from "../hooks/useAuth";
+import { MainLayout } from "../../layouts/MainLayout";
+import { useAuth } from "../../hooks/useAuth";
 import { Link, useNavigate } from "react-router-dom";
-import { services } from "../assets/services";
+import { services } from "../../assets/services";
 import { ArrowBigRightIcon, Check, Lock } from "lucide-react";
 import { motion } from "framer-motion";
 
 export const Contabilidad = () => {
   const { User } = useAuth();
   const navigate = useNavigate();
-  const [animatorNumber, setanimatorNumber] = useState(1)
   useEffect(() => {
     if (!User) return navigate("/Login", { replace: true });
   }, [User]);
+
+  const getRoute = () =>{
+    let Ruta
+    if(User){
+      if(User.UserPlan == 'Personal'){
+        Ruta = "Personas"
+      }
+
+      if(User.UserPlan == 'Empresas'){
+        Ruta = "Empresas"
+      }
+    }
+    return Ruta
+  }
 
   return (
     <MainLayout>
@@ -24,10 +37,9 @@ export const Contabilidad = () => {
               initial={{ opacity: 0, translateX: "-50%" }}
               whileInView={{ opacity: 1, translateX: 0 }}
               transition={{
-                delay: 0.2
+                delay: 0.2,
               }}
               key={index}
-              to="/Contabilidad"
               className="relative flex flex-col w-full p-5 bg-slate-100 rounded-md shadow-md "
             >
               {servicio.Plan == User?.UserPlan ? (
@@ -57,9 +69,17 @@ export const Contabilidad = () => {
                 ))}
               </ul>
 
-              <div className="absolute left-[4%] bottom-[6%] flex items-end w-full">
-                Haz click aqui para empezar tramite <ArrowBigRightIcon />
-              </div>
+              {servicio.Plan == User?.UserPlan ? (
+                <Link 
+                to={`${getRoute()}/${User.uid}`}
+                className="absolute left-[4%] bottom-[6%] flex items-end w-full">
+                  Haz click aqui para empezar tramite <ArrowBigRightIcon />
+                </Link>
+              ) : (
+                <div className="absolute left-[4%] bottom-[6%] flex items-end w-full">
+                  Haz click aqui para empezar tramite <ArrowBigRightIcon />
+                </div>
+              )}
             </motion.div>
           ))}
         </div>

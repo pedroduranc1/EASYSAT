@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { MainLayout } from "../layouts/MainLayout";
-import { useAuth } from "../hooks/useAuth";
+import { MainLayout } from "../../layouts/MainLayout";
+import { useAuth } from "../../hooks/useAuth";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Link, useNavigate } from "react-router-dom";
 import { FilePlus2, Pencil, Settings, ShieldAlert, User2 } from "lucide-react";
-import { MisDatos } from "./perfil/MisDatos";
-import { UpdateDatos } from "./perfil/UpdateDatos";
-import { AdminPanel } from "./perfil/AdminPanel";
+import { MisDatos } from "./opc/MisDatos";
+import { UpdateDatos } from "./opc/UpdateDatos";
+import { AdminPanel } from "./opc/AdminPanel";
 
 export const Perfil = () => {
   const { User } = useAuth();

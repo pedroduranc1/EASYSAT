@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import { useAuth } from "../../hooks/useAuth";
+import { useAuth } from "../../../hooks/useAuth";
 import { useFormik } from "formik";
-import { initialValues, validationSchema } from "../../utils/perfil.form";
-import { User as UserCtrl } from "../../api/fb.user";
+import { initialValues, validationSchema } from "../../../utils/perfil.form";
+import { User as UserCtrl } from "../../../api/fb.user";
 import { Loader2, User2 } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Input } from "../../components/ui/Input";
+import { Input } from "../../../components/ui/Input";
 
 const userCtrl = new UserCtrl();
 export const UpdateDatos = () => {

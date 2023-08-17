@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { MainLayout } from "../layouts/MainLayout";
+import { MainLayout } from "../../../layouts/MainLayout";
 import { useParams } from "react-router-dom";
 import { useQuery } from "react-query";
-import "../css/blog.css";
-import { AutorCard } from "../components/AutorCard";
-import { BlogsCtrl } from "../api/fb.blogs";
+import "../../../css/blog.css";
+import { AutorCard } from "../../../components/AutorCard";
+import { BlogsCtrl } from "../../../api/fb.blogs";
 import { ReactMarkdown } from "react-markdown/lib/react-markdown";
-import { Skeleton } from "../components/ui/skeleton";
+import { Skeleton } from "../../../components/ui/skeleton";
 
 const BlogCtrl = new BlogsCtrl();
 

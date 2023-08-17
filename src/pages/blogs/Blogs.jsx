@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import { MainLayout } from "../layouts/MainLayout";
-import { BlogsCtrl } from "../api/fb.blogs";
+import { MainLayout } from "../../layouts/MainLayout";
+import { BlogsCtrl } from "../../api/fb.blogs";
 import { useQuery } from "react-query";
 import { Link } from "react-router-dom";
 import { AlertCircle } from "lucide-react";
-import { CreatedBy } from "../components/CreatedBy";
-import { Skeleton } from "../components/ui/skeleton";
+import { CreatedBy } from "../../components/CreatedBy";
+import { Skeleton } from "../../components/ui/skeleton";
 import { motion, AnimatePresence } from "framer-motion";
 
 const BlogsCtrlr = new BlogsCtrl();
@@ -92,7 +92,7 @@ export const Blogs = () => {
     <MainLayout>
       <div
         className={`w-full flex flex-1 ${
-          filteredBlogs.length > 2 ? "h-full" : "h-screen"
+          filteredBlogs.length > 0 ? "h-full" : "h-screen"
         }`}
       >
         <div className="max-w-6xl w-full px-4 mt-4 md:mt-10 md:ml-7">
@@ -150,7 +150,7 @@ export const Blogs = () => {
                       <Link className="w-full" to={`/blog/${blog.Slug}`}>
                         <div className="flex flex-col p-0 md:p-4 items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row  hover:bg-gray-100 ">
                           <img
-                            className="object-contain w-full max-w-xs  md:w-32 md:h-32 rounded-t-lg  md:rounded-none md:rounded-l-lg"
+                            className="object-contain w-full h-[200px] my-2 md:my-0 max-w-xs  md:w-32 md:h-32 rounded-t-lg  md:rounded-none md:rounded-l-lg"
                             src={`${blog.blog_img}`}
                             alt=""
                           />

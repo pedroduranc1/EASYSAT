@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { AuthLayout } from "../layouts/AuthLayout";
+import { AuthLayout } from "../../layouts/AuthLayout";
 import { Link } from "react-router-dom";
 import { FerrisWheel } from "lucide-react";
 import { motion } from "framer-motion";

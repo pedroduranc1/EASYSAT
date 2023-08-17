@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { MainLayout } from "../layouts/MainLayout";
+import { MainLayout } from "../../layouts/MainLayout";
 import { Link, useNavigate } from "react-router-dom";
-import { useAuth } from "../hooks/useAuth";
+import { useAuth } from "../../hooks/useAuth";
 import { useQuery } from "react-query";
-import { CursosCtrl } from "../api/fb.cursos";
+import { CursosCtrl } from "../../api/fb.cursos";
 import { AlertCircle } from "lucide-react";
-import { CreatedBy } from "../components/CreatedBy";
-import { Skeleton } from "../components/ui/skeleton";
+import { CreatedBy } from "../../components/CreatedBy";
+import { Skeleton } from "../../components/ui/skeleton";
 import { motion, AnimatePresence } from "framer-motion";
 
 const CursosCtrlr = new CursosCtrl();
@@ -80,7 +80,7 @@ export const Cursos = () => {
 
   return (
     <MainLayout>
-      <div className="h-full px-[3%] md:px-0 md:mt-5">
+      <div className={`${filteredCourses.length > 1 ? 'h-full': 'h-[78vh] md:h-[85.2vh]'} px-[3%] md:px-0 md:mt-5`}>
         <div className="my-3">
           <label
             htmlFor="default-search"
@@ -118,7 +118,7 @@ export const Cursos = () => {
         </div>
         <h1 className="text-3xl font-bold mb-4 md:mb-10">Nuestros Cursos</h1>
         <div
-          className={`grid grid-cols-1 md:grid-cols-3 gap-5 ${
+          className={`grid grid-cols-1 md:grid-cols-3 pb-[4.3%] gap-5 ${
             filteredCourses.length == 0 && "md:grid-cols-1"
           }`}
         >
@@ -139,7 +139,7 @@ export const Cursos = () => {
                     className="max-w-sm bg-white border border-gray-200 rounded-lg shadow "
                   >
                     <img
-                      className="rounded-t-lg px-[5%] pt-5"
+                      className="rounded-t-lg h-[200px] mx-auto px-[5%] pt-5"
                       src={curso.curso_img}
                       alt=""
                     />

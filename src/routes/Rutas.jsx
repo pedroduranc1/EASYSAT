@@ -1,15 +1,5 @@
 import React from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { Main } from "../pages/Main";
-import { Contabilidad } from "../pages/Contabilidad";
-import { Cursos } from "../pages/Cursos";
-import { Blogs } from "../pages/Blogs";
-import { LoginPage } from "../pages/LoginPage";
-import { Blog } from "../pages/Blog";
-import { Curso } from "../pages/Curso";
-import { ErrorPage } from "../pages/404";
-import { Perfil } from "../pages/Perfil";
-import { Video } from "../pages/Video";
 
 //Admin Routes
 import { AdminBlog } from "../pages/admin/Create.Blog";
@@ -24,6 +14,21 @@ import { DeleteBlogPage } from "../pages/admin/Delete.Blog";
 import { DeleteCursoPage } from "../pages/admin/Detele.Curso";
 import { DeleteVideoPage } from "../pages/admin/Delete.Video";
 import { DeleteUserPage } from "../pages/admin/Delete.User";
+import { SuccessPage } from "../pages/success";
+
+//Normal Routes
+import { Main } from "../pages/Main";
+import { Contabilidad } from "../pages/contabilidad/Contabilidad";
+import { Cursos } from "../pages/cursos/Cursos";
+import { Curso } from "../pages/cursos/curso/Curso";
+import { Video } from "../pages/cursos/curso/video-curso/Video";
+import { Blogs } from "../pages/blogs/Blogs";
+import { Blog } from "../pages/blogs/blog/Blog";
+import { LoginPage } from "../pages/auth/LoginPage";
+import { Perfil } from "../pages/perfil/Perfil";
+import { ErrorPage } from "../pages/404";
+import { Personas } from "../pages/contabilidad/personas/Personas";
+import { Empresas } from "../pages/contabilidad/empresas/Empresas";
 
 const router = createBrowserRouter([
   {
@@ -33,6 +38,14 @@ const router = createBrowserRouter([
   {
     path: "/Contabilidad",
     element: <Contabilidad/>,
+  },
+  {
+    path:"/Contabilidad/Personas/:id",
+    element:<Personas/>
+  },
+  {
+    path:"/Contabilidad/Empresas/:id",
+    element:<Empresas/>
   },
   {
     path: "/Cursos",
@@ -114,6 +127,10 @@ const router = createBrowserRouter([
     path:"*",
     element: <ErrorPage/>
   },
+  {
+    path:"/success",
+    element: <SuccessPage/>
+  }
   // {
   //   path: "/Registro",
   //   element: <RegistroPage/>,

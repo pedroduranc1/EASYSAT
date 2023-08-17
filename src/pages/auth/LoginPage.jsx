@@ -1,13 +1,13 @@
 import React, { useState } from "react";
-import { AuthLayout } from "../layouts/AuthLayout";
+import { AuthLayout } from "../../layouts/AuthLayout";
 import { FerrisWheel, Check, Eye, EyeOff } from "lucide-react";
 import { motion } from "framer-motion";
-import { initialValues, validationSchema } from "../utils/login.form";
-import { useAuth } from "../hooks/useAuth";
+import { initialValues, validationSchema } from "../../utils/login.form";
+import { useAuth } from "../../hooks/useAuth";
 import { useFormik } from "formik";
-import { Auth } from "../api/fb.auth";
+import { Auth } from "../../api/fb.auth";
 import { useNavigate } from "react-router-dom";
-import { useToast } from "../components/ui/use-toast";
+import { useToast } from "../../components/ui/use-toast";
 
 const AuthCtrl = new Auth();
 

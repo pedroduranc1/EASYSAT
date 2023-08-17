@@ -66,6 +66,16 @@ export const UpdateClienteForm = ({ UserSelected, setUserSelected }) => {
           onChange={formik.handleChange}
           error={formik.errors.Username}
         />
+        <Input
+          title={"Correo de usuario"}
+          className={"w-full"}
+          name={"email"}
+          type={"email"}
+          placeholder={"John"}
+          value={formik.values.email}
+          onChange={formik.handleChange}
+          error={formik.errors.email}
+        />
         <div className="flex flex-col md:flex-row md:space-x-3">
           <Input
             title={"Cargo"}

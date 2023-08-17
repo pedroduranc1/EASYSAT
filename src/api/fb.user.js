@@ -16,7 +16,7 @@ import {
   deleteObject,
 } from "firebase/storage";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { db, storage, auth,deleteUser } from "../utils/firebase";
+import { db, storage, auth } from "../utils/firebase";
 import { CursosCtrl } from "./fb.cursos";
 import { BlogsCtrl } from "./fb.blogs";
 import { Auth } from "./fb.auth";
@@ -155,6 +155,7 @@ export class User {
         Username: userData.Username,
         UserPlan: userData.UserPlan,
         UserRole: userData.UserRole,
+        email: userData.email,
       };
 
       const userDocRef = doc(db, "User", uid);
@@ -182,7 +183,6 @@ export class User {
     }
   }
 
-
   async delUser(user) {
     try {
       let UserData;
@@ -201,13 +201,17 @@ export class User {
 
       if (UserData.UserCursos && UserData.UserCursos.length > 0) {
         UserData.UserCursos.map(async (curso) => {
-          await cursoCtrl.deleteCurso(curso)
+          await cursoCtrl.deleteCurso(curso);
         });
       }
 
       if (UserData.UserBlogs && UserData.UserBlogs.length > 0) {
         UserData.UserBlogs.map(async (blog) => {
-          await blogsCtrl.deleteBlogPorCriterio(blog.Autor,blog.blog_img,blog.blogFileName)
+          await blogsCtrl.deleteBlogPorCriterio(
+            blog.Autor,
+            blog.blog_img,
+            blog.blogFileName
+          );
         });
       }
 
@@ -215,6 +219,34 @@ export class User {
     } catch (error) {
       console.log(error);
       return false;
+    }
+  }
+
+  async UpdatePlanByEmail(email, newData) {
+    const usersRef = collection(db, "User");
+    // Consulta filtrando por email
+    const q = query(usersRef, where("email", "==", email));
+
+    // Ejecutar consulta
+    const querySnapshot = await getDocs(q);
+
+    // Obtener resultados
+    const docs = querySnapshot.docs;
+
+    // Chequear que haya encontrado un documento
+    if (docs.length > 0) {
+      // Obtener el documento
+      const userDoc = docs[0];
+
+      // ID y datos
+      const uid = userDoc.id;
+
+      const userRef = doc(db, "User", uid);
+      await updateDoc(userRef, {
+        UserPlan: newData,
+      });
+    } else {
+      console.log("No user found");
     }
   }
 }

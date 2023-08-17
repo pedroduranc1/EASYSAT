@@ -1,12 +1,12 @@
 import React, { useEffect } from "react";
-import { MainLayout } from "../layouts/MainLayout";
+import { MainLayout } from "../../../../layouts/MainLayout";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useQuery } from "react-query";
-import { CursosCtrl } from "../api/fb.cursos";
+import { CursosCtrl } from "../../../../api/fb.cursos";
 import { CornerDownLeft } from "lucide-react";
 import ReactPlayer from "react-player";
-import { AutorCard } from "../components/AutorCard";
-import { useAuth } from "../hooks/useAuth";
+import { AutorCard } from "../../../../components/AutorCard";
+import { useAuth } from "../../../../hooks/useAuth";
 
 const VideoCtrl = new CursosCtrl();
 export const Video = () => {

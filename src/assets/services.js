@@ -52,7 +52,8 @@ export const services = [
             }
         ],
         precio:199,
-        PayLink: "https://buy.stripe.com/test_8wM15YelNc9XgG4bII"
+        ProdId: "prod_OQv39tgga7jonb",
+        payId: "price_1Ne3DNBD679m7qFxNFbZjTBM"
     },
     {
         title: "Subscripcion Paquete Empresa",
@@ -76,6 +77,7 @@ export const services = [
             }
         ],
         precio:3500,
-        PayLink: "https://buy.stripe.com/test_4gw6qi1z1de175ufYZ"
+        ProdId: "prod_OQvDfAFXYThJVR",
+        payId: "price_1Ne3MpBD679m7qFx9lKFpvzd"
     },
 ]
