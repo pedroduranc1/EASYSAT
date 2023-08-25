@@ -10,9 +10,9 @@ export const MainLayout = ({ children }) => {
   }, [User])
   
   return (
-    <div className="flex flex-col bg-slate-100 w-full h-full">
+    <div className="flex flex-col bg-slate-100 w-full min-h-screen">
       <Navbar user={User}/>
-      <div className="max-w-6xl mx-auto h-screen flex-1 w-full">{children}</div>
+      <div className="max-w-6xl mx-auto flex-1 w-full">{children}</div>
       <Toaster />
     </div>
   );

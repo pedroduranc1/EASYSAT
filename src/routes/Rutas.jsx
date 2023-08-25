@@ -29,11 +29,17 @@ import { Perfil } from "../pages/perfil/Perfil";
 import { ErrorPage } from "../pages/404";
 import { Personas } from "../pages/contabilidad/personas/Personas";
 import { Empresas } from "../pages/contabilidad/empresas/Empresas";
+import { Solicitudes } from "../pages/solicitudes/Solicitudes";
+import { Solicitud } from "../pages/solicitudes/solicitud/Solicitud";
+import { CreateSoliPage } from "../pages/perfil/mis-solicitudes/crear-solicitud/Crear.Solicitud";
+import { UpdateSoliPage } from "../pages/perfil/mis-solicitudes/modificar-solicitud/Modificar.Solicitud";
+import { DeleteSoliPage } from "../pages/perfil/mis-solicitudes/eliminar-solicitud/Eliminar.Solicitud";
+import { MainPrueba } from "../pages/MainPrueba";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Main/>,
+    element: <MainPrueba/>,
   },
   {
     path: "/Contabilidad",
@@ -74,6 +80,26 @@ const router = createBrowserRouter([
   {
     path: "/Perfil",
     element: <Perfil/>,
+  },
+  {
+    path: "/Solicitudes",
+    element: <Solicitudes/>,
+  },
+  {
+    path: "/Solicitudes/Solicitud/:id",
+    element: <Solicitud/>,
+  },
+  {
+    path: "/Perfil/Solicitudes/Crear",
+    element: <CreateSoliPage/>,
+  },
+  {
+    path: "/Perfil/Solicitudes/Modificar",
+    element: <UpdateSoliPage/>,
+  },
+  {
+    path: "/Perfil/Solicitudes/Eliminar",
+    element: <DeleteSoliPage/>,
   },
   {
     path:"/admin/crear-blog",

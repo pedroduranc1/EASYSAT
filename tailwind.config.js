@@ -8,6 +8,10 @@ module.exports = {
     './src/**/*.{js,jsx}',
 	],
   theme: {
+    fontFamily: {
+      'dgyaFont': ['neue-haas-grotesk', 'system-ui'],
+      'dgyaFont2': ['mustica-pro-semi-bold', 'system-ui'],
+    },
     container: {
       center: true,
       padding: "2rem",
@@ -17,6 +21,9 @@ module.exports = {
     },
     extend: {
       colors: {
+        DgyaLight: "#137EB7",
+        DgyaBase: "#1867AF",
+        DgyaDark: "#002C86",
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",

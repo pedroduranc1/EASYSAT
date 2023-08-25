@@ -91,9 +91,7 @@ export const Blogs = () => {
   return (
     <MainLayout>
       <div
-        className={`w-full flex flex-1 ${
-          filteredBlogs.length > 0 ? "h-full" : "h-screen"
-        }`}
+        className={`w-full flex flex-1`}
       >
         <div className="max-w-6xl w-full px-4 mt-4 md:mt-10 md:ml-7">
           <form className="my-3" onSubmit={(e) => e.preventDefault()}>

@@ -10,6 +10,41 @@ export const Navbar = () => {
 
   const [toggleMenu, settoggleMenu] = useState(false);
 
+  const showDashboard = () => {
+    if (User) {
+      if (User.UserRole.includes("Admin")) {
+        return (
+          <li>
+            <Link
+              className="px-2 py-4 hover:border-b-2 hover:border-slate-500 transition-all"
+              to="/Solicitudes"
+            >
+              Solicitudes
+            </Link>
+          </li>
+        );
+      } else {
+        return null;
+      }
+    }
+  };
+
+  const showDashboardMobile = () => {
+    if (User) {
+      if (User.UserRole.includes("Admin")) {
+        return (
+          <li className="border-b-2 hover:bg-slate-100 hover:rounded-md hover:text-black transition-all p-2">
+            <Link className="w-full block" to="/Solicitudes">
+              Solicitudes
+            </Link>
+          </li>
+        );
+      } else {
+        return null;
+      }
+    }
+  };
+
   const handleMenuToggle = () => {
     settoggleMenu(!toggleMenu);
   };
@@ -62,6 +97,7 @@ export const Navbar = () => {
                 Blogs
               </Link>
             </li>
+            {showDashboard()}
           </ul>
         </div>
 
@@ -76,9 +112,11 @@ export const Navbar = () => {
                 >
                   <Avatar>
                     <AvatarImage src={User.Img_url} />
-                    <AvatarFallback className="bg-black"><UserIcon className="text-white" /></AvatarFallback>
+                    <AvatarFallback className="bg-black">
+                      <UserIcon className="text-white" />
+                    </AvatarFallback>
                   </Avatar>
-                   {User?.Username && <p>{User.Username}</p>}
+                  {User?.Username && <p>{User.Username}</p>}
                 </Link>
                 <LogOut onClick={logout} className="w-5 h-5 cursor-pointer" />
               </div>
@@ -129,6 +167,7 @@ export const Navbar = () => {
                   Blogs
                 </Link>
               </li>
+              {showDashboardMobile()}
               {User ? (
                 <div className="flex px-2 py-2 hover:border-b-2 cursor-pointer hover:border-slate-500 transition-all items-center justify-between md:justify-start md:space-x-3">
                   <Link
@@ -136,10 +175,12 @@ export const Navbar = () => {
                     className="w-full flex space-x-3 items-center"
                   >
                     <Avatar>
-                    <AvatarImage src={User.Img_url}  />
-                    <AvatarFallback className="bg-black"><UserIcon className="text-white" /></AvatarFallback>
-                  </Avatar>
-                   {User.Username && <p>{User.Username}</p>}
+                      <AvatarImage src={User.Img_url} />
+                      <AvatarFallback className="bg-black">
+                        <UserIcon className="text-white" />
+                      </AvatarFallback>
+                    </Avatar>
+                    {User.Username && <p>{User.Username}</p>}
                   </Link>
                   <LogOut onClick={logout} className="w-5 h-5 cursor-pointer" />
                 </div>

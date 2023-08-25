@@ -2,11 +2,12 @@ import React, { useEffect, useState } from "react";
 import { MainLayout } from "../../layouts/MainLayout";
 import { useAuth } from "../../hooks/useAuth";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Link, useNavigate } from "react-router-dom";
-import { FilePlus2, Pencil, Settings, ShieldAlert, User2 } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import { Pencil, Settings, ShieldAlert, User2 } from "lucide-react";
 import { MisDatos } from "./opc/MisDatos";
 import { UpdateDatos } from "./opc/UpdateDatos";
 import { AdminPanel } from "./opc/AdminPanel";
+import { MisSolicitudes } from "./mis-solicitudes/MisSolicitudes";
 
 export const Perfil = () => {
   const { User } = useAuth();
@@ -24,7 +25,7 @@ export const Perfil = () => {
 
   return (
     <MainLayout>
-      <div className="w-full flex flex-col  flex-1 h-full px-2 md:px-[2%]">
+      <div className="w-full flex flex-col px-2 md:px-[2%]">
         <h1 className="my-5 text-2xl font-bold">Perfil</h1>
         <Tabs defaultValue="account" className="w-full">
           <TabsList className="w-full flex-col md:flex-row space-y-2">
@@ -35,7 +36,7 @@ export const Perfil = () => {
               Actualizar Datos <Pencil className="ml-3" />
             </TabsTrigger>
             <TabsTrigger className="w-full flex items-center" value="password">
-              Ajustes <Settings className="ml-3" />
+              Mis Solicitudes <Settings className="ml-3" />
             </TabsTrigger>
 
             {isAdmin && (
@@ -46,7 +47,7 @@ export const Perfil = () => {
           </TabsList>
           {/* mis datos section */}
           <TabsContent
-            className="w-full h-[70vh] justify-center items-center px-2  mt-[20%] md:mt-0"
+            className="w-full h-full mb-7 justify-center items-center px-2  mt-[15%] md:mt-0"
             value="account"
           >
             <MisDatos/>
@@ -54,14 +55,14 @@ export const Perfil = () => {
 
           {/* actualizar datos section */}
           <TabsContent
-            className="w-full h-[70vh] justify-center items-center px-2 mt-[20%] md:mt-0"
+            className="w-full h-full mb-7 justify-center items-center px-2 mt-[20%] md:mt-0"
             value="updateAccount"
           >
             <UpdateDatos/>
           </TabsContent>
 
-          <TabsContent className="mt-[20%] h-[70vh] md:mt-0" value="password">
-            Change your password here.
+          <TabsContent className="mt-[20%] h-full md:mt-0" value="password">
+            <MisSolicitudes/>
           </TabsContent>
           
           <TabsContent

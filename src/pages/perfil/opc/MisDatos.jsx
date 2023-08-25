@@ -5,12 +5,11 @@ import { User2 } from "lucide-react";
 
 export const MisDatos = () => {
   const { User } = useAuth();
-  const [Imagen, setImagen] = useState(null);
   const [handleImagen, sethandleImagen] = useState(null);
 
   return (
     <>
-      <h3 className=" text-base md:text-2xl text-center font-semibold mt-7">
+      <h3 className=" text-base md:text-2xl text-center font-semibold mt-4">
         Datos Personales
       </h3>
       <div className="bg-white max-w-xl rounded-md shadow-lg mx-auto mt-5 p-7 flex flex-col gap-5 items-end">

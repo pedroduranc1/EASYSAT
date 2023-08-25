@@ -544,7 +544,7 @@ export const Main = () => {
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         transition={{ delay: 0.4 }}
-        className="bg-white shadow-md rounded-md w-full flex items-center justify-center"
+        className="bg-white shadow-md mb-8 rounded-md w-full flex items-center justify-center"
       >
         <div className="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
           <div className="mx-auto max-w-screen-md text-center mb-8 lg:mb-12">
