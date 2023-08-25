@@ -72,9 +72,9 @@ export const MainPrueba = () => {
               </div>
 
               {/* IMG */}
-              <div className="block md:absolute md:translate-x-[95%] md:-translate-y-[10%] w-full h-[60vh] ">
+              <div className="block md:absolute md:translate-x-[95%] md:-translate-y-[10%] w-full h-fit md:h-[60vh] ">
                 <img
-                  className="w-full h-full object-fill"
+                  className="w-full h-[300px] md:h-full object-fill"
                   src="https://cdn.tuk.dev/assets/templates/prodify/invoicing-system.png"
                   alt=""
                 />
@@ -85,7 +85,7 @@ export const MainPrueba = () => {
       </div>
 
       {/* SERVICIOS */}
-      <div id="servicios" className="w-full h-full pt-[70%] md:pt-0 pb-5 bg-DgyaLight">
+      <div id="servicios" className="w-full h-full pt-[20%] md:pt-0 pb-5 bg-DgyaLight">
         <div className="md:px-[20%]">
           <div className="space-y-1">
             <h2 className="text-white text-5xl font-bold uppercase text-center">

@@ -5,10 +5,12 @@ import { Link } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 
-export const NavbarDg = ({isblack}) => {
+export const NavbarDg = ({ isblack }) => {
   const { User, logout } = useAuth();
 
   const [toggleMenu, settoggleMenu] = useState(false);
+
+  
 
   const handleMenuToggle = () => {
     settoggleMenu(!toggleMenu);
@@ -33,6 +35,41 @@ export const NavbarDg = ({isblack}) => {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
+
+  const showDashboard = () => {
+    if (User) {
+      if (User.UserRole.includes("Admin")) {
+        return (
+          <li>
+            <Link
+              className={`px-2 py-4 ${scrollPassedLimit || isblack ? 'text-black' : "text-white"} hover:text-DgyaDark transition-all`}
+              to="/Solicitudes"
+            >
+              Solicitudes
+            </Link>
+          </li>
+        );
+      } else {
+        return null;
+      }
+    }
+  };
+
+  const showDashboardMobile = () => {
+    if (User) {
+      if (User.UserRole.includes("Admin")) {
+        return (
+          <li className=" hover:bg-slate-100 hover:rounded-md hover:text-black transition-all py-2">
+            <Link className="w-full block" to="/Solicitudes">
+              Solicitudes
+            </Link>
+          </li>
+        );
+      } else {
+        return null;
+      }
+    }
+  };
   return (
     <>
       <div className="fixed z-50 flex w-full justify-center">
@@ -93,20 +130,15 @@ export const NavbarDg = ({isblack}) => {
           >
             Contacto
           </a>
-          <Link
-            to="/solicitudes"
-            className={`hover:text-DgyaDark transition-colors ${
-              scrollPassedLimit || isblack ? "text-black" : ""
-            }`}
-          >
-            Solicitudes
-          </Link>
+          {showDashboard()}
           <ul className="hidden md:flex [&>li]:text-slate-600 [&>li]:font-semibold">
             {User ? (
               <div className="flex space-x-3">
                 <Link
                   to="/Perfil"
-                  className={`flex items-start ${isblack ? 'text-black' : ""} justify-center space-x-3`}
+                  className={`flex items-start ${
+                    isblack ? "text-black" : ""
+                  } justify-center space-x-3`}
                 >
                   <Avatar className="-translate-y-1">
                     <AvatarImage src={User.Img_url} />
@@ -114,9 +146,20 @@ export const NavbarDg = ({isblack}) => {
                       <UserIcon className="text-white" />
                     </AvatarFallback>
                   </Avatar>
-                  {User?.Username && <p>{User.Username}</p>}
+                  <h2
+                    className={`${
+                      scrollPassedLimit || isblack ? "text-black" : ""
+                    }`}
+                  >
+                    {User?.Username && <p>{User.Username}</p>}
+                  </h2>
                 </Link>
-                <LogOut onClick={logout} className={`w-5 h-5 mt-1 cursor-pointer ${isblack && 'text-black'}`} />
+                <LogOut
+                  onClick={logout}
+                  className={`w-5 h-5 mt-1 cursor-pointer ${
+                    scrollPassedLimit || isblack ? "text-black" : "text-white"
+                  }`}
+                />
               </div>
             ) : (
               <Link
@@ -157,28 +200,63 @@ export const NavbarDg = ({isblack}) => {
                 `}
               />
               <ul className="flex flex-col justify-center space-y-3 gap-x-5 text-black font-semibold text-lg">
-                <li className="hover:text-DgyaDark transition-colors">
+                <Link 
+                to="/"
+                className="hover:text-DgyaDark transition-colors">
                   Inicio
-                </li>
-                <li className="hover:text-DgyaDark transition-colors">
+                </Link>
+                <a 
+                href="#acerca"
+                className="hover:text-DgyaDark transition-colors">
                   Acerca de
-                </li>
-                <li className="hover:text-DgyaDark transition-colors">
+                </a>
+                <a 
+                href="#servicios"
+                className="hover:text-DgyaDark transition-colors">
                   Servicios
-                </li>
-                <li className="hover:text-DgyaDark transition-colors">
+                </a>
+                <Link 
+                to="/cursos"
+                className="hover:text-DgyaDark transition-colors">
                   Cursos
-                </li>
-                <li className="hover:text-DgyaDark transition-colors">Blogs</li>
-                <li className="hover:text-DgyaDark transition-colors">
+                </Link>
+                <Link 
+                to="/blogs"
+                className="hover:text-DgyaDark transition-colors">Blogs</Link>
+                <a
+                href="#contacto"
+                className="hover:text-DgyaDark transition-colors">
                   Contacto
+                </a>
+                {
+                  showDashboardMobile()
+                }
+                {User ? (
+                <div className="flex py-2 hover:border-b-2 cursor-pointer hover:border-slate-500 transition-all items-center justify-between md:justify-start md:space-x-3">
+                  <Link
+                    to="/Perfil"
+                    className="w-full flex space-x-3 items-center"
+                  >
+                    <Avatar>
+                      <AvatarImage src={User.Img_url} />
+                      <AvatarFallback className="bg-black">
+                        <UserIcon className="text-white" />
+                      </AvatarFallback>
+                    </Avatar>
+                    {User.Username && <p>{User.Username}</p>}
+                  </Link>
+                  <LogOut onClick={logout} className="w-5 h-5 cursor-pointer" />
+                </div>
+              ) : (
+                <li>
+                  <Link
+                    className=" py-4 hover:border-b-2 hover:border-slate-500 transition-all"
+                    to="/Login"
+                  >
+                    Iniciar Sesion
+                  </Link>
                 </li>
-                <li className="hover:text-DgyaDark transition-colors">
-                  Solicitudes
-                </li>
-                <li className="hover:text-DgyaDark transition-colors">
-                  Iniciar Sesion
-                </li>
+              )}
               </ul>
             </motion.div>
           )}
