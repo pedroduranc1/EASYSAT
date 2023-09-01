@@ -185,7 +185,7 @@ export const Solicitudes = () => {
     <MainLayoutDg isblack={true}>
       <div className={`bg-DgyaLight h-fit md:h-full`}>
         <div className="max-w-6xl mx-auto">
-          <div className={` px-[3%]  md:px-0 pt-[15%]`}>
+          <div className={` px-[3%]  md:px-0 pt-[15%] md:pt-[8.4%]`}>
             <div className={` min-h-screen px-[3%] md:px-0 md:mt-5`}>
               <SearchBar
                 searchTerm={searchTerm}
