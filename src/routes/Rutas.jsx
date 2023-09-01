@@ -27,11 +27,9 @@ import { Blog } from "../pages/blogs/blog/Blog";
 import { LoginPage } from "../pages/auth/LoginPage";
 import { Perfil } from "../pages/perfil/Perfil";
 import { ErrorPage } from "../pages/404";
-import { Personas } from "../pages/contabilidad/personas/Personas";
-import { Empresas } from "../pages/contabilidad/empresas/Empresas";
 import { Solicitudes } from "../pages/solicitudes/Solicitudes";
 import { Solicitud } from "../pages/solicitudes/solicitud/Solicitud";
-import { CreateSoliPage } from "../pages/perfil/mis-solicitudes/crear-solicitud/Crear.Solicitud";
+import { CreateSoliPage } from "../pages/contabilidad/crear-solicitud/create.solicitud";
 import { UpdateSoliPage } from "../pages/perfil/mis-solicitudes/modificar-solicitud/Modificar.Solicitud";
 import { DeleteSoliPage } from "../pages/perfil/mis-solicitudes/eliminar-solicitud/Eliminar.Solicitud";
 import { MainPrueba } from "../pages/MainPrueba";
@@ -42,16 +40,16 @@ const router = createBrowserRouter([
     element: <MainPrueba/>,
   },
   {
+    path: "/Prueba",
+    element: <Main/>,
+  },
+  {
     path: "/Contabilidad",
     element: <Contabilidad/>,
   },
   {
-    path:"/Contabilidad/Personas/:id",
-    element:<Personas/>
-  },
-  {
-    path:"/Contabilidad/Empresas/:id",
-    element:<Empresas/>
+    path:"/Contabilidad/:userPlan/:id",
+    element:<CreateSoliPage/>
   },
   {
     path: "/Cursos",
@@ -94,11 +92,11 @@ const router = createBrowserRouter([
     element: <CreateSoliPage/>,
   },
   {
-    path: "/Perfil/Solicitudes/Modificar",
+    path: "/Perfil/Solicitudes/Modificar/:id",
     element: <UpdateSoliPage/>,
   },
   {
-    path: "/Perfil/Solicitudes/Eliminar",
+    path: "/Perfil/Solicitudes/Eliminar/:id",
     element: <DeleteSoliPage/>,
   },
   {

@@ -13,19 +13,6 @@ export const Contabilidad = () => {
     if (!User) return navigate("/Login", { replace: true });
   }, [User]);
 
-  const getRoute = () =>{
-    let Ruta
-    if(User){
-      if(User.UserPlan == 'Personal'){
-        Ruta = "Personas"
-      }
-
-      if(User.UserPlan == 'Empresas'){
-        Ruta = "Empresas"
-      }
-    }
-    return Ruta
-  }
 
   return (
     <MainLayout>
@@ -71,7 +58,7 @@ export const Contabilidad = () => {
 
               {servicio.Plan == User?.UserPlan ? (
                 <Link 
-                to={`${getRoute()}/${User.uid}`}
+                to={`${User.UserPlan}/${User.uid}`}
                 className="absolute left-[4%] bottom-[6%] flex items-end w-full">
                   Haz click aqui para empezar tramite <ArrowBigRightIcon />
                 </Link>

@@ -1,16 +1,29 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { LogOut, Menu, UserIcon } from "lucide-react";
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
+
+function checkPage() {
+  const location = useLocation();
+
+  if (location.pathname === "/") {
+    // Estamos en la página principal
+    // Hacer algo
+    return true;
+  } else {
+    // Estamos en otra página
+    return false;
+  }
+}
 
 export const NavbarDg = ({ isblack }) => {
   const { User, logout } = useAuth();
 
   const [toggleMenu, settoggleMenu] = useState(false);
 
-  
+  const isMainPage = checkPage();
 
   const handleMenuToggle = () => {
     settoggleMenu(!toggleMenu);
@@ -42,7 +55,9 @@ export const NavbarDg = ({ isblack }) => {
         return (
           <li>
             <Link
-              className={`px-2 py-4 ${scrollPassedLimit || isblack ? 'text-black' : "text-white"} hover:text-DgyaDark transition-all`}
+              className={`px-2 py-4 ${
+                scrollPassedLimit || (!isblack && "text-white")
+              } hover:text-DgyaDark transition-all`}
               to="/Solicitudes"
             >
               Solicitudes
@@ -75,7 +90,7 @@ export const NavbarDg = ({ isblack }) => {
       <div className="fixed z-50 flex w-full justify-center">
         <ul
           className={`hidden ${
-            scrollPassedLimit || isblack ? "bg-white" : ""
+            scrollPassedLimit || isblack ? "bg-black/80" : ""
           } transition-all  md:flex justify-center p-4 ${
             scrollPassedLimit || isblack ? "" : "mt-5"
           } rounded-b-md ${
@@ -85,51 +100,104 @@ export const NavbarDg = ({ isblack }) => {
           <Link
             to="/"
             className={`hover:text-DgyaDark transition-colors ${
-              scrollPassedLimit || isblack ? "text-black" : ""
+              scrollPassedLimit || isblack ? "text-white" : ""
             }`}
           >
             Inicio
           </Link>
-          <a
-            href="#acerca"
-            className={`hover:text-DgyaDark transition-colors ${
-              scrollPassedLimit || isblack ? "text-black" : ""
-            }`}
-          >
-            Acerca de
-          </a>
-          <a
-            href="#servicios"
-            className={`hover:text-DgyaDark transition-colors ${
-              scrollPassedLimit || isblack ? "text-black" : ""
-            }`}
-          >
-            Servicios
-          </a>
-          <Link
-            to="/cursos"
-            className={`hover:text-DgyaDark transition-colors ${
-              scrollPassedLimit || isblack ? "text-black" : ""
-            }`}
-          >
-            Cursos
-          </Link>
-          <Link
-            to="/blogs"
-            className={`hover:text-DgyaDark transition-colors ${
-              scrollPassedLimit || isblack ? "text-black" : ""
-            }`}
-          >
-            Blogs
-          </Link>
-          <a
-            href="#contacto"
-            className={`hover:text-DgyaDark transition-colors ${
-              scrollPassedLimit || isblack ? "text-black" : ""
-            }`}
-          >
-            Contacto
-          </a>
+          {isMainPage ? (
+            <a
+              href="#acerca"
+              className={`hover:text-DgyaDark transition-colors ${
+                scrollPassedLimit || isblack ? "text-white" : ""
+              }`}
+            >
+              Acerca de
+            </a>
+          ) : (
+            <Link
+              to="/Contabilidad"
+              className={`hover:text-DgyaDark transition-colors ${
+                scrollPassedLimit || isblack ? "text-white" : ""
+              }`}
+            >
+              Contabilidad
+            </Link>
+          )}
+
+          {isMainPage ? (
+            <a
+              href="#servicios"
+              className={`hover:text-DgyaDark transition-colors ${
+                scrollPassedLimit || isblack ? "text-white" : ""
+              }`}
+            >
+              Servicios
+            </a>
+          ) : (
+            <Link
+              to="/Cursos"
+              className={`hover:text-DgyaDark transition-colors ${
+                scrollPassedLimit || isblack ? "text-white" : ""
+              }`}
+            >
+              Cursos
+            </Link>
+          )}
+
+          {isMainPage ? (
+            <a
+              href="#contacto"
+              className={`hover:text-DgyaDark transition-colors ${
+                scrollPassedLimit || isblack ? "text-white" : ""
+              }`}
+            >
+              Contacto
+            </a>
+          ) : (
+            <Link
+              to="/Blogs"
+              className={`hover:text-DgyaDark transition-colors ${
+                scrollPassedLimit || isblack ? "text-white" : ""
+              }`}
+            >
+              Blogs
+            </Link>
+          )}
+
+          {isMainPage && (
+            <Link
+              to="/Contabilidad"
+              className={`hover:text-DgyaDark transition-colors ${
+                scrollPassedLimit || isblack ? "text-white" : ""
+              }`}
+            >
+              Contabilidad
+            </Link>
+          )}
+
+          {isMainPage && (
+            <Link
+              to="/cursos"
+              className={`hover:text-DgyaDark transition-colors ${
+                scrollPassedLimit || isblack ? "text-white" : ""
+              }`}
+            >
+              Cursos
+            </Link>
+          )}
+
+          {isMainPage && (
+            <Link
+              to="/blogs"
+              className={`hover:text-DgyaDark transition-colors ${
+                scrollPassedLimit || isblack ? "text-white" : ""
+              }`}
+            >
+              Blogs
+            </Link>
+          )}
+
           {showDashboard()}
           <ul className="hidden md:flex [&>li]:text-slate-600 [&>li]:font-semibold">
             {User ? (
@@ -137,7 +205,7 @@ export const NavbarDg = ({ isblack }) => {
                 <Link
                   to="/Perfil"
                   className={`flex items-start ${
-                    isblack ? "text-black" : ""
+                    isblack ? "text-white" : ""
                   } justify-center space-x-3`}
                 >
                   <Avatar className="-translate-y-1">
@@ -148,7 +216,7 @@ export const NavbarDg = ({ isblack }) => {
                   </Avatar>
                   <h2
                     className={`${
-                      scrollPassedLimit || isblack ? "text-black" : ""
+                      scrollPassedLimit || isblack ? "text-white" : ""
                     }`}
                   >
                     {User?.Username && <p>{User.Username}</p>}
@@ -157,7 +225,7 @@ export const NavbarDg = ({ isblack }) => {
                 <LogOut
                   onClick={logout}
                   className={`w-5 h-5 mt-1 cursor-pointer ${
-                    scrollPassedLimit || isblack ? "text-black" : "text-white"
+                    scrollPassedLimit || isblack ? "text-white" : "text-white"
                   }`}
                 />
               </div>
@@ -165,7 +233,7 @@ export const NavbarDg = ({ isblack }) => {
               <Link
                 to="/Login"
                 className={`hover:text-DgyaDark transition-colors ${
-                  scrollPassedLimit ? "text-black" : ""
+                  scrollPassedLimit ? "text-white" : ""
                 }`}
               >
                 Iniciar Sesion
@@ -178,10 +246,11 @@ export const NavbarDg = ({ isblack }) => {
             size={50}
             onClick={handleMenuToggle}
             className={`flex mr-auto  cursor-pointer md:hidden p-2 rounded-md transition-all
-            ${scrollPassedLimit ? "bg-white text-black" : "text-white"}
+            ${scrollPassedLimit || isblack? "bg-white text-black" : "text-white"} 
             `}
           />
         </div>
+        {/* MENU MOBILE */}
         <AnimatePresence>
           {toggleMenu && (
             <motion.div
@@ -200,63 +269,89 @@ export const NavbarDg = ({ isblack }) => {
                 `}
               />
               <ul className="flex flex-col justify-center space-y-3 gap-x-5 text-black font-semibold text-lg">
-                <Link 
-                to="/"
-                className="hover:text-DgyaDark transition-colors">
+                <Link to="/" className="hover:text-DgyaDark transition-colors">
                   Inicio
                 </Link>
-                <a 
-                href="#acerca"
-                className="hover:text-DgyaDark transition-colors">
-                  Acerca de
-                </a>
-                <a 
-                href="#servicios"
-                className="hover:text-DgyaDark transition-colors">
-                  Servicios
-                </a>
-                <Link 
-                to="/cursos"
-                className="hover:text-DgyaDark transition-colors">
-                  Cursos
-                </Link>
-                <Link 
-                to="/blogs"
-                className="hover:text-DgyaDark transition-colors">Blogs</Link>
-                <a
-                href="#contacto"
-                className="hover:text-DgyaDark transition-colors">
-                  Contacto
-                </a>
-                {
-                  showDashboardMobile()
-                }
+                {isMainPage ? (
+                  <a
+                    href="#acerca"
+                    className="hover:text-DgyaDark transition-colors"
+                  >
+                    Acerca de
+                  </a>
+                ) : (
+                  <Link>Contabilidad</Link>
+                )}
+
+                {isMainPage ? (
+                  <a
+                    href="#servicios"
+                    className="hover:text-DgyaDark transition-colors"
+                  >
+                    Servicios
+                  </a>
+                ) : (
+                  <Link>Cursos</Link>
+                )}
+                {isMainPage ? (
+                  <a
+                    href="#contacto"
+                    className="hover:text-DgyaDark transition-colors"
+                  >
+                    Contacto
+                  </a>
+                ) : (
+                  <Link>Blogs</Link>
+                )}
+
+                {isMainPage && (
+                  <Link
+                    to="/cursos"
+                    className="hover:text-DgyaDark transition-colors"
+                  >
+                    Cursos
+                  </Link>
+                )}
+
+                {isMainPage && (
+                  <Link
+                    to="/blogs"
+                    className="hover:text-DgyaDark transition-colors"
+                  >
+                    Blogs
+                  </Link>
+                )}
+
+                {showDashboardMobile()}
                 {User ? (
-                <div className="flex py-2 hover:border-b-2 cursor-pointer hover:border-slate-500 transition-all items-center justify-between md:justify-start md:space-x-3">
-                  <Link
-                    to="/Perfil"
-                    className="w-full flex space-x-3 items-center"
-                  >
-                    <Avatar>
-                      <AvatarImage src={User.Img_url} />
-                      <AvatarFallback className="bg-black">
-                        <UserIcon className="text-white" />
-                      </AvatarFallback>
-                    </Avatar>
-                    {User.Username && <p>{User.Username}</p>}
-                  </Link>
-                  <LogOut onClick={logout} className="w-5 h-5 cursor-pointer" />
-                </div>
-              ) : (
-                <li>
-                  <Link
-                    className=" py-4 hover:border-b-2 hover:border-slate-500 transition-all"
-                    to="/Login"
-                  >
-                    Iniciar Sesion
-                  </Link>
-                </li>
-              )}
+                  <div className="flex py-2 hover:border-b-2 cursor-pointer hover:border-slate-500 transition-all items-center justify-between md:justify-start md:space-x-3">
+                    <Link
+                      to="/Perfil"
+                      className="w-full flex space-x-3 items-center"
+                    >
+                      <Avatar>
+                        <AvatarImage src={User.Img_url} />
+                        <AvatarFallback className="bg-black">
+                          <UserIcon className="text-white" />
+                        </AvatarFallback>
+                      </Avatar>
+                      {User.Username && <p>{User.Username}</p>}
+                    </Link>
+                    <LogOut
+                      onClick={logout}
+                      className="w-5 h-5 cursor-pointer"
+                    />
+                  </div>
+                ) : (
+                  <li>
+                    <Link
+                      className=" py-4 hover:border-b-2 hover:border-slate-500 transition-all"
+                      to="/Login"
+                    >
+                      Iniciar Sesion
+                    </Link>
+                  </li>
+                )}
               </ul>
             </motion.div>
           )}

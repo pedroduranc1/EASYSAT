@@ -1,64 +1,77 @@
-import React, { useState } from 'react'
-import { MainLayout } from "../../../../layouts/MainLayout";
-import { useNavigate, useParams } from 'react-router-dom';
-import { ContabilidadCtrl } from "../../../../api/contabilidad/fb.contabilidad";
-import { useQuery } from 'react-query';
-import { useFormik } from 'formik';
-import { useAuth } from '../../../../hooks/useAuth';
-import { Input } from '../../../../components/ui/Input';
-import { FileInput } from '../../../../components/FileInput';
-import { initialValues,validationSchema } from "../../../../utils/contabilidad.personas.form";
-import { Loader2 } from 'lucide-react';
-import { toast } from '../../../../components/ui/use-toast';
+import React, { useEffect, useState } from "react";
+import { MainLayout } from "../../../layouts/MainLayout";
+import { useAuth } from "../../../hooks/useAuth";
+import { Input } from "../../../components/ui/Input";
+import { useFormik } from "formik";
+import {
+  initialValues,
+  validationSchema,
+} from "../../../utils/contabilidad.personas.form";
+import { FileInput } from "../../../components/FileInput";
+import { getCurrentDate } from "../../../utils/funcs";
+import { ContabilidadCtrl } from "../../../api/contabilidad/fb.contabilidad";
+import { toast } from "../../../components/ui/use-toast";
+import { Loader2 } from "lucide-react";
+import { useNavigate, useParams } from "react-router-dom";
 
-const Conta = new ContabilidadCtrl()
-export const UpdateSoliPage = () => {
-  const {User} = useAuth()
-  const {id} = useParams()
-  const navigate = useNavigate()
-  const [FirmaDigital, setFirmaDigital] = useState(null)
+const Conta = new ContabilidadCtrl();
+export const CreateSoliPage = () => {
+  const { User } = useAuth();
+  const { userPlan } = useParams();
+  const navigate = useNavigate();
 
-  const {data:solicitud} = useQuery(id,()=>Conta.getSolicitud(id))
+  useEffect(() => {
+    if (!User) {
+      return navigate("/Login");
+    }
+
+    if (!User.UserPlan.includes(userPlan)) {
+      return navigate(`/Contabilidad/${User.UserPlan}/${User.uid}`);
+    }
+  }, [User]);
+
+  const [FirmaDigital, setFirmaDigital] = useState(null);
 
   const formik = useFormik({
-    initialValues:initialValues(solicitud),
-    validationSchema:validationSchema(),
-    validateOnChange:false,
+    initialValues: initialValues(),
+    validationSchema: validationSchema(),
+    validateOnChange: false,
     onSubmit: async (formData) => {
-      let UpdatedSoli = {
+      let solicitudData = {
         ...formData,
-        Fecha: solicitud?.Fecha,
-        Plan: solicitud?.Plan,
-        estatus: solicitud?.estatus,
-        uid:User?.uid,
-        FirmaDigitalUrl: FirmaDigital ? await Conta.uploadFirma(FirmaDigital,User?.uid) : solicitud.FirmaDigitalUrl
-      }
+        uid: User?.uid,
+        estatus: "Activa",
+        email:User?.email,
+        Plan: User?.UserPlan,
+        Fecha: getCurrentDate(),
+        FirmaDigitalUrl: FirmaDigital
+          ? await Conta.uploadFirma(FirmaDigital, User?.uid)
+          : "",
+      };
 
-      const result = await Conta.updateSolicitud(id, UpdatedSoli);
+      const result = await Conta.createSolicitud(User?.uid, solicitudData);
       if (result) {
         // El blog se creó correctamente
         toast({
-          title: "Solicitud Modificada Exitosamente",
+          title: "Solicitud Creada Exitosamente",
         });
 
-        navigate('/Perfil')
         formik.resetForm();
       } else {
         // Hubo un error al crear el blog
         toast({
           variant: "destructive",
-          title: "Ocurrio un error al modificar la solicitud",
+          title: "Ocurrio un error al crear la solicitud",
           description:
             "algo paso al monento de registrar los datos suministrados.",
         });
       }
-
-    }
-  })
-  
+    },
+  });
   return (
     <MainLayout>
-        <h1 className="text-3xl text-center font-bold my-4 md:mb-5">Modificar Solicitud: <br /> {id}</h1>
+      <div className="w-full h-full mb-5 px-[3%]">
+        <h2 className="text-2xl font-bold text-center py-5">Crear Solicitud</h2>
         <form
           onSubmit={formik.handleSubmit}
           className="max-w-2xl rounded-md p-8 space-y-3 shadow-lg mx-auto bg-white "
@@ -112,10 +125,11 @@ export const UpdateSoliPage = () => {
             {formik.isSubmitting ? (
               <Loader2 className="animate-spin animate-infinite" />
             ) : (
-              "Modificar Solicitud"
+              "Crear Solicitud"
             )}
           </button>
         </form>
+      </div>
     </MainLayout>
-  )
-}
+  );
+};

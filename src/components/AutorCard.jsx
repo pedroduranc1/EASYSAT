@@ -8,7 +8,7 @@ export const AutorCard = ({autor,mxauto}) => {
   const {data:Autor,isLoading,isError} = useQuery(`${autor}`,() => AutorCtrl.getMe(autor))
 
   return (
-    <div className={`${mxauto ?'mx-auto' : ''} w-full md:max-w-md items-center shadow-md flex p-5`}>
+    <div className={`${mxauto ?'mx-auto' : ''} bg-white rounded-md w-full md:max-w-md items-center shadow-lg flex p-5`}>
       <img
         className="w-16 h-16 rounded-full mx-auto"
         src={Autor && Autor?.Img_url }

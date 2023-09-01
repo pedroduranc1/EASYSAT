@@ -130,7 +130,7 @@ export const PageCliente = () => {
                   planes de usuario{" "}
                 </option>
                 <option value="Gratis">Gratis </option>
-                <option value="RPC">Plan RPC y STATUS </option>
+                <option value="RFC">Plan RPC y STATUS </option>
                 <option value="Pendientes">Plan Años Pendientes </option>
                 <option value="Personal">Plan Personal </option>
                 <option value="Empresarial">Plan Empresarial </option>
