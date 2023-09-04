@@ -21,7 +21,7 @@ module.exports = {
     },
     extend: {
       backgroundImage: {
-        'hero-img': "url('./fondo.jpg')",
+        'hero-img': "url('./src/assets/fondo.jpg')",
       },
       colors: {
         DgyaLight: "#137EB7",
