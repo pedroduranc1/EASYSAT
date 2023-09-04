@@ -6,6 +6,7 @@ import { useAuth } from "../hooks/useAuth";
 import { Input } from "../components/ui/Input";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import fondo from "../assets/fondo.jpg";
 
 export const MainPrueba = () => {
   const { User } = useAuth();
@@ -132,7 +133,9 @@ export const MainPrueba = () => {
   return (
     <MainLayoutDg>
       {/* MAIN */}
-      <section class="flex items-center justify-center h-[90vh] md:h-screen  bg-fixed bg-center bg-cover  bg-hero-img">
+      <section class="flex items-center justify-center h-[90vh] md:h-screen  bg-fixed bg-center bg-cover "
+        style={{backgroundImage:`url(${fondo})`}}
+      >
         <div className="w-full h-full flex flex-col bg-black/80">
           <div className="flex-1 flex-grow w-full h-full flex justify-center items-center">
             <motion.img

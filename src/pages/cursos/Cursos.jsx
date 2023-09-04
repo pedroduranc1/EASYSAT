@@ -127,7 +127,7 @@ export const Cursos = () => {
     <MainLayoutDg isblack={true}>
       <div className={`bg-DgyaLight ${filteredCourses.length > 1 ? 'h-full' : "h-screen"}`}>        
         <div className="max-w-6xl mx-auto">
-          <div className={` px-[3%]  md:px-0 pt-[8.4%]`}>
+          <div className={` px-[3%]  md:px-0 pt-[18%] md:pt-[8.4%]`}>
             <SearchBar
             placeholder={"Buscar Curso"}
             searchTerm={searchTerm}

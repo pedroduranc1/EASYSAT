@@ -8,6 +8,7 @@ import { useFormik } from "formik";
 import { Auth } from "../../api/fb.auth";
 import { useNavigate } from "react-router-dom";
 import { useToast } from "../../components/ui/use-toast";
+import fondo from '../../assets/fondo.jpg'
 
 const AuthCtrl = new Auth();
 
@@ -65,7 +66,9 @@ export const LoginPage = () => {
 
   return (
     <AuthLayout>
-      <div className="flex items-center justify-center h-full md:h-screen overflow-hidden bg-fixed bg-center bg-cover  bg-hero-img">
+      <div className="flex items-center justify-center h-full md:h-screen overflow-hidden bg-fixed bg-center bg-cover"
+      style={{backgroundImage:`url(${fondo})`}}
+      >
         <div className="w-full h-screen bg-black/70 pt-[10%] md:pt-0">
           <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-[70vh] lg:py-0">
             <a

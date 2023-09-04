@@ -4,8 +4,8 @@ import React from "react";
 
 export const FileInput = ({Doc,setDoc}) => {
   return (
-    <div className="flex items-center justify-center w-full">
-      <label className={`flex flex-col bg-slate-100 cursor-pointer rounded-lg border-4 ${Doc ? "border-green-200 " : ""} border-dashed w-full h-60 p-10 group text-center`}>
+    <div className="flex  items-center justify-center w-full">
+      <label className={`flex flex-col bg-slate-100 hover:bg-DgyaLight transition-colors group cursor-pointer rounded-lg border-4 ${Doc ? "border-green-200 " : ""} border-dashed w-full h-60 p-10 group text-center`}>
         <div className="h-full w-full text-center flex flex-col items-center justify-center">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -28,7 +28,7 @@ export const FileInput = ({Doc,setDoc}) => {
               <File className="fill-gray-100 mx-auto" size={56} />
             )}
           </div>
-          <p className="pointer-none text-gray-500 ">
+          <p className="pointer-none group-hover:text-white text-gray-500 ">
             {Doc
               ? Doc.name
               : "Agrega el documento haciendo click aqui"}

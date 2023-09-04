@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { MainLayout } from "../../../layouts/MainLayout";
+import { MainLayoutDg } from "../../../layouts/MainLayoutDg";
 import { useAuth } from "../../../hooks/useAuth";
 import { Input } from "../../../components/ui/Input";
 import { useFormik } from "formik";
@@ -41,7 +42,7 @@ export const CreateSoliPage = () => {
         ...formData,
         uid: User?.uid,
         estatus: "Activa",
-        email:User?.email,
+        email: User?.email,
         Plan: User?.UserPlan,
         Fecha: getCurrentDate(),
         FirmaDigitalUrl: FirmaDigital
@@ -69,9 +70,13 @@ export const CreateSoliPage = () => {
     },
   });
   return (
-    <MainLayout>
-      <div className="w-full h-full mb-5 px-[3%]">
-        <h2 className="text-2xl font-bold text-center py-5">Crear Solicitud</h2>
+    <MainLayoutDg isblack={true}>
+      <div className={`bg-DgyaLight  h-screen`}>
+        <div className="max-w-6xl mx-auto">
+          <div className={` px-[3%]  md:px-0 pt-[8.4%]`}>
+            <div className="mb-[3.9%] w-full px-[2%] ">
+            <div className="w-full h-full mb-5 px-[3%]">
+        <h2 className="text-2xl font-bold text-white text-center py-5">Crear Solicitud</h2>
         <form
           onSubmit={formik.handleSubmit}
           className="max-w-2xl rounded-md p-8 space-y-3 shadow-lg mx-auto bg-white "
@@ -120,7 +125,7 @@ export const CreateSoliPage = () => {
           </div>
           <button
             type="submit"
-            className="w-full flex justify-center py-2 rounded-md bg-black text-white "
+            className="w-full flex hover:opacity-80 transition-all justify-center py-2 rounded-md bg-black text-white "
           >
             {formik.isSubmitting ? (
               <Loader2 className="animate-spin animate-infinite" />
@@ -130,6 +135,11 @@ export const CreateSoliPage = () => {
           </button>
         </form>
       </div>
-    </MainLayout>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+    </MainLayoutDg>
   );
 };

@@ -246,7 +246,11 @@ export const NavbarDg = ({ isblack }) => {
             size={50}
             onClick={handleMenuToggle}
             className={`flex mr-auto  cursor-pointer md:hidden p-2 rounded-md transition-all
-            ${scrollPassedLimit || isblack? "bg-white text-black" : "text-white"} 
+            ${
+              scrollPassedLimit || isblack
+                ? "bg-white text-black"
+                : "text-white"
+            } 
             `}
           />
         </div>
@@ -291,7 +295,9 @@ export const NavbarDg = ({ isblack }) => {
                     Servicios
                   </a>
                 ) : (
-                  <Link>Cursos</Link>
+                  <Link
+                  to='/Cursos'
+                  >Cursos</Link>
                 )}
                 {isMainPage ? (
                   <a
@@ -301,7 +307,18 @@ export const NavbarDg = ({ isblack }) => {
                     Contacto
                   </a>
                 ) : (
-                  <Link>Blogs</Link>
+                  <Link
+                  to="/Blogs"
+                  >Blogs</Link>
+                )}
+
+                {isMainPage && (
+                  <Link
+                    to="/Contabilidad"
+                    className="hover:text-DgyaDark transition-colors"
+                  >
+                    Contabilidad
+                  </Link>
                 )}
 
                 {isMainPage && (
