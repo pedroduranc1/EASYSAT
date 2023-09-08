@@ -17,7 +17,7 @@ export const services = [
                 title:"Actualización de tus datos y régimen"
             }
         ],
-        precio:299
+        precio:199
     },
     {
         title: "Atraso con Declaraciones?",
@@ -51,7 +51,7 @@ export const services = [
                 title:"Envío de declaraciones SAT (IVA e ISR)"
             }
         ],
-        precio:199,
+        precio:299,
         ProdId: "prod_OQv39tgga7jonb",
         payId: "price_1Ne3DNBD679m7qFxNFbZjTBM"
     },

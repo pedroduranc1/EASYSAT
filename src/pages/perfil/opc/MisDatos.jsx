@@ -9,7 +9,7 @@ export const MisDatos = () => {
 
   return (
     <>
-      <h3 className=" text-base md:text-2xl text-center font-semibold mt-4">
+      <h3 className=" text-base text-white md:text-3xl text-center font-semibold mt-4">
         Datos Personales
       </h3>
       <div className="bg-white max-w-xl rounded-md shadow-lg mx-auto mt-5 p-7 flex flex-col gap-5 items-end">

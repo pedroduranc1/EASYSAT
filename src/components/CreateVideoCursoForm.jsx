@@ -6,6 +6,7 @@ import { initialValues, validationSchema } from "../utils/perfil.video.form";
 import { useFormik } from "formik";
 import { toast } from "../components/ui/use-toast";
 import { uid } from "uid";
+import { ButtonForm } from "./ui/ButtonForm";
 
 const cursoCtrl = new CursosCtrl();
 export const CreateVideoCursoForm = ({ cursoSelected, setcursoSelected }) => {
@@ -45,7 +46,7 @@ export const CreateVideoCursoForm = ({ cursoSelected, setcursoSelected }) => {
   return (
     <form onSubmit={formik.handleSubmit}>
       <div className="w-full space-y-3">
-        <h2 className="text-2xl font-bold">Curso: {cursoSelected.Titulo}</h2>
+        <h2 className="text-xl text-white md:text-2xl font-bold">Curso: {cursoSelected.Titulo}</h2>
         <div className="flex flex-col md:flex-row md:space-x-3">
           <Input
             title={"Titulo"}
@@ -88,17 +89,7 @@ export const CreateVideoCursoForm = ({ cursoSelected, setcursoSelected }) => {
           }}
         />
       </div>
-      <button
-        type="submit"
-        className="w-full px-2 py-2 flex items-center justify-center hover:bg-black/70 transition-colors bg-black text-white rounded-md"
-      >
-        {formik.isSubmitting ? (
-          <Loader2 className="animate-spin animate-infinite" />
-        ) : (
-          "Crear Video"
-        )}
-        
-      </button>
+      <ButtonForm formik={formik} title={"Crear Video"}/>
     </form>
   );
 };

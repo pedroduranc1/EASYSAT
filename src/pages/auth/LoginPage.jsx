@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { AuthLayout } from "../../layouts/AuthLayout";
-import { FerrisWheel, Check, Eye, EyeOff, Loader2 } from "lucide-react";
+import { Check, Eye, EyeOff, Loader2 } from "lucide-react";
 import { motion } from "framer-motion";
 import { initialValues, validationSchema } from "../../utils/login.form";
 import { useAuth } from "../../hooks/useAuth";
@@ -8,7 +8,8 @@ import { useFormik } from "formik";
 import { Auth } from "../../api/fb.auth";
 import { useNavigate } from "react-router-dom";
 import { useToast } from "../../components/ui/use-toast";
-import fondo from '../../assets/fondo.jpg'
+import fondo from '../../assets/fondo.webp'
+import logo from '../../assets/logo.webp'
 
 const AuthCtrl = new Auth();
 
@@ -69,15 +70,9 @@ export const LoginPage = () => {
       <div className="flex items-center justify-center h-full md:h-screen overflow-hidden bg-fixed bg-center bg-cover"
       style={{backgroundImage:`url(${fondo})`}}
       >
-        <div className="w-full h-screen bg-black/70 pt-[10%] md:pt-0">
+        <div className="w-full h-screen pt-[10%] md:pt-0">
           <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-[70vh] lg:py-0">
-            <a
-              href="#"
-              className="flex items-center mb-6 text-4xl font-semibold text-white"
-            >
-              <FerrisWheel className="h-full w-full" />
-              DGYA
-            </a>
+            <img src={logo} className="w-[150px] mb-5" alt="" />
             <div className="w-full bg-white rounded-lg shadow  md:mt-0 sm:max-w-md xl:p-0 ">
               <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
                 <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl ">

@@ -35,7 +35,7 @@ export const UpdateDatos = () => {
   });
   return (
     <>
-      <h3 className=" text-base md:text-2xl text-center font-semibold mt-5">
+      <h3 className=" text-base text-white md:text-3xl text-center font-semibold mt-5">
         Completa tus datos de perfil aqui
       </h3>
       <form

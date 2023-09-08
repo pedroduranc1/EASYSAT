@@ -1,12 +1,10 @@
 import React, { useState } from "react";
 import { Input } from "./ui/Input";
-import { Loader2 } from "lucide-react";
 import { useFormik } from "formik";
 import { initialValues, validationSchema } from "../utils/perfil.blog.form";
 import { toast } from "../components/ui/use-toast";
-
+import { ButtonForm } from "./ui/ButtonForm";
 import { BlogsCtrl } from "../api/fb.blogs";
-import { useAuth } from "../hooks/useAuth";
 
 const blogCtrl = new BlogsCtrl();
 export const UpdateBlogForm = ({
@@ -74,7 +72,7 @@ export const UpdateBlogForm = ({
           error={formik.errors.Descripcion}
         />
 
-        <h4 className="block mb-2 text-sm font-medium text-gray-900 ">
+        <h4 className="block mb-2 text-xl font-medium text-white">
           Autor: {AutorUsername}
         </h4>
 
@@ -98,16 +96,7 @@ export const UpdateBlogForm = ({
           }}
         />
 
-        <button
-          type="submit"
-          className="w-full px-2 py-2 flex items-center justify-center hover:bg-black/70 transition-colors bg-black text-white rounded-md"
-        >
-          {formik.isSubmitting ? (
-            <Loader2 className="animate-spin animate-infinite" />
-          ) : (
-            "Modificar Blog"
-          )}
-        </button>
+        <ButtonForm formik={formik} title={"Modificar Blog"}/>
       </div>
     </form>
   );

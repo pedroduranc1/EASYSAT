@@ -53,16 +53,14 @@ export const NavbarDg = ({ isblack }) => {
     if (User) {
       if (User.UserRole.includes("Admin")) {
         return (
-          <li>
-            <Link
-              className={`px-2 py-4 ${
-                scrollPassedLimit || (!isblack && "text-white")
+          <Link
+              className={`px-4 py-2 ${
+                scrollPassedLimit || (!isblack && "text-black")
               } hover:text-DgyaDark transition-all`}
               to="/Solicitudes"
             >
               Solicitudes
             </Link>
-          </li>
         );
       } else {
         return null;
@@ -74,7 +72,7 @@ export const NavbarDg = ({ isblack }) => {
     if (User) {
       if (User.UserRole.includes("Admin")) {
         return (
-          <li className=" hover:bg-slate-100 hover:rounded-md hover:text-black transition-all py-2">
+          <li className=" hover:text-DgyaDark hover:rounded-md  transition-all py-2">
             <Link className="w-full block" to="/Solicitudes">
               Solicitudes
             </Link>
@@ -89,18 +87,18 @@ export const NavbarDg = ({ isblack }) => {
     <>
       <div className="fixed z-50 flex w-full justify-center">
         <ul
-          className={`hidden ${
+          className={`hidden bg-white ${
             scrollPassedLimit || isblack ? "bg-black/80" : ""
-          } transition-all  md:flex justify-center p-4 ${
-            scrollPassedLimit || isblack ? "" : "mt-5"
-          } rounded-b-md ${
-            scrollPassedLimit || isblack ? "shadow-lg" : ""
-          } gap-x-5 text-white font-semibold text-lg`}
+          } transition-all  md:flex justify-center  ${
+            scrollPassedLimit || isblack ? "rounded-b-md" : "mt-5  rounded-full"
+          }  ${
+            scrollPassedLimit || isblack ? "shadow-lg" : "text-black"
+          } divide-x-2 [&>a]:px-4 [&>a]:py-2  text-black font-semibold text-lg`}
         >
           <Link
             to="/"
             className={`hover:text-DgyaDark transition-colors ${
-              scrollPassedLimit || isblack ? "text-white" : ""
+              scrollPassedLimit || isblack ? "text-black" : ""
             }`}
           >
             Inicio
@@ -109,7 +107,7 @@ export const NavbarDg = ({ isblack }) => {
             <a
               href="#acerca"
               className={`hover:text-DgyaDark transition-colors ${
-                scrollPassedLimit || isblack ? "text-white" : ""
+                scrollPassedLimit || isblack ? "text-black" : ""
               }`}
             >
               Acerca de
@@ -118,7 +116,7 @@ export const NavbarDg = ({ isblack }) => {
             <Link
               to="/Contabilidad"
               className={`hover:text-DgyaDark transition-colors ${
-                scrollPassedLimit || isblack ? "text-white" : ""
+                scrollPassedLimit || isblack ? "text-black" : ""
               }`}
             >
               Contabilidad
@@ -129,7 +127,7 @@ export const NavbarDg = ({ isblack }) => {
             <a
               href="#servicios"
               className={`hover:text-DgyaDark transition-colors ${
-                scrollPassedLimit || isblack ? "text-white" : ""
+                scrollPassedLimit || isblack ? "text-black" : ""
               }`}
             >
               Servicios
@@ -138,7 +136,7 @@ export const NavbarDg = ({ isblack }) => {
             <Link
               to="/Cursos"
               className={`hover:text-DgyaDark transition-colors ${
-                scrollPassedLimit || isblack ? "text-white" : ""
+                scrollPassedLimit || isblack ? "text-black" : ""
               }`}
             >
               Cursos
@@ -149,7 +147,7 @@ export const NavbarDg = ({ isblack }) => {
             <a
               href="#contacto"
               className={`hover:text-DgyaDark transition-colors ${
-                scrollPassedLimit || isblack ? "text-white" : ""
+                scrollPassedLimit || isblack ? "text-black" : ""
               }`}
             >
               Contacto
@@ -158,7 +156,7 @@ export const NavbarDg = ({ isblack }) => {
             <Link
               to="/Blogs"
               className={`hover:text-DgyaDark transition-colors ${
-                scrollPassedLimit || isblack ? "text-white" : ""
+                scrollPassedLimit || isblack ? "text-black" : ""
               }`}
             >
               Blogs
@@ -169,7 +167,7 @@ export const NavbarDg = ({ isblack }) => {
             <Link
               to="/Contabilidad"
               className={`hover:text-DgyaDark transition-colors ${
-                scrollPassedLimit || isblack ? "text-white" : ""
+                scrollPassedLimit || isblack ? "text-black" : ""
               }`}
             >
               Contabilidad
@@ -180,7 +178,7 @@ export const NavbarDg = ({ isblack }) => {
             <Link
               to="/cursos"
               className={`hover:text-DgyaDark transition-colors ${
-                scrollPassedLimit || isblack ? "text-white" : ""
+                scrollPassedLimit || isblack ? "text-black" : ""
               }`}
             >
               Cursos
@@ -191,7 +189,7 @@ export const NavbarDg = ({ isblack }) => {
             <Link
               to="/blogs"
               className={`hover:text-DgyaDark transition-colors ${
-                scrollPassedLimit || isblack ? "text-white" : ""
+                scrollPassedLimit || isblack ? "text-black" : ""
               }`}
             >
               Blogs
@@ -199,47 +197,46 @@ export const NavbarDg = ({ isblack }) => {
           )}
 
           {showDashboard()}
-          <ul className="hidden md:flex [&>li]:text-slate-600 [&>li]:font-semibold">
-            {User ? (
-              <div className="flex space-x-3">
-                <Link
-                  to="/Perfil"
-                  className={`flex items-start ${
-                    isblack ? "text-white" : ""
-                  } justify-center space-x-3`}
-                >
-                  <Avatar className="-translate-y-1">
-                    <AvatarImage src={User.Img_url} />
-                    <AvatarFallback className="bg-black">
-                      <UserIcon className="text-white" />
-                    </AvatarFallback>
-                  </Avatar>
-                  <h2
-                    className={`${
-                      scrollPassedLimit || isblack ? "text-white" : ""
-                    }`}
-                  >
-                    {User?.Username && <p>{User.Username}</p>}
-                  </h2>
-                </Link>
-                <LogOut
-                  onClick={logout}
-                  className={`w-5 h-5 mt-1 cursor-pointer ${
-                    scrollPassedLimit || isblack ? "text-white" : "text-white"
-                  }`}
-                />
-              </div>
-            ) : (
+          {User ? (
+            <div className="flex items-center space-x-3">
               <Link
-                to="/Login"
-                className={`hover:text-DgyaDark transition-colors ${
-                  scrollPassedLimit ? "text-white" : ""
-                }`}
+                to="/Perfil"
+                className={`flex items-center px-4 ${
+                  isblack ? "text-white" : ""
+                } justify-center space-x-3`}
               >
-                Iniciar Sesion
+                <Avatar className="">
+                  <AvatarImage src={User.Img_url} />
+                  <AvatarFallback className="bg-black">
+                    <UserIcon className="text-white" />
+                  </AvatarFallback>
+                </Avatar>
+                <h2
+                  className={`${
+                    scrollPassedLimit || isblack ? "text-black" : ""
+                  }`}
+                >
+                  {User?.Username && <p>{User.Username}</p>}
+                </h2>
+                <LogOut
+                onClick={logout}
+                className={`w-5 h-5 cursor-pointer ${
+                  scrollPassedLimit || isblack ? "text-black" : "text-black"
+                }`}
+              />
               </Link>
-            )}
-          </ul>
+              
+            </div>
+          ) : (
+            <Link
+              to="/Login"
+              className={`hover:text-DgyaDark transition-colors ${
+                scrollPassedLimit ? "text-black" : ""
+              }`}
+            >
+              Iniciar Sesion
+            </Link>
+          )}
         </ul>
         <div className={`w-full md:hidden p-2`}>
           <Menu
@@ -284,7 +281,7 @@ export const NavbarDg = ({ isblack }) => {
                     Acerca de
                   </a>
                 ) : (
-                  <Link>Contabilidad</Link>
+                  <Link to="/Contabilidad">Contabilidad</Link>
                 )}
 
                 {isMainPage ? (
@@ -295,9 +292,7 @@ export const NavbarDg = ({ isblack }) => {
                     Servicios
                   </a>
                 ) : (
-                  <Link
-                  to='/Cursos'
-                  >Cursos</Link>
+                  <Link to="/Cursos">Cursos</Link>
                 )}
                 {isMainPage ? (
                   <a
@@ -307,9 +302,7 @@ export const NavbarDg = ({ isblack }) => {
                     Contacto
                   </a>
                 ) : (
-                  <Link
-                  to="/Blogs"
-                  >Blogs</Link>
+                  <Link to="/Blogs">Blogs</Link>
                 )}
 
                 {isMainPage && (
@@ -341,7 +334,7 @@ export const NavbarDg = ({ isblack }) => {
 
                 {showDashboardMobile()}
                 {User ? (
-                  <div className="flex py-2 hover:border-b-2 cursor-pointer hover:border-slate-500 transition-all items-center justify-between md:justify-start md:space-x-3">
+                  <div className="flex py-1 cursor-pointer  transition-all items-center justify-between md:justify-start md:space-x-3">
                     <Link
                       to="/Perfil"
                       className="w-full flex space-x-3 items-center"
@@ -362,7 +355,7 @@ export const NavbarDg = ({ isblack }) => {
                 ) : (
                   <li>
                     <Link
-                      className=" py-4 hover:border-b-2 hover:border-slate-500 transition-all"
+                      className=" py-4  transition-all"
                       to="/Login"
                     >
                       Iniciar Sesion

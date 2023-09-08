@@ -56,12 +56,12 @@ export const MisSolicitudes = () => {
 
   return (
     <div>
-      <h3 className=" text-base md:text-2xl text-center font-semibold mt-5">
+      <h3 className=" text-xl text-white md:text-3xl text-center font-semibold mt-5">
         Mis Solicitudes
       </h3>
 
       <Separador />
-      <h3 className=" text-base md:text-2xl text-start font-semibold mt-5">
+      <h3 className=" text-base text-white md:text-2xl text-start font-semibold mt-5">
         Activas
       </h3>
 
@@ -71,7 +71,7 @@ export const MisSolicitudes = () => {
             <SoliCard key={soli.id} solicitud={soli} />
           ))
         ) : (
-          <h2 className="text-black">
+          <h2 className="text-white">
             No existen solicitudes activas en este momento <br />
              <Link className="underline" to={getPlanLink()}> Crea una aqui</Link> 
           </h2>
@@ -79,7 +79,7 @@ export const MisSolicitudes = () => {
       </div>
 
       <Separador />
-      <h3 className=" text-base md:text-2xl text-start font-semibold mt-5">
+      <h3 className=" text-base text-white md:text-2xl text-start font-semibold mt-5">
         En proceso
       </h3>
 
@@ -89,14 +89,14 @@ export const MisSolicitudes = () => {
             <SoliCard key={soli.id} solicitud={soli} />
           ))
         ) : (
-          <h2 className="text-black">
+          <h2 className="text-white">
             No existen solicitudes en proceso en este momento
           </h2>
         )}
       </div>
 
       <Separador />
-      <h3 className=" text-base md:text-2xl text-start font-semibold mt-5">
+      <h3 className=" text-base text-white md:text-2xl text-start font-semibold mt-5">
         Finalizadas
       </h3>
 
@@ -106,7 +106,7 @@ export const MisSolicitudes = () => {
             <SoliCard key={soli.id} solicitud={soli} />
           ))
         ) : (
-          <h2 className="text-black">
+          <h2 className="text-white">
             No existen solicitudes finalizadas en este momento
           </h2>
         )}

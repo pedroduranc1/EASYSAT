@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { MainLayout } from "../../layouts/MainLayout";
+import { MainLayoutDg } from "../../layouts/MainLayoutDg";
 import { Input } from "../../components/ui/Input";
 import { useFormik } from "formik";
 import { initialValues, validationSchema } from "../../utils/perfil.blog.form";
@@ -7,8 +7,9 @@ import { User } from "../../api/fb.user";
 import { BlogsCtrl } from "../../api/fb.blogs";
 import { useQuery } from "react-query";
 import { toast } from "../../components/ui/use-toast";
-import { Loader2 } from "lucide-react";
-import { uid } from 'uid';
+import { uid } from "uid";
+import { ButtonForm } from "../../components/ui/ButtonForm";
+import { FormContainer } from "../../components/ui/FormContainer";
 
 const BlogCtrl = new BlogsCtrl();
 const UserCtrl = new User();
@@ -39,7 +40,7 @@ export const AdminBlog = () => {
           ? await BlogCtrl.uploadBlogImage(BlogImg, formValue.Autor, Slug)
           : "",
       };
-      const result = await BlogCtrl.createBlog(Slug,BlogData);
+      const result = await BlogCtrl.createBlog(Slug, BlogData);
       if (result) {
         // El blog se creó correctamente
         toast({
@@ -60,95 +61,90 @@ export const AdminBlog = () => {
   });
 
   return (
-    <MainLayout>
-      <div className="w-full h-[88vh] px-[3%]">
-        <h2 className="text-2xl font-bold text-center py-5">Crear Blog</h2>
-        <form
-          onSubmit={formik.handleSubmit}
-          className="max-w-2xl rounded-md p-8 shadow-lg mx-auto bg-white "
-        >
-          <div className="w-full space-y-3">
-            <Input
-              title={"Titulo"}
-              className={"w-full"}
-              name={"Titulo"}
-              type={"text"}
-              placeholder={"Blog de analisis Sat"}
-              value={formik.values.Titulo}
-              onChange={formik.handleChange}
-              error={formik.errors.Titulo}
-            />
-            <Input
-              title={"Descripcion"}
-              className={"w-full"}
-              name={"Descripcion"}
-              type={"text"}
-              placeholder={
-                "Para realizar un auto analisis de lo que debo declarar..."
-              }
-              value={formik.values.Descripcion}
-              onChange={formik.handleChange}
-              error={formik.errors.Descripcion}
-            />
+    <MainLayoutDg isblack={true}>
+      <FormContainer>
+        <div className="w-full min-h-screen h-fit px-[3%]">
+          <h2 className="md:text-3xl text-2xl text-white font-bold text-center py-5">
+            Crear Blog
+          </h2>
+          <form
+            onSubmit={formik.handleSubmit}
+            className="max-w-2xl rounded-md p-8 shadow-lg mx-auto bg-DgyaDark/30 "
+          >
+            <div className="w-full space-y-3">
+              <Input
+                title={"Titulo"}
+                className={"w-full"}
+                name={"Titulo"}
+                type={"text"}
+                placeholder={"Blog de analisis Sat"}
+                value={formik.values.Titulo}
+                onChange={formik.handleChange}
+                error={formik.errors.Titulo}
+              />
+              <Input
+                title={"Descripcion"}
+                className={"w-full"}
+                name={"Descripcion"}
+                type={"text"}
+                placeholder={
+                  "Para realizar un auto analisis de lo que debo declarar..."
+                }
+                value={formik.values.Descripcion}
+                onChange={formik.handleChange}
+                error={formik.errors.Descripcion}
+              />
 
-            <h4 className="block mb-2 text-sm font-medium text-gray-900 ">
-              Autor
-            </h4>
-            <select
-              name={"Autor"}
-              value={formik.values.Autor}
-              onChange={formik.handleChange}
-              className={`${
-                formik.errors.Autor
-                  ? "bg-red-500 placeholder:text-white text-white"
-                  : ""
-              } bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5`}
-            >
-              <option value="" label="Selecciona al Autor">
-                Selecciona al Autor{" "}
-              </option>
-              {users &&
-                users.map((user, index) => (
-                  <option key={index} value={user.uid}>
-                    {" "}
-                    {user.Username}
-                  </option>
-                ))}
-            </select>
+              <h4 className="block mb-2 text-sm font-medium text-white ">
+                Autor
+              </h4>
+              <select
+                name={"Autor"}
+                value={formik.values.Autor}
+                onChange={formik.handleChange}
+                className={`${
+                  formik.errors.Autor
+                    ? "bg-red-500 placeholder:text-white text-white"
+                    : ""
+                } bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5`}
+              >
+                <option value="" label="Selecciona al Autor">
+                  Selecciona al Autor{" "}
+                </option>
+                {users &&
+                  users.map((user, index) => (
+                    <option key={index} value={user.uid}>
+                      {" "}
+                      {user.Username}
+                    </option>
+                  ))}
+              </select>
 
-            <Input
-              title={"Sube tu archivo MarkDown"}
-              className={"w-full"}
-              name={"markdown"}
-              type={"file"}
-              onChange={(event) => {
-                setBlogMD(event.currentTarget.files[0]);
-              }}
-            />
+              <Input
+                title={"Sube tu archivo MarkDown"}
+                className={"w-full"}
+                name={"markdown"}
+                type={"file"}
+                onChange={(event) => {
+                  setBlogMD(event.currentTarget.files[0]);
+                }}
+              />
 
-            <Input
-              title={"Sube una imagen para tu blog"}
-              className={"w-full"}
-              name={"markdown"}
-              type={"file"}
-              onChange={(event) => {
-                setBlogImg(event.currentTarget.files[0]);
-              }}
-            />
+              <Input
+                title={"Sube una imagen para tu blog"}
+                className={"w-full"}
+                name={"markdown"}
+                type={"file"}
+                onChange={(event) => {
+                  setBlogImg(event.currentTarget.files[0]);
+                }}
+              />
 
-            <button
-              type="submit"
-              className="w-full px-2 py-2 flex items-center justify-center hover:bg-black/70 transition-colors bg-black text-white rounded-md"
-            >
-              {formik.isSubmitting ? (
-                <Loader2 className="animate-spin animate-infinite" />
-              ) : (
-                "Crear Blog"
-              )}
-            </button>
-          </div>
-        </form>
-      </div>
-    </MainLayout>
+              <ButtonForm formik={formik} title={"Crear Blog"} />
+            </div>
+          </form>
+        </div>
+      </FormContainer>
+    </MainLayoutDg>
   );
 };

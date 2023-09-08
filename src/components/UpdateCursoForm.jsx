@@ -6,6 +6,7 @@ import { Loader2 } from "lucide-react";
 import { CursosCtrl } from "../api/fb.cursos";
 import { toast } from "../components/ui/use-toast";
 import { uid } from "uid";
+import { ButtonForm } from "../components/ui/ButtonForm";
 
 const cursoCtrl = new CursosCtrl();
 export const UpdateCursoForm = ({
@@ -71,7 +72,7 @@ export const UpdateCursoForm = ({
           onChange={formik.handleChange}
           error={formik.errors.Descripcion}
         />
-        <h4 className="block mb-2 text-sm font-medium text-gray-900 ">
+        <h4 className="block mb-2 text-xl  font-medium text-white">
           Autor: {AutorUsername}
         </h4>
         <Input
@@ -84,16 +85,7 @@ export const UpdateCursoForm = ({
           }}
         />
 
-        <button
-          type="submit"
-          className="w-full px-2 py-2 flex items-center justify-center hover:bg-black/70 transition-colors bg-black text-white rounded-md"
-        >
-          {formik.isSubmitting ? (
-            <Loader2 className="animate-spin animate-infinite" />
-          ) : (
-            "Modificar Curso"
-          )}
-        </button>
+        <ButtonForm formik={formik} title={"Modificar Curso"}/>
       </div>
     </form>
   );

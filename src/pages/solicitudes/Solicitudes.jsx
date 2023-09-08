@@ -8,6 +8,7 @@ import { ContabilidadCtrl } from "../../api/contabilidad/fb.contabilidad";
 import { SolicitudCard } from "../../components/SolicitudCard";
 import { SearchBar } from "../../components/SearchBar";
 import { SLoading } from "./Solicitudes.loading";
+import fondo from "../../assets/fondo.webp";
 
 const Conta = new ContabilidadCtrl();
 
@@ -183,7 +184,9 @@ export const Solicitudes = () => {
 
   return (
     <MainLayoutDg isblack={true}>
-      <div className={`bg-DgyaLight h-fit md:h-full`}>
+      <div className={`bg-fixed bg-cover h-fit md:h-full`}
+      style={{ backgroundImage: `url(${fondo})` }}
+      >
         <div className="max-w-6xl mx-auto">
           <div className={` px-[3%]  md:px-0 pt-[15%] md:pt-[8.4%]`}>
             <div className={` min-h-screen px-[3%] md:px-0 md:mt-5`}>

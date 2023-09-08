@@ -5,7 +5,7 @@ export const Input = ({name,type,placeholder,title,className,value,onChange,erro
     <div className={className}>
       <label
         htmlFor="email"
-        className="block mb-2 text-sm font-medium text-gray-900 "
+        className="block mb-2 text-sm font-medium text-white"
       >
         {title}
       </label>

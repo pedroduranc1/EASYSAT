@@ -5,6 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { services } from "../../assets/services";
 import { ArrowBigRightIcon, Check, Lock } from "lucide-react";
 import { motion } from "framer-motion";
+import { FormContainer } from "../../components/ui/FormContainer";
 
 export const Contabilidad = () => {
   const { User } = useAuth();
@@ -64,20 +65,16 @@ export const Contabilidad = () => {
 
   return (
     <MainLayoutDg isblack={true}>
-      <div className={`bg-DgyaLight h-full overflow-hidden md:h-screen`}>
-        <div className="max-w-6xl mx-auto">
-          <div className={` px-[3%]  md:px-0 pt-[8.4%]`}>
-            <div className="pb-[3.9%] w-full px-[2%] ">
-              {/* cartas de servicios */}
-              <div className=" grid grid-cols-1 md:grid-cols-2 w-full gap-4 overflow-x-hidden bg-DgyaBase/30 shadow-md rounded-md p-8 mt-8">
-                {services.map((servicio, index) => (
-                  <ContaCard key={index} servicio={servicio} />
-                ))}
-              </div>
-            </div>
+      <FormContainer>
+        <div className="pb-[3.9%] h-full min-h-screen w-full px-[2%] ">
+          {/* cartas de servicios */}
+          <div className=" grid grid-cols-1 md:grid-cols-2 w-full gap-4 overflow-x-hidden bg-DgyaBase/70 shadow-lg rounded-md p-8 mt-8">
+            {services.map((servicio, index) => (
+              <ContaCard key={index} servicio={servicio} />
+            ))}
           </div>
         </div>
-      </div>
+      </FormContainer>
     </MainLayoutDg>
   );
 };

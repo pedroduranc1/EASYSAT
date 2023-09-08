@@ -10,6 +10,7 @@ import { Skeleton } from "../../components/ui/skeleton";
 import { motion, AnimatePresence } from "framer-motion";
 import { MainLayoutDg } from "../../layouts/MainLayoutDg";
 import { SearchBar } from "../../components/SearchBar";
+import fondo from "../../assets/fondo.webp";
 
 const CursosCtrlr = new CursosCtrl();
 export const Cursos = () => {
@@ -41,9 +42,11 @@ export const Cursos = () => {
   if(isLoading)
   return(
     <MainLayoutDg isblack={true}>
-    <div className="bg-DgyaLight h-full">
+    <div className="bg-fixed bg-cover overflow-hidden min-h-screen h-full"
+    style={{ backgroundImage: `url(${fondo})` }}
+    >
       <div className="max-w-6xl mx-auto">
-        <div className={` px-[3%] md:px-0 md:pt-[8.4%]`}>
+        <div className={` px-[3%] md:px-0 pt-[18%] md:pt-[8.4%]`}>
           <div className="my-3">
             <label
               htmlFor="default-search"
@@ -125,7 +128,9 @@ export const Cursos = () => {
 
   return (
     <MainLayoutDg isblack={true}>
-      <div className={`bg-DgyaLight ${filteredCourses.length > 1 ? 'h-full' : "h-screen"}`}>        
+      <div className={`${filteredCourses.length > 1 ? 'h-full' : "h-screen"} bg-cover bg-fixed`}
+        style={{ backgroundImage: `url(${fondo})` }}
+      >        
         <div className="max-w-6xl mx-auto">
           <div className={` px-[3%]  md:px-0 pt-[18%] md:pt-[8.4%]`}>
             <SearchBar
