@@ -8,6 +8,8 @@ import { CornerDownLeft } from "lucide-react";
 import ReactPlayer from "react-player";
 import { AutorCard } from "../../../../components/AutorCard";
 import { useAuth } from "../../../../hooks/useAuth";
+import { FormContainer } from "../../../../components/ui/FormContainer";
+import { Skeleton } from "../../../../components/ui/skeleton";
 
 const VideoCtrl = new CursosCtrl();
 export const Video = () => {
@@ -31,9 +33,18 @@ export const Video = () => {
 
   if (isLoading)
     return (
-      <MainLayout>
-        <h2>Cargando Video</h2>
-      </MainLayout>
+      <MainLayoutDg>
+        <FormContainer>
+          <div className="w-full h-full pb-5 px-[3%] lg:px-0">
+            <Skeleton className="w-[30%] h-6" />
+            <Skeleton className="w-[100%] mt-7 h-[60vh]" />
+            <Skeleton className="w-[50%] mt-7 h-[10vh]" />
+            <h2 className="text-3xl mt-3 text-white font-bold">Descripcion</h2>
+            <Skeleton className="w-[100%] my-3 h-[5vh]" />
+
+          </div>
+        </FormContainer>
+      </MainLayoutDg>
     );
 
   if (isError)
@@ -44,10 +55,8 @@ export const Video = () => {
     );
   return (
     <MainLayoutDg isblack={true}>
-      <div className={`bg-DgyaLight h-screen md:h-full`}>
-        <div className="max-w-6xl mx-auto">
-          <div className={` px-[3%]  md:px-0 pt-[18%] md:pt-[6.0%]`}>
-            <div className="h-full md:h-full md:px-[2%] md:pt-5">
+      <FormContainer>
+      <div className="h-full md:h-full md:px-[2%] md:pt-5">
               <Link
                 className="flex text-white items-end font-bold text-xl"
                 to={`/curso/${cursoId}`}
@@ -80,9 +89,7 @@ export const Video = () => {
                 </h2>
               </div>
             </div>
-          </div>
-        </div>
-      </div>
+      </FormContainer>
     </MainLayoutDg>
   );
 };

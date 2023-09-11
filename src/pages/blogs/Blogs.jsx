@@ -34,7 +34,7 @@ export const Blogs = () => {
     return (
       <MainLayoutDg isblack={true}>
         <FormContainer>
-          <div className="max-w-6xl w-full h-full min-h-screen px-4 mt-4 md:mt-10 md:ml-7">
+          <div className="max-w-6xl w-full h-full min-h-screen overflow-hidden px-[3%] lg:px-0 mt-4 md:mt-10 ">
             <h1 className="text-3xl text-white font-bold mb-4 md:mb-10">
               Nuestros Blogs
             </h1>
@@ -99,7 +99,7 @@ export const Blogs = () => {
     <MainLayoutDg isblack={true}>
       <FormContainer>
         <div className={`w-full min-h-screen h-full flex flex-1`}>
-          <div className="max-w-6xl w-full px-4 mt-4 md:mt-10 md:ml-7">
+          <div className="max-w-6xl px-[3%] lg:px-0 w-full mt-4 md:mt-10 ">
             <SearchBar
               placeholder="Busca un blog aqui"
               handleSearch={handleSearch}
@@ -112,7 +112,7 @@ export const Blogs = () => {
 
             {/* LISTA DE BLOGS */}
             <div className="grid grid-cols-1 overflow-hidden">
-              <ul className="grid grid-cols-1 [&>li]:my-5 divide-slate-700">
+              <ul className="grid grid-cols-1 [&>li]:my-3 divide-slate-700">
                 <AnimatePresence>
                   {filteredBlogs.length > 0 ? (
                     filteredBlogs.map((blog, index) => (
@@ -124,7 +124,7 @@ export const Blogs = () => {
                         key={index}
                       >
                         <Link className="w-full" to={`/blog/${blog.Slug}`}>
-                          <div className="flex flex-col transition-all p-0 md:p-4 items-center bg-white group rounded-lg shadow md:flex-row  hover:bg-DgyaDark ">
+                          <div className="flex flex-col transition-all p-0 md:p-4 items-center bg-white group rounded-lg shadow md:flex-row  hover:bg-LogoBlueDark ">
                             <img
                               className="object-contain w-full h-[200px] my-2 md:my-0 max-w-xs  md:w-32 md:h-32 transition-all group-hover:md:rounded-full"
                               src={`${blog.blog_img}`}
@@ -137,7 +137,7 @@ export const Blogs = () => {
                               <p className="mb-3 font-normal group-hover:text-white text-gray-700 ">
                                 {blog.Descripcion}
                               </p>
-                              <div className="w-full md:w-1/4">
+                              <div className="w-full md:w-1/2 lg:w-1/4">
                                 <CreatedBy autor={blog.Autor} />
                               </div>
                             </div>

@@ -56,7 +56,7 @@ export const NavbarDg = ({ isblack }) => {
           <Link
               className={`px-4 py-2 ${
                 scrollPassedLimit || (!isblack && "text-black")
-              } hover:text-DgyaDark transition-all`}
+              } hover:bg-LogoBlue hover:text-white transition-all`}
               to="/Solicitudes"
             >
               Solicitudes
@@ -93,11 +93,11 @@ export const NavbarDg = ({ isblack }) => {
             scrollPassedLimit || isblack ? "rounded-b-md" : "mt-5  rounded-full"
           }  ${
             scrollPassedLimit || isblack ? "shadow-lg" : "text-black"
-          } divide-x-2 [&>a]:px-4 [&>a]:py-2  text-black font-semibold text-lg`}
+          } divide-x-2 [&>a]:md:text-base overflow-hidden [&>a]:lg:text-xl [&>a]:md:px-2 [&>a]:md:py-1 [&>a]:lg:px-4 [&>a]:lg:py-2  text-black font-semibold text-lg`}
         >
           <Link
             to="/"
-            className={`hover:text-DgyaDark transition-colors ${
+            className={`hover:bg-LogoBlue hover:text-white transition-colors ${
               scrollPassedLimit || isblack ? "text-black" : ""
             }`}
           >
@@ -106,7 +106,7 @@ export const NavbarDg = ({ isblack }) => {
           {isMainPage ? (
             <a
               href="#acerca"
-              className={`hover:text-DgyaDark transition-colors ${
+              className={`hover:bg-LogoBlue hover:text-white transition-colors ${
                 scrollPassedLimit || isblack ? "text-black" : ""
               }`}
             >
@@ -115,7 +115,7 @@ export const NavbarDg = ({ isblack }) => {
           ) : (
             <Link
               to="/Contabilidad"
-              className={`hover:text-DgyaDark transition-colors ${
+              className={`hover:bg-LogoBlue hover:text-white transition-colors ${
                 scrollPassedLimit || isblack ? "text-black" : ""
               }`}
             >
@@ -126,7 +126,7 @@ export const NavbarDg = ({ isblack }) => {
           {isMainPage ? (
             <a
               href="#servicios"
-              className={`hover:text-DgyaDark transition-colors ${
+              className={`hover:bg-LogoBlue hover:text-white transition-colors ${
                 scrollPassedLimit || isblack ? "text-black" : ""
               }`}
             >
@@ -135,7 +135,7 @@ export const NavbarDg = ({ isblack }) => {
           ) : (
             <Link
               to="/Cursos"
-              className={`hover:text-DgyaDark transition-colors ${
+              className={`hover:bg-LogoBlue hover:text-white transition-colors ${
                 scrollPassedLimit || isblack ? "text-black" : ""
               }`}
             >
@@ -146,7 +146,7 @@ export const NavbarDg = ({ isblack }) => {
           {isMainPage ? (
             <a
               href="#contacto"
-              className={`hover:text-DgyaDark transition-colors ${
+              className={`hover:bg-LogoBlue hover:text-white transition-colors ${
                 scrollPassedLimit || isblack ? "text-black" : ""
               }`}
             >
@@ -155,7 +155,7 @@ export const NavbarDg = ({ isblack }) => {
           ) : (
             <Link
               to="/Blogs"
-              className={`hover:text-DgyaDark transition-colors ${
+              className={`hover:bg-LogoBlue hover:text-white transition-colors ${
                 scrollPassedLimit || isblack ? "text-black" : ""
               }`}
             >
@@ -166,7 +166,7 @@ export const NavbarDg = ({ isblack }) => {
           {isMainPage && (
             <Link
               to="/Contabilidad"
-              className={`hover:text-DgyaDark transition-colors ${
+              className={`hover:bg-LogoBlue hover:text-white transition-colors ${
                 scrollPassedLimit || isblack ? "text-black" : ""
               }`}
             >
@@ -177,7 +177,7 @@ export const NavbarDg = ({ isblack }) => {
           {isMainPage && (
             <Link
               to="/cursos"
-              className={`hover:text-DgyaDark transition-colors ${
+              className={`hover:bg-LogoBlue hover:text-white transition-colors ${
                 scrollPassedLimit || isblack ? "text-black" : ""
               }`}
             >
@@ -188,7 +188,7 @@ export const NavbarDg = ({ isblack }) => {
           {isMainPage && (
             <Link
               to="/blogs"
-              className={`hover:text-DgyaDark transition-colors ${
+              className={`hover:bg-LogoBlue hover:text-white transition-colors ${
                 scrollPassedLimit || isblack ? "text-black" : ""
               }`}
             >

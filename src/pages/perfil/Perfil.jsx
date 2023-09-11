@@ -9,6 +9,7 @@ import { MisDatos } from "./opc/MisDatos";
 import { UpdateDatos } from "./opc/UpdateDatos";
 import { AdminPanel } from "./opc/AdminPanel";
 import { MisSolicitudes } from "./mis-solicitudes/MisSolicitudes";
+import { FormContainer } from "../../components/ui/FormContainer";
 
 export const Perfil = () => {
   const { User } = useAuth();
@@ -25,10 +26,8 @@ export const Perfil = () => {
 
   return (
     <MainLayoutDg isblack={true}>
-      <div className={`bg-DgyaLight h-full min-h-screen overflow-hidden`}>
-        <div className="max-w-6xl mx-auto">
-          <div className={` px-[3%]  md:px-0 pt-[18%] md:pt-[8.4%]`}>
-            <div className="w-full flex flex-col px-2 md:px-[2%]">
+      <FormContainer>
+      <div className="w-full flex flex-col px-2 md:px-[2%]">
               <h1 className="my-5 text-4xl text-white font-bold">Perfil</h1>
               <Tabs defaultValue="account" className="w-full">
                 <TabsList className="w-full flex-col md:flex-row md:space-y-2">
@@ -85,9 +84,8 @@ export const Perfil = () => {
                 </TabsContent>
               </Tabs>
             </div>
-          </div>
-        </div>
-      </div>
+      </FormContainer>
+      
     </MainLayoutDg>
   );
 };

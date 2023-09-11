@@ -33,7 +33,7 @@ export const MainPrueba = () => {
     if (selection === "Mision") {
       return (
         <>
-          <div className="bg-lime-600 w-full p-4 md:-translate-x-[85%]">
+          <div className="bg-LogoGreen w-full p-4 md:-translate-x-[85%]">
             <h3 className="text-black font-semibold uppercase text-center md:text-end md:pt-5 text-2xl">
               {selection}
             </h3>
@@ -75,7 +75,7 @@ export const MainPrueba = () => {
     if (selection === "Vision") {
       return (
         <>
-          <div className="bg-lime-600 w-full p-4 md:-translate-x-[85%]">
+          <div className="bg-LogoGreen w-full p-4 md:-translate-x-[85%]">
             <h3 className="text-black uppercase text-center md:text-end md:pt-5 font-semibold text-2xl">
               {selection}
             </h3>
@@ -111,7 +111,7 @@ export const MainPrueba = () => {
     if (selection === "Valores") {
       return (
         <>
-          <div className="bg-lime-600 w-full p-4 md:-translate-x-[85%]">
+          <div className="bg-LogoGreen w-full p-4 md:-translate-x-[85%]">
             <h3 className="text-black uppercase text-center md:text-end md:pt-5 font-semibold text-2xl">
               {selection}
             </h3>
@@ -207,29 +207,29 @@ export const MainPrueba = () => {
               Valores
             </button>
           </div>
-          <div className="bg-black w-full md:w-[45%] p-4">{OurGoalsSele()}</div>
+          <div className="bg-black w-full md:w-[50%] lg:w-[45%] p-4">{OurGoalsSele()}</div>
         </div>
 
         {/* APP INFO */}
-        <div className="w-full flex overflow-hidden flex-col pt-[10%] md:h-[90vh]">
+        <div className="w-full pt-[10%]  h-fit  flex flex-col">
           <div
-            className="w-full md:scale-x-150 flex flex-col md:flex-row justify-center items-center md:h-full  bg-center bg-contain bg-no-repeat"
+            className="w-full h-full flex md:px-[20%] flex-col md:flex-row bg-[length:100%_100%] bg-no-repeat bg-center "
             style={{ backgroundImage: `url(${waves})` }}
           >
             <motion.img
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               transition={{ delay: 0.2 }}
-              className="w-[150px] h-1/2 md:h-full md:w-[300px] scale-110"
+              className="h-full mx-auto md:mx-0 w-[70%] md:w-[50%] mb-5 md:mb-0 lg:w-[35%] scale-[120%]"
               src={cell}
               alt=""
             />
-            <div className="flex items-center justify-center flex-col gap-3">
-              <h2 className="md:text-3xl text-base  text-white text-justify font-bold">
+            <div className="md:w-[70%] mb-20 md:my-20 lg:mb-0 flex flex-col justify-center items-center">
+              <h2 className="md:text-2xl lg:text-4xl text-lg  text-white text-center font-bold">
                 !OBTEN LA APLICACION AHORA Y <br />
                 EXPERIMENTA LA DIFERENCIA!
               </h2>
-              <p className="md:text-white text-DgyaDark text-center">
+              <p className="text-white w-[70%] md:w-full text-base md:text-xl  text-center">
                 Descubre como esta herramienta pueda impulsar tu exito
               </p>
 
@@ -241,12 +241,12 @@ export const MainPrueba = () => {
         </div>
 
         {/* GRADIENT */}
-        <div className="w-full flex py-5 md:py-0 gap-y-5 md:gap-y-0 flex-col items-center  md:flex-row px-[15%] h-full md:h-[40vh] mt-7 bg-gradient-to-r from-lime-600 via-DgyaLight to-DgyaBase">
+        <div className="w-full flex py-5 md:py-0 gap-y-5 md:gap-y-0 flex-col items-center  md:flex-row px-[5%] md:px-[15%] h-full md:h-[40vh] mt-7 bg-gradient-to-r from-LogoGreen via-LogoBlueDark to-LogoBlue">
           <div className="md:w-1/2 flex flex-col justify-center ">
-            <h2 className="text-3xl font-bold">PROXIMO CURSO</h2>
-            <h2 className="text-3xl font-bold">9 DE SEPTIEMBRE DE 2023</h2>
-            <p className="font-semibold text-base">Conoce nuestro temario</p>
-            <p className="font-semibold text-base">
+            <h2 className="text-xl md:text-3xl text-white md:text-black text-center md:text-start font-bold">PROXIMO CURSO</h2>
+            <h2 className="text-xl md:text-3xl text-white md:text-black text-center md:text-start  font-bold">9 DE SEPTIEMBRE DE 2023</h2>
+            <p className="font-semibold text-center text-white md:text-black md:text-start text-base">Conoce nuestro temario</p>
+            <p className="font-semibold text-center text-white md:text-black md:text-start text-base">
               Separa tu lugar con un anticipo
             </p>
           </div>
@@ -283,11 +283,11 @@ export const MainPrueba = () => {
       {/* SERVICIOS */}
       <div
         id="servicios"
-        className={`w-full h-full ${selection === "Mision" && "md:pt-[20vh]"}  ${
+        className={`w-full h-full ${selection === "Mision" && "md:pt-[1vh]"}  ${
           selection === "Vision" && "pt-[0vh]"
         } ${selection === "Valores" && "pt-[0vh]"} md:pt-0 py-[5%] bg-black/90`}
       >
-        <div className="md:px-[20%]">
+        <div className="md:px-[10%] lg:px-[20%]">
           <div className="space-y-1">
             <h2 className="text-white pt-[7%] text-5xl font-bold uppercase text-center">
               servicios
@@ -308,7 +308,7 @@ export const MainPrueba = () => {
                 transition={{ delay: 0.2 }}
                 className=" shadow-lg rounded-md p-4"
               >
-                <FolderKanban className="text-green-500/90 mx-auto" size={70} />
+                <FolderKanban className="text-LogoGreen mx-auto" size={70} />
                 <h2 className="mt-4 text-center text-white font-bold">
                   {data.title}
                 </h2>
@@ -322,8 +322,8 @@ export const MainPrueba = () => {
       </div>
 
       {/* PRICING */}
-      <div className="w-full h-full pt-10 bg-white">
-        <div className="md:px-[20%] pb-5 md:pt-16">
+      <div className="w-full h-full md:pt-5 lg:pt-10 bg-white">
+        <div className="md:px-[10%] lg:px-[20%] pb-5 md:pt-16">
           <div className="space-y-1">
             <h2 className="text-3xl md:text-6xl text-black font-bold uppercase text-center">
               descubre
@@ -340,13 +340,14 @@ export const MainPrueba = () => {
         <div className="grid grid-cols-1 mt-5 h-full w-full">
           {services.map((servicio, index) => (
             <div
+              key={index}
               className={`w-full mb-[5%] ${
                 index !== 0 ? "mt-[2%]" : "mt-[7%]"
               } flex flex-col  ${
                 index == 1 || index == 3
-                  ? "bg-DgyaLight md:flex-row-reverse "
-                  : "bg-DgyaBase md:flex-row"
-              } px-[5%] py-[5%] md:py-0 gap-y-6 md:px-[15%] h-full md:h-[40vh] `}
+                  ? "bg-LogoBlueDark md:flex-row-reverse "
+                  : "bg-LogoBlue md:flex-row"
+              } px-[5%] py-[5%] md:py-0 gap-y-6 lg:px-[15%] h-full md:h-[40vh] `}
             >
               <div className="md:w-1/2 flex justify-center items-center">
                 <ul key={index} className="text-white font-bold space-y-2">
@@ -358,7 +359,7 @@ export const MainPrueba = () => {
                 </ul>
               </div>
               <div className="md:w-1/2 flex justify-center">
-                <div className="w-full md:w-[55%] md:scale-125 h-[200px] md:h-full rounded-md p-1 bg-gradient-to-r from-lime-600 via-DgyaLight to-DgyaBase">
+                <div className="w-full md:w-[55%] md:scale-125 h-[200px] md:h-full rounded-md p-1 bg-gradient-to-r from-LogoGreen via-LogoBlueDark to-LogoBlue">
                   <div className="bg-white rounded-md w-full h-full">
                     <h2 className="text-center text-xl md:text-2xl pt-5 text-black font-bold">
                       {servicio.title}
@@ -376,7 +377,7 @@ export const MainPrueba = () => {
                       {User?.UserPlan == "Gratis" ||
                       User?.UserPlan == undefined ? (
                         <button
-                          className="bg-gradient-to-r w-[65%] mx-auto from-lime-600 via-DgyaLight to-DgyaBase text-white font-bold py-1 rounded-md"
+                          className="bg-gradient-to-r w-[65%] mx-auto from-LogoGreen via-LogoBlueDark to-LogoBlue text-white font-bold py-1 rounded-md"
                           onClick={async () => {
                             if (User) {
                               let paymentData = {
@@ -401,7 +402,7 @@ export const MainPrueba = () => {
                           disabled={
                             User?.UserPlan == servicio?.Plan ? true : false
                           }
-                          className={` bg-gradient-to-r w-[65%] mx-auto cursor-pointer from-lime-600 via-DgyaLight to-DgyaBase text-white font-bold py-1 rounded-md`}
+                          className={` bg-gradient-to-r w-[65%] mx-auto cursor-pointer from-LogoGreen via-LogoBlueDark to-LogoBlue text-white font-bold py-1 rounded-md`}
                           onClick={async () => {
                             if (User) {
                               let paymentData = {
@@ -529,13 +530,12 @@ export const MainPrueba = () => {
       </div>
 
       {/* CURSOS Y BLOGS */}
-      <div className="w-full relative overflow-hidden h-[155vh] md:h-[140vh] pb-7 bg-black md:bg-white">
+      <div className="w-full overflow-hidden bg-white  md:h-full  flex flex-col">
         <div
-          className="hidden w-full  md:scale-x-[210%] md:flex justify-center items-center h-full  bg-center bg-contain bg-no-repeat"
+          className="w-full h-full  flex flex-col px-[5%] md:px-[10%] lg:px-[20%] bg-[length:100%_100%] bg-no-repeat bg-center "
           style={{ backgroundImage: `url(${wavesblack})` }}
-        ></div>
-        <div className="absolute inset-0 md:px-[20%] px-[5%] pb-5 md:pt-16">
-          <div className="mt-10">
+        >
+          <div className="pt-[30%] md:pt-44 lg:pt-20">
             <h2 className="text-white text-2xl md:text-6xl font-bold text-center">
               Cursos y Blogs
             </h2>
@@ -581,7 +581,7 @@ export const MainPrueba = () => {
               </Link>
             </motion.div>
           </div>
-          <div className="flex flex-col p-4 md:p-0 lg:flex-row-reverse mt-7 md:mt-16 justify-between gap-8">
+          <div className="flex flex-col mb-[30%] md:mb-44 lg:mb-20 p-4 md:p-0 lg:flex-row-reverse mt-7 md:mt-16 justify-between gap-8">
             <motion.div
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
@@ -653,111 +653,103 @@ export const MainPrueba = () => {
       </div>
 
       {/* CONTACTO */}
-      <div
-        id="contacto"
-        className="w-full relative bg-white h-[165vh] md:h-[120vh] overflow-hidden"
-      >
+      <div className="w-full  bg-white  md:h-full  flex flex-col">
         <div
-          className="hidden w-full  md:scale-x-[350%] md:flex justify-center items-center h-full  bg-center bg-contain bg-no-repeat"
+          className="w-full h-full  flex flex-col px-[5%] md:px-[10%] lg:px-[20%]  bg-[length:100%_100%] bg-no-repeat bg-center "
           style={{ backgroundImage: `url(${contactoWaves})` }}
-        ></div>
-        <div className="absolute bg-DgyaLight md:top-[20%]">
-          <div className="md:px-[20%] flex flex-col-reverse md:flex-row py-5 md:pt-5">
-            <div className="md:w-1/2 w-full p-4">
-              <h2 className="mb-4 text-4xl tracking-tight font-semibold text-white">
-                Contactanos
-              </h2>
+        >
+          <div className="mt-[60%] md:mt-[20%]">
+            <div className="flex flex-col-reverse md:flex-row py-5 md:pt-5">
+              <div className="md:w-1/2 w-full p-4">
+                <h2 className="mb-4 text-4xl tracking-tight font-semibold text-white">
+                  Contactanos
+                </h2>
 
-              <form className="space-y-3 mt-10">
-                <div className="flex w-full gap-x-3 ">
+                <form className="space-y-3 mt-10">
+                  <div className="flex w-full gap-x-3 ">
+                    <Input
+                      className={"w-1/2"}
+                      title={"Nombre"}
+                      type={"text"}
+                      name={"Nombre"}
+                    />
+                    <Input
+                      className={"w-1/2"}
+                      title={"Apellido"}
+                      type={"text"}
+                      name={"Apellido"}
+                    />
+                  </div>
                   <Input
-                    className={"w-1/2"}
-                    title={"Nombre"}
-                    type={"text"}
-                    name={"Nombre"}
+                    className={"w-full"}
+                    title={"Correo"}
+                    type={"email"}
+                    name={"email"}
                   />
+
                   <Input
-                    className={"w-1/2"}
-                    title={"Apellido"}
+                    className={"w-full"}
+                    title={"Asunto"}
                     type={"text"}
-                    name={"Apellido"}
+                    name={"Asunto"}
                   />
+
+                  <Input
+                    className={"w-full"}
+                    title={"Mensaje"}
+                    type={"text"}
+                    name={"Mensaje"}
+                  />
+
+                  <button className="w-full py-2 bg-DgyaDark cursor-pointer text-white rounded-md transition-colors hover:bg-white hover:text-DgyaDark">
+                    Enviar
+                  </button>
+                </form>
+              </div>
+
+              <div className="md:w-1/2 w-full p-4 md:p-0">
+                <img
+                  className="w-full h-full object-fill"
+                  src={contacto}
+                  alt="A group of People"
+                />
+              </div>
+            </div>
+            <div className="w-full h-fit ">
+              <div className=" flex flex-col md:flex-row py-5 md:pt-5">
+                <div className="w-full md:w-1/3">
+                  <h2 className="text-center text-white font-bold text-2xl">
+                    Ubicacion
+                  </h2>
+                  <h4 className="text-center text-white font-semibold mt-10">
+                    C. Mariano Matamorros 1103b, <br />
+                    Centro, 64000 Monterrey, N.L.{" "}
+                  </h4>
                 </div>
-                <Input
-                  className={"w-full"}
-                  title={"Correo"}
-                  type={"email"}
-                  name={"email"}
-                />
-
-                <Input
-                  className={"w-full"}
-                  title={"Asunto"}
-                  type={"text"}
-                  name={"Asunto"}
-                />
-
-                <Input
-                  className={"w-full"}
-                  title={"Mensaje"}
-                  type={"text"}
-                  name={"Mensaje"}
-                />
-
-                <button className="w-full py-2 bg-DgyaDark cursor-pointer text-white rounded-md transition-colors hover:bg-white hover:text-DgyaDark">
-                  Enviar
-                </button>
-              </form>
-            </div>
-
-            <div className="md:w-1/2 w-full p-4 md:p-0">
-              <img
-                className="w-full h-full object-fill"
-                src={contacto}
-                alt="A group of People"
-              />
-            </div>
-          </div>
-          <div className="w-full h-fit ">
-            <div className="md:px-[20%] flex flex-col md:flex-row py-5 md:pt-5">
-              <div className="w-full md:w-1/3">
-                <h2 className="text-center text-white font-bold text-2xl">
-                  Ubicacion
-                </h2>
-                <h4 className="text-center text-white font-semibold mt-10">
-                  C. Mariano Matamorros 1103b, <br />
-                  Centro, 64000 Monterrey, N.L.{" "}
-                </h4>
-              </div>
-              <div className="w-full md:w-1/3">
-                <h2 className="text-center text-white font-bold text-2xl">
-                  Horario
-                </h2>
-                <h4 className="text-center text-white font-semibold mt-10">
-                  Lunes a Viernes <br />
-                  De 9:00 a.m. a 6:00 p.m.{" "}
-                </h4>
-              </div>
-              <div className="w-full md:w-1/3">
-                <h2 className="text-center text-white font-bold text-2xl">
-                  Contacto
-                </h2>
-                <h4 className="text-center text-white font-semibold mt-10">
-                  agonzalez@despachosgya.com <br />
-                  info@despachosgya.com <br />
-                  (81)0000 0000
-                </h4>
+                <div className="w-full md:w-1/3">
+                  <h2 className="text-center text-white font-bold text-2xl">
+                    Horario
+                  </h2>
+                  <h4 className="text-center text-white font-semibold mt-10">
+                    Lunes a Viernes <br />
+                    De 9:00 a.m. a 6:00 p.m.{" "}
+                  </h4>
+                </div>
+                <div className="w-full md:w-1/3">
+                  <h2 className="text-center text-white font-bold text-2xl">
+                    Contacto
+                  </h2>
+                  <h4 className="text-center text-white font-semibold mt-10">
+                    agonzalez@despachosgya.com <br />
+                    info@despachosgya.com <br />
+                    (81)0000 0000
+                  </h4>
+                </div>
               </div>
             </div>
           </div>
         </div>
-
-        {/* 
-       
-        */}
       </div>
-
-      {/* FOOTER */}
     </MainLayoutDg>
   );
 };

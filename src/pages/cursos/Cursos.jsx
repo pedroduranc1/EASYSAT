@@ -46,7 +46,7 @@ export const Cursos = () => {
     style={{ backgroundImage: `url(${fondo})` }}
     >
       <div className="max-w-6xl mx-auto">
-        <div className={` px-[3%] md:px-0 pt-[18%] md:pt-[8.4%]`}>
+        <div className={` px-[3%] lg:px-0 pt-[18%] md:pt-[8.4%]`}>
           <div className="my-3">
             <label
               htmlFor="default-search"
@@ -128,11 +128,11 @@ export const Cursos = () => {
 
   return (
     <MainLayoutDg isblack={true}>
-      <div className={`${filteredCourses.length > 1 ? 'h-full' : "h-screen"} bg-cover bg-fixed`}
+      <div className={`${filteredCourses.length > 1 ? 'h-full min-h-screen' : "h-screen"} bg-cover bg-fixed`}
         style={{ backgroundImage: `url(${fondo})` }}
       >        
         <div className="max-w-6xl mx-auto">
-          <div className={` px-[3%]  md:px-0 pt-[18%] md:pt-[8.4%]`}>
+          <div className={` px-[3%]  lg:px-0 pt-[18%] md:pt-[8.4%]`}>
             <SearchBar
             placeholder={"Buscar Curso"}
             searchTerm={searchTerm}

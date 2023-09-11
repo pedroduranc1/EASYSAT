@@ -15,7 +15,7 @@ export const Contabilidad = () => {
   }, [User]);
 
   const ContaCard = ({ servicio }) => {
-    let linkToConta = `${User.UserPlan}/${User.uid}`;
+    let linkToConta = `${User?.UserPlan}/${User?.uid}`;
     let lock = servicio.Plan == User?.UserPlan;
 
     return (

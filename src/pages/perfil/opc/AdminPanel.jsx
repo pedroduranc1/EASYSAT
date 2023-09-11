@@ -28,7 +28,7 @@ export const AdminPanel = () => {
           <Link
             key={index}
             to={`/admin${data.path}`}
-            className="relative w-full h-[200px] cursor-pointer group hover:bg-DgyaLight transition-colors flex justify-between p-3 bg-slate-100 rounded-md shadow-md"
+            className="relative w-full h-[200px] cursor-pointer group hover:bg-LogoBlue transition-colors flex justify-between p-3 bg-slate-100 rounded-md shadow-md"
           >
             <h1 className="text-2xl group-hover:text-white font-bold">{data.title}</h1>
             {getIcon(data.icon)}
