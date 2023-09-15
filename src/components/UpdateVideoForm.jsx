@@ -14,7 +14,7 @@ export const UpdateVideoForm = ({ cursoSelected, setcursoSelected }) => {
   return (
     <div>
       <div className="w-full space-y-3">
-        <h2 className="text-2xl font-bold">Curso: {cursoSelected.Titulo}</h2>
+        <h2 className="text-2xl text-white font-bold">Curso: {cursoSelected.Titulo}</h2>
 
         <div className="grid grid-cols-1 md:grid-cols-3 w-full md:space-x-3">
           {videos?.length >= 0 ? (
@@ -29,7 +29,7 @@ export const UpdateVideoForm = ({ cursoSelected, setcursoSelected }) => {
                   src={video.modulo_img}
                   alt="video_img"
                 />
-                <h3 className="text-black font-semibold p-0 md:p-2">
+                <h3 className="text-white font-semibold p-0 md:p-2">
                   {video.Titulo}
                 </h3>
               </div>

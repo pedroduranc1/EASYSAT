@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { MainLayout } from "../../layouts/MainLayout";
+import { MainLayoutDg } from "../../layouts/MainLayoutDg";
+import { FormContainer } from "../../components/ui/FormContainer";
 import { User } from "../../api/fb.user";
 import { useQuery } from "react-query";
 import { UpdateClienteForm } from "../../components/UpdateClienteForm";
@@ -25,12 +26,13 @@ export const PageClienteUpdate = () => {
     ) || [];
 
   return (
-    <MainLayout>
-      <div className="w-full h-[88vh] px-[3%]">
-        <h2 className="text-2xl font-bold text-center py-5">
+    <MainLayoutDg>
+      <FormContainer>
+      <div className="w-full h-full min-h-screen px-[3%]">
+        <h2 className="text-5xl font-bold text-white text-center py-5">
           Actualizar Cliente
         </h2>
-        <div className="max-w-2xl rounded-md p-8 shadow-lg mx-auto bg-white ">
+        <div className="max-w-2xl rounded-md p-8 shadow-lg mx-auto bg-LogoBlue/50 ">
           {/* buscador de Clientes */}
           <div className="relative bg-slate-100 flex items-center rounded-full my-2">
             <input
@@ -71,6 +73,8 @@ export const PageClienteUpdate = () => {
           )}
         </div>
       </div>
-    </MainLayout>
+      </FormContainer>
+      
+    </MainLayoutDg>
   );
 };

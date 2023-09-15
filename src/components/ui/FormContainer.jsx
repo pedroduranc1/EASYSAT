@@ -3,7 +3,7 @@ import fondo from "../../assets/fondo.webp";
 
 export const FormContainer = ({ children }) => {
   return (
-    <div className={`bg-DgyaLight h-full  md:min-h-screen bg-cover bg-fixed`}
+    <div className={`bg-DgyaLight h-full  min-h-screen bg-cover bg-fixed`}
     style={{ backgroundImage: `url(${fondo})` }}
     >
       <div className="max-w-6xl mx-auto">

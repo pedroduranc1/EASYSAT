@@ -1,80 +1,62 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { MainLayoutDg } from "../../layouts/MainLayoutDg";
 import { useAuth } from "../../hooks/useAuth";
-import { Link, useNavigate } from "react-router-dom";
-import { services } from "../../assets/services";
-import { ArrowBigRightIcon, Check, Lock } from "lucide-react";
-import { motion } from "framer-motion";
-import { FormContainer } from "../../components/ui/FormContainer";
+import { useNavigate } from "react-router-dom";
+import fondo from ".././../assets/fondo.webp";
+import ChartComponent from "../../components/graficas/ChartComponent";
+import { data } from "../../components/graficas/ChartComponent";
 
 export const Contabilidad = () => {
   const { User } = useAuth();
   const navigate = useNavigate();
+
+  const [Mes, setMes] = useState('enero')
+
   useEffect(() => {
     if (!User) return navigate("/Login", { replace: true });
   }, [User]);
 
-  const ContaCard = ({ servicio }) => {
-    let linkToConta = `${User?.UserPlan}/${User?.uid}`;
-    let lock = servicio.Plan == User?.UserPlan;
-
-    return (
-      <motion.div
-        initial={{ opacity: 0, translateX: "-50%" }}
-        whileInView={{ opacity: 1, translateX: 0 }}
-        transition={{
-          delay: 0.2,
-        }}
-        className="relative flex flex-col w-full p-5 hover:bg-DgyaDark cursor-pointer transition-colors group bg-slate-100 rounded-md shadow-md "
-      >
-        <Link to={lock ? linkToConta : ""}>
-          {lock ? (
-            ""
-          ) : (
-            <div className="absolute w-10 h-10 flex items-center justify-center -right-2 -top-2 bg-white rounded-full shadow-md">
-              <Lock className="w-5 h-5" />
-            </div>
-          )}
-
-          <h2 className="text-2xl group-hover:text-white font-bold mb-5">
-            {servicio.description}
-          </h2>
-
-          <ul className="grid group-hover:text-white gap-4 grid-cols-1 md:grid-cols-3 mb-10">
-            {servicio.contents.map((content, contentIndex) => (
-              <div
-                className="flex gap-3 items-center w-full"
-                key={contentIndex}
-              >
-                <Check className="m-1" />
-
-                <li className="w-[80%] group-hover:text-white text-xs flex gap-x-2 items-center text-slate-800">
-                  {content.title}
-                </li>
-              </div>
-            ))}
-          </ul>
-
-          <div className="absolute group-hover:text-white left-[4%] bottom-[6%] flex items-end w-full">
-            Haz click aqui para empezar tramite <ArrowBigRightIcon />
-          </div>
-        </Link>
-      </motion.div>
-    );
-  };
-
   return (
     <MainLayoutDg isblack={true}>
-      <FormContainer>
-        <div className="pb-[3.9%] h-full min-h-screen w-full px-[2%] ">
-          {/* cartas de servicios */}
-          <div className=" grid grid-cols-1 md:grid-cols-2 w-full gap-4 overflow-x-hidden bg-DgyaBase/70 shadow-lg rounded-md p-8 mt-8">
-            {services.map((servicio, index) => (
-              <ContaCard key={index} servicio={servicio} />
-            ))}
+      <section
+        class="flex items-center justify-center w-full h-full lg:h-screen  bg-fixed bg-contain bg-cover "
+        style={{ backgroundImage: `url(${fondo})` }}
+      >
+        <div className="pb-[3.9%] h-full min-h-screen w-full ">
+          <div className="lg:flex pt-[17%] items-center md:pt-[7%] lg:pt-[5%] h-full">
+            <div className="bg-LogoBlue rounded-tr-3xl rounded-br-3xl w-full lg:w-[20%] lg:h-full">
+              <ul className="w-full h-full flex py-10 justify-center">
+                <li className="w-full flex flex-col items-end">
+                  <button className="bg-white py-2 rounded-l-3xl font-bold w-full md:w-[80%] md:ml-auto">
+                    Contabilidad
+                  </button>
+                </li>
+              </ul>
+            </div>
+            <div className="w-full overflow-hidden lg:w-[80%] pt-10 md:pt-0 p-2 md:p-8 h-full ">
+            <select
+                onChange={(data)=> setMes(data.target.value)}
+                className={` invisible bg-gray-50 border mb-5 border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5`}
+              >
+              </select>
+              <ChartComponent />
+            </div>
+            <div className="w-full overflow-hidden lg:w-[80%] pt-10 md:pt-0 p-2 md:p-8 h-full ">
+              <select
+                onChange={(data)=> setMes(data.target.value)}
+                className={` bg-gray-50 border mb-5 border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5`}
+              >
+                {data.map((mes, index) => (
+                  <option key={index} value={mes.name}>
+                    {mes.name}
+                  </option>
+                ))}
+              </select>
+              <ChartComponent mes={Mes} />
+            </div>
           </div>
         </div>
-      </FormContainer>
+      </section>
     </MainLayoutDg>
   );
 };

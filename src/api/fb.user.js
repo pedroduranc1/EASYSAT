@@ -222,31 +222,21 @@ export class User {
     }
   }
 
-  async UpdatePlanByEmail(email, newData) {
-    const usersRef = collection(db, "User");
-    // Consulta filtrando por email
-    const q = query(usersRef, where("email", "==", email));
-
-    // Ejecutar consulta
-    const querySnapshot = await getDocs(q);
-
-    // Obtener resultados
-    const docs = querySnapshot.docs;
-
-    // Chequear que haya encontrado un documento
-    if (docs.length > 0) {
-      // Obtener el documento
-      const userDoc = docs[0];
-
-      // ID y datos
-      const uid = userDoc.id;
-
+  async UpdatePlanById(uid, newData) {
+    try {
+      // Obtener referencia directamente con el uid
       const userRef = doc(db, "User", uid);
+  
+      // Actualizar documento
       await updateDoc(userRef, {
         UserPlan: newData,
       });
-    } else {
-      console.log("No user found");
+  
+      // console.log("Plan actualizado con éxito");
+      return true
+    } catch (error) {
+      return false
+      // console.error("Error al actualizar el plan:", error);
     }
   }
 }

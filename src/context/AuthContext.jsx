@@ -54,7 +54,7 @@ export function AuthProvider(props) {
       setUser(data);
       setLoading(false);
     } catch (error) {
-      console.error(error);
+      // console.error(error);
       setLoading(false);
     }
   };

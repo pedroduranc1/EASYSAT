@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { MainLayoutDg } from "../layouts/MainLayoutDg";
 import {
   Facebook,
@@ -6,12 +6,16 @@ import {
   Instagram,
   YoutubeIcon,
   CheckIcon,
+  HeartHandshake,
+  User2,
+  Users2,
+  Building2,
 } from "lucide-react";
 import { services } from "../assets/services";
 import { servicioData } from "../assets/serviciosData";
 import { useAuth } from "../hooks/useAuth";
 import { Input } from "../components/ui/Input";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import fondo from "../assets/fondo.webp";
 import logo from "../assets/logo.webp";
@@ -23,11 +27,52 @@ import blogs from "../assets/blogs.webp";
 import cursos from "../assets/cursos.webp";
 import contactoWaves from "../assets/contacto-waves.webp";
 import contacto from "../assets/contacto.webp";
+import valores from "../assets/imag-valores.webp";
+import nosotros1 from "../assets/nosotros1.webp";
+import nosotros2 from "../assets/nosotros2.webp";
+import { SubsCtrl } from "../api/check/fb.subs";
+import { User } from "../api/fb.user";
+import SubscriptionButton from "../components/SubscriptionButton";
+import { estaEntreLasFechas } from "../utils/funcs";
+import { useQuery } from "react-query";
+import { toast } from "../components/ui/use-toast";
 
+const Subs = new SubsCtrl();
+const UserCtrl = new User();
 export const MainPrueba = () => {
   const { User } = useAuth();
+  const navigate = useNavigate();
 
   const [selection, setselection] = useState("Mision");
+  const { data: subInfo } = useQuery("subs", () => Subs.getSubs());
+
+  useEffect(() => {
+    (async () => {
+      subInfo?.map((sub) => {
+        if (sub.uid === User.uid && User.UserPlan == "Gratis") {
+          toast({
+            variant: "destructive",
+            title: "Tu Subscripcion a caducado",
+            description:
+              "Renueva para seguir disfrutando de nuestros servicios",
+          });
+        }
+      });
+    })();
+  }, []);
+
+  useEffect(() => {
+    (async () => {
+      subInfo?.map(async (sub) => {
+        const { fechaDeCreacion, fechaDeFinalizacion } = sub;
+        if (!estaEntreLasFechas(fechaDeCreacion, fechaDeFinalizacion)) {
+          await UserCtrl.UpdatePlanById(sub.uid, "Gratis");
+        }
+      });
+    })();
+  }, []);
+
+  //console.log(subInfo)
 
   const OurGoalsSele = () => {
     if (selection === "Mision") {
@@ -151,7 +196,8 @@ export const MainPrueba = () => {
     <MainLayoutDg>
       {/* MAIN */}
       <section
-        class="flex items-center justify-center h-[90vh] md:h-screen  bg-fixed bg-center bg-cover "
+        div
+        className="flex items-center justify-center h-[90vh] md:h-screen overflow-hidden bg-fixed bg-center bg-contain md:bg-cover"
         style={{ backgroundImage: `url(${fondo})` }}
       >
         <div className="w-full h-full flex flex-col ">
@@ -180,34 +226,68 @@ export const MainPrueba = () => {
 
       {/* NOSOTROS */}
       <div id="acerca" className="w-full pb-[5%] relative h-full bg-white">
-        <div className="md:pl-[20%]  md:pt-[5%]">
-          <div className="flex pt-5 ">
-            <button
-              onClick={() => setselection("Mision")}
-              className={`w-full transition-colors px-0 flex justify-center md:w-0 md:px-16 py-2 font-semibold ${
-                selection === "Mision" && "bg-black text-white"
-              }`}
+        {/* NOSOTROS SECTION */}
+        <div className="w-full flex-col md:flex-row h-fit md:pt-16 md:px-[15%] flex">
+          <div className="w-full md:w-[50%]">
+            <div className="w-full grid grid-cols-2 h-fit ">
+              <div className="bg-transparent h-[25vh]"></div>
+              <div
+                className="bg-cover w-full bg-center  h-[25vh]"
+                style={{ backgroundImage: `url(${blogs})` }}
+              ></div>
+              <div
+                className="w-full bg-cover bg-center h-[25vh]"
+                style={{ backgroundImage: `url(${valores})` }}
+              ></div>
+              <div className="bg-LogoYellow h-[25vh]"></div>
+            </div>
+            <div className="bg-LogoBlue flex flex-col justify-center items-center h-[50dvh]">
+              <HeartHandshake size={140} className="text-white"/>
+              <h3 className="text-white font-bold text-2xl">Como te ayudaremos</h3>
+            </div>
+            <div className="w-full grid grid-cols-2 h-fit">
+              <div className="h-[15vh]"></div>
+              <div className="h-[15vh] bg-LogoGreen"></div>
+            </div>
+            <div className="w-full bg-center flex justify-center items-center bg-cover h-[30vh]"
+            style={{ backgroundImage: `url(${nosotros2})` }}
             >
-              Mision
-            </button>
-            <button
-              onClick={() => setselection("Vision")}
-              className={`w-full transition-colors px-0 flex justify-center md:w-0 md:px-16 py-2 font-semibold ${
-                selection === "Vision" && "bg-black text-white"
-              } `}
-            >
-              Vision
-            </button>
-            <button
-              onClick={() => setselection("Valores")}
-              className={`w-full transition-colors px-0 flex justify-center md:w-0 md:px-16 py-2 font-semibold ${
-                selection === "Valores" && "bg-black text-white"
-              } `}
-            >
-              Valores
-            </button>
+              <h3 className="text-white text-center text-2xl font-bold">Opinion fiscal negativa? <br />Aqui te ayudamos</h3>
+            </div>
+            <div className="w-full grid grid-cols-2 h-fit">
+              <div className=""></div>
+              <div className="h-[30vh] bg-LogoBlue"></div>
+            </div>
           </div>
-          <div className="bg-black w-full md:w-[50%] lg:w-[45%] p-4">{OurGoalsSele()}</div>
+          <div className="w-full md:w-[50%] md:mt-[10%]">
+            <div
+              className="w-full flex justify-center items-center h-[25dvh]  bg-center bg-cover"
+              style={{ backgroundImage: `url(${nosotros1})` }}
+            >
+              <h3 className="text-center text-white text-2xl font-bold">
+                Deja de batallar con el sat <br />y utiliza EasySat
+              </h3>
+            </div>
+            <div className="bg-LogoGreen flex flex-col justify-center items-center h-[45dvh]">
+              <Users2 size={140} className="text-white"/>
+              <h3 className="text-white font-bold text-2xl">Quienes somos</h3>
+            </div>
+            <div className="w-full grid grid-cols-2 h-fit">
+              <div
+              className="h-[25vh] bg-center bg-cover"
+              style={{ backgroundImage: `url(${blogs})` }}
+              ></div>
+              <div className="h-[15vh] bg-LogoYellow"></div>
+            </div>
+            <div className="bg-LogoYellow flex flex-col justify-center items-center h-[55dvh]">
+              <Building2 size={140} className="text-white"/>
+              <h3 className="text-white font-bold text-2xl">Porque elegirnos</h3>
+            </div>
+            <div className="w-full grid grid-cols-2 h-fit">
+              <div className="h-[30vh] bg-LogoGreen"></div>
+              <div className=""></div>
+            </div>
+          </div>
         </div>
 
         {/* APP INFO */}
@@ -233,49 +313,10 @@ export const MainPrueba = () => {
                 Descubre como esta herramienta pueda impulsar tu exito
               </p>
 
-              <button className="md:bg-white bg-black text-white md:text-black mt-5 md:mt-16 rounded-lg px-4 py-2 font-semibold">
-                DESCARGA AQUI
+              <button className="md:bg-black bg-black text-white md:text-white mt-5 lg:mt-16 rounded-lg px-4 py-2 font-semibold">
+                PROXIMAMENTE
               </button>
             </div>
-          </div>
-        </div>
-
-        {/* GRADIENT */}
-        <div className="w-full flex py-5 md:py-0 gap-y-5 md:gap-y-0 flex-col items-center  md:flex-row px-[5%] md:px-[15%] h-full md:h-[40vh] mt-7 bg-gradient-to-r from-LogoGreen via-LogoBlueDark to-LogoBlue">
-          <div className="md:w-1/2 flex flex-col justify-center ">
-            <h2 className="text-xl md:text-3xl text-white md:text-black text-center md:text-start font-bold">PROXIMO CURSO</h2>
-            <h2 className="text-xl md:text-3xl text-white md:text-black text-center md:text-start  font-bold">9 DE SEPTIEMBRE DE 2023</h2>
-            <p className="font-semibold text-center text-white md:text-black md:text-start text-base">Conoce nuestro temario</p>
-            <p className="font-semibold text-center text-white md:text-black md:text-start text-base">
-              Separa tu lugar con un anticipo
-            </p>
-          </div>
-          <div className="md:w-1/2 flex flex-col items-center justify-center ">
-            <h2 className="uppercase text-2xl font-semibold text-white">
-              ingresa tus datos
-            </h2>
-            <input
-              type="text"
-              placeholder="NOMBRE"
-              className="w-full md:w-[70%] mt-5 bg-transparent border-2 border-white rounded-md placeholder:text-center placeholder:text-white"
-            />
-            <input
-              type="text"
-              placeholder="E-MAIL"
-              className="w-full md:w-[70%] mt-2 bg-transparent border-2 border-white rounded-md placeholder:text-center placeholder:text-white"
-            />
-            <input
-              type="text"
-              placeholder="WHATSAPP"
-              className="w-full md:w-[70%] mt-2 bg-transparent border-2 border-white rounded-md placeholder:text-center placeholder:text-white"
-            />
-
-            <button className="w-full md:w-[70%] mt-5 py-1 uppercase bg-white text-black font-bold rounded-md">
-              enviar
-            </button>
-            <p className="text-white text-sm">
-              Te haremos llegar mas informacion sobre el curso y el temario
-            </p>
           </div>
         </div>
       </div>
@@ -322,8 +363,8 @@ export const MainPrueba = () => {
       </div>
 
       {/* PRICING */}
-      <div className="w-full h-full md:pt-5 lg:pt-10 bg-white">
-        <div className="md:px-[10%] lg:px-[20%] pb-5 md:pt-16">
+      <div className="w-full h-full pt-5 lg:pt-10 bg-white">
+        <div className="md:px-[10%] lg:px-[20%] lg:pb-5 md:pt-16">
           <div className="space-y-1">
             <h2 className="text-3xl md:text-6xl text-black font-bold uppercase text-center">
               descubre
@@ -353,77 +394,90 @@ export const MainPrueba = () => {
                 <ul key={index} className="text-white font-bold space-y-2">
                   {servicio.contents.map((cont) => (
                     <li className="flex font-semibold items-center">
-                      <CheckIcon className="mr-2 text-green-600" /> {cont.title}
+                      <CheckIcon className="mr-2 w-[20%] text-LogoGreen" />{" "}
+                      <span className="w-[80%] lg:text-xl">{cont.title}</span>
                     </li>
                   ))}
                 </ul>
               </div>
               <div className="md:w-1/2 flex justify-center">
-                <div className="w-full md:w-[55%] md:scale-125 h-[200px] md:h-full rounded-md p-1 bg-gradient-to-r from-LogoGreen via-LogoBlueDark to-LogoBlue">
-                  <div className="bg-white rounded-md w-full h-full">
-                    <h2 className="text-center text-xl md:text-2xl pt-5 text-black font-bold">
+                <div
+                  className={`w-full md:w-[55%] md:scale-125 h-fit md:h-full rounded-md p-[2pt] bg-gradient-to-r from-LogoGreen ${
+                    index == 1 || index == 3 ? "" : ""
+                  } ${
+                    index == 1 || index == 3
+                      ? "via-LogoBlue to-LogoBlueDark"
+                      : "via-LogoBlueDark to-LogoBlue"
+                  }`}
+                >
+                  <div className="bg-white rounded-md p-4 gap-4 md:p-2 md:gap-2 flex flex-col items-center justify-center w-full h-full">
+                    <h2 className="text-center text-base  pt-5 md:pt-2 text-black font-bold">
                       {servicio.title}
+                      {index == 3 && (
+                        <h3 className="text-center text-base pt-2 text-black/50 font-semibold">
+                          {servicio.description}
+                        </h3>
+                      )}
                     </h2>
+
                     <div className="w-full flex items-center justify-center h-[50%] ">
-                      <h4 className="text-center text-6xl text-DgyaBase font-bold">
-                        ${servicio.precio}{" "}
-                        <span className="text-2xl text-black font-semibold my-auto">
-                          /mes
-                        </span>
+                      <h4 className="text-center text-4xl  text-DgyaBase font-bold">
+                        {servicio.precio == 0 ? (
+                          <>
+                            <span>Gratis</span>
+                          </>
+                        ) : (
+                          <>
+                            <span className="w-[80%]">${servicio.precio}</span>
+                            <span className="w-[20%] text-2xl text-black font-semibold my-auto">
+                              /mes
+                            </span>
+                          </>
+                        )}
                       </h4>
                     </div>
 
                     <div className="flex justify-center">
-                      {User?.UserPlan == "Gratis" ||
-                      User?.UserPlan == undefined ? (
-                        <button
-                          className="bg-gradient-to-r w-[65%] mx-auto from-LogoGreen via-LogoBlueDark to-LogoBlue text-white font-bold py-1 rounded-md"
-                          onClick={async () => {
-                            if (User) {
-                              let paymentData = {
-                                UserId: User.uid,
-                                Plan: servicio.Plan,
-                              };
-                              localStorage.setItem(
-                                "payData",
-                                JSON.stringify(paymentData)
-                              );
-                              const url = await POST(servicio.payId);
-                              window.location.href = url;
-                            } else {
-                              navigate("/Login");
-                            }
-                          }}
-                        >
-                          Suscribete Aqui
-                        </button>
-                      ) : (
+                      {!User ? (
                         <button
                           disabled={
                             User?.UserPlan == servicio?.Plan ? true : false
                           }
-                          className={` bg-gradient-to-r w-[65%] mx-auto cursor-pointer from-LogoGreen via-LogoBlueDark to-LogoBlue text-white font-bold py-1 rounded-md`}
+                          className={`bg-gradient-to-r px-6 mx-auto cursor-pointer from-LogoGreen via-LogoBlueDark to-LogoBlue text-white font-bold py-1 rounded-md`}
                           onClick={async () => {
-                            if (User) {
-                              let paymentData = {
-                                UserId: User.uid,
-                                Plan: servicio.Plan,
-                              };
-                              localStorage.setItem(
-                                "payData",
-                                JSON.stringify(paymentData)
-                              );
-                              const url = await POST(servicio.payId);
-                              window.location.href = url;
-                            } else {
-                              navigate("/Login");
-                            }
+                            navigate("/Login");
                           }}
                         >
-                          {User?.UserPlan == servicio.Plan
-                            ? "Estas Subscrito"
-                            : "Cambiar Plan"}
+                          Obtener Plan
                         </button>
+                      ) : (
+                        <>
+                          {User?.UserPlan != "Gratis" ? (
+                            <>
+                              {User?.UserPlan == servicio.Plan &&
+                              User?.UserPlan != "Gratis" ? (
+                                <span className="w-full bg-gradient-to-r font-semibold text-white px-6 py-[2%] rounded-md from-LogoGreen via-LogoBlueDark to-LogoBlue">
+                                  Plan Actual
+                                </span>
+                              ) : (
+                                <>
+                                  <span className="w-full bg-gradient-to-r font-semibold text-white px-6 py-[2%] rounded-md from-LogoGreen via-LogoBlueDark to-LogoBlue">
+                                    Ya posees plan
+                                  </span>
+                                </>
+                              )}
+                            </>
+                          ) : (
+                            <>
+                              {servicio.precio != 0 && (
+                                <SubscriptionButton
+                                  price={servicio.precio}
+                                  plan={servicio.Plan}
+                                />
+                              )}
+                            </>
+                          )}
+                        </>
                       )}
                     </div>
                   </div>
@@ -431,101 +485,6 @@ export const MainPrueba = () => {
               </div>
             </div>
           ))}
-          {/* {services.map((servicio, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, translateX: "-50%" }}
-                whileInView={{ opacity: 1, translateX: 0 }}
-                transition={{ delay: index * 0.2 }}
-                className="flex flex-col group p-8 text-center hover:bg-DgyaDark hover:scale-105 transition-colors text-gray-900 bg-white rounded-lg shadow "
-              >
-                <h3 className="mb-4 text-xl group-hover:text-white font-bold">
-                  {servicio.title}
-                </h3>
-                <div className="flex justify-center items-baseline my-4">
-                  <span className="mr-2 text-4xl group-hover:text-white text-DgyaDark font-extrabold">
-                    ${servicio.precio}
-                  </span>
-                  <span className="text-gray-500 group-hover:text-white/80 dark:text-gray-400">
-                    /mes
-                  </span>
-                </div>
-
-                <ul role="list" className="mb-8 space-y-4 text-left">
-                  {servicio.contents.map((contenido, index) => (
-                    <li key={index} className="flex items-center space-x-3">
-                      <svg
-                        className="flex-shrink-0 w-5 h-5 text-green-500 dark:text-green-400"
-                        fill="currentColor"
-                        viewBox="0 0 20 20"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          fillRule="evenodd"
-                          d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                          clipRule="evenodd"
-                        ></path>
-                      </svg>
-                      <span className="text-sm group-hover:text-white">
-                        {contenido.title}
-                      </span>
-                    </li>
-                  ))}
-                </ul>
-                <div className="w-full h-full flex items-end justify-center ">
-                  {User?.UserPlan == "Gratis" || User?.UserPlan == undefined ? (
-                    <button
-                      className="bg-DgyaDark group-hover:bg-white group-hover:text-DgyaDark font-bold text-white w-full py-2 rounded-md cursor-pointer hover:bg-white hover:text-DgyaDark transition-colors"
-                      onClick={async () => {
-                        if (User) {
-                          let paymentData = {
-                            UserId: User.uid,
-                            Plan: servicio.Plan,
-                          };
-                          localStorage.setItem(
-                            "payData",
-                            JSON.stringify(paymentData)
-                          );
-                          const url = await POST(servicio.payId);
-                          window.location.href = url;
-                        } else {
-                          navigate("/Login");
-                        }
-                        // const url = await POST(servicio.payId)
-                        // window.location.href = url
-                      }}
-                    >
-                      Suscribete Aqui
-                    </button>
-                  ) : (
-                    <button
-                      disabled={User?.UserPlan == servicio.Plan ? true : false}
-                      className={` bg-DgyaDark text-white w-full py-2 rounded-md cursor-pointer hover:bg-black/70 transition-colors`}
-                      onClick={async () => {
-                        if (User) {
-                          let paymentData = {
-                            UserId: User.uid,
-                            Plan: servicio.Plan,
-                          };
-                          localStorage.setItem(
-                            "payData",
-                            JSON.stringify(paymentData)
-                          );
-                          const url = await POST(servicio.payId);
-                          window.location.href = url;
-                        } else {
-                          navigate("/Login");
-                        }
-                      }}
-                    >
-                      {User?.UserPlan == servicio.Plan
-                        ? "Estas Subscrito"
-                        : "Cambiar Plan"}
-                    </button>
-                  )}
-                </div>
-              </motion.div>
-            ))} */}
         </div>
       </div>
 
@@ -546,8 +505,12 @@ export const MainPrueba = () => {
               impuestos
             </h4>
           </div>
-          <div className="flex flex-col p-4 md:p-0 lg:flex-row mt-7 md:mt-16 justify-between gap-8">
-            <motion.div
+          <motion.div 
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ delay: 0.2 }}
+          className="flex flex-col p-4 md:p-0 lg:flex-row mt-7 md:mt-16 justify-between gap-8">
+            <div
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               transition={{ delay: 0.2 }}
@@ -558,11 +521,8 @@ export const MainPrueba = () => {
                 src={cursos}
                 alt="A group of People"
               />
-            </motion.div>
-            <motion.div
-              initial={{ opacity: 0, translateX: "50%" }}
-              whileInView={{ opacity: 1, translateX: 0 }}
-              transition={{ delay: 0.3 }}
+            </div>
+            <div
               className="w-full lg:w-1/2 flex flex-col justify-center"
             >
               <h1 className="text-3xl lg:text-4xl text-center font-bold leading-9 text-white pb-4">
@@ -579,13 +539,14 @@ export const MainPrueba = () => {
               >
                 Ve a Cursos
               </Link>
-            </motion.div>
-          </div>
-          <div className="flex flex-col mb-[30%] md:mb-44 lg:mb-20 p-4 md:p-0 lg:flex-row-reverse mt-7 md:mt-16 justify-between gap-8">
-            <motion.div
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              transition={{ delay: 0.4 }}
+            </div>
+          </motion.div>
+          <motion.div 
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ delay: 0.4 }}
+          className="flex flex-col mb-[30%] md:mb-44 lg:mb-20 p-4 md:p-0 lg:flex-row-reverse mt-7 md:mt-16 justify-between gap-8">
+            <div
               className="w-full shadow-2xl lg:w-1/2 "
             >
               <img
@@ -593,11 +554,8 @@ export const MainPrueba = () => {
                 src={blogs}
                 alt="A group of People"
               />
-            </motion.div>
-            <motion.div
-              initial={{ opacity: 0, translateX: "-50%" }}
-              whileInView={{ opacity: 1, translateX: 0 }}
-              transition={{ delay: 0.4 }}
+            </div>
+            <div
               className="w-full lg:w-1/2 flex flex-col justify-center"
             >
               <h1 className="text-3xl lg:text-4xl text-center font-bold leading-9 text-white pb-4">
@@ -614,8 +572,8 @@ export const MainPrueba = () => {
               >
                 Ve a Blogs
               </Link>
-            </motion.div>
-          </div>
+            </div>
+          </motion.div>
         </div>
       </div>
 
@@ -653,7 +611,7 @@ export const MainPrueba = () => {
       </div>
 
       {/* CONTACTO */}
-      <div className="w-full  bg-white  md:h-full  flex flex-col">
+      <div id="contacto" className="w-full  bg-white  md:h-full  flex flex-col">
         <div
           className="w-full h-full  flex flex-col px-[5%] md:px-[10%] lg:px-[20%]  bg-[length:100%_100%] bg-no-repeat bg-center "
           style={{ backgroundImage: `url(${contactoWaves})` }}
@@ -701,7 +659,7 @@ export const MainPrueba = () => {
                     name={"Mensaje"}
                   />
 
-                  <button className="w-full py-2 bg-DgyaDark cursor-pointer text-white rounded-md transition-colors hover:bg-white hover:text-DgyaDark">
+                  <button className="w-full md:w-fit md:px-8 py-2 bg-LogoBlueDark cursor-pointer text-white rounded-md transition-colors hover:bg-white hover:text-DgyaDark">
                     Enviar
                   </button>
                 </form>

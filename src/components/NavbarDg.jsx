@@ -1,7 +1,7 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { LogOut, Menu, UserIcon } from "lucide-react";
 import React, { useEffect, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation,  } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 
@@ -20,6 +20,8 @@ function checkPage() {
 
 export const NavbarDg = ({ isblack }) => {
   const { User, logout } = useAuth();
+  const location = useLocation();
+  const [Route, setRoute] = useState(location.pathname)
 
   const [toggleMenu, settoggleMenu] = useState(false);
 
@@ -49,6 +51,10 @@ export const NavbarDg = ({ isblack }) => {
     };
   }, []);
 
+  const routeSelected = () => {
+
+  }
+
   const showDashboard = () => {
     if (User) {
       if (User.UserRole.includes("Admin")) {
@@ -73,7 +79,10 @@ export const NavbarDg = ({ isblack }) => {
       if (User.UserRole.includes("Admin")) {
         return (
           <li className=" hover:text-DgyaDark hover:rounded-md  transition-all py-2">
-            <Link className="w-full block" to="/Solicitudes">
+            <Link  to="/Solicitudes"
+                  className={`w-full block hover:text-DgyaDark ${Route === '/Solicitudes' && 'bg-LogoBlue p-2 rounded-md text-white'} transition-colors`}
+            
+            >
               Solicitudes
             </Link>
           </li>
@@ -270,18 +279,19 @@ export const NavbarDg = ({ isblack }) => {
                 `}
               />
               <ul className="flex flex-col justify-center space-y-3 gap-x-5 text-black font-semibold text-lg">
-                <Link to="/" className="hover:text-DgyaDark transition-colors">
+                <Link to="/" className={`hover:text-DgyaDark ${Route === '/' && 'bg-LogoBlue p-2 rounded-md text-white'} transition-colors`}>
                   Inicio
                 </Link>
                 {isMainPage ? (
                   <a
                     href="#acerca"
-                    className="hover:text-DgyaDark transition-colors"
                   >
                     Acerca de
                   </a>
                 ) : (
-                  <Link to="/Contabilidad">Contabilidad</Link>
+                  <Link to="/Contabilidad"
+                  className={`hover:text-DgyaDark ${Route === '/Contabilidad' && 'bg-LogoBlue p-2 rounded-md text-white'} transition-colors`}
+                  >Contabilidad</Link>
                 )}
 
                 {isMainPage ? (
@@ -292,7 +302,10 @@ export const NavbarDg = ({ isblack }) => {
                     Servicios
                   </a>
                 ) : (
-                  <Link to="/Cursos">Cursos</Link>
+                  <Link to="/Cursos"
+                  className={`hover:text-DgyaDark ${Route === '/Cursos' && 'bg-LogoBlue p-2 rounded-md text-white'} transition-colors`}
+                  
+                  >Cursos</Link>
                 )}
                 {isMainPage ? (
                   <a
@@ -302,7 +315,10 @@ export const NavbarDg = ({ isblack }) => {
                     Contacto
                   </a>
                 ) : (
-                  <Link to="/Blogs">Blogs</Link>
+                  <Link to="/Blogs"
+                  className={`hover:text-DgyaDark ${Route === '/Blogs' && 'bg-LogoBlue p-2 rounded-md text-white'} transition-colors`}
+                  
+                  >Blogs</Link>
                 )}
 
                 {isMainPage && (

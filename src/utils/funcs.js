@@ -6,3 +6,12 @@ export function getCurrentDate() {
 
   return formatted;
 }
+
+export function estaEntreLasFechas(FI,FF) {
+  const fechaInicio = new Date(FI);
+  const fechaFin = new Date(FF);
+  const fechaActual = new Date();
+
+  return fechaActual >= fechaInicio && fechaActual <= fechaFin;
+}
+

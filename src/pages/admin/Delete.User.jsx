@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { MainLayout } from "../../layouts/MainLayout";
+import { MainLayoutDg } from "../../layouts/MainLayoutDg";
+import { FormContainer } from "../../components/ui/FormContainer";
 import { User } from "../../api/fb.user";
 import { useQuery } from "react-query";
 import {
@@ -59,12 +60,13 @@ export const DeleteUserPage = () => {
     },
   });
   return (
-    <MainLayout>
-      <div className="w-full h-[88vh] px-[3%]">
-        <h2 className="text-2xl font-bold text-center py-5">
+    <MainLayoutDg>
+      <FormContainer>
+      <div className="w-full h-full min-h-screen px-[3%]">
+        <h2 className="text-5xl text-white font-bold text-center py-5">
           Eliminar Usuario
         </h2>
-        <div className="max-w-2xl rounded-md p-8 shadow-lg mx-auto bg-white ">
+        <div className="max-w-2xl rounded-md p-8 shadow-lg mx-auto bg-LogoBlue/50 ">
           {/* buscador de blogs */}
           <div className="relative bg-slate-100 flex items-center rounded-full my-2">
             <input
@@ -103,7 +105,7 @@ export const DeleteUserPage = () => {
           {UserSelected && (
             <form onSubmit={formik.handleSubmit} className="mt-5 space-y-3">
               <div className="flex justify-center items-center"></div>
-              <div className="text-2xl gap-3 font-semibold flex items-center   ">
+              <div className="text-2xl text-white gap-3 font-semibold flex items-center   ">
                 Usuario a eliminar:{" "}
                 <Avatar>
                   <AvatarImage src={UserSelected.Img_url} />
@@ -129,6 +131,8 @@ export const DeleteUserPage = () => {
           )}
         </div>
       </div>
-    </MainLayout>
+      </FormContainer>
+      
+    </MainLayoutDg>
   );
 };

@@ -47,14 +47,14 @@ export const UpdateVideo = ({
   });
   return (
     <form onSubmit={formik.handleSubmit}>
-      <h2 className="text-xl font-semibold mb-5">
+      <h2 className="text-xl text-white font-semibold mb-5">
         Video: {videoSelected.Titulo}
       </h2>
       <div className="w-full space-y-3">
         <div className="flex flex-col md:flex-row md:space-x-3">
           <Input
             title={"Titulo"}
-            className={"w-full"}
+            className={"w-full text-white"}
             name={"Titulo"}
             type={"text"}
             placeholder={"Titulo del Video"}

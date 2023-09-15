@@ -29,6 +29,7 @@ module.exports = {
         DgyaDark: "#002C86",
         LogoBlue:"#0575ae",
         LogoGreen:"#90aa74",
+        LogoYellow:"#ee8a06",
         LogoBlueDark:"#30627b",
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
@@ -85,5 +86,6 @@ module.exports = {
       },
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [
+    require("tailwindcss-animate")],
 }

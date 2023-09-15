@@ -1,11 +1,13 @@
 import React from "react";
-import { MainLayout } from "../../layouts/MainLayout";
+import { MainLayoutDg } from "../../layouts/MainLayoutDg";
+import { FormContainer } from "../../components/ui/FormContainer";
 import { Input } from "../../components/ui/Input";
 import { User } from "../../api/fb.user";
 import { useFormik } from "formik";
 import { initialValues, validationSchema } from "../../utils/perfil.user.form";
 import { Loader2 } from "lucide-react";
 import { toast } from "../../components/ui/use-toast";
+import { services } from "../../assets/services";
 
 const userCtrl = new User();
 export const PageCliente = () => {
@@ -31,12 +33,13 @@ export const PageCliente = () => {
     },
   });
   return (
-    <MainLayout>
-      <div className="w-full h-[88vh] px-[3%]">
-        <h2 className="text-2xl font-bold text-center py-5">Crear Cliente</h2>
+    <MainLayoutDg>
+      <FormContainer>
+      <div className="w-full h-full min-h-screen px-[3%]">
+        <h2 className="text-5xl font-bold text-white text-center py-5">Crear Cliente</h2>
         <form
           onSubmit={formik.handleSubmit}
-          className="max-w-2xl rounded-md p-8 shadow-lg mx-auto bg-white "
+          className="max-w-2xl rounded-md p-8 shadow-lg mx-auto bg-LogoBlue/50 "
         >
           <div className="w-full space-y-3">
             <div className="flex flex-col md:flex-row md:space-x-3">
@@ -129,11 +132,8 @@ export const PageCliente = () => {
                 <option value="" label="Selecciona un plan">
                   planes de usuario{" "}
                 </option>
-                <option value="Gratis">Gratis </option>
-                <option value="RFC">Plan RPC y STATUS </option>
-                <option value="Pendientes">Plan Años Pendientes </option>
-                <option value="Personal">Plan Personal </option>
-                <option value="Empresarial">Plan Empresarial </option>
+                {services.map(servicio=>(<option key={servicio.Plan} value={servicio.Plan}>{servicio.title}</option>))}
+
               </select>
 
               <select
@@ -168,6 +168,8 @@ export const PageCliente = () => {
           </div>
         </form>
       </div>
-    </MainLayout>
+      </FormContainer>
+      
+    </MainLayoutDg>
   );
 };

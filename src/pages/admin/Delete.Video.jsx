@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { MainLayout } from "../../layouts/MainLayout";
+import { MainLayoutDg } from "../../layouts/MainLayoutDg";
 import { useQuery } from "react-query";
 import { CursosCtrl } from "../../api/fb.cursos";
 import { Loader2, Trash2 } from "lucide-react";
 import { useFormik } from "formik";
 import { toast } from "../../components/ui/use-toast";
+import { FormContainer } from "../../components/ui/FormContainer";
 import { initialValuesUpdate, validationSchemaDelete } from "../../utils/perfil.video.form";
 
 const cursosCtrl = new CursosCtrl();
@@ -63,12 +64,13 @@ export const DeleteVideoPage = () => {
 
 
   return (
-    <MainLayout>
-      <div className="w-full h-[88vh] px-[3%]">
-        <h2 className="text-2xl font-bold text-center py-5">
+    <MainLayoutDg>
+      <FormContainer>
+      <div className="w-full min-h-screen h-fit px-[3%]">
+        <h2 className="text-2xl text-white font-bold text-center py-5">
           Eliminar Video de un Curso
         </h2>
-        <div className="max-w-2xl rounded-md p-8 shadow-lg mx-auto bg-white ">
+        <div className="max-w-2xl rounded-md p-8 shadow-lg mx-auto bg-LogoBlue/80 ">
           {/* buscador de blogs */}
           <div className="relative bg-slate-100 flex items-center rounded-full my-2">
             <input
@@ -106,7 +108,7 @@ export const DeleteVideoPage = () => {
           </div>
           {CursoSelected ? (
             <div className="space-y-3 mt-5">
-              <h2 className="text-2xl font-semibold">
+              <h2 className="text-2xl text-white font-semibold">
                 Titulo: {CursoSelected?.Titulo}
               </h2>
 
@@ -139,18 +141,19 @@ export const DeleteVideoPage = () => {
 
               {videoSelected && (
                 <form onSubmit={formik.handleSubmit} className="pt-5 space-y-3">
-                  <h2 className="text-2xl font-semibold">
+                  <h2 className="text-2xl text-white font-semibold">
                     Video a Eliminar: {videoSelected.Titulo}
                   </h2>
                   <button
                     type="submit"
                     className="w-full px-2 py-2 flex items-center justify-center hover:bg-red-400 transition-colors bg-red-500 text-white rounded-md"
                   >
+                    
                     {formik.isSubmitting ? (
                       <Loader2 className="animate-spin animate-infinite" />
                     ) : (
                       <>
-                        Eliminar Blog <Trash2 className="ml-3" />
+                        Eliminar Video <Trash2 className="ml-3" />
                       </>
                     )}
                   </button>
@@ -162,6 +165,8 @@ export const DeleteVideoPage = () => {
           )}
         </div>
       </div>
-    </MainLayout>
+      </FormContainer>
+      
+    </MainLayoutDg>
   );
 };
