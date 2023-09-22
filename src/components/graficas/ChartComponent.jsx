@@ -14,6 +14,7 @@ import {
   Label,
   ResponsiveContainer,
 } from "recharts";
+import { getDataMes, ordenarPorMes } from "../../assets/adminData";
 
 export const data = [
   { name: "Enero", ventas: 4000, gastos: 2400 },
@@ -25,10 +26,7 @@ export const data = [
   { name: "Julio", ventas: 1890, gastos: 4800 },
 ];
 
-export const getDataMes = (mes) => {
-  return data.filter((item) => item.name?.toLowerCase() === mes?.toLowerCase());
-};
-const ChartComponent = ({ mes }) => {
+const ChartComponent = ({ mes, qtyChart,estFinData }) => {
   const [windowHeight, setWindowHeight] = useState(window.innerHeight);
 
   useEffect(() => {
@@ -46,13 +44,20 @@ const ChartComponent = ({ mes }) => {
 
   const COLORS = ["#0575ae", "#90aa74"];
 
-  const datosEnero = getDataMes(mes);
+  const dataNueva = estFinData.map(data=>{
+    return{name:data.month,ventas:data.ventas,gastos:data.gastos}
+  })
+
+  const dataOrdenada = ordenarPorMes(dataNueva)
+
+
+  const datosEnero = getDataMes(dataOrdenada,mes);
 
   const renderChart = () => {
     switch (chartType) {
       case "bar":
         return (
-          <BarChart data={mes ? datosEnero : data}>
+          <BarChart data={mes ? datosEnero : dataOrdenada}>
             <XAxis dataKey="name" />
             <YAxis />
             <Bar
@@ -62,7 +67,7 @@ const ChartComponent = ({ mes }) => {
               label={{ position: "top" }}
               activeFill="transparent"
             >
-              {data.map((entry, index) => (
+              {dataOrdenada?.ventas?.map((entry, index) => (
                 <Cell key={`ventas-cell-${index}`} fill={COLORS[0]} />
               ))}
             </Bar>
@@ -73,7 +78,7 @@ const ChartComponent = ({ mes }) => {
               label={{ position: "top" }}
               activeFill="transparent"
             >
-              {data.map((entry, index) => (
+              {dataOrdenada?.gastos?.map((entry, index) => (
                 <Cell key={`gastos-cell-${index}`} fill={COLORS[1]} />
               ))}
             </Bar>
@@ -82,7 +87,7 @@ const ChartComponent = ({ mes }) => {
         );
       case "line":
         return (
-          <LineChart data={mes ? datosEnero : data}>
+          <LineChart data={mes ? datosEnero : dataOrdenada}>
             <XAxis dataKey="name" />
             <YAxis />
             <Line
@@ -126,23 +131,25 @@ const ChartComponent = ({ mes }) => {
               } group-hover:text-white`}
             />
           </button>
-          <button
-            className={`p-2 cursor-pointer ${
-              chartType == "line" && "bg-LogoBlue"
-            } hover:bg-LogoBlue group`}
-            onClick={() => setChartType("line")}
-          >
-            <LineChartIcon
-              className={`${
-                chartType == "line" && "text-white"
-              } group-hover:text-white`}
-            />
-          </button>
+          {qtyChart != 1 && (
+            <button
+              className={`p-2 cursor-pointer ${
+                chartType == "line" && "bg-LogoBlue"
+              } hover:bg-LogoBlue group`}
+              onClick={() => setChartType("line")}
+            >
+              <LineChartIcon
+                className={`${
+                  chartType == "line" && "text-white"
+                } group-hover:text-white`}
+              />
+            </button>
+          )}
         </ul>
       </div>
 
       <div className="w-full h-full p-4 flex items-center justify-center bg-white rounded-md mt-5">
-        <ResponsiveContainer width="100%" height={windowHeight/2.5}>
+        <ResponsiveContainer width="100%" height={windowHeight / 2.5}>
           {renderChart()}
         </ResponsiveContainer>
       </div>

@@ -22,6 +22,19 @@ export class ContabilidadCtrl {
     return data;
   }
 
+  async getFirma(uid){
+    const q = query(collection(db, "Solicitudes"), where("uid", "==", uid));
+    const querySnapshot = await getDocs(q);
+    const blogData = querySnapshot.docs.map((doc) => {
+      return {
+        id: doc.id,
+        ...doc.data(),
+      };
+    });
+
+    return blogData[0];
+  }
+
   async getMisSolicitudes(uid){
     const q = query(collection(db, "Solicitudes"), where("uid", "==", uid));
 

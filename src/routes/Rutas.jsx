@@ -33,6 +33,9 @@ import { CreateSoliPage } from "../pages/contabilidad/crear-solicitud/create.sol
 import { UpdateSoliPage } from "../pages/perfil/mis-solicitudes/modificar-solicitud/Modificar.Solicitud";
 import { DeleteSoliPage } from "../pages/perfil/mis-solicitudes/eliminar-solicitud/Eliminar.Solicitud";
 import { MainPrueba } from "../pages/MainPrueba";
+import { CreateEstFinPage } from "../pages/estados-financieros/Create.EstFin";
+import { UpdateEstFin } from "../pages/estados-financieros/Update.EstFin";
+import { DeleteEstFin } from "../pages/estados-financieros/Delete.EstFin";
 
 const router = createBrowserRouter([
   {
@@ -154,7 +157,19 @@ const router = createBrowserRouter([
   {
     path:"/success",
     element: <SuccessPage/>
-  }
+  },
+  {
+    path:"/admin/agregar-estFin",
+    element: <CreateEstFinPage/>
+  },
+  {
+    path:"/admin/modificar-estFin",
+    element: <UpdateEstFin/>
+  },
+  {
+    path:"/admin/eliminar-estFin",
+    element: <DeleteEstFin/>
+  },
   // {
   //   path: "/Registro",
   //   element: <RegistroPage/>,

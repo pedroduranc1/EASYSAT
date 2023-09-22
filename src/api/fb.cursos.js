@@ -6,7 +6,6 @@ import {
   query,
   where,
   updateDoc,
-  addDoc,
   setDoc,
   deleteDoc,
 } from "firebase/firestore";

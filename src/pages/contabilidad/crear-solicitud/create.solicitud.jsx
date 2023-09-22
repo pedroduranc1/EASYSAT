@@ -11,7 +11,6 @@ import { FileInput } from "../../../components/FileInput";
 import { getCurrentDate } from "../../../utils/funcs";
 import { ContabilidadCtrl } from "../../../api/contabilidad/fb.contabilidad";
 import { toast } from "../../../components/ui/use-toast";
-import { Loader2 } from "lucide-react";
 import { useNavigate, useParams } from "react-router-dom";
 import { FormContainer } from "../../../components/ui/FormContainer";
 import { ButtonForm } from "../../../components/ui/ButtonForm";

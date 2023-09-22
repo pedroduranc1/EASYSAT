@@ -6,7 +6,7 @@ import { UpdateVideo } from "./Update.Video.Form";
 
 const cursoCtrl = new CursosCtrl();
 export const UpdateVideoForm = ({ cursoSelected, setcursoSelected }) => {
-    const [videoSelected, setvideoSelected] = useState(null)
+  const [videoSelected, setvideoSelected] = useState(null);
   const { data: videos } = useQuery(cursoSelected.id, () =>
     cursoCtrl.getVideosCurso(cursoSelected.id)
   );
@@ -14,14 +14,19 @@ export const UpdateVideoForm = ({ cursoSelected, setcursoSelected }) => {
   return (
     <div>
       <div className="w-full space-y-3">
-        <h2 className="text-2xl text-white font-bold">Curso: {cursoSelected.Titulo}</h2>
+        <h2 className="text-2xl text-white font-bold">
+          Curso: {cursoSelected.Titulo}
+        </h2>
 
         <div className="grid grid-cols-1 md:grid-cols-3 w-full md:space-x-3">
           {videos?.length >= 0 ? (
             videos.map((video) => (
-              <div onClick={()=>{
-                setvideoSelected(video)
-              }} className="aspect-square  cursor-pointer shadow-md rounded-md  ">
+              <div
+                onClick={() => {
+                  setvideoSelected(video);
+                }}
+                className="aspect-square  cursor-pointer shadow-md rounded-md  "
+              >
                 {/* imagen video */}
 
                 <img
@@ -41,8 +46,12 @@ export const UpdateVideoForm = ({ cursoSelected, setcursoSelected }) => {
           )}
         </div>
         {videoSelected && (
-                <UpdateVideo  videoSelected={videoSelected} setvideoSelected={setvideoSelected} setcursoSelected={setcursoSelected}/>
-          )}
+          <UpdateVideo
+            videoSelected={videoSelected}
+            setvideoSelected={setvideoSelected}
+            setcursoSelected={setcursoSelected}
+          />
+        )}
       </div>
     </div>
   );

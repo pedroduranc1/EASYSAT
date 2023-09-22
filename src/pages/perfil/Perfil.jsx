@@ -4,7 +4,7 @@ import { MainLayoutDg } from "../../layouts/MainLayoutDg";
 import { useAuth } from "../../hooks/useAuth";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useNavigate } from "react-router-dom";
-import { Pencil, Settings, ShieldAlert, User2 } from "lucide-react";
+import { FileCheck, Pencil, ShieldAlert, User2 } from "lucide-react";
 import { MisDatos } from "./opc/MisDatos";
 import { UpdateDatos } from "./opc/UpdateDatos";
 import { AdminPanel } from "./opc/AdminPanel";
@@ -27,65 +27,58 @@ export const Perfil = () => {
   return (
     <MainLayoutDg isblack={true}>
       <FormContainer>
-      <div className="w-full flex flex-col px-2 md:px-[2%]">
-              <h1 className="my-5 text-4xl text-white font-bold">Perfil</h1>
-              <Tabs defaultValue="account" className="w-full">
-                <TabsList className="w-full flex-col md:flex-row md:space-y-2">
-                  <TabsTrigger className="w-full" value="account">
-                    Mis Datos <User2 className="ml-3" />
-                  </TabsTrigger>
-                  <TabsTrigger className="w-full" value="updateAccount">
-                    Actualizar Datos <Pencil className="ml-3" />
-                  </TabsTrigger>
-                  <TabsTrigger
-                    className="w-full flex items-center"
-                    value="password"
-                  >
-                    Mis Solicitudes <Settings className="ml-3" />
-                  </TabsTrigger>
+        <div className="w-full flex flex-col px-2 md:px-[2%]">
+          <h1 className="my-5 text-4xl text-white font-bold">Perfil</h1>
+          <Tabs defaultValue="account" className="w-full">
+            <TabsList className="w-full flex-col md:flex-row md:space-y-2">
+              <TabsTrigger className="w-full" value="account">
+                Mis Datos <User2 className="ml-3" />
+              </TabsTrigger>
+              <TabsTrigger className="w-full" value="updateAccount">
+                Actualizar Datos <Pencil className="ml-3" />
+              </TabsTrigger>
+              <TabsTrigger
+                className="w-full flex items-center"
+                value="password"
+              >
+                Mi Contabilidad <FileCheck className="ml-3" />
+              </TabsTrigger>
 
-                  {isAdmin && (
-                    <TabsTrigger
-                      className="w-full flex items-center"
-                      value="admin"
-                    >
-                      Panel Administrativo <ShieldAlert className="ml-3" />
-                    </TabsTrigger>
-                  )}
-                </TabsList>
-                {/* mis datos section */}
-                <TabsContent
-                  className="w-full h-full mb-7 justify-center items-center px-2  mt-[15%] md:mt-0"
-                  value="account"
-                >
-                  <MisDatos />
-                </TabsContent>
+              {isAdmin && (
+                <TabsTrigger className="w-full flex items-center" value="admin">
+                  Panel Administrativo <ShieldAlert className="ml-3" />
+                </TabsTrigger>
+              )}
+            </TabsList>
+            {/* mis datos section */}
+            <TabsContent
+              className="w-full h-full mb-7 justify-center items-center px-2  mt-[15%] md:mt-0"
+              value="account"
+            >
+              <MisDatos />
+            </TabsContent>
 
-                {/* actualizar datos section */}
-                <TabsContent
-                  className="w-full h-full mb-7 justify-center items-center px-2 mt-[20%] md:mt-0"
-                  value="updateAccount"
-                >
-                  <UpdateDatos />
-                </TabsContent>
+            {/* actualizar datos section */}
+            <TabsContent
+              className="w-full h-full mb-7 justify-center items-center px-2 mt-[20%] md:mt-0"
+              value="updateAccount"
+            >
+              <UpdateDatos />
+            </TabsContent>
 
-                <TabsContent
-                  className="mt-[20%] h-full md:mt-0"
-                  value="password"
-                >
-                  <MisSolicitudes />
-                </TabsContent>
+            <TabsContent className="mt-[20%] h-full md:mt-0" value="password">
+              <MisSolicitudes />
+            </TabsContent>
 
-                <TabsContent
-                  value="admin"
-                  className="w-full justify-center items-center px-2  mt-[20%] md:mt-0"
-                >
-                  <AdminPanel />
-                </TabsContent>
-              </Tabs>
-            </div>
+            <TabsContent
+              value="admin"
+              className="w-full justify-center items-center px-2  mt-[20%] md:mt-0"
+            >
+              <AdminPanel />
+            </TabsContent>
+          </Tabs>
+        </div>
       </FormContainer>
-      
     </MainLayoutDg>
   );
 };
