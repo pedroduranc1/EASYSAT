@@ -17,7 +17,6 @@ import { useAuth } from "../hooks/useAuth";
 import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import fondo from "../assets/fondo.webp";
-import nosotrosImg from "../assets/nosotrosImg.webp";
 import waves from "../assets/waves.webp";
 import cell from "../assets/cell.webp";
 import wavesblack from "../assets/waves-black.webp";
@@ -31,6 +30,14 @@ import logo from "../assets/logocolor.webp";
 import qs from "../assets/quienesomos.webp";
 import pe from "../assets/porqueelegirnos.webp";
 import logoBuho from "../assets/logo-buho-white.webp";
+import facebookLogo from "../assets/icons/Icono-Facebbok.svg";
+import instagramLogo from "../assets/icons/Icono-Instagram.svg";
+import tiktokLogo from "../assets/icons/Icono-TikTok.svg";
+import youtubeLogo from "../assets/icons/Icono-YouTube.svg";
+import handshakeimg from "../assets/handshakeimg.webp";
+import handshakelogo from "../assets/icons/handshake.webp";
+import business from "../assets/icons/business.webp";
+import building from "../assets/icons/building.webp";
 import { SubsCtrl } from "../api/check/fb.subs";
 import { User } from "../api/fb.user";
 import SubscriptionButton from "../components/SubscriptionButton";
@@ -112,124 +119,6 @@ export const MainPrueba = () => {
       });
     })();
   }, []);
-
-  const OurGoalsSele = () => {
-    if (selection === "Mision") {
-      return (
-        <>
-          <div className="bg-LogoGreen w-full p-4 md:-translate-x-[85%]">
-            <h3 className="text-black font-semibold uppercase text-center md:text-end md:pt-5 text-2xl">
-              {selection}
-            </h3>
-          </div>
-          <div className="flex flex-col md:flex-row relative p-4">
-            <div className="w-full flex flex-col justify-center">
-              <h2 className="text-white text-center text-2xl">
-                ¡Bienvenido a DGyA!
-              </h2>
-              <motion.p
-                initial={{ opacity: 0, translateX: "-50%" }}
-                animate={{ opacity: 1, translateX: 0 }}
-                transition={{ delay: 0.2 }}
-                className="text-white mt-5 text-base mb-10"
-              >
-                Conscientes de la complejidad de la legislación fiscal mexicana
-                y de la gran cantidad de obligaciones que las autoridades
-                requieren a los contribuyentes nuestra misión como Despacho
-                Fiscal Contable es ayudar a las empresas que desean cumplir con
-                sus obligaciones fiscales de manera correcta y oportuna, tomando
-                en cuenta también los beneficios que las mismas leyes ofrecen a
-                los contribuyentes, del tal manera que nuestros clientes se
-                sientan seguros de que su situación fiscal se encuentra dentro
-                del marco legal.
-              </motion.p>
-            </div>
-
-            <div className="block md:absolute md:translate-x-[95%] md:-translate-y-[10%] w-full h-fit md:h-[60vh] ">
-              <img
-                className="w-full h-[300px] md:h-full object-fill"
-                src={nosotrosImg}
-                alt=""
-              />
-            </div>
-          </div>
-        </>
-      );
-    }
-    if (selection === "Vision") {
-      return (
-        <>
-          <div className="bg-LogoGreen w-full p-4 md:-translate-x-[85%]">
-            <h3 className="text-black uppercase text-center md:text-end md:pt-5 font-semibold text-2xl">
-              {selection}
-            </h3>
-          </div>
-          <div className="flex flex-col md:flex-row relative p-4">
-            <div className="w-full flex flex-col justify-center">
-              <h2 className="text-white text-center text-2xl">
-                ¡Bienvenido a DGyA!
-              </h2>
-              <motion.h1
-                initial={{ opacity: 0, translateX: "-50%" }}
-                animate={{ opacity: 1, translateX: 0 }}
-                transition={{ delay: 0.2 }}
-                className="text-white mt-5 text-base mb-10"
-              >
-                Consolidarnos como un despacho de reconocido prestigio en base
-                al cumplimiento siempre oportuno de todos nuestros compromisos
-                desarrollados con profesionalismo, ética y diligencia.
-              </motion.h1>
-            </div>
-
-            <div className="block md:absolute md:translate-x-[95%] md:-translate-y-[10%] w-full h-fit md:h-[60vh] ">
-              <img
-                className="w-full h-[300px] md:h-full object-fill"
-                src={nosotrosImg}
-                alt=""
-              />
-            </div>
-          </div>
-        </>
-      );
-    }
-    if (selection === "Valores") {
-      return (
-        <>
-          <div className="bg-LogoGreen w-full p-4 md:-translate-x-[85%]">
-            <h3 className="text-black uppercase text-center md:text-end md:pt-5 font-semibold text-2xl">
-              {selection}
-            </h3>
-          </div>
-          <div className="flex flex-col md:flex-row relative p-4">
-            <div className="w-full flex flex-col justify-center">
-              <h2 className="text-white text-center text-2xl">
-                ¡Bienvenido a DGyA!
-              </h2>
-              <motion.ul
-                initial={{ opacity: 0, translateX: "-50%" }}
-                animate={{ opacity: 1, translateX: 0 }}
-                transition={{ delay: 0.2 }}
-                className="text-white space-y-3 mt-5 text-base mb-5"
-              >
-                <li>- Ética profesional.</li>
-                <li>- Compromiso.</li>
-                <li>- Lealtad.</li>
-                <li>- Honestidad.</li>
-              </motion.ul>
-            </div>
-
-            <div className="block md:absolute md:translate-x-[95%] md:-translate-y-[10%] w-full h-fit md:h-[60vh] ">
-              <img
-                className="w-full h-[300px] md:h-full object-fill"
-                src={nosotrosImg}
-                alt=""
-              />
-            </div>
-          </div>
-        </>
-      );
-    }
-  };
 
   return (
     <MainLayoutDg>
@@ -318,22 +207,32 @@ export const MainPrueba = () => {
               ></div>
               <div className="bg-LogoYellow h-[35vh]"></div>
             </div>
-            <div className="bg-LogoBlue group hover:cursor-pointer flex flex-col justify-center items-center h-[75dvh]">
-              <HeartHandshake
-                size={140}
-                className="text-white transition-all group-hover:opacity-0 group-hover:-translate-y-[100%]"
-              />
+
+            <div
+              className="relative group hover:cursor-pointer flex flex-col justify-center items-center bg-center bg-cover h-[75dvh]"
+              style={{ backgroundImage: `url(${handshakeimg})` }}
+            >
               <h3 className="text-white group-hover:-translate-y-[100%] transition-all font-bold text-4xl">
                 Como te ayudaremos
               </h3>
-              <p className="hidden transition-all font-bold group-hover:-translate-y-[30%] group-hover:block text-center text-base mt-5 text-white px-[5%]">
+              <p className=" transition-all font-bold group-hover:-translate-y-[30%] group-hover:block text-center text-base mt-5 text-white px-[5%]">
                 Easy sat es una aplicación web para simplificar el cumplimiento
                 de tus obligaciones fiscales, creado por contadores para
                 emprendedores que no les guste batallar con temas fiscales y de
                 esa autoridad gubernamental que se llama SAT , olvídate de
                 batallar con el SAT y utiliza EasySAT
               </p>
+              <div className="absolute inset-0 bg-LogoBlue group-hover:opacity-0 transition-all flex flex-col items-center justify-center">
+                <div
+                  className="w-44 h-44 bg-center bg-cover"
+                  style={{ backgroundImage: `url(${handshakelogo})` }}
+                ></div>
+                <h3 className="text-white group-hover:-translate-y-[100%] transition-all font-bold text-4xl">
+                  Como te ayudaremos
+                </h3>
+              </div>
             </div>
+
             <div className="w-full grid grid-cols-2 h-fit">
               <div className="h-[15vh]"></div>
               <div className="h-[25vh] bg-LogoGreen"></div>
@@ -362,13 +261,18 @@ export const MainPrueba = () => {
               </h3>
             </div>
             <div
-              className="group hover:cursor-pointer bg-center bg-cover bg-no-repeat flex flex-col justify-center items-center h-[75dvh]"
+              className="relative group hover:cursor-pointer bg-center bg-cover bg-no-repeat flex flex-col justify-center items-center h-[75dvh]"
               style={{ backgroundImage: `url(${qs})` }}
             >
-              <Users2
-                size={140}
-                className="text-white transition-all group-hover:opacity-0 group-hover:-translate-y-[100%]"
-              />
+              <div className="absolute inset-0 flex flex-col items-center justify-center bg-LogoGreen group-hover:opacity-0 transition-all">
+                <div
+                  className="w-44 h-44 bg-center bg-cover"
+                  style={{ backgroundImage: `url(${business})` }}
+                ></div>
+                <h3 className="text-white group-hover:-translate-y-[100%] transition-all font-bold text-4xl">
+                  Quienes somos
+                </h3>
+              </div>
               <h3 className="text-white group-hover:-translate-y-[100%] transition-all font-bold text-4xl">
                 Quienes somos
               </h3>
@@ -387,13 +291,18 @@ export const MainPrueba = () => {
               <div className="h-[15vh] bg-LogoYellow"></div>
             </div>
             <div
-              className="bg-LogoYellow group hover:cursor-pointer flex flex-col bg-center bg-cover justify-center items-center h-[75dvh]"
+              className="relative bg-LogoYellow group hover:cursor-pointer flex flex-col bg-center bg-cover justify-center items-center h-[75dvh]"
               style={{ backgroundImage: `url(${pe})` }}
             >
-              <Building2
-                size={140}
-                className="text-white transition-all group-hover:opacity-0 group-hover:-translate-y-[100%]"
-              />
+              <div className="absolute inset-0 bg-LogoYellow flex flex-col items-center justify-center group-hover:opacity-0 transition-all">
+                <div
+                  className="w-44 h-44 bg-center bg-cover"
+                  style={{ backgroundImage: `url(${building})` }}
+                ></div>
+                <h3 className="text-white group-hover:-translate-y-[100%] transition-all font-bold text-4xl">
+                  Porque elegirnos
+                </h3>
+              </div>
               <h3 className="text-white group-hover:-translate-y-[100%] transition-all font-bold text-4xl">
                 Porque elegirnos
               </h3>
@@ -782,20 +691,34 @@ export const MainPrueba = () => {
               </h4>
 
               <div className="flex justify-center space-x-10 pt-7">
-                <Instagram className="text-DgyaBase cursor-pointer" size={40} />
-                <Facebook className="text-DgyaBase cursor-pointer" size={40} />
-                <YoutubeIcon
-                  className="text-DgyaBase cursor-pointer"
-                  size={40}
-                />
-                <svg
-                  className="w-10 h-10 fill-DgyaBase cursor-pointer"
-                  viewBox="0 0 512 512"
-                  id="icons"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path d="M412.19,118.66a109.27,109.27,0,0,1-9.45-5.5,132.87,132.87,0,0,1-24.27-20.62c-18.1-20.71-24.86-41.72-27.35-56.43h.1C349.14,23.9,350,16,350.13,16H267.69V334.78c0,4.28,0,8.51-.18,12.69,0,.52-.05,1-.08,1.56,0,.23,0,.47-.05.71,0,.06,0,.12,0,.18a70,70,0,0,1-35.22,55.56,68.8,68.8,0,0,1-34.11,9c-38.41,0-69.54-31.32-69.54-70s31.13-70,69.54-70a68.9,68.9,0,0,1,21.41,3.39l.1-83.94a153.14,153.14,0,0,0-118,34.52,161.79,161.79,0,0,0-35.3,43.53c-3.48,6-16.61,30.11-18.2,69.24-1,22.21,5.67,45.22,8.85,54.73v.2c2,5.6,9.75,24.71,22.38,40.82A167.53,167.53,0,0,0,115,470.66v-.2l.2.2C155.11,497.78,199.36,496,199.36,496c7.66-.31,33.32,0,62.46-13.81,32.32-15.31,50.72-38.12,50.72-38.12a158.46,158.46,0,0,0,27.64-45.93c7.46-19.61,9.95-43.13,9.95-52.53V176.49c1,.6,14.32,9.41,14.32,9.41s19.19,12.3,49.13,20.31c21.48,5.7,50.42,6.9,50.42,6.9V131.27C453.86,132.37,433.27,129.17,412.19,118.66Z" />
-                </svg>
+                <a
+                  href="#"
+                  target="_blank"
+                  rel="noreferrer noopener nofollow"
+                  className="w-14 h-14 bg-center bg-cover"
+                  style={{ backgroundImage: `url(${instagramLogo})` }}
+                ></a>
+                <a
+                  href="#"
+                  target="_blank"
+                  rel="noreferrer noopener nofollow"
+                  className="w-14 h-14 bg-center bg-cover"
+                  style={{ backgroundImage: `url(${facebookLogo})` }}
+                ></a>
+                <a
+                  href="#"
+                  target="_blank"
+                  rel="noreferrer noopener nofollow"
+                  className="w-14 h-14 bg-center bg-cover"
+                  style={{ backgroundImage: `url(${youtubeLogo})` }}
+                ></a>
+                <a
+                  href="#"
+                  target="_blank"
+                  rel="noreferrer noopener nofollow"
+                  className="w-14 h-14 bg-center bg-cover"
+                  style={{ backgroundImage: `url(${tiktokLogo})` }}
+                ></a>
               </div>
             </div>
           </div>
