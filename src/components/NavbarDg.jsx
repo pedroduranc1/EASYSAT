@@ -63,9 +63,9 @@ export const NavbarDg = ({ isblack }) => {
               className={`px-4 py-2 ${
                 scrollPassedLimit || (!isblack && "text-black")
               } hover:bg-LogoBlue hover:text-white transition-all`}
-              to="/Solicitudes"
+              to="/Clientes"
             >
-              Solicitudes
+              Clientes
             </Link>
         );
       } else {
@@ -79,11 +79,11 @@ export const NavbarDg = ({ isblack }) => {
       if (User.UserRole.includes("Admin")) {
         return (
           <li className=" hover:text-DgyaDark hover:rounded-md  transition-all py-2">
-            <Link  to="/Solicitudes"
+            <Link  to="/Clientes"
                   className={`w-full block hover:text-DgyaDark ${Route === '/Solicitudes' && 'bg-LogoBlue p-2 rounded-md text-white'} transition-colors`}
             
             >
-              Solicitudes
+              Clientes
             </Link>
           </li>
         );

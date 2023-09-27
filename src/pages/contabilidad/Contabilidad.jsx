@@ -5,7 +5,6 @@ import { useAuth } from "../../hooks/useAuth";
 import { Link, useNavigate } from "react-router-dom";
 import fondo from ".././../assets/fondo.webp";
 import ChartComponent from "../../components/graficas/ChartComponent";
-import { data } from "../../components/graficas/ChartComponent";
 import { useQuery } from "react-query";
 import { ContabilidadCtrl } from "../../api/contabilidad/fb.contabilidad";
 import { EstFinCtrl } from "../../api/estados-financieros/fb.estfin";

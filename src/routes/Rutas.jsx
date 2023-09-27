@@ -83,11 +83,11 @@ const router = createBrowserRouter([
     element: <Perfil/>,
   },
   {
-    path: "/Solicitudes",
+    path: "/Clientes",
     element: <Solicitudes/>,
   },
   {
-    path: "/Solicitudes/Solicitud/:id",
+    path: "/Clientes/Cliente/:id",
     element: <Solicitud/>,
   },
   {

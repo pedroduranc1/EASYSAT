@@ -44,7 +44,7 @@ const ChartComponent = ({ mes, qtyChart,estFinData }) => {
 
   const COLORS = ["#0575ae", "#90aa74"];
 
-  const dataNueva = estFinData.map(data=>{
+  const dataNueva = estFinData?.map(data=>{
     return{name:data.month,ventas:data.ventas,gastos:data.gastos}
   })
 
