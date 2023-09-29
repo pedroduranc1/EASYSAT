@@ -32,6 +32,11 @@ import { toast } from "../components/ui/use-toast";
 import { useFormik } from "formik";
 import { initialValues, validationSchema } from "../utils/main.form";
 import emailjs from "@emailjs/browser";
+import imgMotivadora from "../assets/nosotros1.webp";
+import imgGreen from "../assets/nosotros2.webp";
+import porqueelegirnos from "../assets/porqueelegirnos.webp";
+import handshakeimg from "../assets/handshakeimg.webp";
+
 import {
   Accordion,
   AccordionContent,
@@ -122,11 +127,11 @@ export const MainPrueba = () => {
           {/* NUEVO CONTEXT INFO */}
           <div className="md:w-1/2 h-full flex flex-col  items-center">
             <h2 className="md:mt-[40%] lg:mt-[15%] text-center mt-10 text-2xl md:text-3xl lg:text-4xl font-bold uppercase">
-              contabilidad para personas  fisicas y morales.
+              contabilidad para personas fisicas y morales.
             </h2>
             <h4 className="text-center font-bold text-base mt-5 uppercase">
-              llevar una contabilidad financiera adecuada es fundamental {" "}
-              para el exito y sostenibilidad de una empresa
+              llevar una contabilidad financiera adecuada es fundamental para el
+              exito y sostenibilidad de una empresa
             </h4>
 
             <RotatingDivs />
@@ -146,16 +151,24 @@ export const MainPrueba = () => {
                 alt=""
               />
             </div>
-            <div className="bg-LogoGreen hover:bg-imageGreen group bg-cover transition-all cursor-pointer bg-no-repeat w-full flex flex-col items-center justify-center h-[35vh]">
-              <img className="w-1/2 group-hover:hidden" src={logogreen} alt="" />
-              <h2 className="text-white font-bold text-xl -translate-y-7">
+            <div
+              className=" hover:bg-none relative group bg-cover transition-all cursor-pointer bg-no-repeat w-full flex flex-col items-center justify-center h-[35vh]"
+              style={{ backgroundImage: `url(${imgGreen})` }}
+            >
+              <div className="w-full h-full absolute inset-0 group-hover:hidden bg-LogoGreen"></div>
+              <img
+                className="w-1/2 group-hover:hidden z-10"
+                src={logogreen}
+                alt=""
+              />
+              <h2 className="text-white font-bold z-10 text-xl -translate-y-7">
                 Quienes somos
               </h2>
-              <p className="text-white hidden font-bold group-hover:block text-[12px] px-[5%]">
-                EasySat es una aplicacion web para simplificar el cumplimiento 
-                de tus obligaciones fiscales, creado por contadores para 
-                emprendedores que no les guste batallar con temas fiscales y 
-                de esa autoridad gubernamental que se llama SAT, olvidate de 
+              <p className="text-white hidden z-10 font-bold group-hover:block text-[12px] px-[5%]">
+                EasySat es una aplicacion web para simplificar el cumplimiento
+                de tus obligaciones fiscales, creado por contadores para
+                emprendedores que no les guste batallar con temas fiscales y de
+                esa autoridad gubernamental que se llama SAT, olvidate de
                 batallar con el sat y utiliza EasySat
               </p>
             </div>
@@ -168,15 +181,22 @@ export const MainPrueba = () => {
             </div>
           </div>
           <div className="w-full grid grid-cols-1 md:grid-cols-3">
-            <div className="bg-LogoBlue cursor-pointer group hover:bg-imageBlue bg-center bg-cover bg-no-repeat w-full md:translate-x-[20%] flex flex-col items-center justify-center h-[35vh]">
-              <img className="w-1/2 group-hover:hidden" src={logoorange} alt="" />
-              <h2 className="text-white font-bold text-xl -translate-y-7">
+            <div className="relative cursor-pointer group  bg-center bg-cover bg-no-repeat w-full md:translate-x-[20%] flex flex-col items-center justify-center h-[35vh]"
+            style={{ backgroundImage: `url(${handshakeimg})` }}
+            >
+              <div className="w-full h-full absolute inset-0 group-hover:hidden bg-LogoBlue"></div>
+              <img
+                className="w-1/2 group-hover:hidden z-10"
+                src={logoorange}
+                alt=""
+              />
+              <h2 className="text-white font-bold z-10 text-xl -translate-y-7">
                 Como te ayudaremos
               </h2>
-              <p className="text-white hidden font-bold group-hover:block text-[12px] px-[5%]">
-                Somos un despacho de contadores y auditores establecido
-                desde hace ya de 10 años, con sus oficinas centrales en el centro de 
-                Monterrey Nuevo Leon, nuestros contadores constantemente 
+              <p className="text-white hidden z-10 font-bold group-hover:block text-[12px] px-[5%]">
+                Somos un despacho de contadores y auditores establecido desde
+                hace ya de 10 años, con sus oficinas centrales en el centro de
+                Monterrey Nuevo Leon, nuestros contadores constantemente
                 actualizados, garantizan tu seguridad en temas fiscales.
               </p>
             </div>
@@ -188,15 +208,18 @@ export const MainPrueba = () => {
               />
             </div>
 
-            <div className="bg-LogoYellow cursor-pointer group hover:bg-imageOrange bg-center bg-cover bg-no-repeat w-full md:-translate-x-[20%] flex flex-col items-center justify-center h-[35vh]">
-              <img className="w-1/2 group-hover:hidden" src={logoblue} alt="" />
-              <h2 className="text-white font-bold text-xl -translate-y-7">
+            <div className=" cursor-pointer relative group hover:bg-imageOrange bg-center bg-cover bg-no-repeat w-full md:-translate-x-[20%] flex flex-col items-center justify-center h-[35vh]"
+            style={{ backgroundImage: `url(${porqueelegirnos})` }}
+            >
+              <div className="w-full h-full absolute inset-0 group-hover:hidden bg-LogoYellow"></div>
+              <img className="w-1/2 group-hover:hidden z-10" src={logoblue} alt="" />
+              <h2 className="text-white font-bold z-10 text-xl -translate-y-7">
                 Porque Elegirnos
               </h2>
-              <p className="text-white hidden font-bold group-hover:block text-[12px] px-[5%]">
-                Somos un despacho de contadores y auditores establecido
-                desde hace ya de 10 años, con sus oficinas centrales en el centro de 
-                Monterrey Nuevo Leon, nuestros contadores constantemente 
+              <p className="text-white hidden z-10 font-bold group-hover:block text-[12px] px-[5%]">
+                Somos un despacho de contadores y auditores establecido desde
+                hace ya de 10 años, con sus oficinas centrales en el centro de
+                Monterrey Nuevo Leon, nuestros contadores constantemente
                 actualizados, garantizan tu seguridad en temas fiscales.
               </p>
             </div>
@@ -204,12 +227,19 @@ export const MainPrueba = () => {
         </div>
 
         {/* PALABRA MOTIVADORA */}
-        <div className="w-full flex justify-center overflow-hidden items-center bg-imagenPalabraMotivadora bg-center bg-cover bg-fixed h-[50vh] mt-28">
-            <motion.h2 
-            initial={{opacity:0,x:1000}}
-            animate={{opacity:1,x:0}}
-            transition={{delay:0.8}}
-            className="text-center text-3xl md:text-5xl font-bold text-white">Deja de batallar con el sat y <br />utiliza EasySat</motion.h2>
+        <div
+          className="w-full flex justify-center overflow-hidden items-center bg-center bg-cover bg-fixed h-[50vh] mt-28"
+          style={{ backgroundImage: `url(${imgMotivadora})` }}
+        >
+          <motion.h2
+            initial={{ opacity: 0, x: 1000 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.8 }}
+            className="text-center text-3xl md:text-5xl font-bold text-white"
+          >
+            Deja de batallar con el sat y <br />
+            utiliza EasySat
+          </motion.h2>
         </div>
 
         {/* APP INFO */}
