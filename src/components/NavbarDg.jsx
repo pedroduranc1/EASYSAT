@@ -1,9 +1,10 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { LogOut, Menu, UserIcon } from "lucide-react";
 import React, { useEffect, useState } from "react";
-import { Link, useLocation,  } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
+import { ChatBot } from "./ChatBot";
 
 function checkPage() {
   const location = useLocation();
@@ -21,7 +22,7 @@ function checkPage() {
 export const NavbarDg = ({ isblack }) => {
   const { User, logout } = useAuth();
   const location = useLocation();
-  const [Route, setRoute] = useState(location.pathname)
+  const [Route, setRoute] = useState(location.pathname);
 
   const [toggleMenu, settoggleMenu] = useState(false);
 
@@ -51,22 +52,18 @@ export const NavbarDg = ({ isblack }) => {
     };
   }, []);
 
-  const routeSelected = () => {
-
-  }
-
   const showDashboard = () => {
     if (User) {
       if (User.UserRole.includes("Admin")) {
         return (
           <Link
-              className={`px-4 py-2 ${
-                scrollPassedLimit || (!isblack && "text-black")
-              } hover:bg-LogoBlue hover:text-white transition-all`}
-              to="/Clientes"
-            >
-              Clientes
-            </Link>
+            className={`px-4 py-2 ${
+              scrollPassedLimit || (!isblack && "text-black")
+            } hover:bg-LogoBlue hover:text-white transition-all`}
+            to="/Clientes"
+          >
+            Clientes
+          </Link>
         );
       } else {
         return null;
@@ -79,9 +76,12 @@ export const NavbarDg = ({ isblack }) => {
       if (User.UserRole.includes("Admin")) {
         return (
           <li className=" hover:text-DgyaDark hover:rounded-md  transition-all py-2">
-            <Link  to="/Clientes"
-                  className={`w-full block hover:text-DgyaDark ${Route === '/Solicitudes' && 'bg-LogoBlue p-2 rounded-md text-white'} transition-colors`}
-            
+            <Link
+              to="/Clientes"
+              className={`w-full block hover:text-DgyaDark ${
+                Route === "/Solicitudes" &&
+                "bg-LogoBlue p-2 rounded-md text-white"
+              } transition-colors`}
             >
               Clientes
             </Link>
@@ -94,7 +94,7 @@ export const NavbarDg = ({ isblack }) => {
   };
   return (
     <>
-      <div className="fixed z-50 flex w-full justify-center">
+      <div className="fixed z-50  flex w-full px-[5%] justify-center">
         <ul
           className={`hidden bg-white ${
             scrollPassedLimit || isblack ? "bg-black/80" : ""
@@ -228,13 +228,12 @@ export const NavbarDg = ({ isblack }) => {
                   {User?.Username && <p>{User.Username}</p>}
                 </h2>
                 <LogOut
-                onClick={logout}
-                className={`w-5 h-5 cursor-pointer ${
-                  scrollPassedLimit || isblack ? "text-black" : "text-black"
-                }`}
-              />
+                  onClick={logout}
+                  className={`w-5 h-5 cursor-pointer ${
+                    scrollPassedLimit || isblack ? "text-black" : "text-black"
+                  }`}
+                />
               </Link>
-              
             </div>
           ) : (
             <Link
@@ -247,6 +246,9 @@ export const NavbarDg = ({ isblack }) => {
             </Link>
           )}
         </ul>
+        
+        <ChatBot scrollPassedLimit={scrollPassedLimit} />
+
         <div className={`w-full md:hidden p-2`}>
           <Menu
             size={50}
@@ -279,19 +281,26 @@ export const NavbarDg = ({ isblack }) => {
                 `}
               />
               <ul className="flex flex-col justify-center space-y-3 gap-x-5 text-black font-semibold text-lg">
-                <Link to="/" className={`hover:text-DgyaDark ${Route === '/' && 'bg-LogoBlue p-2 rounded-md text-white'} transition-colors`}>
+                <Link
+                  to="/"
+                  className={`hover:text-DgyaDark ${
+                    Route === "/" && "bg-LogoBlue p-2 rounded-md text-white"
+                  } transition-colors`}
+                >
                   Inicio
                 </Link>
                 {isMainPage ? (
-                  <a
-                    href="#acerca"
-                  >
-                    Acerca de
-                  </a>
+                  <a href="#acerca">Acerca de</a>
                 ) : (
-                  <Link to="/Contabilidad"
-                  className={`hover:text-DgyaDark ${Route === '/Contabilidad' && 'bg-LogoBlue p-2 rounded-md text-white'} transition-colors`}
-                  >Contabilidad</Link>
+                  <Link
+                    to="/Contabilidad"
+                    className={`hover:text-DgyaDark ${
+                      Route === "/Contabilidad" &&
+                      "bg-LogoBlue p-2 rounded-md text-white"
+                    } transition-colors`}
+                  >
+                    Contabilidad
+                  </Link>
                 )}
 
                 {isMainPage ? (
@@ -302,10 +311,15 @@ export const NavbarDg = ({ isblack }) => {
                     Servicios
                   </a>
                 ) : (
-                  <Link to="/Cursos"
-                  className={`hover:text-DgyaDark ${Route === '/Cursos' && 'bg-LogoBlue p-2 rounded-md text-white'} transition-colors`}
-                  
-                  >Cursos</Link>
+                  <Link
+                    to="/Cursos"
+                    className={`hover:text-DgyaDark ${
+                      Route === "/Cursos" &&
+                      "bg-LogoBlue p-2 rounded-md text-white"
+                    } transition-colors`}
+                  >
+                    Cursos
+                  </Link>
                 )}
                 {isMainPage ? (
                   <a
@@ -315,10 +329,15 @@ export const NavbarDg = ({ isblack }) => {
                     Contacto
                   </a>
                 ) : (
-                  <Link to="/Blogs"
-                  className={`hover:text-DgyaDark ${Route === '/Blogs' && 'bg-LogoBlue p-2 rounded-md text-white'} transition-colors`}
-                  
-                  >Blogs</Link>
+                  <Link
+                    to="/Blogs"
+                    className={`hover:text-DgyaDark ${
+                      Route === "/Blogs" &&
+                      "bg-LogoBlue p-2 rounded-md text-white"
+                    } transition-colors`}
+                  >
+                    Blogs
+                  </Link>
                 )}
 
                 {isMainPage && (
@@ -370,10 +389,7 @@ export const NavbarDg = ({ isblack }) => {
                   </div>
                 ) : (
                   <li>
-                    <Link
-                      className=" py-4  transition-all"
-                      to="/Login"
-                    >
+                    <Link className=" py-4  transition-all" to="/Login">
                       Iniciar Sesion
                     </Link>
                   </li>

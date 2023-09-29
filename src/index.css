@@ -5,7 +5,20 @@
 html {
   scroll-behavior: smooth;
 }
- 
+.crisp-client .cc-tlyw .cc-kxkl .cc-nsge[data-is-failure=false] .cc-imbb:active{
+  background:#0184ff !important ;
+}
+
+.crisp-client .cc-tlyw .cc-kxkl .cc-nsge .cc-imbb div{
+  @apply flex justify-center items-center w-full h-full bg-white rounded-full
+  !important
+}
+
+.crisp-client .cc-tlyw .cc-kxkl .cc-nsge .cc-imbb img {
+  @apply w-8 
+  !important
+}
+
 @layer base {
   :root {
     --background: 0 0% 100%;

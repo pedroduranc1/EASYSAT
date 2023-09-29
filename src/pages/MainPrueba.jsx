@@ -1,16 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { MainLayoutDg } from "../layouts/MainLayoutDg";
-import {
-  Facebook,
-  FolderKanban,
-  Instagram,
-  YoutubeIcon,
-  CheckIcon,
-  HeartHandshake,
-  Users2,
-  Building2,
-  User2,
-} from "lucide-react";
+import { FolderKanban, CheckIcon, User2 } from "lucide-react";
 import { services } from "../assets/services";
 import { servicioData } from "../assets/serviciosData";
 import { useAuth } from "../hooks/useAuth";
@@ -23,21 +13,16 @@ import wavesblack from "../assets/waves-black.webp";
 import blogs from "../assets/blogs.webp";
 import cursos from "../assets/cursos.webp";
 import contactoWaves from "../assets/contacto-waves.webp";
-import valores from "../assets/imag-valores.webp";
-import nosotros1 from "../assets/nosotros1.webp";
-import nosotros2 from "../assets/nosotros2.webp";
 import logo from "../assets/logocolor.webp";
-import qs from "../assets/quienesomos.webp";
-import pe from "../assets/porqueelegirnos.webp";
+import logogreen from "../assets/icons/business.webp";
+import logoblue from "../assets/icons/building.webp";
+import logoorange from "../assets/icons/handshake.webp";
 import logoBuho from "../assets/logo-buho-white.webp";
 import facebookLogo from "../assets/icons/Icono-Facebbok.svg";
 import instagramLogo from "../assets/icons/Icono-Instagram.svg";
 import tiktokLogo from "../assets/icons/Icono-TikTok.svg";
 import youtubeLogo from "../assets/icons/Icono-YouTube.svg";
-import handshakeimg from "../assets/handshakeimg.webp";
-import handshakelogo from "../assets/icons/handshake.webp";
-import business from "../assets/icons/business.webp";
-import building from "../assets/icons/building.webp";
+import valores from "../assets/imag-valores.webp";
 import { SubsCtrl } from "../api/check/fb.subs";
 import { User } from "../api/fb.user";
 import SubscriptionButton from "../components/SubscriptionButton";
@@ -58,6 +43,7 @@ import {
   PreguntasFrecuentesData,
 } from "../assets/adminData";
 import { Avatar, AvatarFallback, AvatarImage } from "../components/ui/avatar";
+import RotatingDivs from "../components/RotatingDivs";
 
 const Subs = new SubsCtrl();
 const UserCtrl = new User();
@@ -133,59 +119,17 @@ export const MainPrueba = () => {
           <div className="md:w-1/2 h-full flex items-center justify-center">
             <img src={logo} alt="" />
           </div>
-          {/* FORM CONTACTO */}
-          <div className="md:w-1/2 p-[5%] h-full flex justify-center items-center">
-            <form
-              ref={formRef}
-              onSubmit={formik.handleSubmit}
-              className="flex border-[3px] border-white bg-LogoBlue rounded-lg p-[5%] flex-col w-full"
-            >
-              <h2 className="text-center text-2xl md:text-4xl uppercase font-semibold text-white ">
-                ingresa tus <br /> datos ahora
-              </h2>
-              <input
-                className={`bg-transparent ${
-                  formik.errors.nombre
-                    ? "placeholder:text-red-500 border-red-500"
-                    : "placeholder:text-white border-white"
-                }  px-[2%] focus:border-none text-white placeholder:text-center my-3 border-2 rounded-sm py-2 placeholder:text-white placeholder:font-bold`}
-                type="text"
-                placeholder="NOMBRE"
-                name={"nombre"}
-                value={formik.values.nombre}
-                onChange={formik.handleChange}
-              />
-              <input
-                className={`bg-transparent ${
-                  formik.errors.email
-                    ? "placeholder:text-red-500 border-red-500"
-                    : "placeholder:text-white border-white"
-                }  px-[2%] focus:border-none  text-white placeholder:text-center my-3 border-2 rounded-sm py-2 placeholder:text-white placeholder:font-bold`}
-                type="text"
-                placeholder="EMAIL"
-                name={"email"}
-                value={formik.values.email}
-                onChange={formik.handleChange}
-              />
-              <input
-                className={`bg-transparent ${
-                  formik.errors.telefono
-                    ? "placeholder:text-red-500 border-red-500"
-                    : "placeholder:text-white border-white"
-                }  px-[2%] focus:border-none text-white placeholder:text-center my-3 border-2 rounded-sm py-2 placeholder:text-white placeholder:font-bold`}
-                type="text"
-                placeholder="NUMERO DE CELULAR"
-                name={"telefono"}
-                value={formik.values.telefono}
-                onChange={formik.handleChange}
-              />
-              <button className="w-full p-1 font-bold uppercase bg-white mt-5  rounded-sm">
-                enviar
-              </button>
-              <span className="mt-5 w-full text-white uppercase md:text-3xl font-bold p-2 bg-LogoYellow rounded-full flex justify-center items-center text-center">
-                !deshazte de los dolores <br /> de cabeza fiscales!
-              </span>
-            </form>
+          {/* NUEVO CONTEXT INFO */}
+          <div className="md:w-1/2 h-full flex flex-col  items-center">
+            <h2 className="md:mt-[40%] lg:mt-[15%] text-center mt-10 text-2xl md:text-3xl lg:text-4xl font-bold uppercase">
+              contabilidad para personas  fisicas y morales.
+            </h2>
+            <h4 className="text-center font-bold text-base mt-5 uppercase">
+              llevar una contabilidad financiera adecuada es fundamental {" "}
+              para el exito y sostenibilidad de una empresa
+            </h4>
+
+            <RotatingDivs />
           </div>
         </div>
       </section>
@@ -193,131 +137,79 @@ export const MainPrueba = () => {
       {/* NOSOTROS */}
       <div id="acerca" className="w-full pb-[5%] relative h-full bg-white">
         {/* NOSOTROS SECTION */}
-        <div className="w-full flex-col md:flex-row h-fit md:pt-16 md:px-[15%] flex">
-          <div className="w-full md:w-[50%]">
-            <div className="w-full grid grid-cols-2 h-fit ">
-              <div className="bg-transparent focus:border-none h-[25vh]"></div>
-              <div
-                className="bg-cover w-full bg-center  h-[35vh]"
-                style={{ backgroundImage: `url(${blogs})` }}
-              ></div>
-              <div
-                className="w-full bg-cover bg-center h-[35vh]"
-                style={{ backgroundImage: `url(${valores})` }}
-              ></div>
-              <div className="bg-LogoYellow h-[35vh]"></div>
+        <div className="w-full md:h-screen lg:h-[70vh] px-[5%] lg:px-[20%]">
+          <div className="w-full grid grid-cols-1 md:grid-cols-3 pt-20">
+            <div className=" w-full md:w-[60%] md:ml-auto md:mt-auto h-[30vh] md:h-[21vh]">
+              <img
+                className="w-full h-full bg-center bg-contain bg-no-repeat"
+                src={cursos}
+                alt=""
+              />
             </div>
-
-            <div
-              className="relative group hover:cursor-pointer flex flex-col justify-center items-center bg-center bg-cover h-[75dvh]"
-              style={{ backgroundImage: `url(${handshakeimg})` }}
-            >
-              <h3 className="text-white group-hover:-translate-y-[100%] transition-all font-bold text-4xl">
-                Como te ayudaremos
-              </h3>
-              <p className=" transition-all font-bold group-hover:-translate-y-[30%] group-hover:block text-center text-base mt-5 text-white px-[5%]">
-                Easy sat es una aplicación web para simplificar el cumplimiento
-                de tus obligaciones fiscales, creado por contadores para
-                emprendedores que no les guste batallar con temas fiscales y de
-                esa autoridad gubernamental que se llama SAT , olvídate de
-                batallar con el SAT y utiliza EasySAT
-              </p>
-              <div className="absolute inset-0 bg-LogoBlue group-hover:opacity-0 transition-all flex flex-col items-center justify-center">
-                <div
-                  className="w-44 h-44 bg-center bg-cover"
-                  style={{ backgroundImage: `url(${handshakelogo})` }}
-                ></div>
-                <h3 className="text-white group-hover:-translate-y-[100%] transition-all font-bold text-4xl">
-                  Como te ayudaremos
-                </h3>
-              </div>
-            </div>
-
-            <div className="w-full grid grid-cols-2 h-fit">
-              <div className="h-[15vh]"></div>
-              <div className="h-[25vh] bg-LogoGreen"></div>
-            </div>
-            <div
-              className="w-full bg-center flex justify-center items-center bg-cover h-[35vh]"
-              style={{ backgroundImage: `url(${nosotros2})` }}
-            >
-              <h3 className="text-white text-center text-2xl font-bold">
-                Opinion fiscal negativa? <br />
-                Aqui te ayudamos
-              </h3>
-            </div>
-            <div className="w-full grid grid-cols-2 h-fit">
-              <div className=""></div>
-              <div className="h-[35vh] bg-LogoBlue"></div>
-            </div>
-          </div>
-          <div className="w-full md:w-[50%] md:mt-[10%]">
-            <div
-              className="w-full flex justify-center items-center h-[35dvh]  bg-center bg-cover"
-              style={{ backgroundImage: `url(${nosotros1})` }}
-            >
-              <h3 className="text-center text-white text-3xl font-semibold">
-                Deja de batallar con el sat <br />y utiliza EasySat
-              </h3>
-            </div>
-            <div
-              className="relative group hover:cursor-pointer bg-center bg-cover bg-no-repeat flex flex-col justify-center items-center h-[75dvh]"
-              style={{ backgroundImage: `url(${qs})` }}
-            >
-              <div className="absolute inset-0 flex flex-col items-center justify-center bg-LogoGreen group-hover:opacity-0 transition-all">
-                <div
-                  className="w-44 h-44 bg-center bg-cover"
-                  style={{ backgroundImage: `url(${business})` }}
-                ></div>
-                <h3 className="text-white group-hover:-translate-y-[100%] transition-all font-bold text-4xl">
-                  Quienes somos
-                </h3>
-              </div>
-              <h3 className="text-white group-hover:-translate-y-[100%] transition-all font-bold text-4xl">
+            <div className="bg-LogoGreen hover:bg-imageGreen group bg-cover transition-all cursor-pointer bg-no-repeat w-full flex flex-col items-center justify-center h-[35vh]">
+              <img className="w-1/2 group-hover:hidden" src={logogreen} alt="" />
+              <h2 className="text-white font-bold text-xl -translate-y-7">
                 Quienes somos
-              </h3>
-              <p className="hidden transition-all font-bold group-hover:-translate-y-[30%] group-hover:block text-center text-base mt-5 text-white px-[5%]">
-                Haremos más fácil el cumplimiento de tus obligaciones fiscales
-                puesto que seremos tu departamento contable y fiscal , solo
-                necesitamos tu e firma y que elijas uno de nuestro paquetes
-                accesibles para ti
+              </h2>
+              <p className="text-white hidden font-bold group-hover:block text-[12px] px-[5%]">
+                EasySat es una aplicacion web para simplificar el cumplimiento 
+                de tus obligaciones fiscales, creado por contadores para 
+                emprendedores que no les guste batallar con temas fiscales y 
+                de esa autoridad gubernamental que se llama SAT, olvidate de 
+                batallar con el sat y utiliza EasySat
               </p>
             </div>
-            <div className="w-full grid grid-cols-2 h-fit">
-              <div
-                className="h-[35vh] bg-center bg-cover"
-                style={{ backgroundImage: `url(${blogs})` }}
-              ></div>
-              <div className="h-[15vh] bg-LogoYellow"></div>
-            </div>
-            <div
-              className="relative bg-LogoYellow group hover:cursor-pointer flex flex-col bg-center bg-cover justify-center items-center h-[75dvh]"
-              style={{ backgroundImage: `url(${pe})` }}
-            >
-              <div className="absolute inset-0 bg-LogoYellow flex flex-col items-center justify-center group-hover:opacity-0 transition-all">
-                <div
-                  className="w-44 h-44 bg-center bg-cover"
-                  style={{ backgroundImage: `url(${building})` }}
-                ></div>
-                <h3 className="text-white group-hover:-translate-y-[100%] transition-all font-bold text-4xl">
-                  Porque elegirnos
-                </h3>
-              </div>
-              <h3 className="text-white group-hover:-translate-y-[100%] transition-all font-bold text-4xl">
-                Porque elegirnos
-              </h3>
-              <p className="hidden transition-all font-bold group-hover:-translate-y-[30%] group-hover:block text-center text-base mt-5 text-white px-[5%]">
-                Somos un despacho de contadores y auditores establecido desde
-                hace 10 años, con sus oficinas centrales en el centro de
-                Monterrey Nuevo León , nuestros contadores constantemente
-                actualizados , garantizan tu seguridad en temas fiscales
-              </p>
-            </div>
-            <div className="w-full grid grid-cols-2 h-fit">
-              <div className="h-[35vh] bg-LogoGreen"></div>
-              <div className=""></div>
+            <div className="w-full md:w-[60%] md:mr-auto md:mt-auto h-[30vh] md:h-[21vh]">
+              <img
+                className="w-full h-full bg-center bg-contain bg-no-repeat"
+                src={blogs}
+                alt=""
+              />
             </div>
           </div>
+          <div className="w-full grid grid-cols-1 md:grid-cols-3">
+            <div className="bg-LogoBlue cursor-pointer group hover:bg-imageBlue bg-center bg-cover bg-no-repeat w-full md:translate-x-[20%] flex flex-col items-center justify-center h-[35vh]">
+              <img className="w-1/2 group-hover:hidden" src={logoorange} alt="" />
+              <h2 className="text-white font-bold text-xl -translate-y-7">
+                Como te ayudaremos
+              </h2>
+              <p className="text-white hidden font-bold group-hover:block text-[12px] px-[5%]">
+                Somos un despacho de contadores y auditores establecido
+                desde hace ya de 10 años, con sus oficinas centrales en el centro de 
+                Monterrey Nuevo Leon, nuestros contadores constantemente 
+                actualizados, garantizan tu seguridad en temas fiscales.
+              </p>
+            </div>
+            <div className="bg-slate-500 w-full md:w-[60%] mx-auto mb-auto h-[30vh] md:h-[21vh]">
+              <img
+                className="w-full h-full bg-center bg-contain bg-no-repeat"
+                src={valores}
+                alt=""
+              />
+            </div>
+
+            <div className="bg-LogoYellow cursor-pointer group hover:bg-imageOrange bg-center bg-cover bg-no-repeat w-full md:-translate-x-[20%] flex flex-col items-center justify-center h-[35vh]">
+              <img className="w-1/2 group-hover:hidden" src={logoblue} alt="" />
+              <h2 className="text-white font-bold text-xl -translate-y-7">
+                Porque Elegirnos
+              </h2>
+              <p className="text-white hidden font-bold group-hover:block text-[12px] px-[5%]">
+                Somos un despacho de contadores y auditores establecido
+                desde hace ya de 10 años, con sus oficinas centrales en el centro de 
+                Monterrey Nuevo Leon, nuestros contadores constantemente 
+                actualizados, garantizan tu seguridad en temas fiscales.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* PALABRA MOTIVADORA */}
+        <div className="w-full flex justify-center overflow-hidden items-center bg-imagenPalabraMotivadora bg-center bg-cover bg-fixed h-[50vh] mt-28">
+            <motion.h2 
+            initial={{opacity:0,x:1000}}
+            animate={{opacity:1,x:0}}
+            transition={{delay:0.8}}
+            className="text-center text-3xl md:text-5xl font-bold text-white">Deja de batallar con el sat y <br />utiliza EasySat</motion.h2>
         </div>
 
         {/* APP INFO */}

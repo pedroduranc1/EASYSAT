@@ -1,3 +1,5 @@
+import imageGreen from "./src/assets/nosotros2.webp";
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   darkMode: ["class"],
@@ -21,7 +23,10 @@ module.exports = {
     },
     extend: {
       backgroundImage: {
-        'hero-img': "url('./src/assets/fondo.jpg')",
+        'imageGreen': `url(./src/assets/nosotros2.webp)`,
+        'imageOrange': `url(./src/assets/porqueelegirnos.webp)`,
+        'imageBlue': `url(./src/assets/handshakeimg.webp)`,
+        'imagenPalabraMotivadora': `url(./src/assets/nosotros1.webp)`
       },
       colors: {
         DgyaLight: "#137EB7",
