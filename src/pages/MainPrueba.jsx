@@ -181,8 +181,9 @@ export const MainPrueba = () => {
             </div>
           </div>
           <div className="w-full grid grid-cols-1 md:grid-cols-3">
-            <div className="relative cursor-pointer group  bg-center bg-cover bg-no-repeat w-full md:translate-x-[20%] flex flex-col items-center justify-center h-[35vh]"
-            style={{ backgroundImage: `url(${handshakeimg})` }}
+            <div
+              className="relative cursor-pointer group  bg-center bg-cover bg-no-repeat w-full md:translate-x-[20%] flex flex-col items-center justify-center h-[35vh]"
+              style={{ backgroundImage: `url(${handshakeimg})` }}
             >
               <div className="w-full h-full absolute inset-0 group-hover:hidden bg-LogoBlue"></div>
               <img
@@ -194,10 +195,10 @@ export const MainPrueba = () => {
                 Como te ayudaremos
               </h2>
               <p className="text-white hidden z-10 font-bold text-justify group-hover:block text-[12px] px-[5%]">
-                Somos un despacho de contadores y auditores establecido desde
-                hace ya de 10 años, con sus oficinas centrales en el centro de
-                Monterrey Nuevo Leon, nuestros contadores constantemente
-                actualizados, garantizan tu seguridad en temas fiscales.
+                Haremos más fácil el cumplimiento de tus obligaciones fiscales
+                puesto que seremos tu departamento contable y fiscal , solo
+                necesitamos tu e firma y que elijas uno de nuestro paquetes
+                accesibles para ti
               </p>
             </div>
             <div className="bg-slate-500 w-full md:w-[60%] mx-auto mb-auto h-[30vh] md:h-[21vh]">
@@ -208,11 +209,16 @@ export const MainPrueba = () => {
               />
             </div>
 
-            <div className=" cursor-pointer relative group hover:bg-imageOrange bg-center bg-cover bg-no-repeat w-full md:-translate-x-[20%] flex flex-col items-center justify-center h-[35vh]"
-            style={{ backgroundImage: `url(${porqueelegirnos})` }}
+            <div
+              className=" cursor-pointer relative group hover:bg-imageOrange bg-center bg-cover bg-no-repeat w-full md:-translate-x-[20%] flex flex-col items-center justify-center h-[35vh]"
+              style={{ backgroundImage: `url(${porqueelegirnos})` }}
             >
               <div className="w-full h-full absolute inset-0 group-hover:hidden bg-LogoYellow"></div>
-              <img className="w-1/2 group-hover:hidden z-10" src={logoblue} alt="" />
+              <img
+                className="w-1/2 group-hover:hidden z-10"
+                src={logoblue}
+                alt=""
+              />
               <h2 className="text-white font-bold z-10 text-xl group-hover:-translate-y-3 -translate-y-7">
                 Porque Elegirnos
               </h2>
@@ -342,14 +348,19 @@ export const MainPrueba = () => {
                   : "bg-LogoBlue md:flex-row"
               } px-[5%] py-[5%] md:py-0 gap-y-6 lg:px-[15%] h-full md:h-[40vh] `}
             >
-              <div 
-              className="md:w-1/2 flex justify-center items-center">
+              <div className="md:w-1/2 flex justify-center items-center">
                 <ul key={index} className="text-white font-bold space-y-2">
-                  {servicio.contents.map((cont,index) => (
-                    <motion.li 
-                    initial={{opacity:0,x:200}}
-                    whileInView={{opacity:1,x:0,transition:{delay:.3}}}
-                    key={index} className="flex font-semibold items-center">
+                  {servicio.contents.map((cont, index) => (
+                    <motion.li
+                      initial={{ opacity: 0, x: 200 }}
+                      whileInView={{
+                        opacity: 1,
+                        x: 0,
+                        transition: { delay: 0.3 },
+                      }}
+                      key={index}
+                      className="flex font-semibold items-center"
+                    >
                       <CheckIcon className="mr-2 w-[20%] text-LogoGreen" />{" "}
                       <span className="w-[80%] lg:text-xl">{cont.title}</span>
                     </motion.li>
@@ -358,8 +369,12 @@ export const MainPrueba = () => {
               </div>
               <div className="md:w-1/2 flex justify-center">
                 <motion.div
-                  initial={{opacity:0,scale:0.5}}
-                  whileInView={{opacity:1,scale:1.25,transition:{delay:0.2}}}
+                  initial={{ opacity: 0, scale: 0.5 }}
+                  whileInView={{
+                    opacity: 1,
+                    scale: 1.25,
+                    transition: { delay: 0.2 },
+                  }}
                   className={`w-full md:w-[55%] md:scale-125 h-fit md:h-full rounded-md p-[2pt] bg-gradient-to-r from-LogoGreen ${
                     index == 1 || index == 3 ? "" : ""
                   } ${
