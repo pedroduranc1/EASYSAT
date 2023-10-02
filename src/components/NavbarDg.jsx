@@ -94,7 +94,7 @@ export const NavbarDg = ({ isblack }) => {
   };
   return (
     <>
-      <div className="fixed z-50  flex w-full px-[5%] justify-center">
+      <div className="fixed z-50 flex w-full px-[5%] justify-start">
         <ul
           className={`hidden bg-white ${
             scrollPassedLimit || isblack ? "bg-black/80" : ""

@@ -5,18 +5,12 @@
 html {
   scroll-behavior: smooth;
 }
-.crisp-client .cc-tlyw .cc-kxkl .cc-nsge[data-is-failure=false] .cc-imbb:active{
-  background:#0184ff !important ;
-}
 
-.crisp-client .cc-tlyw .cc-kxkl .cc-nsge .cc-imbb div{
-  @apply flex justify-center items-center w-full h-full bg-white rounded-full
-  !important
+.crisp-client .cc-tlyw .cc-kxkl .cc-nsge .cc-imbb{
+  visibility: hidden !important;
 }
-
-.crisp-client .cc-tlyw .cc-kxkl .cc-nsge .cc-imbb img {
-  @apply w-8 
-  !important
+.crisp-client .cc-tlyw[data-last-operator-face=false] .cc-kxkl .cc-nsge .cc-imbb .cc-11f2[data-is-ongoing=false] .cc-15e7{
+  visibility: hidden !important;
 }
 
 @layer base {

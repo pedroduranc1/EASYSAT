@@ -98,7 +98,7 @@ export const PreguntasFrecuentesData = [
   {
     pregunta: "Que necesito para empezar y cuál es el proceso ?",
     respuesta:
-      "1.- empezaremos por realizarte un diagnóstico fiscal a la medida , un contador para fines prácticos es como un doctor , realizaremos el análisis de tu situación fiscal y te daremos “una receta” a la medida con tu tratamiento a seguir , esto es en una reunión 1 a 1 en línea vía zoom , con el fin para realizar el diagnóstico ocupamos tu contraseña de acceso al sat .",
+      "1.- Empezaremos por realizarte un diagnóstico fiscal a la medida , un contador para fines prácticos es como un doctor , realizaremos el análisis de tu situación fiscal y te daremos “una receta” a la medida con tu tratamiento a seguir , esto es en una reunión 1 a 1 en línea vía zoom , con el fin para realizar el diagnóstico ocupamos tu contraseña de acceso al sat .",
   },
   {
     pregunta: "Mi información está protegida ?",
@@ -108,10 +108,10 @@ export const PreguntasFrecuentesData = [
   {
     pregunta: "Como me brindarán tranquilidad en temas fiscales ?",
     respuesta: [
-      '1.- somos un despacho con contadores certificados de más de 10 años de experiencia',
-      '2.- contamos con varias afiliaciones que certifican que trabajamos a la vanguardia en actualizaciones fiscales y contables',
-      '3.- nos dedicamos 24/7 a esto con el fin de que tú te preocupes por tu negocio y nosotros de tu contabilidad',
-      '4.- te daremos cursos de actualización en temas fiscales'
+      '1.- Somos un despacho con contadores certificados de más de 10 años de experiencia',
+      '2.- Contamos con varias afiliaciones que certifican que trabajamos a la vanguardia en actualizaciones fiscales y contables',
+      '3.- Nos dedicamos 24/7 a esto con el fin de que tú te preocupes por tu negocio y nosotros de tu contabilidad',
+      '4.- Te daremos cursos de actualización en temas fiscales'
     ]
   },
   {

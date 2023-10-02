@@ -1,6 +1,22 @@
-import { collection, deleteDoc, doc, getDoc, getDocs, query, setDoc, updateDoc, where } from "firebase/firestore";
+import {
+  collection,
+  deleteDoc,
+  doc,
+  getDoc,
+  getDocs,
+  query,
+  setDoc,
+  updateDoc,
+  where,
+} from "firebase/firestore";
 import { db, storage } from "../../utils/firebase";
-import { deleteObject, getDownloadURL, ref, uploadBytesResumable } from "@firebase/storage";
+import {
+  deleteObject,
+  getDownloadURL,
+  ref,
+  uploadBytesResumable,
+} from "@firebase/storage";
+import axios from "axios";
 
 export class ContabilidadCtrl {
   async getSolicitudes() {
@@ -14,15 +30,15 @@ export class ContabilidadCtrl {
     return newData;
   }
 
-  async getSolicitud(uid){
+  async getSolicitud(uid) {
     const blogRef = doc(db, "Solicitudes", uid);
     const snapshotBlogPost = await getDoc(blogRef);
-    const data =  {...snapshotBlogPost?.data()}
+    const data = { ...snapshotBlogPost?.data() };
 
     return data;
   }
 
-  async getFirma(uid){
+  async getFirma(uid) {
     const q = query(collection(db, "Solicitudes"), where("uid", "==", uid));
     const querySnapshot = await getDocs(q);
     const blogData = querySnapshot.docs.map((doc) => {
@@ -35,7 +51,7 @@ export class ContabilidadCtrl {
     return blogData[0];
   }
 
-  async getMisSolicitudes(uid){
+  async getMisSolicitudes(uid) {
     const q = query(collection(db, "Solicitudes"), where("uid", "==", uid));
 
     const querySnapshot = await getDocs(q);
@@ -60,7 +76,7 @@ export class ContabilidadCtrl {
     }
   }
 
-  async deleteSolicitud(id,soli) {
+  async deleteSolicitud(id, soli) {
     try {
       // Eliminar el documento del blog de la colección "blogs"
       const cursoRef = doc(db, "Solicitudes", id);
@@ -77,7 +93,7 @@ export class ContabilidadCtrl {
     }
   }
 
-  async updateSolicitud(id,SoliData){
+  async updateSolicitud(id, SoliData) {
     try {
       const soliRef = doc(db, "Solicitudes", id);
       await updateDoc(soliRef, SoliData);
@@ -119,5 +135,10 @@ export class ContabilidadCtrl {
     // Obtiene la URL de descarga
     const downloadURL = await getDownloadURL(fileRef);
     return downloadURL;
+  }
+
+  async getInfoSat(rfc) {
+    const response = await axios.get(`https://api.sat.mx/ventas-gastos/${rfc}`);
+    return response.data;
   }
 }

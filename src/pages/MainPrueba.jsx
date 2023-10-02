@@ -144,7 +144,7 @@ export const MainPrueba = () => {
         {/* NOSOTROS SECTION */}
         <div className="w-full md:h-screen lg:h-[70vh] px-[5%] lg:px-[20%]">
           <div className="w-full grid grid-cols-1 md:grid-cols-3 pt-20">
-            <div className=" w-full md:w-[60%] md:ml-auto md:mt-auto h-[30vh] md:h-[21vh]">
+            <div className="w-full md:w-[60%] md:ml-auto md:mt-auto h-[30vh] md:h-[21vh]">
               <img
                 className="w-full h-full bg-center bg-contain bg-no-repeat"
                 src={cursos}
@@ -161,10 +161,10 @@ export const MainPrueba = () => {
                 src={logogreen}
                 alt=""
               />
-              <h2 className="text-white font-bold z-10 text-xl -translate-y-7">
+              <h2 className="text-white font-bold z-10 text-xl -translate-y-7 group-hover:-translate-y-3">
                 Quienes somos
               </h2>
-              <p className="text-white hidden z-10 font-bold group-hover:block text-[12px] px-[5%]">
+              <p className="text-white hidden text-justify z-10 font-bold group-hover:block text-[12px] px-[7%]">
                 EasySat es una aplicacion web para simplificar el cumplimiento
                 de tus obligaciones fiscales, creado por contadores para
                 emprendedores que no les guste batallar con temas fiscales y de
@@ -190,10 +190,10 @@ export const MainPrueba = () => {
                 src={logoorange}
                 alt=""
               />
-              <h2 className="text-white font-bold z-10 text-xl -translate-y-7">
+              <h2 className="text-white font-bold z-10 text-xl -translate-y-7 group-hover:-translate-y-3">
                 Como te ayudaremos
               </h2>
-              <p className="text-white hidden z-10 font-bold group-hover:block text-[12px] px-[5%]">
+              <p className="text-white hidden z-10 font-bold text-justify group-hover:block text-[12px] px-[5%]">
                 Somos un despacho de contadores y auditores establecido desde
                 hace ya de 10 años, con sus oficinas centrales en el centro de
                 Monterrey Nuevo Leon, nuestros contadores constantemente
@@ -213,10 +213,10 @@ export const MainPrueba = () => {
             >
               <div className="w-full h-full absolute inset-0 group-hover:hidden bg-LogoYellow"></div>
               <img className="w-1/2 group-hover:hidden z-10" src={logoblue} alt="" />
-              <h2 className="text-white font-bold z-10 text-xl -translate-y-7">
+              <h2 className="text-white font-bold z-10 text-xl group-hover:-translate-y-3 -translate-y-7">
                 Porque Elegirnos
               </h2>
-              <p className="text-white hidden z-10 font-bold group-hover:block text-[12px] px-[5%]">
+              <p className="text-white hidden z-10 text-justify font-bold group-hover:block text-[12px] px-[5%]">
                 Somos un despacho de contadores y auditores establecido desde
                 hace ya de 10 años, con sus oficinas centrales en el centro de
                 Monterrey Nuevo Leon, nuestros contadores constantemente
@@ -315,7 +315,7 @@ export const MainPrueba = () => {
       </div>
 
       {/* PRICING */}
-      <div className="w-full h-full pt-5 lg:pt-10 bg-white">
+      <div className="w-full overflow-hidden h-full pt-5 lg:pt-10 bg-white">
         <div className="md:px-[10%] lg:px-[20%] lg:pb-5 md:pt-16">
           <div className="space-y-1">
             <h2 className="text-3xl md:text-6xl text-black font-bold uppercase text-center">
@@ -342,18 +342,24 @@ export const MainPrueba = () => {
                   : "bg-LogoBlue md:flex-row"
               } px-[5%] py-[5%] md:py-0 gap-y-6 lg:px-[15%] h-full md:h-[40vh] `}
             >
-              <div className="md:w-1/2 flex justify-center items-center">
+              <div 
+              className="md:w-1/2 flex justify-center items-center">
                 <ul key={index} className="text-white font-bold space-y-2">
-                  {servicio.contents.map((cont) => (
-                    <li className="flex font-semibold items-center">
+                  {servicio.contents.map((cont,index) => (
+                    <motion.li 
+                    initial={{opacity:0,x:200}}
+                    whileInView={{opacity:1,x:0,transition:{delay:.3}}}
+                    key={index} className="flex font-semibold items-center">
                       <CheckIcon className="mr-2 w-[20%] text-LogoGreen" />{" "}
                       <span className="w-[80%] lg:text-xl">{cont.title}</span>
-                    </li>
+                    </motion.li>
                   ))}
                 </ul>
               </div>
               <div className="md:w-1/2 flex justify-center">
-                <div
+                <motion.div
+                  initial={{opacity:0,scale:0.5}}
+                  whileInView={{opacity:1,scale:1.25,transition:{delay:0.2}}}
                   className={`w-full md:w-[55%] md:scale-125 h-fit md:h-full rounded-md p-[2pt] bg-gradient-to-r from-LogoGreen ${
                     index == 1 || index == 3 ? "" : ""
                   } ${
@@ -433,7 +439,7 @@ export const MainPrueba = () => {
                       )}
                     </div>
                   </div>
-                </div>
+                </motion.div>
               </div>
             </div>
           ))}

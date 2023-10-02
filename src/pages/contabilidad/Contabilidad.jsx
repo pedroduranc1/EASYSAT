@@ -27,6 +27,9 @@ export const Contabilidad = () => {
     Conta.getFirma(User?.uid)
   );
 
+  const {data:Contribuyente } = useQuery(`SAT-${User?.uid}`,()=>Conta.getInfoSat("ABC123456ABC"))
+  console.log(Contribuyente)
+
   const [Selected, setSelected] = useState("Contabilidad");
   const [Mes, setMes] = useState("enero");
 
