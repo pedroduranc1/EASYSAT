@@ -128,7 +128,7 @@ export const PreguntasFrecuentesData = [
 
 export const OpinionesClientes = [
   {
-    imgUrl: "https://randomuser.me/api/portraits/men/36.jpg",
+    imgUrl: "https://i.pinimg.com/564x/bc/5a/86/bc5a8680fd18d355fd15ef1331e08d55.jpg",
     nombre: "Javier Escobedo",
     cargo: "Empresa de químicos",
     msg: `Agradezco que easy sat simplifique el cumplimiento fiscal para
@@ -136,13 +136,13 @@ export const OpinionesClientes = [
                 gran ayuda`,
   },
   {
-    imgUrl: "https://randomuser.me/api/portraits/men/43.jpg",
+    imgUrl: "https://i.pinimg.com/564x/cc/0b/5a/cc0b5a46bb3335e22f09f7e981c07ae1.jpg",
     nombre: "Ricardo Mier",
     cargo: "Empresa de construcción",
     msg: `Con tantos cambios fiscales a los emprendedores nos da temor cumplir de una forma incorrecta , easy sat me da la tranquilidad que necesito para yo enfocarme en mi negocio y olvidarme de temas fiscales`,
   },
   {
-    imgUrl: "https://randomuser.me/api/portraits/women/94.jpg",
+    imgUrl: "https://i.pinimg.com/564x/db/a8/62/dba862849c0550a89cce67a6e582e21d.jpg",
     nombre: "Judith Cantu",
     cargo: "Cafetería",
     msg: `Gracias por preocuparse de mantenernos actualizados a los que no sabemos de el sat , su blog de actualización y cursos me ayudan a estar al día`,

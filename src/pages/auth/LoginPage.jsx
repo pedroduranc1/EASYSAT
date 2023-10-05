@@ -6,7 +6,7 @@ import { initialValues, validationSchema } from "../../utils/login.form";
 import { useAuth } from "../../hooks/useAuth";
 import { useFormik } from "formik";
 import { Auth } from "../../api/fb.auth";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useToast } from "../../components/ui/use-toast";
 import fondo from '../../assets/fondo.webp'
 import logo from '../../assets/logo.webp'
@@ -155,6 +155,7 @@ export const LoginPage = () => {
                       "Iniciar Sesion"
                     )}
                   </button>
+                  <h4>No tienes cuenta? <Link to="/Registro" className="underline">Registrate Aqui</Link></h4>
                 </form>
               </div>
             </div>

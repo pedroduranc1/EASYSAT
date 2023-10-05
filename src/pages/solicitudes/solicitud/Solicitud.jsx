@@ -185,7 +185,7 @@ export const Solicitud = () => {
   // LOADING ARREGLAR
   if (isLoading) {
     return (
-      <MainLayoutDg>
+      <MainLayoutDg isblack={true}>
         <FormContainer>
           <div className="px-[3%] lg:px-0">
             <Skeleton className="w-[70%] h-7" />
@@ -217,7 +217,7 @@ export const Solicitud = () => {
   }
 
   return (
-    <MainLayoutDg>
+    <MainLayoutDg isblack={true}>
       <FormContainer>
         <div className={` h-full min-h-screen px-[3%] lg:px-0 md:mt-5`}>
           <h1 className="text-xl md:text-3xl text-white font-bold my-4 md:mb-5">

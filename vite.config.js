@@ -10,5 +10,13 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./src"),
     },
   },
+  server: {
+    proxy: {
+      '/api': {
+        target: 'https://email-sender-sepia.vercel.app/',
+        changeOrigin: true 
+      }
+    }
+  }
 })
 

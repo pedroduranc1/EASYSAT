@@ -36,6 +36,7 @@ import { MainPrueba } from "../pages/MainPrueba";
 import { CreateEstFinPage } from "../pages/estados-financieros/Create.EstFin";
 import { UpdateEstFin } from "../pages/estados-financieros/Update.EstFin";
 import { DeleteEstFin } from "../pages/estados-financieros/Delete.EstFin";
+import { RegistroPage } from "../pages/auth/RegistroPage";
 
 const router = createBrowserRouter([
   {
@@ -170,10 +171,10 @@ const router = createBrowserRouter([
     path:"/admin/eliminar-estFin",
     element: <DeleteEstFin/>
   },
-  // {
-  //   path: "/Registro",
-  //   element: <RegistroPage/>,
-  // },
+  {
+    path: "/Registro",
+    element: <RegistroPage/>,
+  },
 ]);
 
 export const Rutas = () => {

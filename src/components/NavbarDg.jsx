@@ -94,7 +94,7 @@ export const NavbarDg = ({ isblack }) => {
   };
   return (
     <>
-      <div className="fixed z-50 flex w-full px-[5%] justify-start">
+      <div className={`fixed z-50 flex w-full px-[5%] ${isblack ? "justify-center" : "justify-between"}`}>
         <ul
           className={`hidden bg-white ${
             scrollPassedLimit || isblack ? "bg-black/80" : ""
@@ -246,7 +246,18 @@ export const NavbarDg = ({ isblack }) => {
             </Link>
           )}
         </ul>
-        
+
+        {!User && (
+          <Link
+            className={`bg-white ${
+              scrollPassedLimit ? "rounded-b-md" : "mt-5 rounded-full"
+            } hidden md:flex shadow-md items-center justify-center px-4 font-semibold text-base`}
+            to="/Registro"
+          >
+            Registrate
+          </Link>
+        )}
+
         <ChatBot scrollPassedLimit={scrollPassedLimit} />
 
         <div className={`w-full md:hidden p-2`}>

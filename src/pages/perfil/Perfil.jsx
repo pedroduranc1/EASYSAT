@@ -21,7 +21,7 @@ export const Perfil = () => {
   }, [User]);
 
   useEffect(() => {
-    if (User.UserRole?.toLowerCase().trim().includes("admin")) setisAdmin(true);
+    if (User?.UserRole?.toLowerCase().trim().includes("admin")) setisAdmin(true);
   }, [User]);
 
   return (
