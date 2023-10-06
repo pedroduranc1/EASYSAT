@@ -84,7 +84,7 @@ export const CursosBlogs = () => {
           <div className="w-full shadow-2xl lg:w-1/2 ">
             <img
               className="w-full h-full rounded-md "
-              src={blogs}
+              src="https://img.freepik.com/foto-gratis/3d-renderizar-transferencia-dinero-banca-movil-linea_107791-16729.jpg?w=2000"
               alt="A group of People"
             />
           </div>
