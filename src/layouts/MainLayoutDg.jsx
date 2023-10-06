@@ -54,7 +54,7 @@ export const MainLayoutDg = ({ children, isblack }) => {
         </div>
         <div className="w-16 h-16 rounded-full  ml-2">
           <img
-            className="w-full h-full bg-center bg-contain"
+            className="w-full animate-bounce repeat-infinite h-full bg-center bg-contain"
             src={logo}
             alt=""
           />

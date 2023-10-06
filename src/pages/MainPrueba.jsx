@@ -12,7 +12,6 @@ import { Main } from "../components/Main/index";
 
 const Subs = new SubsCtrl();
 const UserCtrl = new User();
-const MailCtrl = new Mail();
 export const MainPrueba = () => {
   const { User } = useAuth();
   const formRef = useRef();
