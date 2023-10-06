@@ -11,9 +11,11 @@ import { toast } from "../../components/ui/use-toast";
 import { uid } from "uid";
 import { ButtonForm } from "../../components/ui/ButtonForm";
 import { FormContainer } from "../../components/ui/FormContainer";
+import { Mail } from "../../api/mails/mail";
 
 const UserCtrl = new User();
 const cursoCtrl = new CursosCtrl();
+const MailCtrl = new Mail();
 export const PageCurso = () => {
   const [CursoImg, setCursoImg] = useState("");
 
@@ -43,6 +45,7 @@ export const PageCurso = () => {
           title: "Curso Creado Exitosamente",
         });
 
+        await MailCtrl.SendMails(formValue.Autor,Slug,'Curso')
         formik.resetForm();
       } else {
         // Hubo un error al crear el blog

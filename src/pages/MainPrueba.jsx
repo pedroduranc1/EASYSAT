@@ -12,6 +12,7 @@ import { Main } from "../components/Main/index";
 
 const Subs = new SubsCtrl();
 const UserCtrl = new User();
+const MailCtrl = new Mail();
 export const MainPrueba = () => {
   const { User } = useAuth();
   const formRef = useRef();
@@ -73,24 +74,24 @@ export const MainPrueba = () => {
   return (
     <MainLayoutDg>
       {/* MAIN */}
-      <Main.Heroes/>
+      <Main.Heroes />
 
       {/* NOSOTROS */}
-      <Main.Nosotros/>
+      <Main.Nosotros />
       {/* SERVICIOS */}
-      <Main.Servicios selection={selection}/>
+      <Main.Servicios selection={selection} />
       {/* PRICING */}
-      <Main.Pricing/>
+      <Main.Pricing />
       {/* CURSOS Y BLOGS */}
-      <Main.CursosBlogs/>
+      <Main.CursosBlogs />
       {/* PREGUNTAS FRECUENTES */}
-      <Main.Preguntas/>
+      <Main.Preguntas />
       {/* CTA */}
-      <Main.Opiniones/>
+      <Main.Opiniones />
       {/* REDES */}
-      <Main.Redes/>
+      <Main.Redes />
       {/* CONTACTO */}
-      <Main.Contacto/>
+      <Main.Contacto />
     </MainLayoutDg>
   );
 };

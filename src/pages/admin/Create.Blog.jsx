@@ -10,9 +10,11 @@ import { toast } from "../../components/ui/use-toast";
 import { uid } from "uid";
 import { ButtonForm } from "../../components/ui/ButtonForm";
 import { FormContainer } from "../../components/ui/FormContainer";
+import { Mail } from "../../api/mails/mail";
 
 const BlogCtrl = new BlogsCtrl();
 const UserCtrl = new User();
+const MailCtrl = new Mail();
 export const AdminBlog = () => {
   const [BlogImg, setBlogImg] = useState("");
   const [BlogMD, setBlogMD] = useState("");
@@ -46,6 +48,8 @@ export const AdminBlog = () => {
         toast({
           title: "Blog Creado Exitosamente",
         });
+
+        await MailCtrl.SendMails(formValue.Autor,Slug,'Blog')
 
         formik.resetForm();
       } else {
