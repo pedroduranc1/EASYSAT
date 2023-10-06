@@ -205,6 +205,17 @@ export const NavbarDg = ({ isblack }) => {
             </Link>
           )}
 
+{checkPage() == false && (
+            <Link
+              to="/Registro"
+              className={`hover:bg-LogoBlue hover:text-white transition-colors ${
+                scrollPassedLimit || isblack ? "text-black" : ""
+              }`}
+            >
+              Registro
+            </Link>
+          )}
+
           {showDashboard()}
           {User ? (
             <div className="flex items-center space-x-3">
@@ -247,7 +258,9 @@ export const NavbarDg = ({ isblack }) => {
           )}
         </ul>
 
-        {!User && (
+        
+
+        {checkPage() && (
           <Link
             className={`bg-white ${
               scrollPassedLimit ? "rounded-b-md" : "mt-5 rounded-full"

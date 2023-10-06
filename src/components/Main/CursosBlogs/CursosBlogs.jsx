@@ -50,7 +50,7 @@ export const CursosBlogs = () => {
               
             </video>
             {
-              muted ? (<VolumeX onClick={()=>setmuted(!muted)} className="absolute text-white top-0 right-0 cursor-pointer" size={30}/>) : (<Volume2 onClick={()=>setmuted(!muted)} className="absolute text-white top-0 right-0 cursor-pointer" size={30}/>)
+              muted ? (<VolumeX onClick={()=>setmuted(!muted)} className="absolute text-white bottom-0 left-0 cursor-pointer" size={30}/>) : (<Volume2 onClick={()=>setmuted(!muted)} className="absolute text-white bottom-0 left-0 cursor-pointer" size={30}/>)
             }
             
           </div>
