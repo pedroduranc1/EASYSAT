@@ -1,5 +1,8 @@
 import React, { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import heroes1 from "../assets/heroes1.jpeg";
+import heroes2 from "../assets/heroes2.jpeg";
+import heroes3 from "../assets/heroes3.jpeg";
 
 export default function App() {
   const [width, setWidth] = useState(0);
@@ -48,9 +51,14 @@ export default function App() {
               className="h-full flex justify-evenly items-end pb-10"
               style={childStyle}
             >
-              <div className="w-16 h-16 md:w-24 md:h-24 lg:w-32 lg:h-32 bg-slate-500 rounded-full"></div>
-              <div className="w-16 h-16 md:w-24 md:h-24 lg:w-32 lg:h-32 bg-slate-300 rounded-full"></div>
-              <div className="w-16 h-16 md:w-24 md:h-24 lg:w-32 lg:h-32 bg-slate-700 rounded-full"></div>
+              <div className="w-16 h-16 md:w-24 md:h-24 lg:w-32 lg:h-32 flex justify-center items-center ">
+                <img className="bg-center bg-contain h-full w-full rounded-full" src={heroes1} alt="" />
+              </div>
+              <div className="w-16 h-16 md:w-24 md:h-24 lg:w-32 lg:h-32 flex justify-center items-center ">
+                <img className="bg-center bg-contain h-full w-full rounded-full" src={heroes2} alt="" />
+              </div><div className="w-16 h-16 md:w-24 md:h-24 lg:w-32 lg:h-32 flex justify-center items-center ">
+                <img className="bg-center bg-contain h-full w-full rounded-full" src={heroes3} alt="" />
+              </div>
             </motion.div>
           )}
 
