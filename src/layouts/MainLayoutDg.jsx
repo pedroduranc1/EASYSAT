@@ -52,7 +52,7 @@ export const MainLayoutDg = ({ children, isblack }) => {
             te podemos ayudar?
           </h3>
         </div>
-        <div className="w-16 h-16 rounded-full  ml-2">
+        <div className="w-16 rounded-full  ml-2">
           <img
             className="w-full animate-float h-full bg-center bg-contain"
             src={logo}
