@@ -49,7 +49,7 @@ export const AdminBlog = () => {
           title: "Blog Creado Exitosamente",
         });
 
-        await MailCtrl.SendMails(formValue.Autor,Slug,'Blog')
+        await MailCtrl.SendMails(formValue.Autor,Slug,'Blog',formValue.Titulo)
 
         formik.resetForm();
       } else {

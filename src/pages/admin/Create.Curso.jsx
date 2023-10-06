@@ -45,7 +45,7 @@ export const PageCurso = () => {
           title: "Curso Creado Exitosamente",
         });
 
-        await MailCtrl.SendMails(formValue.Autor,Slug,'Curso')
+        await MailCtrl.SendMails(formValue.Autor,Slug,'Curso',formValue.Titulo)
         formik.resetForm();
       } else {
         // Hubo un error al crear el blog

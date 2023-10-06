@@ -3,15 +3,15 @@ import { User } from "../fb.user";
 
 const UserCtrl = new User();
 export class Mail {
-  async SendMails(uid, Slug, type) {
+  async SendMails(uid, Slug, type,title) {
     const UsersData = await UserCtrl.getUsersWithOutRole();
     const emails = UsersData.map((user) => user.email);
     const correosString = emails.join(",");
     const { Username } = await UserCtrl.getMe(uid);
 
     const correoData = {
-      to: "pedroduran2710@gmail.com,dgyaprog@gmail.com",
-      title: "Kavii - EasySat",
+      to: correosString,
+      title: title,
       author: Username,
       url: `https://www.easysat.com.mx/blog/${Slug}`,
       type: type,
