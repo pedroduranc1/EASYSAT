@@ -13,6 +13,7 @@ import waves from "../../../assets/waves.webp";
 import cell from "../../../assets/cell.webp";
 
 import { motion } from "framer-motion";
+import { Link } from 'react-router-dom';
 
 export const Nosotros = () => {
   return (
@@ -147,9 +148,11 @@ export const Nosotros = () => {
                 Descubre como esta herramienta pueda impulsar tu exito
               </p>
 
-              <button className="md:bg-black bg-black text-white md:text-white mt-5 lg:mt-16 rounded-lg px-4 py-2 font-semibold">
+              <button className="md:bg-black bg-black text-white md:text-white mt-5 lg:mt-5 rounded-lg px-4 py-2 font-semibold">
                 PROXIMAMENTE
               </button>
+
+              <Link to="/Registro" className='bg-white text-black uppercase font-bold rounded-md px-4 py-2 mt-2'>Registrate Ya</Link>
             </div>
           </div>
         </div>

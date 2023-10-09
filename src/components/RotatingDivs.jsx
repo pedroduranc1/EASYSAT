@@ -78,7 +78,7 @@ export default function App() {
               style={childStyle}
             >
               <div className="flex flex-col lg:translate-y-[20%] rounded-md p-2 lg:p-4 justify-center bg-white items-center">
-                <h2 className="font-bold text-4xl">Mision</h2>
+                <h2 className="font-bold text-4xl">Misión</h2>
                 <p className="text-center mt-4 md:text-xs lg:text-sm">
                   Conscientes de la complejidad de la legislación fiscal
                   mexicana y de la gran cantidad de obligaciones que las
