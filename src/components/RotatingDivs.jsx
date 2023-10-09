@@ -33,7 +33,7 @@ export default function App() {
   };
 
   return (
-    <div ref={divRef} className="w-full mt-10 overflow-hidden h-full ">
+    <div ref={divRef} className="w-full md:mt-5 lg:mt-0  overflow-hidden h-full ">
       <div className="flex h-full" style={containerStyle}>
         <AnimatePresence mode="wait">
           {activeDiv == 1 && (

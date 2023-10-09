@@ -2,8 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import wavesblack from "../../../assets/waves-black.webp";
-import cursos from "../../../assets/cursos.webp";
-import blogs from "../../../assets/blogs.webp";
+import blogs from "../../../assets/blogsImage.jpeg";
 import corte1 from "../../../assets/video/corte1.mp4";
 import { Volume2, VolumeX } from "lucide-react";
 
@@ -84,7 +83,7 @@ export const CursosBlogs = () => {
           <div className="w-full shadow-2xl lg:w-1/2 ">
             <img
               className="w-full h-full rounded-md "
-              src="https://img.freepik.com/foto-gratis/3d-renderizar-transferencia-dinero-banca-movil-linea_107791-16729.jpg?w=2000"
+              src={blogs}
               alt="A group of People"
             />
           </div>
