@@ -5,6 +5,7 @@ import { initialValues, validationSchema } from "../utils/perfil.blog.form";
 import { toast } from "../components/ui/use-toast";
 import { ButtonForm } from "./ui/ButtonForm";
 import { BlogsCtrl } from "../api/fb.blogs";
+import { uid } from "uid";
 
 const blogCtrl = new BlogsCtrl();
 export const UpdateBlogForm = ({
@@ -20,8 +21,7 @@ export const UpdateBlogForm = ({
     validationSchema: validationSchema(),
     validateOnChange: false,
     onSubmit: async (formValue) => {
-      const Slug = formValue.Titulo.replace(/\s+/g, "-");
-      const fechaActual = new Date();
+      const Slug = uid(25);
       
       let UpdatedBlogData = {
         ...formValue,
@@ -32,7 +32,6 @@ export const UpdateBlogForm = ({
         blog_img: BlogImg
           ? await blogCtrl.uploadBlogImage(BlogImg, BlogSelected.Autor, BlogSelected.id)
           : BlogSelected?.blog_img,
-          fecha: fechaActual
       };
 
       const resp = await blogCtrl.updateBlog(BlogSelected.id, UpdatedBlogData);

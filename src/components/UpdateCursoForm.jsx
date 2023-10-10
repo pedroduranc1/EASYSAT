@@ -22,7 +22,6 @@ export const UpdateCursoForm = ({
     validateOnChange: false,
     onSubmit: async (formValue) => {
       const Slug = uid(25);
-      const fechaActual = new Date();
 
       let UpdatedCursoData = {
         ...formValue,
@@ -30,7 +29,6 @@ export const UpdateCursoForm = ({
         curso_img: CursoImg
           ? await cursoCtrl.uploadCursoImage(CursoImg, cursoSelected.id, Slug)
           : cursoSelected?.curso_img,
-        fecha: fechaActual
       };
       const resp = await cursoCtrl.updateCurso(
         cursoSelected.id,
