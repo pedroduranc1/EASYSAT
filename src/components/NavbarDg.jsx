@@ -94,15 +94,19 @@ export const NavbarDg = ({ isblack }) => {
   };
   return (
     <>
-      <div className={`fixed z-50 flex w-full px-[5%] ${isblack ? "justify-center" : "justify-between"}`}>
+      <div
+        className={`fixed z-50 flex w-full  lg:px-[5%] ${
+          isblack ? "justify-center" : "justify-between"
+        }`}
+      >
         <ul
           className={`hidden bg-white ${
             scrollPassedLimit || isblack ? "bg-black/80" : ""
-          } transition-all  md:flex justify-center  ${
+          } transition-all  md:flex justify-center items-center  ${
             scrollPassedLimit || isblack ? "rounded-b-md" : "mt-5  rounded-full"
           }  ${
             scrollPassedLimit || isblack ? "shadow-lg" : "text-black"
-          } divide-x-2 [&>a]:md:text-base overflow-hidden [&>a]:lg:text-xl [&>a]:md:px-2 [&>a]:md:py-1 [&>a]:lg:px-4 [&>a]:lg:py-2  text-black font-semibold text-lg`}
+          } divide-x-2 [&>a]:md:text-sm over [&>a]:lg:text-xl [&>a]:md:px-2 [&>a]:md:py-2 [&>a]:lg:px-2 [&>a]:lg:py-2  text-black font-semibold lg:text-base`}
         >
           <Link
             to="/"
@@ -205,7 +209,7 @@ export const NavbarDg = ({ isblack }) => {
             </Link>
           )}
 
-{checkPage() == false && (
+          {checkPage() == false && (
             <Link
               to="/Registro"
               className={`hover:bg-LogoBlue hover:text-white transition-colors ${
@@ -257,8 +261,6 @@ export const NavbarDg = ({ isblack }) => {
             </Link>
           )}
         </ul>
-
-        
 
         {checkPage() && (
           <Link
