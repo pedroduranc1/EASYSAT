@@ -18,9 +18,12 @@ export const CreateVideoCursoForm = ({ cursoSelected, setcursoSelected }) => {
     validateOnChange: false,
     onSubmit: async (formValues) => {
       const Slug = uid(25);
+      const fechaActual = new Date();
+
       let videoData = {
         ...formValues,
         modulo_img: videoImg ? await cursoCtrl.uploadVideoImage(videoImg,cursoSelected.Autor,Slug) : "",
+        fecha:fechaActual
       };
 
       const resp = await cursoCtrl.createVideoCurso(Slug,videoData)

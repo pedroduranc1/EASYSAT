@@ -31,6 +31,7 @@ export const AdminBlog = () => {
     validateOnChange: false,
     onSubmit: async (formValue) => {
       const Slug = uid(25);
+      const fechaActual = new Date();
 
       let BlogData = {
         ...formValue,
@@ -41,6 +42,7 @@ export const AdminBlog = () => {
         blog_img: BlogImg
           ? await BlogCtrl.uploadBlogImage(BlogImg, formValue.Autor, Slug)
           : "",
+        fecha: fechaActual,
       };
       const result = await BlogCtrl.createBlog(Slug, BlogData);
       if (result) {
@@ -49,7 +51,12 @@ export const AdminBlog = () => {
           title: "Blog Creado Exitosamente",
         });
 
-        await MailCtrl.SendMails(formValue.Autor,Slug,'Blog',formValue.Titulo)
+        await MailCtrl.SendMails(
+          formValue.Autor,
+          Slug,
+          "Blog",
+          formValue.Titulo
+        );
 
         formik.resetForm();
       } else {

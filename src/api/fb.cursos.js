@@ -8,6 +8,7 @@ import {
   updateDoc,
   setDoc,
   deleteDoc,
+  orderBy,
 } from "firebase/firestore";
 import { db, storage } from "../utils/firebase";
 import {
@@ -19,8 +20,11 @@ import {
 
 export class CursosCtrl {
   async getCursos() {
-    const dataCollection = collection(db, "Cursos");
-    const dataSnapshot = await getDocs(dataCollection);
+    const q = query(
+      collection(db, "Cursos"),
+      orderBy("fecha", "desc")
+    );
+    const dataSnapshot = await getDocs(q);
     const newData = dataSnapshot.docs.map((doc) => ({
       id: doc.id,
       ...doc.data(),
@@ -55,7 +59,10 @@ export class CursosCtrl {
   }
 
   async getVideosCurso(id) {
-    const q = query(collection(db, "Modulos"), where("curso", "==", id));
+    const q = query(
+      collection(db, "Modulos"), 
+      where("curso", "==", id), 
+    );
 
     const querySnapshot = await getDocs(q);
     const blogData = querySnapshot.docs.map((doc) => {

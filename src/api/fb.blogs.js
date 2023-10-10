@@ -4,6 +4,7 @@ import {
   deleteDoc,
   doc,
   getDocs,
+  orderBy,
   query,
   setDoc,
   updateDoc,
@@ -35,8 +36,11 @@ export class BlogsCtrl {
   }
 
   async getBlogs() {
-    const dataCollection = collection(db, "blogs");
-    const dataSnapshot = await getDocs(dataCollection);
+    const q = query(
+      collection(db, "blogs"),
+      orderBy("fecha", "desc")
+    );
+    const dataSnapshot = await getDocs(q);
     const newData = dataSnapshot.docs.map((doc) => ({
       id: doc.id,
       ...doc.data(),
@@ -47,9 +51,9 @@ export class BlogsCtrl {
 
   async getBlogMDX(blogName) {
     if (blogName != null) {
-      const resp = await axios.get(blogName)
-      const mdx = resp.data
-      return mdx
+      const resp = await axios.get(blogName);
+      const mdx = resp.data;
+      return mdx;
     }
   }
 

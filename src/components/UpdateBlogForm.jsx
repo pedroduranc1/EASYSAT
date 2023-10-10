@@ -21,6 +21,8 @@ export const UpdateBlogForm = ({
     validateOnChange: false,
     onSubmit: async (formValue) => {
       const Slug = formValue.Titulo.replace(/\s+/g, "-");
+      const fechaActual = new Date();
+      
       let UpdatedBlogData = {
         ...formValue,
         Slug: Slug,
@@ -30,6 +32,7 @@ export const UpdateBlogForm = ({
         blog_img: BlogImg
           ? await blogCtrl.uploadBlogImage(BlogImg, BlogSelected.Autor, BlogSelected.id)
           : BlogSelected?.blog_img,
+          fecha: fechaActual
       };
 
       const resp = await blogCtrl.updateBlog(BlogSelected.id, UpdatedBlogData);

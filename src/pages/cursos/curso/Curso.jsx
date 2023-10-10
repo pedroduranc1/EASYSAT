@@ -27,7 +27,8 @@ export const Curso = () => {
   useEffect(() => {
     (async () => {
       const resp = await CursosApi.getVideosCurso(cursoId);
-      setVideos(resp);
+      const videoOrdenados = resp.sort((a,b) => {return a.fecha - b.fecha})
+      setVideos(videoOrdenados);
     })();
   }, [!isLoading]);
 

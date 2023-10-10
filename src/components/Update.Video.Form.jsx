@@ -23,8 +23,11 @@ export const UpdateVideo = ({
     validateOnChange: false,
     onSubmit: async (formValues) => {
       const Slug = uid(25);
+      const fechaActual = new Date();
+
       let UpdatedVideoData = {
         ...formValues,
+        fecha:fechaActual,
         modulo_img: videoImg ? await cursosCtrl.uploadVideoImage(videoImg,User.uid,Slug) : videoSelected.modulo_img
       }
 
