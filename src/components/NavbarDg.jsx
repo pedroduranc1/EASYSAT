@@ -96,7 +96,7 @@ export const NavbarDg = ({ isblack }) => {
     <>
       <div
         className={`fixed z-50 flex w-full  lg:px-[5%] ${
-          isblack ? "justify-center" : "justify-between"
+          isblack || User ? "justify-center" : "justify-between"
         }`}
       >
         <ul
@@ -262,7 +262,7 @@ export const NavbarDg = ({ isblack }) => {
           )}
         </ul>
 
-        {checkPage() && (
+        {checkPage() && !User && (
           <Link
             className={`bg-white ${
               scrollPassedLimit ? "rounded-b-md" : "mt-5 rounded-full"
