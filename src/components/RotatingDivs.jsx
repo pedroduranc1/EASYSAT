@@ -33,7 +33,7 @@ export default function App() {
   };
 
   return (
-    <div ref={divRef} className="w-full md:mt-5 lg:mt-0  overflow-hidden h-full ">
+    <div ref={divRef} className="w-full md:mt-5 lg:mt-0  h-full ">
       <div className="flex h-full" style={containerStyle}>
         <AnimatePresence mode="wait">
           {activeDiv == 1 && (
@@ -77,7 +77,7 @@ export default function App() {
               className="h-full  w-full rounded-md"
               style={childStyle}
             >
-              <div className="flex flex-col lg:translate-y-[20%] rounded-md p-2 lg:p-4 justify-center bg-white items-center">
+              <div className="flex flex-col  rounded-md p-2 lg:p-4 justify-center bg-white items-center">
                 <h2 className="font-bold text-4xl">Misión</h2>
                 <p className="text-center mt-4 md:text-xs lg:text-sm">
                   Conscientes de la complejidad de la legislación fiscal
@@ -109,7 +109,7 @@ export default function App() {
               className="h-full  w-full rounded-md"
               style={childStyle}
             >
-              <div className="flex flex-col md:translate-y-[20%] lg:translate-y-[50%] justify-center w-full rounded-md p-4 bg-white items-center">
+              <div className="flex flex-col justify-center w-full rounded-md p-4 bg-white items-center">
                 <h2 className="font-bold text-4xl">Visión</h2>
                 <p className="text-center mt-4 text-sm">
                   Consolidarnos como un servicio de contabilidad en linéa de
@@ -136,7 +136,7 @@ export default function App() {
               className="h-full w-full rounded-md"
               style={childStyle}
             >
-              <div className="flex flex-col lg:translate-y-[50%] justify-center w-full rounded-md p-4 bg-white items-center">
+              <div className="flex flex-col  justify-center w-full rounded-md p-4 bg-white items-center">
                 <h2 className="font-bold text-4xl">Valores</h2>
                 <ul className="w-full flex flex-col justify-start px-[5%]">
                   <li>- Ética profesional.</li>

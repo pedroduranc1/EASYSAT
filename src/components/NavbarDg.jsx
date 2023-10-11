@@ -96,8 +96,8 @@ export const NavbarDg = ({ isblack }) => {
     <>
       <div
         className={`fixed z-50 flex w-full  lg:px-[5%] ${
-          isblack || User ? "justify-center" : "justify-between"
-        }`}
+          isblack || User ? "justify-center" : "justify-evenly"
+        } `}
       >
         <ul
           className={`hidden bg-white ${
