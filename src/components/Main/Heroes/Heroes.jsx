@@ -32,7 +32,7 @@ export const Heroes = () => {
         </div> */}
         <div className="lg:w-1/2 md:w-[40%]  grid grid-cols-1 grid-rows-3 place-content-center">
           <h2
-            className="md:mt-[40%] lg:mt-[15%] text-center mt-10 text-4xl md:text-2xl lg:text-5xl font-bold uppercase"
+            className="md:mt-[40%] lg:mt-[15%] text-center mt-10 text-2xl md:text-3xl lg:text-4xl font-bold uppercase"
             style={{ WebkitTextStroke: "1px white" }}
           >
             contabilidad para personas fisicas y morales.
