@@ -56,7 +56,7 @@ export const MainLayoutDg = ({ children, isblack }) => {
         <div
           className={`${
             toggleChatbot ? "flex" : "hidden"
-          } w-[400px] shadow-2xl mb-7 md:mb-0 rounded-md bg-LogoBlue h-14 p-4  justify-center items-center`}
+          } w-[98%] md:w-[400px] shadow-2xl mb-7 md:mb-0 rounded-md bg-LogoBlue h-14 p-4  justify-center items-center`}
         >
           <h3 className="text-white text-sm">
             Hola soy Kavii tu asistente virtual, es un placer saludarte, ¿en que

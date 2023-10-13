@@ -33,7 +33,7 @@ export default function App() {
   };
 
   return (
-    <div ref={divRef} className="w-full md:mt-5 lg:mt-0  h-full ">
+    <div ref={divRef} className="w-full md:mt-2  lg:mt-0  h-full ">
       <div className="flex h-full" style={containerStyle}>
         <AnimatePresence mode="wait">
           {activeDiv == 1 && (
@@ -77,7 +77,7 @@ export default function App() {
               className="h-full  w-full rounded-md"
               style={childStyle}
             >
-              <div className="flex flex-col  rounded-md p-2 lg:p-4 justify-center bg-white items-center">
+              <div className="flex flex-col  rounded-md p-2 lg:p-4 justify-center md:-translate-y-[5%] bg-white items-center">
                 <h2 className="font-bold text-4xl">Misión</h2>
                 <p className="text-center mt-4 md:text-xs lg:text-sm">
                   Conscientes de la complejidad de la legislación fiscal

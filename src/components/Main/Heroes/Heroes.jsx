@@ -30,14 +30,15 @@ export const Heroes = () => {
 
           <RotatingDivs />
         </div> */}
-        <div className="lg:w-1/2 md:w-[40%]  grid grid-cols-1 grid-rows-3 place-content-center">
+        <div className="lg:w-1/2 md:w-[40%]  flex flex-col gap-10 md:gap-7 "
+        >
           <h2
-            className="md:mt-[40%] lg:mt-[15%] text-center mt-10 text-2xl md:text-3xl lg:text-4xl font-bold uppercase"
+            className="md:mt-[20%] lg:mt-[15%] text-center mt-10 text-2xl md:text-3xl lg:text-4xl font-bold uppercase"
             style={{ WebkitTextStroke: "1px white" }}
           >
             contabilidad para personas fisicas y morales.
           </h2>
-          <h4 className="text-center md:text-xl my-7 lg:mt-[10%] lg:text-2xl text-xl  font-bold uppercase">
+          <h4 className="text-center  lg:mt-[5%] md:text-2xl text-xl  font-bold uppercase">
             llevar una contabilidad financiera adecuada es fundamental para el{" "}
             <br />
             exito y sostenibilidad de una empresa
