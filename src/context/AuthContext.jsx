@@ -51,6 +51,7 @@ export function AuthProvider(props) {
       const response = await UserCtrl.getMe(uid);
       localStorage.setItem("ui", JSON.stringify(response));
       const data = JSON.parse(localStorage.getItem('ui'));
+      localStorage.removeItem("chatbotDismissed");
       setUser(data);
       setLoading(false);
     } catch (error) {

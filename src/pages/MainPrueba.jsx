@@ -45,9 +45,9 @@ export const MainPrueba = () => {
   });
 
   useEffect(() => {
-    (async () => {
-      subInfo?.map((sub) => {
-        if (sub?.uid === User?.uid && User?.UserPlan == "Gratis") {
+    subInfo?.map((sub) => {
+      if (User.uid == sub.id) {
+        if (!estaEntreLasFechas(sub.fechaDeCreacion, sub.fechaDeFinalizacion)) {
           toast({
             variant: "destructive",
             title: "Tu Subscripcion a caducado",
@@ -55,8 +55,8 @@ export const MainPrueba = () => {
               "Renueva para seguir disfrutando de nuestros servicios",
           });
         }
-      });
-    })();
+      }
+    });
   }, []);
 
   useEffect(() => {

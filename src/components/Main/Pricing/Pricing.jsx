@@ -115,7 +115,7 @@ export const Pricing = () => {
                       </button>
                     ) : (
                       <>
-                        {User?.UserPlan != "Gratis" ? (
+                        {User?.UserPlan !== "Gratis" ? (
                           <>
                             {User?.UserPlan == servicio.Plan &&
                             User?.UserPlan != "Gratis" ? (

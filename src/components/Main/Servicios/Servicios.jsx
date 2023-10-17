@@ -2,6 +2,10 @@ import React from "react";
 import { motion } from "framer-motion";
 import { servicioData } from "../../../assets/serviciosData";
 import { FolderKanban } from "lucide-react";
+import svg1 from "../../../assets/ServicioImpuestos.svg";
+import svg2 from "../../../assets/ServicioNomina.svg";
+import svg3 from "../../../assets/ServicioAsesoriaFiscal.svg";
+import svg4 from "../../../assets/ServicioFacturación.svg";
 
 export const Servicios = ({selection}) => {
   return (
@@ -30,13 +34,25 @@ export const Servicios = ({selection}) => {
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               transition={{ delay: 0.2 }}
-              className=" shadow-lg rounded-md p-4"
+              className=" group transition-all cursor-pointer shadow-lg rounded-md p-4"
             >
-              <FolderKanban className="text-LogoGreen mx-auto" size={70} />
+              {
+                servicioData[0].title == data.title && (<img className="w-40 h-40 mx-auto" src={svg1} alt="" />)
+              }
+              {
+                servicioData[1].title == data.title && (<img className="w-40 h-40 mx-auto" src={svg2} alt="" />)
+              }
+              {
+                servicioData[2].title == data.title && (<img className="w-40 h-40 mx-auto" src={svg3} alt="" />)
+              }
+              {
+                servicioData[3].title == data.title && (<img className="w-40 h-40 mx-auto" src={svg4} alt="" />)
+              }
               <h2 className="mt-4 text-center text-white font-bold">
                 {data.title}
               </h2>
-              <h3 className="mt-2 text-center text-white font-semibold">
+
+              <h3 className="mt-2 hidden transition-all group-hover:flex text-center text-white font-semibold">
                 {data.description}
               </h3>
             </motion.div>

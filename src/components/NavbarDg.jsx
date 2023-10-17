@@ -209,6 +209,8 @@ export const NavbarDg = ({ isblack }) => {
             </Link>
           )}
 
+          {showDashboard()}
+
           {checkPage() == false && (
             <Link
               to="/Registro"
@@ -220,7 +222,6 @@ export const NavbarDg = ({ isblack }) => {
             </Link>
           )}
 
-          {showDashboard()}
           {User ? (
             <div className="flex items-center space-x-3">
               <Link

@@ -30,6 +30,12 @@ export const Blogs = () => {
       blog.Titulo.toLowerCase().includes(searchTerm.toLowerCase())
     ) || [];
 
+  // Ordena el array de forma aleatoria
+  const shuffledArray = blogs?.sort(() => Math.random() - 0.5);
+
+  // Toma los primeros 3 elementos del array ordenado aleatoriamente
+  const randomElements = shuffledArray?.slice(0, 3);
+
   if (isLoading)
     return (
       <MainLayoutDg isblack={true}>
@@ -38,50 +44,81 @@ export const Blogs = () => {
             <h1 className="text-3xl text-white font-bold mb-4 md:mb-10">
               Nuestros Blogs
             </h1>
-            {/* LISTA DE BLOGS */}
-            <div className="grid grid-cols-1">
-              <ul className="grid grid-cols-1 [&>li]:my-5 divide-slate-700">
-                <li>
-                  <div className="w-full">
-                    <div className="flex flex-col p-0 md:p-4 items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row  hover:bg-gray-100 ">
-                      <Skeleton className="w-full max-w-xs bg-slate-200 md:w-32 md:h-32 rounded-md" />
+          
+            <div className="w-full h-fit py-5 ">
+              <h2 className="text-white mb-5 font-bold text-2xl">
+                Videos Populares
+              </h2>
+              <div className="w-full flex gap-5">
+                <div className="flex flex-col items-center w-[250px] bg-white rounded-md shadow-md">
+                  <Skeleton className="w-[90%] mt-2 mx-auto h-[150px]" />
 
-                      <div className="flex w-full flex-col justify-between p-4 leading-normal">
-                        <Skeleton className=" bg-slate-200 w-1/2 h-5 my-5 rounded-full" />
+                  <div className="flex w-full flex-col justify-between p-4 leading-normal">
+                    <Skeleton className=" bg-slate-200 w-full h-5 rounded-full" />
 
-                        <Skeleton className=" bg-slate-200 w-full h-5 rounded-full" />
-
-                        <div className="flex mt-5 items-center space-x-4">
-                          <Skeleton className=" bg-slate-200 h-12 w-12 rounded-full" />
-                          <div className="space-y-2">
-                            <Skeleton className=" bg-slate-200 h-4 w-[150px]" />
-                          </div>
-                        </div>
-                      </div>
-                    </div>{" "}
+                    <Skeleton className=" bg-slate-200 w-full h-10 mt-5 rounded-full" />
                   </div>
-                </li>
-                <li>
-                  <div className="w-full">
-                    <div className="flex flex-col p-0 md:p-4 items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row  hover:bg-gray-100 ">
-                      <Skeleton className="w-full max-w-xs bg-slate-200 md:w-32 md:h-32 rounded-md" />
+                </div>
+                <div className="flex flex-col items-center w-[250px] bg-white rounded-md shadow-md">
+                  <Skeleton className="w-[90%] mt-2 mx-auto h-[150px]" />
 
-                      <div className="flex w-full flex-col justify-between p-4 leading-normal">
-                        <Skeleton className=" bg-slate-200 w-1/2 h-5 my-5 rounded-full" />
+                  <div className="flex w-full flex-col justify-between p-4 leading-normal">
+                    <Skeleton className=" bg-slate-200 w-full h-5 rounded-full" />
 
-                        <Skeleton className=" bg-slate-200 w-full h-5 rounded-full" />
-
-                        <div className="flex mt-5 items-center space-x-4">
-                          <Skeleton className=" bg-slate-200 h-12 w-12 rounded-full" />
-                          <div className="space-y-2">
-                            <Skeleton className=" bg-slate-200 h-4 w-[150px]" />
-                          </div>
-                        </div>
-                      </div>
-                    </div>{" "}
+                    <Skeleton className=" bg-slate-200 w-full h-10 mt-5 rounded-full" />
                   </div>
-                </li>
-              </ul>
+                </div>
+                <div className="flex flex-col items-center w-[250px] bg-white rounded-md shadow-md">
+                  <Skeleton className="w-[90%] mt-2 mx-auto h-[150px]" />
+
+                  <div className="flex w-full flex-col justify-between p-4 leading-normal">
+                    <Skeleton className=" bg-slate-200 w-full h-5 rounded-full" />
+
+                    <Skeleton className=" bg-slate-200 w-full h-10 mt-5 rounded-full" />
+                  </div>
+                </div>
+              </div>
+              <h2 className="text-white my-5 font-bold text-2xl">
+                Videos Recientes
+              </h2>
+              <div className="w-full flex gap-5">
+                <div className="flex flex-col items-center w-[250px] bg-white rounded-md shadow-md">
+                  <Skeleton className="w-[90%] mt-2 mx-auto h-[150px]" />
+
+                  <div className="flex w-full flex-col justify-between p-4 leading-normal">
+                    <Skeleton className=" bg-slate-200 w-full h-5 rounded-full" />
+
+                    <Skeleton className=" bg-slate-200 w-full h-10 mt-5 rounded-full" />
+                  </div>
+                </div>
+                <div className="flex flex-col items-center w-[250px] bg-white rounded-md shadow-md">
+                  <Skeleton className="w-[90%] mt-2 mx-auto h-[150px]" />
+
+                  <div className="flex w-full flex-col justify-between p-4 leading-normal">
+                    <Skeleton className=" bg-slate-200 w-full h-5 rounded-full" />
+
+                    <Skeleton className=" bg-slate-200 w-full h-10 mt-5 rounded-full" />
+                  </div>
+                </div>
+                <div className="flex flex-col items-center w-[250px] bg-white rounded-md shadow-md">
+                  <Skeleton className="w-[90%] mt-2 mx-auto h-[150px]" />
+
+                  <div className="flex w-full flex-col justify-between p-4 leading-normal">
+                    <Skeleton className=" bg-slate-200 w-full h-5 rounded-full" />
+
+                    <Skeleton className=" bg-slate-200 w-full h-10 mt-5 rounded-full" />
+                  </div>
+                </div>
+                <div className="flex flex-col items-center w-[250px] bg-white rounded-md shadow-md">
+                  <Skeleton className="w-[90%] mt-2 mx-auto h-[150px]" />
+
+                  <div className="flex w-full flex-col justify-between p-4 leading-normal">
+                    <Skeleton className=" bg-slate-200 w-full h-5 rounded-full" />
+
+                    <Skeleton className=" bg-slate-200 w-full h-10 mt-5 rounded-full" />
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </FormContainer>
@@ -106,67 +143,67 @@ export const Blogs = () => {
               searchTerm={searchTerm}
             />
 
-            <h1 className="text-3xl text-white font-bold mb-4 md:mb-10">
+            <h2 className="text-3xl text-white font-bold mb-4 md:mb-10">
               Nuestros Blogs
-            </h1>
+            </h2>
 
             {/* LISTA DE BLOGS */}
-            <div className="grid grid-cols-1 overflow-hidden">
-              <ul className="grid grid-cols-1 [&>li]:my-3 divide-slate-700">
+            <h2 className="text-white text-2xl font-bold">Blogs Populares</h2>
+            <div className="w-full h-fit overflow-x-auto overflow-y-hidden py-2">
+              <div className={`w-fit flex gap-4 h-full `}>
+                {/* CARD BLOG */}
                 <AnimatePresence>
-                  {filteredBlogs.length > 0 ? (
-                    filteredBlogs.map((blog, index) => (
-                      <motion.li
-                        initial={{ opacity: 0, translateY: "-50%" }}
-                        animate={{ opacity: 1, translateY: 0 }}
-                        transition={{ delay: 0.2 }}
-                        exit={{ opacity: 0, translateY: "50%" }}
-                        key={index}
-                      >
-                        <Link className="w-full" to={`/blog/${blog.Slug}`}>
-                          <div className="flex flex-col transition-all p-0 md:p-4 items-center bg-white group rounded-lg shadow md:flex-row  hover:bg-LogoBlueDark ">
-                            <img
-                              className="object-contain w-full h-[200px] my-2 md:my-0 max-w-xs  md:w-32 md:h-32 transition-all group-hover:md:rounded-full"
-                              src={`${blog.blog_img}`}
-                              alt=""
-                            />
-                            <div className="flex w-full flex-col justify-between p-4 leading-normal">
-                              <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 group-hover:text-white ">
-                                {blog.Titulo}
-                              </h5>
-                              <p className="mb-3 font-normal group-hover:text-white text-gray-700 ">
-                                {blog.Descripcion}
-                              </p>
-                              <div className="w-full md:w-1/2 lg:w-1/4">
-                                <CreatedBy autor={blog.Autor} />
-                              </div>
-                            </div>
-                          </div>{" "}
-                        </Link>
-                      </motion.li>
-                    ))
-                  ) : (
-                    <div className="  w-full flex  h-[66vh]">
-                      {searchTerm === "" ? (
-                        <div className="flex w-full justify-center gap-x-3">
-                          <AlertCircle className="text-red-500" />
-                          <h3 className="flex text-white">
-                            No se encontro ningun blog en nuestros registros
-                          </h3>
-                        </div>
-                      ) : (
-                        <div className="flex w-full justify-center gap-x-3">
-                          <AlertCircle className="text-red-500" />
-                          <h3 className="flex text-white">
-                            No se encontro ningun blog con el nombre:{" "}
-                            {searchTerm}
-                          </h3>
-                        </div>
-                      )}
-                    </div>
-                  )}
+                  {randomElements.map((blog, index) => (
+                    <Link
+                      key={index}
+                      to={`/blog/${blog.Slug}`}
+                      className="w-[250px] cursor-pointer flex flex-col py-4 items-center min-h-[290px] h-full bg-white rounded-md shadow-md"
+                    >
+                      <img
+                        className="w-32 h-32"
+                        src={blog?.blog_img}
+                        alt="blog logo"
+                      />
+                      <h3 className="w-full font-bold text-[16px] text-center my-5">
+                        {blog?.Titulo}
+                      </h3>
+                      <button className="w-[90%] mt-auto mx-auto py-2 rounded-md bg-LogoBlue text-white">
+                        Ver Blog
+                      </button>
+                    </Link>
+                  ))}
                 </AnimatePresence>
-              </ul>
+              </div>
+            </div>
+            {/* LISTA DE BLOGS */}
+            <h2 className="text-white text-2xl font-bold mt-5">
+              Blogs Recientes
+            </h2>
+            <div className="w-full h-fit overflow-x-auto overflow-y-hidden py-2">
+              <div className={`w-fit flex gap-4 h-full `}>
+                {/* CARD BLOG */}
+                <AnimatePresence>
+                  {filteredBlogs.map((blog, index) => (
+                    <Link
+                      key={index}
+                      to={`/blog/${blog.Slug}`}
+                      className="w-[250px] cursor-pointer flex flex-col py-4 items-center min-h-[290px] h-full bg-white rounded-md shadow-md"
+                    >
+                      <img
+                        className="w-32 h-32"
+                        src={blog?.blog_img}
+                        alt="blog logo"
+                      />
+                      <h3 className="w-full font-bold text-[16px] text-center my-5">
+                        {blog?.Titulo}
+                      </h3>
+                      <button className="w-[90%] mt-auto mx-auto py-2 rounded-md bg-LogoBlue text-white">
+                        Ver Blog
+                      </button>
+                    </Link>
+                  ))}
+                </AnimatePresence>
+              </div>
             </div>
           </div>
         </div>
