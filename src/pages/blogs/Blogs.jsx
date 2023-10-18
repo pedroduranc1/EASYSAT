@@ -6,9 +6,8 @@ import { useQuery } from "react-query";
 import { Link } from "react-router-dom";
 import { SearchBar } from "../../components/SearchBar";
 import { Skeleton } from "../../components/ui/skeleton";
-import { AnimatePresence } from "framer-motion";
 import { FormContainer } from "../../components/ui/FormContainer";
-import { BlogCard } from "../../components/CardBlog";
+import BlogCarousel from "../../components/blogs/BlogCarousel";
 
 const BlogsCtrlr = new BlogsCtrl();
 export const Blogs = () => {
@@ -148,30 +147,12 @@ export const Blogs = () => {
 
             {/* LISTA DE BLOGS */}
             <h2 className="text-white text-2xl font-bold">Blogs Populares</h2>
-            <div className="w-full h-fit overflow-x-auto overflow-y-hidden py-2">
-              <div className={`w-fit flex h-full `}>
-                {/* CARD BLOG */}
-                <AnimatePresence>
-                  {randomElements.map((blog, index) => (
-                    <BlogCard key={index} blog={blog} />
-                  ))}
-                </AnimatePresence>
-              </div>
-            </div>
+            <BlogCarousel isPopular={true} array={randomElements} />
             {/* LISTA DE BLOGS */}
             <h2 className="text-white text-2xl font-bold mt-5">
-              Blogs Recientes
+              Blogs
             </h2>
-            <div className="w-full h-fit overflow-x-auto overflow-y-hidden py-2">
-              <div className={`w-fit flex gap-4 h-full `}>
-                {/* CARD BLOG */}
-                <AnimatePresence>
-                  {filteredBlogs.map((blog, index) => (
-                    <BlogCard key={index} blog={blog} />
-                  ))}
-                </AnimatePresence>
-              </div>
-            </div>
+            <BlogCarousel array={filteredBlogs} />
           </div>
         </div>
       </FormContainer>
