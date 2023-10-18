@@ -4,12 +4,11 @@ import { MainLayoutDg } from "../../layouts/MainLayoutDg";
 import { BlogsCtrl } from "../../api/fb.blogs";
 import { useQuery } from "react-query";
 import { Link } from "react-router-dom";
-import { AlertCircle } from "lucide-react";
-import { CreatedBy } from "../../components/CreatedBy";
 import { SearchBar } from "../../components/SearchBar";
 import { Skeleton } from "../../components/ui/skeleton";
-import { motion, AnimatePresence } from "framer-motion";
+import { AnimatePresence } from "framer-motion";
 import { FormContainer } from "../../components/ui/FormContainer";
+import { BlogCard } from "../../components/CardBlog";
 
 const BlogsCtrlr = new BlogsCtrl();
 export const Blogs = () => {
@@ -44,7 +43,7 @@ export const Blogs = () => {
             <h1 className="text-3xl text-white font-bold mb-4 md:mb-10">
               Nuestros Blogs
             </h1>
-          
+
             <div className="w-full h-fit py-5 ">
               <h2 className="text-white mb-5 font-bold text-2xl">
                 Videos Populares
@@ -150,27 +149,11 @@ export const Blogs = () => {
             {/* LISTA DE BLOGS */}
             <h2 className="text-white text-2xl font-bold">Blogs Populares</h2>
             <div className="w-full h-fit overflow-x-auto overflow-y-hidden py-2">
-              <div className={`w-fit flex gap-4 h-full `}>
+              <div className={`w-fit flex h-full `}>
                 {/* CARD BLOG */}
                 <AnimatePresence>
                   {randomElements.map((blog, index) => (
-                    <Link
-                      key={index}
-                      to={`/blog/${blog.Slug}`}
-                      className="w-[250px] cursor-pointer flex flex-col py-4 items-center min-h-[290px] h-full bg-white rounded-md shadow-md"
-                    >
-                      <img
-                        className="w-32 h-32"
-                        src={blog?.blog_img}
-                        alt="blog logo"
-                      />
-                      <h3 className="w-full font-bold text-[16px] text-center my-5">
-                        {blog?.Titulo}
-                      </h3>
-                      <button className="w-[90%] mt-auto mx-auto py-2 rounded-md bg-LogoBlue text-white">
-                        Ver Blog
-                      </button>
-                    </Link>
+                    <BlogCard key={index} blog={blog} />
                   ))}
                 </AnimatePresence>
               </div>
@@ -184,23 +167,7 @@ export const Blogs = () => {
                 {/* CARD BLOG */}
                 <AnimatePresence>
                   {filteredBlogs.map((blog, index) => (
-                    <Link
-                      key={index}
-                      to={`/blog/${blog.Slug}`}
-                      className="w-[250px] cursor-pointer flex flex-col py-4 items-center min-h-[290px] h-full bg-white rounded-md shadow-md"
-                    >
-                      <img
-                        className="w-32 h-32"
-                        src={blog?.blog_img}
-                        alt="blog logo"
-                      />
-                      <h3 className="w-full font-bold text-[16px] text-center my-5">
-                        {blog?.Titulo}
-                      </h3>
-                      <button className="w-[90%] mt-auto mx-auto py-2 rounded-md bg-LogoBlue text-white">
-                        Ver Blog
-                      </button>
-                    </Link>
+                    <BlogCard key={index} blog={blog} />
                   ))}
                 </AnimatePresence>
               </div>
