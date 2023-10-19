@@ -32,6 +32,7 @@ export const UpdateBlogForm = ({
         blog_img: BlogImg
           ? await blogCtrl.uploadBlogImage(BlogImg, BlogSelected.Autor, BlogSelected.id)
           : BlogSelected?.blog_img,
+        likes: BlogSelected?.likes ? BlogSelected?.likes : []
       };
 
       const resp = await blogCtrl.updateBlog(BlogSelected.id, UpdatedBlogData);

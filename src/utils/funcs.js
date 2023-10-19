@@ -15,3 +15,10 @@ export function estaEntreLasFechas(FI,FF) {
   return fechaActual >= fechaInicio && fechaActual <= fechaFin;
 }
 
+export function formatDateToCustomString(timestamp) {
+  const seconds = timestamp.seconds;
+  const date = new Date(seconds * 1000); // Multiplicamos por 1000 para convertir los segundos a milisegundos
+  const options = { day: "2-digit", month: "short", year: "numeric" };
+  return date.toLocaleDateString(undefined, options);
+}
+

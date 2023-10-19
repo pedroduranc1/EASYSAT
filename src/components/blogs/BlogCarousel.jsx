@@ -94,15 +94,18 @@ const BlogCarousel = ({ array, isPopular }) => {
   return (
     <div
       ref={CarouselRef}
-      className="w-full relative h-fit overflow-auto sm:overflow-hidden py-2"
+      className="w-full relative h-fit overflow-auto sm:overflow-hidden px-[3%] py-2"
     >
       {!screenWidth < 750 && (
-        <ChevronLeft
-          className="absolute hidden sm:flex h-full top-0 z-40 left-0 cursor-pointer text-white"
-          size={50}
-          onMouseEnter={() => startScroll("left")}
-          onMouseLeave={stopScroll}
-        />
+        <div className="h-full w-fit absolute flex justify-center items-center -left-[1%] z-10 top-0  p-4">
+        <div className="w-fit h-fit flex shadow-md justify-center items-center   bg-white rounded-full">
+          <ChevronLeft
+            className=" text-black hidden sm:flex  cursor-pointer w-10 h-10 "
+            onMouseEnter={() => startScroll("left")}
+            onMouseLeave={stopScroll}
+          />
+        </div>
+      </div>
       )}
 
       <div
@@ -118,12 +121,15 @@ const BlogCarousel = ({ array, isPopular }) => {
         </AnimatePresence>
       </div>
       {!screenWidth < 750 && (
-        <ChevronRight
-          className="absolute hidden sm:flex h-full cursor-pointer top-0 right-0 text-white"
-          size={50}
-          onMouseEnter={() => startScroll("right")}
-          onMouseLeave={stopScroll}
-        />
+        <div className="h-full w-fit absolute flex z-10 justify-center items-center -right-[1%] top-0  p-4">
+          <div className="w-fit h-fit flex shadow-md justify-center items-center   bg-white rounded-full">
+            <ChevronRight
+              className=" text-black hidden sm:flex  cursor-pointer w-10 h-10 "
+              onMouseEnter={() => startScroll("right")}
+              onMouseLeave={stopScroll}
+            />
+          </div>
+        </div>
       )}
     </div>
   );

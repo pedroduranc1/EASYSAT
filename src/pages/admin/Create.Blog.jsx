@@ -43,6 +43,7 @@ export const AdminBlog = () => {
           ? await BlogCtrl.uploadBlogImage(BlogImg, formValue.Autor, Slug)
           : "",
         fecha: fechaActual,
+        likes:[]
       };
       const result = await BlogCtrl.createBlog(Slug, BlogData);
       if (result) {

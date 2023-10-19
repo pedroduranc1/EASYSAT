@@ -1,28 +1,45 @@
+import { Bookmark } from "lucide-react";
 import React from "react";
 import { Link } from "react-router-dom";
+import { BlogAutor } from "./blogs/BlogAutor";
+import { formatDateToCustomString } from "../utils/funcs";
 
-export const BlogCard = ({blog}) => {
+export const BlogCard = ({ blog }) => {
+  const Fecha = formatDateToCustomString(blog?.fecha);
+
   return (
-    <Link
-      to={`/blog/${blog.Slug}`}
-      className="w-[250px] mr-4 cursor-pointer flex flex-col items-center h-[290px] bg-white rounded-xl shadow-md overflow-hidden"
+    <div
+      className="w-1/3 min-w-[350px] mr-4 cursor-pointer flex flex-col items-center h-fit bg-white rounded-xl shadow-md"
     >
-      {/* IMAGE CONTAINER */}
-      <div
-        style={{
-          backgroundImage: `url(${blog?.blog_img})`,
-        }}
-        className="w-full h-[290px] flex justify-center  items-end bg-center bg-cover bg-no-repeat"
-      >
-        <div className="w-full h-full rounded-b-md bg-gradient-to-t from-black  to-transparent flex flex-col justify-end gap-y-4 py-4 ">
-          <h3 className="w-full text-white font-bold text-[16px] text-center ">
-            {blog?.Titulo}
-          </h3>
-          <button className="w-[90%] mx-auto py-1 rounded-md bg-LogoBlue text-white">
-            Ver Blog
+      {/* Imagen Blog */}
+      <Link to={`/blog/${blog.Slug}`} className="w-full h-fit relative">
+        <img
+          src={blog?.blog_img}
+          className="h-[200px] w-full shadow-lg rounded-xl"
+          alt=""
+        />
+        <div className="absolute right-[5%] shadow-md -bottom-[10%] bg-white rounded-full flex justify-center p-2 items-center">
+          <Bookmark className="text-LogoBlue" />
+        </div>
+      </Link>
+
+      <Link to={`/blog/${blog.Slug}`} className="w-full h-fit px-[5%]">
+        <p className="mt-3 text-[14px] font-semibold text-gray-400">{Fecha}</p>
+
+        <h3 className="mt-2 font-bold">{blog?.Titulo}</h3>
+
+        <h4 className="mt-2 line-clamp-2">{blog?.Descripcion}</h4>
+
+        <div className="w-1/2 mx-auto mt-5">
+          <button className="w-full py-1 bg-gradient-to-r shadow-lg shadow-LogoBlue text-white rounded-md from-LogoBlue  to-LogoBlueDark">
+            Leer más
           </button>
         </div>
+      </Link>
+
+      <div className="px-[5%] w-full h-fit py-2">
+        <BlogAutor id={blog?.Autor} blog={blog} />
       </div>
-    </Link>
+    </div>
   );
 };

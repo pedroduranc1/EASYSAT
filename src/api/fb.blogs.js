@@ -3,6 +3,7 @@ import {
   collection,
   deleteDoc,
   doc,
+  getDoc,
   getDocs,
   orderBy,
   query,
@@ -36,10 +37,7 @@ export class BlogsCtrl {
   }
 
   async getBlogs() {
-    const q = query(
-      collection(db, "blogs"),
-      orderBy("fecha", "desc")
-    );
+    const q = query(collection(db, "blogs"), orderBy("fecha", "desc"));
     const dataSnapshot = await getDocs(q);
     const newData = dataSnapshot.docs.map((doc) => ({
       id: doc.id,
@@ -212,6 +210,26 @@ export class BlogsCtrl {
     } catch (error) {
       console.log(error.message);
       return false;
+    }
+  }
+
+  async darLikeBlogs(likeData) {
+    const { UserId, blogId } = likeData;
+
+    const docRef = doc(db, "blogs", blogId);
+    const docSnapshot = await getDoc(docRef);
+
+    const likes = docSnapshot.data().likes;
+
+
+    if(likes.includes(UserId)){
+      return updateDoc(docRef,{
+        likes:likes.filter(id=>id!==UserId)
+      })
+    }else{
+      return updateDoc(docRef,{
+        likes:[...likes,UserId]
+      })
     }
   }
 }
