@@ -57,7 +57,7 @@ export const BlogCard = ({ blog }) => {
 
   return (
     <div
-      className="w-1/3 min-w-[350px] mr-4  flex flex-col items-center h-fit bg-white rounded-xl shadow-md"
+      className="w-1/3 min-w-[320px] mr-4  flex flex-col items-center h-fit bg-white rounded-xl shadow-md"
     >
       {/* Imagen Blog */}
       <div to={`/blog/${blog.Slug}`} className="w-full h-fit relative">
