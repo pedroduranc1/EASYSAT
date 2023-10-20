@@ -1,10 +1,15 @@
 import { AnimatePresence, motion } from "framer-motion";
-import { LogOut, Menu, UserIcon } from "lucide-react";
+import { LogOut, Menu, MenuIcon, UserIcon } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { ChatBot } from "./ChatBot";
+import {
+  NavOptionsSinLog,
+  NavOptionsLog,
+  NavOptionsLogNoAdmin,
+} from "../utils/data";
 
 function checkPage() {
   const location = useLocation();
@@ -23,6 +28,8 @@ export const NavbarDg = ({ isblack }) => {
   const { User, logout } = useAuth();
   const location = useLocation();
   const [Route, setRoute] = useState(location.pathname);
+  const [IsAdmin, setIsAdmin] = useState(false);
+  const [MenuDesktopToggle, setMenuDesktopToggle] = useState(false);
 
   const [toggleMenu, settoggleMenu] = useState(false);
 
@@ -47,29 +54,16 @@ export const NavbarDg = ({ isblack }) => {
 
     window.addEventListener("scroll", handleScroll);
 
+    if (User) {
+      if (User.UserRole.includes("Admin")) {
+        setIsAdmin(true);
+      }
+    }
+
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
-
-  const showDashboard = () => {
-    if (User) {
-      if (User.UserRole.includes("Admin")) {
-        return (
-          <Link
-            className={`px-4 py-2 ${
-              scrollPassedLimit || (!isblack && "text-black")
-            } hover:bg-LogoBlue hover:text-white transition-all`}
-            to="/Clientes"
-          >
-            Clientes
-          </Link>
-        );
-      } else {
-        return null;
-      }
-    }
-  };
 
   const showDashboardMobile = () => {
     if (User) {
@@ -94,185 +88,245 @@ export const NavbarDg = ({ isblack }) => {
   };
   return (
     <>
-      <div
-        className={`fixed z-50 flex w-full  lg:px-[5%] ${
-          isblack || User ? "justify-center" : "justify-evenly"
-        } `}
-      >
+      <div className={`fixed z-50 flex w-full  lg:px-[5%] justify-evenly `}>
         <ul
           className={`hidden overflow-hidden bg-white ${
-            scrollPassedLimit || isblack ? "bg-black/80" : ""
+            scrollPassedLimit ? "bg-black/80" : ""
           } transition-all  md:flex justify-center items-center  ${
-            scrollPassedLimit || isblack ? "rounded-b-md" : "mt-5  rounded-full"
+            scrollPassedLimit ? "rounded-b-md" : "mt-5  rounded-full"
           }  ${
-            scrollPassedLimit || isblack ? "shadow-lg" : "text-black"
+            scrollPassedLimit ? "shadow-lg" : "text-black"
           } divide-x-2 [&>a]:md:text-sm over [&>a]:lg:text-xl [&>a]:md:px-2 [&>a]:md:py-2 [&>a]:lg:px-2 [&>a]:lg:py-2  text-black font-semibold lg:text-base`}
         >
-          <Link
-            to="/"
-            className={`hover:bg-LogoBlue hover:text-white transition-colors ${
-              scrollPassedLimit || isblack ? "text-black" : ""
-            }`}
-          >
-            Inicio
-          </Link>
-          {isMainPage ? (
-            <a
-              href="#acerca"
-              className={`hover:bg-LogoBlue hover:text-white transition-colors ${
-                scrollPassedLimit || isblack ? "text-black" : ""
-              }`}
-            >
-              Acerca de
-            </a>
-          ) : (
-            <Link
-              to="/Contabilidad"
-              className={`hover:bg-LogoBlue hover:text-white transition-colors ${
-                scrollPassedLimit || isblack ? "text-black" : ""
-              }`}
-            >
-              Contabilidad
-            </Link>
-          )}
-
-          {isMainPage ? (
-            <a
-              href="#servicios"
-              className={`hover:bg-LogoBlue hover:text-white transition-colors ${
-                scrollPassedLimit || isblack ? "text-black" : ""
-              }`}
-            >
-              Servicios
-            </a>
-          ) : (
-            <Link
-              to="/Cursos"
-              className={`hover:bg-LogoBlue hover:text-white transition-colors ${
-                scrollPassedLimit || isblack ? "text-black" : ""
-              }`}
-            >
-              Cursos
-            </Link>
-          )}
-
-          {isMainPage ? (
-            <a
-              href="#contacto"
-              className={`hover:bg-LogoBlue hover:text-white transition-colors ${
-                scrollPassedLimit || isblack ? "text-black" : ""
-              }`}
-            >
-              Contacto
-            </a>
-          ) : (
-            <Link
-              to="/Blogs"
-              className={`hover:bg-LogoBlue hover:text-white transition-colors ${
-                scrollPassedLimit || isblack ? "text-black" : ""
-              }`}
-            >
-              Blogs
-            </Link>
-          )}
-
-          {isMainPage && (
-            <Link
-              to="/Contabilidad"
-              className={`hover:bg-LogoBlue hover:text-white transition-colors ${
-                scrollPassedLimit || isblack ? "text-black" : ""
-              }`}
-            >
-              Contabilidad
-            </Link>
-          )}
-
-          {isMainPage && (
-            <Link
-              to="/cursos"
-              className={`hover:bg-LogoBlue hover:text-white transition-colors ${
-                scrollPassedLimit || isblack ? "text-black" : ""
-              }`}
-            >
-              Cursos
-            </Link>
-          )}
-
-          {isMainPage && (
-            <Link
-              to="/blogs"
-              className={`hover:bg-LogoBlue hover:text-white transition-colors ${
-                scrollPassedLimit || isblack ? "text-black" : ""
-              }`}
-            >
-              Blogs
-            </Link>
-          )}
-
-          {showDashboard()}
-
-          {checkPage() == false & !User ? (
-            <Link
-              to="/Registro"
-              className={`hover:bg-LogoBlue hover:text-white transition-colors ${
-                scrollPassedLimit || isblack ? "text-black" : ""
-              }`}
-            >
-              Registro
-            </Link>
-          ):(<></>)}
-
-          {User ? (
-            <div className="flex items-center space-x-3">
-              <Link
-                to="/Perfil"
-                className={`flex items-center px-4 ${
-                  isblack ? "text-white" : ""
-                } justify-center space-x-3`}
-              >
-                <Avatar className="">
-                  <AvatarImage src={User.Img_url} />
-                  <AvatarFallback className="bg-black">
-                    <UserIcon className="text-white" />
-                  </AvatarFallback>
-                </Avatar>
-                <h2
-                  className={`${
+          {!User && (
+            <>
+              {NavOptionsSinLog.map((nav) => (
+                <Link
+                  to={nav.to}
+                  className={`hover:bg-orange-500 hover:text-white transition-colors ${
                     scrollPassedLimit || isblack ? "text-black" : ""
                   }`}
                 >
-                  {User?.Username && <p>{User.Username}</p>}
-                </h2>
-                <LogOut
-                  onClick={logout}
-                  className={`w-5 h-5 cursor-pointer ${
-                    scrollPassedLimit || isblack ? "text-black" : "text-black"
-                  }`}
-                />
-              </Link>
-            </div>
-          ) : (
-            <Link
-              to="/Login"
-              className={`hover:text-DgyaDark transition-colors ${
-                scrollPassedLimit ? "text-black" : ""
-              }`}
-            >
-              Iniciar Sesion
-            </Link>
+                  {nav.name}
+                </Link>
+              ))}
+            </>
+          )}
+
+          {User && (
+            <>
+              {IsAdmin ? (
+                <>
+                  {NavOptionsLog.map((nav, index) => (
+                    <>
+                      {nav.name == "Perfil" ? (
+                        <div className="flex items-center space-x-3">
+                          <Link
+                            key={index}
+                            to="/Perfil"
+                            className={`flex items-center px-4 ${
+                              isblack ? "text-white" : ""
+                            } justify-center space-x-3`}
+                          >
+                            <Avatar className="">
+                              <AvatarImage src={User?.Img_url} />
+                              <AvatarFallback className="bg-black">
+                                <UserIcon className="text-white" />
+                              </AvatarFallback>
+                            </Avatar>
+                            <h2
+                              className={`${
+                                scrollPassedLimit || isblack ? "text-black" : ""
+                              }`}
+                            >
+                              {User?.Username && <p>{User.Username}</p>}
+                            </h2>
+                            <LogOut
+                              onClick={logout}
+                              className={`w-5 h-5 cursor-pointer ${
+                                scrollPassedLimit || isblack
+                                  ? "text-black"
+                                  : "text-black"
+                              }`}
+                            />
+                          </Link>
+                        </div>
+                      ) : (
+                        <Link
+                          key={index}
+                          to={nav.to}
+                          className={`hover:bg-orange-500 hover:text-white transition-colors ${
+                            scrollPassedLimit || isblack ? "text-black" : ""
+                          }`}
+                        >
+                          {nav.name}
+                        </Link>
+                      )}
+                    </>
+                  ))}
+                </>
+              ) : (
+                <>
+                  {NavOptionsLogNoAdmin.map((nav, index) => (
+                    <>
+                      {nav.name == "Perfil" ? (
+                        <div className="flex items-center space-x-3">
+                          <Link
+                            key={index}
+                            to="/Perfil"
+                            className={`flex items-center px-4 ${
+                              isblack ? "text-white" : ""
+                            } justify-center space-x-3`}
+                          >
+                            <Avatar className="">
+                              <AvatarImage src={User?.Img_url} />
+                              <AvatarFallback className="bg-black">
+                                <UserIcon className="text-white" />
+                              </AvatarFallback>
+                            </Avatar>
+                            <h2
+                              className={`${
+                                scrollPassedLimit || isblack ? "text-black" : ""
+                              }`}
+                            >
+                              {User?.Username && <p>{User.Username}</p>}
+                            </h2>
+                            <LogOut
+                              onClick={logout}
+                              className={`w-5 h-5 cursor-pointer ${
+                                scrollPassedLimit || isblack
+                                  ? "text-black"
+                                  : "text-black"
+                              }`}
+                            />
+                          </Link>
+                        </div>
+                      ) : (
+                        <Link
+                          key={index}
+                          to={nav.to}
+                          className={`hover:bg-orange-500 hover:text-white transition-colors ${
+                            scrollPassedLimit || isblack ? "text-black" : ""
+                          }`}
+                        >
+                          {nav.name}
+                        </Link>
+                      )}
+                    </>
+                  ))}
+                </>
+              )}
+            </>
           )}
         </ul>
 
-        {checkPage() && !User && (
-          <Link
-            className={`bg-white ${
-              scrollPassedLimit ? "rounded-b-md" : "mt-5 rounded-full"
-            } hidden md:flex shadow-md items-center justify-center px-4 font-semibold text-base`}
-            to="/Registro"
-          >
-            Registrate
-          </Link>
-        )}
+        <div
+          className={` ${
+            scrollPassedLimit ? "rounded-b-md" : "mt-5 rounded-full"
+          } hidden md:flex gap-x-3 relative  `}
+        >
+          {checkPage() && !User && (
+            <Link
+              className={`${
+                scrollPassedLimit ? "rounded-b-md " : " rounded-full "
+              }  px-4 flex items-center hover:bg-orange-500 hover:text-white transition-all shadow-md bg-white  text-base font-semibold `}
+              to="/Registro"
+            >
+              Registrate
+            </Link>
+          )}
+          <MenuIcon
+            onClick={() => setMenuDesktopToggle(!MenuDesktopToggle)}
+            className={`${
+              scrollPassedLimit
+                ? "rounded-b-md bg-white shadow-md text-black"
+                : " rounded-full text-white  "
+            }  cursor-pointer p-1 `}
+            size={40}
+          />
+          <AnimatePresence onExitComplete={true}>
+            {MenuDesktopToggle && (
+              <motion.div
+                initial={{
+                  opacity: 0,
+                  translateX: 100,
+                }}
+                animate={{
+                  opacity: 1,
+                  translateX: 0,
+                }}
+                exit={{
+                  opacity: 0,
+                  translateX: 100,
+                }}
+                className={`absolute bg-white right-0 flex-col top-0 rounded-l-2xl shadow-2xl w-[200px] h-[300px]`}
+              >
+                <div className="w-full flex justify-end px-3">
+                  <MenuIcon
+                    onClick={() => setMenuDesktopToggle(!MenuDesktopToggle)}
+                    className={`${
+                      scrollPassedLimit
+                        ? "rounded-b-md bg-white shadow-md "
+                        : " rounded-full text-LogoBlue  "
+                    }  cursor-pointer p-1 `}
+                    size={40}
+                  />
+                </div>
+                <div className="px-[5%]  flex my-auto gap-y-2 flex-col items-center">
+                  <Link
+                    to="/"
+                    className={`${
+                      location.pathname === "/"
+                        ? "bg-orange-500  text-white"
+                        : "text-black"
+                    } w-full py-2 font-semibold hover:bg-orange-500 hover:text-white transition-all flex justify-center items-center rounded-lg `}
+                  >
+                    Inicio
+                  </Link>
+                  <Link
+                    className={`${
+                      location.pathname === "/algo"
+                        ? "bg-orange-500  text-white"
+                        : "text-black"
+                    } w-full py-2 font-semibold hover:bg-orange-500 hover:text-white transition-all flex justify-center items-center rounded-lg `}
+                  >
+                    EasySat
+                  </Link>
+                  <Link
+                    to="/Cursos"
+                    className={`${
+                      location.pathname === "/Cursos"
+                        ? "bg-orange-500  text-white"
+                        : "text-black"
+                    } w-full py-2 font-semibold hover:bg-orange-500 hover:text-white transition-all flex justify-center items-center rounded-lg `}
+                  >
+                    Cursos
+                  </Link>
+                  <Link
+                    to="/Blogs"
+                    className={`${
+                      location.pathname === "/Blogs"
+                        ? "bg-orange-500  text-white"
+                        : "text-black"
+                    } w-full py-2 font-semibold hover:bg-orange-500 hover:text-white transition-all flex justify-center items-center rounded-lg `}
+                  >
+                    Blogs
+                  </Link>
+                  <Link
+                    to="/#contacto"
+                    className={`${
+                      location.pathname === "#contacto"
+                        ? "bg-orange-500  text-white"
+                        : "text-black"
+                    } w-full py-2 font-semibold hover:bg-orange-500 hover:text-white transition-all flex justify-center items-center rounded-lg `}
+                  >
+                    Contacto
+                  </Link>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
 
         <ChatBot scrollPassedLimit={scrollPassedLimit} />
 
@@ -283,7 +337,7 @@ export const NavbarDg = ({ isblack }) => {
             className={`flex mr-auto  cursor-pointer md:hidden p-2 rounded-md transition-all
             ${
               scrollPassedLimit || isblack
-                ? "bg-white text-black"
+                ? "bg-white text-LogoBlue"
                 : "text-white"
             } 
             `}
@@ -302,124 +356,120 @@ export const NavbarDg = ({ isblack }) => {
                 size={40}
                 onClick={handleMenuToggle}
                 className={`flex mr-auto ${
-                  toggleMenu ? "text-black" : "text-white"
+                  toggleMenu ? "text-LogoBlue" : "text-white"
                 } cursor-pointer md:hidden -translate-x-2 mb-5
                 
                 `}
               />
               <ul className="flex flex-col justify-center space-y-3 gap-x-5 text-black font-semibold text-lg">
-                <Link
-                  to="/"
-                  className={`hover:text-DgyaDark ${
-                    Route === "/" && "bg-LogoBlue p-2 rounded-md text-white"
-                  } transition-colors`}
-                >
-                  Inicio
-                </Link>
-                {isMainPage ? (
-                  <a href="#acerca">Acerca de</a>
-                ) : (
-                  <Link
-                    to="/Contabilidad"
-                    className={`hover:text-DgyaDark ${
-                      Route === "/Contabilidad" &&
-                      "bg-LogoBlue p-2 rounded-md text-white"
-                    } transition-colors`}
-                  >
-                    Contabilidad
-                  </Link>
+                {!User && (
+                  <>
+                    {NavOptionsSinLog.map((nav) => (
+                      <Link
+                        to={nav.to}
+                        className={` flex justify-center ${
+                          location?.pathname === "/"
+                            ? "bg-orange-500 text-white"
+                            : ""
+                        } transition-colors  p-2 rounded-md `}
+                      >
+                        {nav.name}
+                      </Link>
+                    ))}
+                  </>
                 )}
-
-                {isMainPage ? (
-                  <a
-                    href="#servicios"
-                    className="hover:text-DgyaDark transition-colors"
-                  >
-                    Servicios
-                  </a>
-                ) : (
-                  <Link
-                    to="/Cursos"
-                    className={`hover:text-DgyaDark ${
-                      Route === "/Cursos" &&
-                      "bg-LogoBlue p-2 rounded-md text-white"
-                    } transition-colors`}
-                  >
-                    Cursos
-                  </Link>
-                )}
-                {isMainPage ? (
-                  <a
-                    href="#contacto"
-                    className="hover:text-DgyaDark transition-colors"
-                  >
-                    Contacto
-                  </a>
-                ) : (
-                  <Link
-                    to="/Blogs"
-                    className={`hover:text-DgyaDark ${
-                      Route === "/Blogs" &&
-                      "bg-LogoBlue p-2 rounded-md text-white"
-                    } transition-colors`}
-                  >
-                    Blogs
-                  </Link>
-                )}
-
-                {isMainPage && (
-                  <Link
-                    to="/Contabilidad"
-                    className="hover:text-DgyaDark transition-colors"
-                  >
-                    Contabilidad
-                  </Link>
-                )}
-
-                {isMainPage && (
-                  <Link
-                    to="/cursos"
-                    className="hover:text-DgyaDark transition-colors"
-                  >
-                    Cursos
-                  </Link>
-                )}
-
-                {isMainPage && (
-                  <Link
-                    to="/blogs"
-                    className="hover:text-DgyaDark transition-colors"
-                  >
-                    Blogs
-                  </Link>
-                )}
-
-                {showDashboardMobile()}
-                {User ? (
-                  <div className="flex py-1 cursor-pointer  transition-all items-center justify-between md:justify-start md:space-x-3">
-                    <Link
-                      to="/Perfil"
-                      className="w-full flex space-x-3 items-center"
-                    >
-                      <Avatar>
-                        <AvatarImage src={User.Img_url} />
-                        <AvatarFallback className="bg-black">
-                          <UserIcon className="text-white" />
-                        </AvatarFallback>
-                      </Avatar>
-                      {User.Username && <p>{User.Username}</p>}
-                    </Link>
-                    <LogOut
-                      onClick={logout}
-                      className="w-5 h-5 cursor-pointer"
-                    />
-                  </div>
-                ) : (
-                  <li>
-                    <Link className=" py-4  transition-all" to="/Login">
-                      Iniciar Sesion
-                    </Link>
-                  </li>
+                {User && (
+                  <>
+                    {IsAdmin ? (
+                      <>
+                        {NavOptionsLog.map((nav, index) => (
+                          <>
+                            {nav.name === "Perfil" ? (
+                              <>
+                                <div className="flex py-1 cursor-pointer  transition-all items-center justify-between md:justify-start md:space-x-3">
+                                  <Link
+                                    key={index}
+                                    to="/Perfil"
+                                    className="w-full flex space-x-3 items-center"
+                                  >
+                                    <Avatar>
+                                      <AvatarImage src={User.Img_url} />
+                                      <AvatarFallback className="bg-black">
+                                        <UserIcon className="text-white" />
+                                      </AvatarFallback>
+                                    </Avatar>
+                                    {User.Username && <p>{User.Username}</p>}
+                                  </Link>
+                                  <LogOut
+                                    onClick={logout}
+                                    className="w-5 h-5 cursor-pointer"
+                                  />
+                                </div>
+                              </>
+                            ) : (
+                              <>
+                                <Link
+                                  key={index}
+                                  to={nav.to}
+                                  className={` flex justify-center ${
+                                    location?.pathname === "/"
+                                      ? "bg-orange-500 text-white"
+                                      : ""
+                                  } transition-colors  p-2 rounded-md `}
+                                >
+                                  {nav.name}
+                                </Link>
+                              </>
+                            )}
+                          </>
+                        ))}
+                      </>
+                    ) : (
+                      <>
+                        {NavOptionsLogNoAdmin.map((nav, index) => (
+                          <>
+                          {nav.name === "Perfil" ? (
+                            <>
+                              <div className="flex py-1 cursor-pointer  transition-all items-center justify-between md:justify-start md:space-x-3">
+                                <Link
+                                  key={index}
+                                  to="/Perfil"
+                                  className="w-full flex space-x-3 items-center"
+                                >
+                                  <Avatar>
+                                    <AvatarImage src={User.Img_url} />
+                                    <AvatarFallback className="bg-black">
+                                      <UserIcon className="text-white" />
+                                    </AvatarFallback>
+                                  </Avatar>
+                                  {User.Username && <p>{User.Username}</p>}
+                                </Link>
+                                <LogOut
+                                  onClick={logout}
+                                  className="w-5 h-5 cursor-pointer"
+                                />
+                              </div>
+                            </>
+                          ) : (
+                            <>
+                              <Link
+                                key={index}
+                                to={nav.to}
+                                className={` flex justify-center ${
+                                  location?.pathname === "/"
+                                    ? "bg-orange-500 text-white"
+                                    : ""
+                                } transition-colors  p-2 rounded-md `}
+                              >
+                                {nav.name}
+                              </Link>
+                            </>
+                          )}
+                        </>
+                        ))}
+                      </>
+                    )}
+                  </>
                 )}
               </ul>
             </motion.div>
