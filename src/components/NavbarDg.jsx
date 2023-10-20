@@ -1,5 +1,5 @@
 import { AnimatePresence, motion } from "framer-motion";
-import { LogOut, Menu, MenuIcon, UserIcon } from "lucide-react";
+import { ChevronDown, LogOut, Menu, MenuIcon, Star, UserIcon } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
@@ -30,6 +30,7 @@ export const NavbarDg = ({ isblack }) => {
   const [Route, setRoute] = useState(location.pathname);
   const [IsAdmin, setIsAdmin] = useState(false);
   const [MenuDesktopToggle, setMenuDesktopToggle] = useState(false);
+  const [ArrowToggle, setArrowToggle] = useState(false);
 
   const [toggleMenu, settoggleMenu] = useState(false);
 
@@ -65,30 +66,11 @@ export const NavbarDg = ({ isblack }) => {
     };
   }, []);
 
-  const showDashboardMobile = () => {
-    if (User) {
-      if (User.UserRole.includes("Admin")) {
-        return (
-          <li className=" hover:text-DgyaDark hover:rounded-md  transition-all py-2">
-            <Link
-              to="/Clientes"
-              className={`w-full block hover:text-DgyaDark ${
-                Route === "/Solicitudes" &&
-                "bg-LogoBlue p-2 rounded-md text-white"
-              } transition-colors`}
-            >
-              Clientes
-            </Link>
-          </li>
-        );
-      } else {
-        return null;
-      }
-    }
-  };
   return (
     <>
-      <div className={`fixed z-50 flex w-full  lg:px-[5%] justify-evenly `}>
+      <div
+        className={`fixed z-50 flex w-full md:px-[3%] lg:px-[3%] justify-between `}
+      >
         <ul
           className={`hidden overflow-hidden bg-white ${
             scrollPassedLimit ? "bg-black/80" : ""
@@ -103,7 +85,7 @@ export const NavbarDg = ({ isblack }) => {
               {NavOptionsSinLog.map((nav) => (
                 <Link
                   to={nav.to}
-                  className={`hover:bg-orange-500 hover:text-white transition-colors ${
+                  className={`hover:bg-LogoYellow hover:text-white transition-colors ${
                     scrollPassedLimit || isblack ? "text-black" : ""
                   }`}
                 >
@@ -155,7 +137,7 @@ export const NavbarDg = ({ isblack }) => {
                         <Link
                           key={index}
                           to={nav.to}
-                          className={`hover:bg-orange-500 hover:text-white transition-colors ${
+                          className={`hover:bg-LogoYellow hover:text-white transition-colors ${
                             scrollPassedLimit || isblack ? "text-black" : ""
                           }`}
                         >
@@ -205,7 +187,7 @@ export const NavbarDg = ({ isblack }) => {
                         <Link
                           key={index}
                           to={nav.to}
-                          className={`hover:bg-orange-500 hover:text-white transition-colors ${
+                          className={`hover:bg-LogoYellow hover:text-white transition-colors ${
                             scrollPassedLimit || isblack ? "text-black" : ""
                           }`}
                         >
@@ -229,7 +211,7 @@ export const NavbarDg = ({ isblack }) => {
             <Link
               className={`${
                 scrollPassedLimit ? "rounded-b-md " : " rounded-full "
-              }  px-4 flex items-center hover:bg-orange-500 hover:text-white transition-all shadow-md bg-white  text-base font-semibold `}
+              }  px-4 flex items-center hover:bg-LogoYellow hover:text-white transition-all shadow-md bg-white  text-base font-semibold `}
               to="/Registro"
             >
               Registrate
@@ -259,7 +241,7 @@ export const NavbarDg = ({ isblack }) => {
                   opacity: 0,
                   translateX: 100,
                 }}
-                className={`absolute bg-white right-0 flex-col top-0 rounded-l-2xl shadow-2xl w-[200px] h-[300px]`}
+                className={`absolute bg-white right-0 flex-col top-0 rounded-l-2xl shadow-2xl w-[200px] h-fit`}
               >
                 <div className="w-full flex justify-end px-3">
                   <MenuIcon
@@ -272,56 +254,74 @@ export const NavbarDg = ({ isblack }) => {
                     size={40}
                   />
                 </div>
-                <div className="px-[5%]  flex my-auto gap-y-2 flex-col items-center">
+                <div className="px-[5%] h-fit flex justify-center  gap-y-2 flex-col items-center">
                   <Link
                     to="/"
                     className={`${
                       location.pathname === "/"
-                        ? "bg-orange-500  text-white"
+                        ? "bg-LogoYellow  text-white"
                         : "text-black"
-                    } w-full py-2 font-semibold hover:bg-orange-500 hover:text-white transition-all flex justify-center items-center rounded-lg `}
+                    } w-full py-2 font-semibold hover:bg-LogoYellow hover:text-white transition-all flex justify-center items-center rounded-lg `}
                   >
                     Inicio
                   </Link>
-                  <Link
-                    className={`${
-                      location.pathname === "/algo"
-                        ? "bg-orange-500  text-white"
-                        : "text-black"
-                    } w-full py-2 font-semibold hover:bg-orange-500 hover:text-white transition-all flex justify-center items-center rounded-lg `}
-                  >
-                    EasySat
-                  </Link>
-                  <Link
-                    to="/Cursos"
+                  {User && (
+                    <Link
+                      className={`${
+                        location.pathname === "/algo"
+                          ? "bg-orange-500  text-white"
+                          : "text-black"
+                      } w-full py-2 font-semibold hover:bg-LogoYellow hover:text-white transition-all flex justify-center items-center rounded-lg `}
+                    >
+                      EasySat
+                    </Link>
+                  )}
+
+                  {User && (
+                    <Link
+                      to="/Cursos"
+                      className={`${
+                        location.pathname === "/Cursos"
+                          ? "bg-orange-500  text-white"
+                          : "text-black"
+                      } w-full py-2 font-semibold hover:bg-LogoYellow hover:text-white transition-all flex justify-center items-center rounded-lg `}
+                    >
+                      Cursos
+                    </Link>
+                  )}
+
+                  <div
+                    onClick={() => {
+                      setArrowToggle(!ArrowToggle);
+                    }}
                     className={`${
                       location.pathname === "/Cursos"
                         ? "bg-orange-500  text-white"
                         : "text-black"
-                    } w-full py-2 font-semibold hover:bg-orange-500 hover:text-white transition-all flex justify-center items-center rounded-lg `}
+                    } w-full  font-semibold cursor-pointer   transition-all flex flex-col justify-center items-center rounded-lg `}
                   >
-                    Cursos
-                  </Link>
+                    <AnimatePresence onExitComplete={true}>
+                      <div className="w-full hover:bg-LogoYellow hover:text-white py-2 rounded-lg h-full flex justify-center items-center">
+                        <button className="">Blog</button>
+                        {ArrowToggle && (
+                          <ChevronDown className="translate-y-1" size={20} />
+                        )}
+                      </div>
+                      {ArrowToggle && <Link to={`/${User?.uid}/Blogs/Favoritos`} className="mt-2 hover:bg-LogoYellow group hover:text-white w-full flex justify-center items-center py-2 rounded-lg gap-x-1"><Star size={20} className="text-LogoYellow  group-hover:text-white group-hover:fill-white fill-LogoYellow"/> Favoritos</Link>}
+                    </AnimatePresence>
+                  </div>
+                  
                   <Link
-                    to="/Blogs"
-                    className={`${
-                      location.pathname === "/Blogs"
-                        ? "bg-orange-500  text-white"
-                        : "text-black"
-                    } w-full py-2 font-semibold hover:bg-orange-500 hover:text-white transition-all flex justify-center items-center rounded-lg `}
-                  >
-                    Blogs
-                  </Link>
-                  <Link
-                    to="/#contacto"
-                    className={`${
-                      location.pathname === "#contacto"
-                        ? "bg-orange-500  text-white"
-                        : "text-black"
-                    } w-full py-2 font-semibold hover:bg-orange-500 hover:text-white transition-all flex justify-center items-center rounded-lg `}
-                  >
-                    Contacto
-                  </Link>
+                      to="/#contacto"
+                      className={`${
+                        location.pathname === "#contacto"
+                          ? "bg-orange-500  text-white"
+                          : "text-black"
+                      } w-full py-2 font-semibold hover:bg-LogoYellow hover:text-white transition-all flex justify-center items-center rounded-lg `}
+                    >
+                      Contacto
+                    </Link>
+                  
                 </div>
               </motion.div>
             )}
@@ -428,44 +428,44 @@ export const NavbarDg = ({ isblack }) => {
                       <>
                         {NavOptionsLogNoAdmin.map((nav, index) => (
                           <>
-                          {nav.name === "Perfil" ? (
-                            <>
-                              <div className="flex py-1 cursor-pointer  transition-all items-center justify-between md:justify-start md:space-x-3">
+                            {nav.name === "Perfil" ? (
+                              <>
+                                <div className="flex py-1 cursor-pointer  transition-all items-center justify-between md:justify-start md:space-x-3">
+                                  <Link
+                                    key={index}
+                                    to="/Perfil"
+                                    className="w-full flex space-x-3 items-center"
+                                  >
+                                    <Avatar>
+                                      <AvatarImage src={User.Img_url} />
+                                      <AvatarFallback className="bg-black">
+                                        <UserIcon className="text-white" />
+                                      </AvatarFallback>
+                                    </Avatar>
+                                    {User.Username && <p>{User.Username}</p>}
+                                  </Link>
+                                  <LogOut
+                                    onClick={logout}
+                                    className="w-5 h-5 cursor-pointer"
+                                  />
+                                </div>
+                              </>
+                            ) : (
+                              <>
                                 <Link
                                   key={index}
-                                  to="/Perfil"
-                                  className="w-full flex space-x-3 items-center"
+                                  to={nav.to}
+                                  className={` flex justify-center ${
+                                    location?.pathname === "/"
+                                      ? "bg-orange-500 text-white"
+                                      : ""
+                                  } transition-colors  p-2 rounded-md `}
                                 >
-                                  <Avatar>
-                                    <AvatarImage src={User.Img_url} />
-                                    <AvatarFallback className="bg-black">
-                                      <UserIcon className="text-white" />
-                                    </AvatarFallback>
-                                  </Avatar>
-                                  {User.Username && <p>{User.Username}</p>}
+                                  {nav.name}
                                 </Link>
-                                <LogOut
-                                  onClick={logout}
-                                  className="w-5 h-5 cursor-pointer"
-                                />
-                              </div>
-                            </>
-                          ) : (
-                            <>
-                              <Link
-                                key={index}
-                                to={nav.to}
-                                className={` flex justify-center ${
-                                  location?.pathname === "/"
-                                    ? "bg-orange-500 text-white"
-                                    : ""
-                                } transition-colors  p-2 rounded-md `}
-                              >
-                                {nav.name}
-                              </Link>
-                            </>
-                          )}
-                        </>
+                              </>
+                            )}
+                          </>
                         ))}
                       </>
                     )}
