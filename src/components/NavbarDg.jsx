@@ -100,7 +100,7 @@ export const NavbarDg = ({ isblack }) => {
         } `}
       >
         <ul
-          className={`hidden bg-white ${
+          className={`hidden overflow-hidden bg-white ${
             scrollPassedLimit || isblack ? "bg-black/80" : ""
           } transition-all  md:flex justify-center items-center  ${
             scrollPassedLimit || isblack ? "rounded-b-md" : "mt-5  rounded-full"
@@ -211,7 +211,7 @@ export const NavbarDg = ({ isblack }) => {
 
           {showDashboard()}
 
-          {checkPage() == false && (
+          {checkPage() == false & !User ? (
             <Link
               to="/Registro"
               className={`hover:bg-LogoBlue hover:text-white transition-colors ${
@@ -220,7 +220,7 @@ export const NavbarDg = ({ isblack }) => {
             >
               Registro
             </Link>
-          )}
+          ):(<></>)}
 
           {User ? (
             <div className="flex items-center space-x-3">

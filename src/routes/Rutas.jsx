@@ -37,6 +37,7 @@ import { CreateEstFinPage } from "../pages/estados-financieros/Create.EstFin";
 import { UpdateEstFin } from "../pages/estados-financieros/Update.EstFin";
 import { DeleteEstFin } from "../pages/estados-financieros/Delete.EstFin";
 import { RegistroPage } from "../pages/auth/RegistroPage";
+import { BlogsFav } from "../pages/blogs/favoritos/BlogsFav";
 
 const router = createBrowserRouter([
   {
@@ -70,6 +71,9 @@ const router = createBrowserRouter([
   {
     path: "/Blogs",
     element: <Blogs/>,
+  },{
+    path: "/:id/Blogs/Favoritos",
+    element: <BlogsFav/>,
   },
   {
     path: "/Blog/:slug",

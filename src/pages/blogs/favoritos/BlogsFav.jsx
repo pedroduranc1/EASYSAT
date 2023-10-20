@@ -1,25 +1,26 @@
-import React, { useState } from "react";
-import { MainLayout } from "../../layouts/MainLayout";
-import { MainLayoutDg } from "../../layouts/MainLayoutDg";
-import { BlogsCtrl } from "../../api/fb.blogs";
-import { useQuery } from "react-query";
-import { SearchBar } from "../../components/SearchBar";
-import { Skeleton } from "../../components/ui/skeleton";
-import { FormContainer } from "../../components/ui/FormContainer";
-import BlogCarousel from "../../components/blogs/BlogCarousel";
-import { Bookmark } from "lucide-react";
+import React, { useEffect, useState } from "react";
+import { MainLayoutDg } from "../../../layouts/MainLayoutDg";
+import { FormContainer } from "../../../components/ui/FormContainer";
+import { useAuth } from "../../../hooks/useAuth";
 import { Link } from "react-router-dom";
-import { useAuth } from "../../hooks/useAuth";
+import { BlogsCtrl } from "../../../api/fb.blogs";
+import { useQuery } from "react-query";
+import { SearchBar } from "../../../components/SearchBar";
+import { MainLayout } from "../../../layouts/MainLayout";
+import { Skeleton } from "../../../components/ui/skeleton";
+import BlogCarousel from "../../../components/blogs/BlogCarousel";
 
 const BlogsCtrlr = new BlogsCtrl();
-export const Blogs = () => {
+export const BlogsFav = () => {
   const { User } = useAuth();
 
   const {
     data: blogs,
     isLoading,
     isError,
-  } = useQuery("Blogs", BlogsCtrlr.getBlogs);
+  } = useQuery("FavBlogs", () => BlogsCtrlr.getFavBlogs(User?.uid));
+
+  useEffect(() => {}, [blogs]);
 
   const [searchTerm, setSearchTerm] = useState("");
 
@@ -40,69 +41,17 @@ export const Blogs = () => {
       blog?.tituloNormalized?.toLowerCase().includes(searchTerm.toLowerCase())
     ) || [];
 
-  const minLikes = 1;
-
-  const filteredByLikes = blogs
-    ?.filter((blog) => {
-      return blog?.likes?.length >= minLikes;
-    })
-    ?.slice(0, 3);
-
   if (isLoading)
     return (
       <MainLayoutDg isblack={true}>
         <FormContainer>
           <div className="max-w-6xl w-full h-full min-h-screen overflow-hidden px-[3%] lg:px-0 mt-4 md:mt-10 ">
             <h1 className="text-3xl text-white font-bold mb-4 md:mb-10">
-              Nuestros Blogs
+              Blogs Favoritos
             </h1>
 
             <div className="w-full h-fit py-5 ">
-              <h2 className="text-white mb-5 font-bold text-2xl">
-                Videos Populares
-              </h2>
               <div className="w-full flex gap-5">
-                <div className="flex flex-col items-center w-[250px] bg-white rounded-md shadow-md">
-                  <Skeleton className="w-[90%] mt-2 mx-auto h-[150px]" />
-
-                  <div className="flex w-full flex-col justify-between p-4 leading-normal">
-                    <Skeleton className=" bg-slate-200 w-full h-5 rounded-full" />
-
-                    <Skeleton className=" bg-slate-200 w-full h-10 mt-5 rounded-full" />
-                  </div>
-                </div>
-                <div className="flex flex-col items-center w-[250px] bg-white rounded-md shadow-md">
-                  <Skeleton className="w-[90%] mt-2 mx-auto h-[150px]" />
-
-                  <div className="flex w-full flex-col justify-between p-4 leading-normal">
-                    <Skeleton className=" bg-slate-200 w-full h-5 rounded-full" />
-
-                    <Skeleton className=" bg-slate-200 w-full h-10 mt-5 rounded-full" />
-                  </div>
-                </div>
-                <div className="flex flex-col items-center w-[250px] bg-white rounded-md shadow-md">
-                  <Skeleton className="w-[90%] mt-2 mx-auto h-[150px]" />
-
-                  <div className="flex w-full flex-col justify-between p-4 leading-normal">
-                    <Skeleton className=" bg-slate-200 w-full h-5 rounded-full" />
-
-                    <Skeleton className=" bg-slate-200 w-full h-10 mt-5 rounded-full" />
-                  </div>
-                </div>
-              </div>
-              <h2 className="text-white my-5 font-bold text-2xl">
-                Videos Recientes
-              </h2>
-              <div className="w-full flex gap-5">
-                <div className="flex flex-col items-center w-[250px] bg-white rounded-md shadow-md">
-                  <Skeleton className="w-[90%] mt-2 mx-auto h-[150px]" />
-
-                  <div className="flex w-full flex-col justify-between p-4 leading-normal">
-                    <Skeleton className=" bg-slate-200 w-full h-5 rounded-full" />
-
-                    <Skeleton className=" bg-slate-200 w-full h-10 mt-5 rounded-full" />
-                  </div>
-                </div>
                 <div className="flex flex-col items-center w-[250px] bg-white rounded-md shadow-md">
                   <Skeleton className="w-[90%] mt-2 mx-auto h-[150px]" />
 
@@ -143,7 +92,6 @@ export const Blogs = () => {
         <h2>Ocurrio un error buscando la informacion.</h2>
       </MainLayout>
     );
-
   return (
     <MainLayoutDg isblack={true}>
       <FormContainer>
@@ -153,10 +101,10 @@ export const Blogs = () => {
               <div className="w-full flex items-center  md:w-1/2">
                 {User && (
                   <Link
-                    to={`/${User?.uid}/Blogs/Favoritos`}
+                    to={`/Blogs/`}
                     className="flex items-center w-fit gap-x-3 hover:bg-black/80 group hover:text-white transition-all bg-white px-4 py-2 rounded-md cursor-pointer"
                   >
-                    <Bookmark /> Mis Favoritos
+                    Volver a Blogs
                   </Link>
                 )}
               </div>
@@ -169,21 +117,21 @@ export const Blogs = () => {
               </div>
             </div>
 
-            {filteredByLikes.length > 0 && (
+            {filteredBlogs.length > 0 ? (
               <>
-                <h2 className="text-3xl uppercase text-white font-bold mb-4 md:mb-10">
-                  popular
+                <h2 className="text-3xl uppercase mt-10 text-white font-bold mb-4 md:mb-10">
+                  Blogs Favoritos
                 </h2>
-                <BlogCarousel isPopular={true} array={filteredByLikes} />
+
+                <BlogCarousel array={filteredBlogs} />
+              </>
+            ) : (
+              <>
+                <h2 className="text-3xl uppercase mt-10 text-white font-bold mb-4 md:mb-10">
+                  No tienes Blogs Favoritos en este momento
+                </h2>
               </>
             )}
-
-            <h2 className="text-3xl uppercase mt-10 text-white font-bold mb-4 md:mb-10">
-              recientes
-            </h2>
-            <BlogCarousel isPopular={true} array={filteredBlogs} />
-
-            <div className="mt-10"></div>
           </div>
         </div>
       </FormContainer>

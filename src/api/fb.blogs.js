@@ -214,22 +214,90 @@ export class BlogsCtrl {
   }
 
   async darLikeBlogs(likeData) {
-    const { UserId, blogId } = likeData;
+    try {
+      const { UserId, blogId } = likeData;
 
-    const docRef = doc(db, "blogs", blogId);
-    const docSnapshot = await getDoc(docRef);
+      const docRef = doc(db, "blogs", blogId);
+      const docSnapshot = await getDoc(docRef);
 
-    const likes = docSnapshot.data().likes;
+      const likesData = await docSnapshot.data().likes;
 
-
-    if(likes.includes(UserId)){
-      return updateDoc(docRef,{
-        likes:likes.filter(id=>id!==UserId)
-      })
-    }else{
-      return updateDoc(docRef,{
-        likes:[...likes,UserId]
-      })
+      await updateDoc(docRef, {
+        likes: [...likesData, UserId],
+      });
+    } catch (error) {
+      console.log("Ocurrio un error al dar like");
     }
+  }
+
+  async darFavoritosBlogs(likeData) {
+    try {
+      const { UserId, blogId } = likeData;
+
+      const docRef = doc(db, "blogs", blogId);
+      const docSnapshot = await getDoc(docRef);
+
+      const favsData = await docSnapshot.data().favs;
+
+      await updateDoc(docRef, {
+        favs: [...favsData, UserId],
+      });
+    } catch (error) {
+      console.log("Ocurrio un error al dar like");
+    }
+  }
+
+  async darUnFavoritosBlogs(likeData) {
+    try {
+      const { UserId, blogId } = likeData;
+
+      const docRef = doc(db, "blogs", blogId);
+      const docSnapshot = await getDoc(docRef);
+
+      const favsData = await docSnapshot.data().favs;
+
+      // Verificar si el usuario ya dio like
+      if (favsData.includes(UserId)) {
+        // Remover like
+        await updateDoc(docRef, {
+          favs: favsData.filter((id) => id !== UserId),
+        });
+      }
+
+    } catch (error) {
+      console.log("Ocurrio un error al dar like");
+    }
+  }
+
+  async darDislikeBlogs(likeData) {
+    try {
+      const { UserId, blogId } = likeData;
+
+      const docRef = doc(db, "blogs", blogId);
+      const docSnapshot = await getDoc(docRef);
+
+      const likesData = await docSnapshot.data().likes;
+
+      // Verificar si el usuario ya dio like
+      if (likesData.includes(UserId)) {
+        // Remover like
+        await updateDoc(docRef, {
+          likes: likesData.filter((id) => id !== UserId),
+        });
+      }
+    } catch (error) {
+      console.log("Ocurrio un error al dar like");
+    }
+  }
+
+  async getFavBlogs(userId){
+    const q = query(collection(db, "blogs"), where("favs","array-contains",userId));
+    const dataSnapshot = await getDocs(q);
+    const newData = dataSnapshot.docs.map((doc) => ({
+      id: doc.id,
+      ...doc.data(),
+    }));
+
+    return newData;
   }
 }

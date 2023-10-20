@@ -1,24 +1,57 @@
-import React from "react";
-import { useMutation, useQuery } from "react-query";
+import React, { useState } from "react";
+import { useMutation, useQuery, useQueryClient } from "react-query";
 import { User } from "../../api/fb.user";
 import { BlogsCtrl } from "../../api/fb.blogs";
 import { Heart, MessagesSquare, User2 } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { useAuth } from "../../hooks/useAuth";
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 const UserCtrl = new User();
 const BlogCtrl = new BlogsCtrl();
 export const BlogAutor = ({ id, blog }) => {
+  const client = useQueryClient();
+  const [IsLiked, setIsLiked] = useState(false);
   const { User } = useAuth();
   const { data: Autor } = useQuery(`Autor ${id}`, () => UserCtrl.getMe(id));
-  const mutation = useMutation(BlogCtrl.darLikeBlogs);
+  const mutationLike = useMutation(BlogCtrl.darLikeBlogs);
+  const mutationDislike = useMutation(BlogCtrl.darDislikeBlogs);
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const UserId = User?.uid;
+    if (blog?.likes?.includes(UserId)) {
+      setIsLiked(true);
+    } else {
+      setIsLiked(false);
+    }
+  }, [blog]);
 
   const handleLike = () => {
     const blogId = blog?.id;
     const UserId = User?.uid;
-    mutation.mutate({blogId,UserId})
+    if (!User) {
+      navigate("/login", { replace: true });
+    } else {
+      mutationLike.mutate({blogId,UserId},{
+        onSuccess:()=>{
+          client.invalidateQueries(['Blogs']);
+        }
+      })
+    }
   };
 
+  const handleDislike = () => {
+    const blogId = blog?.id;
+    const UserId = User?.uid;
+    mutationDislike.mutate({blogId,UserId},{
+      onSuccess:()=>{
+        client.invalidateQueries(['Blogs']);
+      }
+    })
+  }
 
   return (
     <div className="w-full mt-2 flex">
@@ -36,7 +69,11 @@ export const BlogAutor = ({ id, blog }) => {
       </div>
       <div className="w-1/2 flex items-center justify-end">
         <div className="w-1/2 flex justify-end">
-          <Heart onClick={handleLike} className="w-5 mr-2 text-gray-600" />
+          {IsLiked ? (
+            <Heart onClick={handleDislike} className="w-5 mr-2 cursor-pointer fill-red-500 text-red-500" />
+          ) : (
+            <Heart onClick={handleLike} className="w-5 mr-2 cursor-pointer text-gray-600" />
+          )}
           <span className="text-gray-600">{blog?.likes?.length}</span>
         </div>
         <div className="w-1/2 flex justify-end">
