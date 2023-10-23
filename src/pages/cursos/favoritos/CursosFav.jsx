@@ -3,26 +3,26 @@ import { MainLayoutDg } from "../../../layouts/MainLayoutDg";
 import { FormContainer } from "../../../components/ui/FormContainer";
 import { useAuth } from "../../../hooks/useAuth";
 import { Link, useNavigate } from "react-router-dom";
-import { BlogsCtrl } from "../../../api/fb.blogs";
+import { CursosCtrl } from "../../../api/fb.cursos";
 import { useQuery } from "react-query";
 import { SearchBar } from "../../../components/SearchBar";
 import { MainLayout } from "../../../layouts/MainLayout";
 import { Skeleton } from "../../../components/ui/skeleton";
-import BlogCarousel from "../../../components/blogs/BlogCarousel";
+import CursoCarousel from "../../../components/cursos/CursosCarousel";
 
-const BlogsCtrlr = new BlogsCtrl();
-export const BlogsFav = () => {
+const CursoCtrl = new CursosCtrl();
+export const CursosFav = () => {
   const { User } = useAuth();
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const {
     data: blogs,
     isLoading,
     isError,
-  } = useQuery("FavBlogs", () => BlogsCtrlr.getFavBlogs(User?.uid));
+  } = useQuery("FavCursos", () => CursoCtrl.getFavCursos(User?.uid));
 
-  useEffect(() => {}, [blogs]);
+
 
   const [searchTerm, setSearchTerm] = useState("");
 
@@ -49,7 +49,7 @@ export const BlogsFav = () => {
         <FormContainer>
           <div className="max-w-6xl w-full h-full min-h-screen overflow-hidden px-[3%] lg:px-0 mt-4 md:mt-10 ">
             <h1 className="text-3xl text-white font-bold mb-4 md:mb-10">
-              Blogs Favoritos
+              Cursos Favoritos
             </h1>
 
             <div className="w-full h-fit py-5 ">
@@ -122,10 +122,10 @@ export const BlogsFav = () => {
             {filteredBlogs.length > 0 ? (
               <>
                 <h2 className="text-3xl uppercase mt-10 text-white font-bold mb-4 md:mb-10">
-                  Blogs Favoritos
+                  Cursos Favoritos
                 </h2>
 
-                <BlogCarousel array={filteredBlogs} />
+                <CursoCarousel array={filteredBlogs} />
               </>
             ) : (
               <>

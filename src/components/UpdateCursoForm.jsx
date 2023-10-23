@@ -5,7 +5,6 @@ import { Input } from "./ui/Input";
 import { Loader2 } from "lucide-react";
 import { CursosCtrl } from "../api/fb.cursos";
 import { toast } from "../components/ui/use-toast";
-import { uid } from "uid";
 import { ButtonForm } from "../components/ui/ButtonForm";
 
 const cursoCtrl = new CursosCtrl();
@@ -21,14 +20,15 @@ export const UpdateCursoForm = ({
     validationSchema: validationSchema(),
     validateOnChange: false,
     onSubmit: async (formValue) => {
-      const Slug = uid(25);
 
       let UpdatedCursoData = {
         ...formValue,
-        Slug: Slug,
+        Slug: cursoSelected?.Slug,
         curso_img: CursoImg
           ? await cursoCtrl.uploadCursoImage(CursoImg, cursoSelected.id, Slug)
           : cursoSelected?.curso_img,
+        likes: cursoSelected?.likes ? cursoSelected?.likes : [],
+        favs: cursoSelected?.favs ? cursoSelected?.favs : [],
       };
       const resp = await cursoCtrl.updateCurso(
         cursoSelected.id,

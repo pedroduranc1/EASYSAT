@@ -239,4 +239,92 @@ export class CursosCtrl {
     }
   }
 
+  async darFavoritosCursos(likeData) {
+    try {
+      const { UserId, CursoId } = likeData;
+
+      const docRef = doc(db, "Cursos", CursoId);
+      const docSnapshot = await getDoc(docRef);
+
+      const favsData = await docSnapshot.data().favs;
+
+      await updateDoc(docRef, {
+        favs: [...favsData, UserId],
+      });
+    } catch (error) {
+      console.log("Ocurrio un error al dar like");
+    }
+  }
+
+  async darUnFavoritosCursos(likeData) {
+    try {
+      const { UserId, CursoId } = likeData;
+
+      const docRef = doc(db, "Cursos", CursoId);
+      const docSnapshot = await getDoc(docRef);
+
+      const favsData = await docSnapshot.data().favs;
+
+      // Verificar si el usuario ya dio like
+      if (favsData.includes(UserId)) {
+        // Remover like
+        await updateDoc(docRef, {
+          favs: favsData.filter((id) => id !== UserId),
+        });
+      }
+
+    } catch (error) {
+      console.log("Ocurrio un error al dar like");
+    }
+  }
+
+  async darDislikeCursos(likeData) {
+    try {
+      const { UserId, CursoId } = likeData;
+
+      const docRef = doc(db, "Cursos", CursoId);
+      const docSnapshot = await getDoc(docRef);
+
+      const likesData = await docSnapshot.data().likes;
+
+      // Verificar si el usuario ya dio like
+      if (likesData.includes(UserId)) {
+        // Remover like
+        await updateDoc(docRef, {
+          likes: likesData.filter((id) => id !== UserId),
+        });
+      }
+    } catch (error) {
+      console.log("Ocurrio un error al dar like");
+    }
+  }
+
+  async darLikeCursos(likeData) {
+    try {
+      const { UserId, CursoId } = likeData;
+
+      const docRef = doc(db, "Cursos", CursoId);
+      const docSnapshot = await getDoc(docRef);
+
+      const likesData = await docSnapshot.data().likes;
+
+      await updateDoc(docRef, {
+        likes: [...likesData, UserId],
+      });
+    } catch (error) {
+      console.log("Ocurrio un error al dar like");
+    }
+  }
+
+  async getFavCursos(userId){
+    const q = query(collection(db, "Cursos"), where("favs","array-contains",userId));
+    const dataSnapshot = await getDocs(q);
+    const newData = dataSnapshot.docs.map((doc) => ({
+      id: doc.id,
+      ...doc.data(),
+    }));
+
+    return newData;
+  }
+
 }

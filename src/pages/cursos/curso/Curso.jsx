@@ -10,6 +10,7 @@ import { AlertCircle } from "lucide-react";
 import { useAuth } from "../../../hooks/useAuth";
 import { Skeleton } from "../../../components/ui/skeleton";
 import { FormContainer } from "../../../components/ui/FormContainer";
+import { CursoCard } from "../../../components/cursos/curso/CursoCard";
 
 const CursosApi = new CursosCtrl();
 export const Curso = () => {
@@ -23,6 +24,7 @@ export const Curso = () => {
     isError,
     isLoading,
   } = useQuery(`${cursoId}`, () => CursosApi.getCurso(cursoId));
+
 
   useEffect(() => {
     (async () => {
@@ -77,7 +79,7 @@ export const Curso = () => {
   return (
     <MainLayoutDg isblack={true}>
       <FormContainer>
-        <div className="h-full md:h-[84.4vh] md:px-[2%] md:mt-5">
+        <div className="h-full md:h-fit md:px-[2%] md:mt-5">
           <div className="flex flex-col md:flex-row gap-x-5 mb-5">
             <img
               className="aspect-square w-[300px] mx-auto my-5 md:m-0 md:my-0"
@@ -99,25 +101,8 @@ export const Curso = () => {
           </h1>
           <div className="flex flex-wrap gap-4 md:mb-5">
             {Videos.length > 0 ? (
-              Videos.map((video) => (
-                <Link
-                  key={video.id}
-                  className="aspect-square cursor-pointer shadow-md "
-                  to={`/curso/${cursoId}/video/${video.id}`}
-                >
-                  <div className="rounded-md bg-slate-100 ">
-                    {/* imagen video */}
-
-                    <img
-                      className="w-full h-[20vh] rounded-t-md bg-black"
-                      src={video.modulo_img}
-                      alt="video_img"
-                    />
-                    <h3 className="text-black font-semibold p-0 md:p-2">
-                      {video.Titulo}
-                    </h3>
-                  </div>
-                </Link>
+              Videos.map((video, index) => (
+                <CursoCard key={index} cursoId={cursoId} video={video} />
               ))
             ) : (
               <div className="flex items-end">
@@ -128,6 +113,7 @@ export const Curso = () => {
               </div>
             )}
           </div>
+          <div className="pb-10"></div>
         </div>
       </FormContainer>
     </MainLayoutDg>

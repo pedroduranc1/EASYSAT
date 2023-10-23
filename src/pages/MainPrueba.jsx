@@ -46,7 +46,7 @@ export const MainPrueba = () => {
 
   useEffect(() => {
     subInfo?.map((sub) => {
-      if (User.uid == sub.id) {
+      if (User?.uid == sub?.id) {
         if (!estaEntreLasFechas(sub.fechaDeCreacion, sub.fechaDeFinalizacion)) {
           toast({
             variant: "destructive",

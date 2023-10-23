@@ -22,7 +22,6 @@ export const UpdateVideo = ({
     validationSchema: validationSchema(),
     validateOnChange: false,
     onSubmit: async (formValues) => {
-      const Slug = uid(25);
       const fechaActual = new Date();
 
       let UpdatedVideoData = {

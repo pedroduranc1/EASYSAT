@@ -10,14 +10,14 @@ import { BlogsCtrl } from "../api/fb.blogs";
 const BlogCtrl = new BlogsCtrl();
 export const BlogCard = ({ blog }) => {
   const client = useQueryClient();
-  const [IsFav, setIsFav] = useState(false)
-  const {User} = useAuth()
+  const [IsFav, setIsFav] = useState(false);
+  const { User } = useAuth();
   const Fecha = formatDateToCustomString(blog?.fecha);
 
   const mutationDarFav = useMutation(BlogCtrl.darFavoritosBlogs);
   const mutationDarUnFav = useMutation(BlogCtrl.darUnFavoritosBlogs);
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   useEffect(() => {
     const UserId = User?.uid;
@@ -34,12 +34,15 @@ export const BlogCard = ({ blog }) => {
     if (!User) {
       navigate("/login", { replace: true });
     } else {
-      mutationDarFav.mutate({blogId,UserId},{
-        onSuccess:()=>{
-          client.invalidateQueries(['Blogs']);
-          client.invalidateQueries(['FavBlogs']);
+      mutationDarFav.mutate(
+        { blogId, UserId },
+        {
+          onSuccess: () => {
+            client.invalidateQueries(["Blogs"]);
+            client.invalidateQueries(["FavBlogs"]);
+          },
         }
-      })
+      );
     }
   };
 
@@ -47,18 +50,19 @@ export const BlogCard = ({ blog }) => {
     const blogId = blog?.id;
     const UserId = User?.uid;
 
-    mutationDarUnFav.mutate({blogId,UserId},{
-      onSuccess:()=>{
-        client.invalidateQueries(['Blogs']);
-        client.invalidateQueries(['FavBlogs']);
+    mutationDarUnFav.mutate(
+      { blogId, UserId },
+      {
+        onSuccess: () => {
+          client.invalidateQueries(["Blogs"]);
+          client.invalidateQueries(["FavBlogs"]);
+        },
       }
-    })
-  }
+    );
+  };
 
   return (
-    <div
-      className="w-1/3 min-w-[320px] mr-4  flex flex-col items-center h-fit bg-white rounded-xl shadow-md"
-    >
+    <div className="w-1/3 min-w-[320px] mr-4  flex flex-col items-center h-fit bg-white rounded-xl shadow-md">
       {/* Imagen Blog */}
       <div to={`/blog/${blog.Slug}`} className="w-full h-fit relative">
         <img
@@ -67,10 +71,17 @@ export const BlogCard = ({ blog }) => {
           alt=""
         />
         <div className="absolute z-50 right-[5%] shadow-md -bottom-[10%] bg-white rounded-full flex justify-center p-2 items-center">
-          {
-            IsFav ? (<Bookmark onClick={handleUnFav} className="text-LogoBlue fill-LogoBlue cursor-pointer" />) : (<Bookmark onClick={handleFav} className="text-LogoBlue cursor-pointer" />)
-          }
-          
+          {IsFav ? (
+            <Bookmark
+              onClick={handleUnFav}
+              className="text-LogoBlue fill-LogoBlue cursor-pointer"
+            />
+          ) : (
+            <Bookmark
+              onClick={handleFav}
+              className="text-LogoBlue cursor-pointer"
+            />
+          )}
         </div>
       </div>
 

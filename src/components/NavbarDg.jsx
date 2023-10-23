@@ -1,5 +1,12 @@
 import { AnimatePresence, motion } from "framer-motion";
-import { ChevronDown, LogOut, Menu, MenuIcon, Star, UserIcon } from "lucide-react";
+import {
+  ChevronDown,
+  LogOut,
+  Menu,
+  MenuIcon,
+  Star,
+  UserIcon,
+} from "lucide-react";
 import React, { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
@@ -82,8 +89,9 @@ export const NavbarDg = ({ isblack }) => {
         >
           {!User && (
             <>
-              {NavOptionsSinLog.map((nav) => (
+              {NavOptionsSinLog.map((nav,index) => (
                 <Link
+                  key={index}
                   to={nav.to}
                   className={`hover:bg-LogoYellow hover:text-white transition-colors ${
                     scrollPassedLimit || isblack ? "text-black" : ""
@@ -257,21 +265,13 @@ export const NavbarDg = ({ isblack }) => {
                 <div className="px-[5%] h-fit flex justify-center  gap-y-2 flex-col items-center">
                   <Link
                     to="/"
-                    className={`${
-                      location.pathname === "/"
-                        ? "bg-LogoYellow  text-white"
-                        : "text-black"
-                    } w-full py-2 font-semibold hover:bg-LogoYellow hover:text-white transition-all flex justify-center items-center rounded-lg `}
+                    className={`w-full py-2 font-semibold hover:bg-LogoYellow hover:text-white transition-all flex justify-center items-center rounded-lg `}
                   >
                     Inicio
                   </Link>
                   {User && (
                     <Link
-                      className={`${
-                        location.pathname === "/algo"
-                          ? "bg-orange-500  text-white"
-                          : "text-black"
-                      } w-full py-2 font-semibold hover:bg-LogoYellow hover:text-white transition-all flex justify-center items-center rounded-lg `}
+                      className={` w-full py-2 font-semibold hover:bg-LogoYellow hover:text-white transition-all flex justify-center items-center rounded-lg `}
                     >
                       EasySat
                     </Link>
@@ -280,11 +280,7 @@ export const NavbarDg = ({ isblack }) => {
                   {User && (
                     <Link
                       to="/Cursos"
-                      className={`${
-                        location.pathname === "/Cursos"
-                          ? "bg-orange-500  text-white"
-                          : "text-black"
-                      } w-full py-2 font-semibold hover:bg-LogoYellow hover:text-white transition-all flex justify-center items-center rounded-lg `}
+                      className={` w-full py-2 font-semibold hover:bg-LogoYellow hover:text-white transition-all flex justify-center items-center rounded-lg `}
                     >
                       Cursos
                     </Link>
@@ -294,11 +290,7 @@ export const NavbarDg = ({ isblack }) => {
                     onClick={() => {
                       setArrowToggle(!ArrowToggle);
                     }}
-                    className={`${
-                      location.pathname === "/Cursos"
-                        ? "bg-orange-500  text-white"
-                        : "text-black"
-                    } w-full  font-semibold cursor-pointer   transition-all flex flex-col justify-center items-center rounded-lg `}
+                    className={` w-full  font-semibold cursor-pointer   transition-all flex flex-col justify-center items-center rounded-lg `}
                   >
                     <AnimatePresence onExitComplete={true}>
                       <div className="w-full hover:bg-LogoYellow hover:text-white py-2 rounded-lg h-full flex justify-center items-center">
@@ -307,21 +299,46 @@ export const NavbarDg = ({ isblack }) => {
                           <ChevronDown className="translate-y-1" size={20} />
                         )}
                       </div>
-                      {ArrowToggle && <Link to={`/${User?.uid}/Blogs/Favoritos`} className="mt-2 hover:bg-LogoYellow group hover:text-white w-full flex justify-center items-center py-2 rounded-lg gap-x-1"><Star size={20} className="text-LogoYellow  group-hover:text-white group-hover:fill-white fill-LogoYellow"/> Favoritos</Link>}
+                      {ArrowToggle && (
+                        <>
+                          {User ? (
+                            <Link
+                              to={`/${User?.uid}/Blogs/Favoritos`}
+                              className="mt-2 hover:bg-LogoYellow group hover:text-white w-full flex justify-center items-center py-2 rounded-lg gap-x-1"
+                            >
+                              <Star
+                                size={20}
+                                className="text-LogoYellow  group-hover:text-white group-hover:fill-white fill-LogoYellow"
+                              />
+                              Favoritos
+                            </Link>
+                          ) : (
+                            <Link
+                              to={`/Login`}
+                              className="mt-2 hover:bg-LogoYellow group hover:text-white w-full flex justify-center items-center py-2 rounded-lg gap-x-1"
+                            >
+                              <Star
+                                size={20}
+                                className="text-LogoYellow  group-hover:text-white group-hover:fill-white fill-LogoYellow"
+                              />
+                              Favoritos
+                            </Link>
+                          )}
+                        </>
+                      )}
                     </AnimatePresence>
                   </div>
-                  
+
                   <Link
-                      to="/#contacto"
-                      className={`${
-                        location.pathname === "#contacto"
-                          ? "bg-orange-500  text-white"
-                          : "text-black"
-                      } w-full py-2 font-semibold hover:bg-LogoYellow hover:text-white transition-all flex justify-center items-center rounded-lg `}
-                    >
-                      Contacto
-                    </Link>
-                  
+                    to="/#contacto"
+                    className={`${
+                      location.pathname === "#contacto"
+                        ? "bg-orange-500  text-white"
+                        : "text-black"
+                    } w-full py-2 font-semibold hover:bg-LogoYellow hover:text-white transition-all flex justify-center items-center rounded-lg `}
+                  >
+                    Contacto
+                  </Link>
                 </div>
               </motion.div>
             )}

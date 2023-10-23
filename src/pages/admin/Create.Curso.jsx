@@ -39,7 +39,9 @@ export const PageCurso = () => {
         curso_img: CursoImg
           ? await cursoCtrl.uploadCursoImage(CursoImg, formValue.Autor, Slug)
           : "",
-        fecha: fechaActual
+        fecha: fechaActual,
+        likes:[],
+        favs:[]
       };
       const result = await cursoCtrl.createCurso(Slug, CursoData);
       if (result) {

@@ -7,8 +7,8 @@ import { useAuth } from "../../../hooks/useAuth";
 import SubscriptionButton from "../../SubscriptionButton";
 
 export const Pricing = () => {
-   const {User} = useAuth()
-   const navigate = useNavigate()
+  const { User } = useAuth();
+  const navigate = useNavigate();
 
   return (
     <div className="w-full overflow-hidden h-full pt-5 lg:pt-10 bg-white">
@@ -117,18 +117,19 @@ export const Pricing = () => {
                       <>
                         {User?.UserPlan !== "Gratis" ? (
                           <>
-                            {User?.UserPlan == servicio.Plan &&
-                            User?.UserPlan != "Gratis" ? (
-                              <span className="w-full bg-gradient-to-r font-semibold text-white px-6 py-[2%] rounded-md from-LogoGreen via-LogoBlueDark to-LogoBlue">
-                                Plan Actual
-                              </span>
-                            ) : (
-                              <>
+                            {
+                              User?.UserPlan === servicio.Plan ? (
                                 <span className="w-full bg-gradient-to-r font-semibold text-white px-6 py-[2%] rounded-md from-LogoGreen via-LogoBlueDark to-LogoBlue">
-                                  Ya posees plan
+                                  Plan Actual
                                 </span>
-                              </>
-                            )}
+                              ) : (
+                                <>
+                                  <span className="w-full bg-gradient-to-r font-semibold text-white px-6 py-[2%] rounded-md from-LogoGreen via-LogoBlueDark to-LogoBlue">
+                                    Ya posees plan
+                                  </span>
+                                </>
+                              )
+                            }
                           </>
                         ) : (
                           <>

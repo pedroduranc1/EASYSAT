@@ -38,146 +38,152 @@ import { UpdateEstFin } from "../pages/estados-financieros/Update.EstFin";
 import { DeleteEstFin } from "../pages/estados-financieros/Delete.EstFin";
 import { RegistroPage } from "../pages/auth/RegistroPage";
 import { BlogsFav } from "../pages/blogs/favoritos/BlogsFav";
+import { CursosFav } from "../pages/cursos/favoritos/CursosFav";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <MainPrueba/>,
+    element: <MainPrueba />,
   },
   {
     path: "/Prueba",
-    element: <Main/>,
+    element: <Main />,
   },
   {
     path: "/Contabilidad",
-    element: <Contabilidad/>,
+    element: <Contabilidad />,
   },
   {
-    path:"/Contabilidad/:userPlan/:id",
-    element:<CreateSoliPage/>
+    path: "/Contabilidad/:userPlan/:id",
+    element: <CreateSoliPage />,
   },
   {
     path: "/Cursos",
-    element: <Cursos/>,
+    element: <Cursos />,
   },
   {
     path: "/curso/:cursoId",
-    element: <Curso/>,
+    element: <Curso />,
   },
   {
     path: "/curso/:cursoId/video/:id",
-    element: <Video/>,
+    element: <Video />,
   },
   {
     path: "/Blogs",
-    element: <Blogs/>,
-  },{
+    element: <Blogs />,
+  },
+  {
     path: "/:id/Blogs/Favoritos",
-    element: <BlogsFav/>,
+    element: <BlogsFav />,
+  },
+  {
+    path: "/:id/Cursos/Favoritos",
+    element: <CursosFav />,
   },
   {
     path: "/Blog/:slug",
-    element: <Blog/>,
+    element: <Blog />,
   },
   {
     path: "/Login",
-    element: <LoginPage/>,
+    element: <LoginPage />,
   },
   {
     path: "/Perfil",
-    element: <Perfil/>,
+    element: <Perfil />,
   },
   {
     path: "/Clientes",
-    element: <Solicitudes/>,
+    element: <Solicitudes />,
   },
   {
     path: "/Clientes/Cliente/:id",
-    element: <Solicitud/>,
+    element: <Solicitud />,
   },
   {
     path: "/Perfil/Solicitudes/Crear",
-    element: <CreateSoliPage/>,
+    element: <CreateSoliPage />,
   },
   {
     path: "/Perfil/Solicitudes/Modificar/:id",
-    element: <UpdateSoliPage/>,
+    element: <UpdateSoliPage />,
   },
   {
     path: "/Perfil/Solicitudes/Eliminar/:id",
-    element: <DeleteSoliPage/>,
+    element: <DeleteSoliPage />,
   },
   {
-    path:"/admin/crear-blog",
-    element: <AdminBlog/>
+    path: "/admin/crear-blog",
+    element: <AdminBlog />,
   },
   {
-    path:"/admin/actualizar-blog",
-    element: <UpdateBlogPage/>
+    path: "/admin/actualizar-blog",
+    element: <UpdateBlogPage />,
   },
   {
-    path:"/admin/eliminar-blog",
-    element: <DeleteBlogPage/>
+    path: "/admin/eliminar-blog",
+    element: <DeleteBlogPage />,
   },
   {
-    path:"/admin/crear-curso",
-    element: <PageCurso/>
+    path: "/admin/crear-curso",
+    element: <PageCurso />,
   },
   {
-    path:"/admin/actualizar-curso",
-    element: <ActualizarCursoPage/>
+    path: "/admin/actualizar-curso",
+    element: <ActualizarCursoPage />,
   },
   {
-    path:"/admin/eliminar-curso",
-    element: <DeleteCursoPage/>
+    path: "/admin/eliminar-curso",
+    element: <DeleteCursoPage />,
   },
   {
-    path:"/admin/crear-video-curso",
-    element: <CreateVideoCursoPage/>
+    path: "/admin/crear-video-curso",
+    element: <CreateVideoCursoPage />,
   },
   {
-    path:"/admin/actualizar-video-curso",
-    element: <UpdateVideoCursoPage/>
+    path: "/admin/actualizar-video-curso",
+    element: <UpdateVideoCursoPage />,
   },
   {
-    path:"/admin/eliminar-video-curso",
-    element: <DeleteVideoPage/>
+    path: "/admin/eliminar-video-curso",
+    element: <DeleteVideoPage />,
   },
   {
-    path:"/admin/crear-cliente",
-    element: <PageCliente/>
+    path: "/admin/crear-cliente",
+    element: <PageCliente />,
   },
   {
-    path:"/admin/actualizar-cliente",
-    element: <PageClienteUpdate/>
+    path: "/admin/actualizar-cliente",
+    element: <PageClienteUpdate />,
   },
   {
-    path:"/admin/eliminar-cliente",
-    element: <DeleteUserPage/>
+    path: "/admin/eliminar-cliente",
+    element: <DeleteUserPage />,
   },
   {
-    path:"*",
-    element: <ErrorPage/>
+    path: "*",
+    element: <ErrorPage />,
   },
   {
-    path:"/success",
-    element: <SuccessPage/>
+    path: "/success",
+    element: <SuccessPage />,
   },
   {
-    path:"/admin/agregar-estFin",
-    element: <CreateEstFinPage/>
+    path: "/admin/agregar-estFin",
+    element: <CreateEstFinPage />,
   },
   {
-    path:"/admin/modificar-estFin",
-    element: <UpdateEstFin/>
+    path: "/admin/modificar-estFin",
+    element: <UpdateEstFin />,
   },
   {
-    path:"/admin/eliminar-estFin",
-    element: <DeleteEstFin/>
+    path: "/admin/eliminar-estFin",
+    element: <DeleteEstFin />,
   },
   {
     path: "/Registro",
-    element: <RegistroPage/>,
+    element: <RegistroPage />,
   },
 ]);
 
