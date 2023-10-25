@@ -28,7 +28,7 @@ export const CursoCard = ({ video, cursoId }) => {
 
         <div className="w-1/2 mx-auto mt-5">
           <button className="w-full py-1 bg-gradient-to-r shadow-lg shadow-LogoBlue text-white rounded-md from-LogoBlue  to-LogoBlueDark">
-            Leer más
+            Ver más
           </button>
         </div>
       </Link>

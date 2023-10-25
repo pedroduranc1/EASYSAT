@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { MainLayout } from "../../../layouts/MainLayout";
 import { MainLayoutDg } from "../../../layouts/MainLayoutDg";
 import { useParams } from "react-router-dom";
 import { AutorCard } from "../../../components/AutorCard";
 import { useQuery } from "react-query";
 import { CursosCtrl } from "../../../api/fb.cursos";
-import { Link } from "react-router-dom";
-import { AlertCircle } from "lucide-react";
 import { useAuth } from "../../../hooks/useAuth";
 import { Skeleton } from "../../../components/ui/skeleton";
 import { FormContainer } from "../../../components/ui/FormContainer";
-import { CursoCard } from "../../../components/cursos/curso/CursoCard";
+import { VideosField } from "../../../components/cursos/curso/components/VideosField";
+import { Comentarios } from "../../../components/cursos/curso/components/Comentarios";
+import { ComentarioField } from "../../../components/cursos/curso/components/ComentarioField";
+import { ComentarioForm } from "../../../components/comentarios/comentarioForm";
 
 const CursosApi = new CursosCtrl();
 export const Curso = () => {
@@ -19,17 +19,20 @@ export const Curso = () => {
   const { cursoId } = useParams();
   const [Videos, setVideos] = useState([]);
 
+  const [ButtonOPT, setButtonOPT] = useState("Videos");
+
   const {
     data: curso,
     isError,
     isLoading,
   } = useQuery(`${cursoId}`, () => CursosApi.getCurso(cursoId));
 
-
   useEffect(() => {
     (async () => {
       const resp = await CursosApi.getVideosCurso(cursoId);
-      const videoOrdenados = resp.sort((a,b) => {return a.fecha - b.fecha})
+      const videoOrdenados = resp.sort((a, b) => {
+        return a.fecha - b.fecha;
+      });
       setVideos(videoOrdenados);
     })();
   }, [!isLoading]);
@@ -96,23 +99,51 @@ export const Curso = () => {
               <AutorCard autor={curso?.Autor} cargo={curso?.Cargo} />
             </div>
           </div>
-          <h1 className="text-3xl text-white font-bold mb-4 md:mb-5">
-            Lista de Videos
-          </h1>
-          <div className="flex flex-wrap gap-4 md:mb-5">
-            {Videos.length > 0 ? (
-              Videos.map((video, index) => (
-                <CursoCard key={index} cursoId={cursoId} video={video} />
-              ))
-            ) : (
-              <div className="flex items-end">
-                <AlertCircle className="text-red-500 h-full mr-2" />{" "}
-                <p className="font-semibold text-2xl">
-                  Este curso no tiene videos agregados aun.
-                </p>
-              </div>
-            )}
+
+          <div className="w-full h-fit py-4 flex justify-between md:justify-start gap-x-4">
+            <button
+              onClick={() => setButtonOPT("Videos")}
+              className={`${
+                ButtonOPT === "Videos"
+                  ? "bg-white"
+                  : " border border-white text-white"
+              } font-bold hover:bg-white hover:text-black transition-all rounded-md px-6 py-2`}
+            >
+              Videos
+            </button>
+            <button
+              onClick={() => setButtonOPT("Comentarios")}
+              className={`${
+                ButtonOPT === "Comentarios"
+                  ? "bg-white"
+                  : " border border-white text-white"
+              } font-bold hover:bg-white hover:text-black transition-all rounded-md px-6 py-2`}
+            >
+              Comentarios
+            </button>
           </div>
+          {ButtonOPT === "Videos" && (
+            <>
+              <h2 className="text-white font-bold text-2xl my-3">
+                Lista de Videos
+              </h2>
+              <VideosField cursoId={cursoId} array={Videos} />
+            </>
+          )}
+          {ButtonOPT === "Comentarios" && (
+            <>
+              {User && (
+                <>
+                  <ComentarioForm id={cursoId} zona={"Curso"} />
+                </>
+              )}
+              <h2 className="text-white font-bold text-2xl my-3">
+                Comentarios
+              </h2>
+              <ComentarioField id={cursoId} />
+            </>
+          )}
+
           <div className="pb-10"></div>
         </div>
       </FormContainer>

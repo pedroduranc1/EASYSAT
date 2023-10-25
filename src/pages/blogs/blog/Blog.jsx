@@ -9,12 +9,16 @@ import { BlogsCtrl } from "../../../api/fb.blogs";
 import { ReactMarkdown } from "react-markdown/lib/react-markdown";
 import { Skeleton } from "../../../components/ui/skeleton";
 import { FormContainer } from "../../../components/ui/FormContainer";
+import { ComentarioField } from "../../../components/cursos/curso/components/ComentarioField";
+import { useAuth } from "../../../hooks/useAuth";
+import { ComentarioForm } from "../../../components/comentarios/comentarioForm";
 
 const BlogCtrl = new BlogsCtrl();
 
 export const Blog = () => {
   const { slug } = useParams();
   const [MDX, setMDX] = useState(`# Cargando..`);
+  const { User } = useAuth();
 
   const {
     data: blog,
@@ -60,6 +64,13 @@ export const Blog = () => {
           <AutorCard mxauto={true} autor={blog?.Autor} />
           <ReactMarkdown children={MDX} />
         </div>
+        {User && (
+          <>
+            <ComentarioForm id={slug} zona={'Blogs'}/>
+          </>
+        )}
+        <h2 className="my-5 text-white font-bold text-2xl">Comentarios</h2>
+        <ComentarioField id={slug} />
       </FormContainer>
     </MainLayoutDg>
   );

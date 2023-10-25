@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import { User } from "../../api/fb.user";
 import { BlogsCtrl } from "../../api/fb.blogs";
+import { ComentCtrl } from "../../api/comentarios/fb.comentarios";
 import { Heart, MessagesSquare, User2 } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { useAuth } from "../../hooks/useAuth";
@@ -10,11 +11,14 @@ import { useEffect } from "react";
 
 const UserCtrl = new User();
 const BlogCtrl = new BlogsCtrl();
+const ComentsCtrl = new ComentCtrl();
 export const BlogAutor = ({ id, blog }) => {
   const client = useQueryClient();
   const [IsLiked, setIsLiked] = useState(false);
   const { User } = useAuth();
   const { data: Autor } = useQuery(`Autor ${id}`, () => UserCtrl.getMe(id));
+  const {data:Coments} = useQuery(`Coments ${blog.id}`,()=>ComentsCtrl.getComent(blog.id))
+
   const mutationLike = useMutation(BlogCtrl.darLikeBlogs);
   const mutationDislike = useMutation(BlogCtrl.darDislikeBlogs);
 
@@ -78,7 +82,7 @@ export const BlogAutor = ({ id, blog }) => {
         </div>
         <div className="w-1/2 flex justify-end">
           <MessagesSquare className="w-5 mr-2 text-gray-600" />
-          <span className="text-gray-600">7</span>
+          <span className="text-gray-600">{Coments?.length}</span>
         </div>
       </div>
     </div>
