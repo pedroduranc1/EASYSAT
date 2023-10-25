@@ -10,7 +10,7 @@ import { FormContainer } from "../../../components/ui/FormContainer";
 import { VideosField } from "../../../components/cursos/curso/components/VideosField";
 import { Comentarios } from "../../../components/cursos/curso/components/Comentarios";
 import { ComentarioField } from "../../../components/cursos/curso/components/ComentarioField";
-import { ComentarioForm } from "../../../components/comentarios/comentarioForm";
+import { ComentarioForm } from "../../../components/comentarios/ComentarioForm";
 
 const CursosApi = new CursosCtrl();
 export const Curso = () => {

@@ -11,7 +11,7 @@ import { Skeleton } from "../../../components/ui/skeleton";
 import { FormContainer } from "../../../components/ui/FormContainer";
 import { ComentarioField } from "../../../components/cursos/curso/components/ComentarioField";
 import { useAuth } from "../../../hooks/useAuth";
-import { ComentarioForm } from "../../../components/comentarios/comentarioForm";
+import { ComentarioForm } from "../../../components/comentarios/ComentarioForm";
 
 const BlogCtrl = new BlogsCtrl();
 
