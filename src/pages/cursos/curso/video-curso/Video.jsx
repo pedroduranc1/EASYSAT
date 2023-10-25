@@ -10,7 +10,7 @@ import { AutorCard } from "../../../../components/AutorCard";
 import { useAuth } from "../../../../hooks/useAuth";
 import { FormContainer } from "../../../../components/ui/FormContainer";
 import { Skeleton } from "../../../../components/ui/skeleton";
-import { ComentarioForm } from "../../../../components/comentarios/comentarioForm";
+import { ComentarioForm } from "../../../../components/comentarios/ComentarioForm";
 import { ComentarioField } from "../../../../components/cursos/curso/components/ComentarioField";
 
 const VideoCtrl = new CursosCtrl();
