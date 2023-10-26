@@ -9,24 +9,14 @@ import {
   YAxis,
   LineChart,
   Line,
-  PieChart,
-  Pie,
-  Label,
   ResponsiveContainer,
 } from "recharts";
-import { getDataMes, ordenarPorMes } from "../../assets/adminData";
+import { ConvertMonth, calcularSumasAnuales, calcularSumasMensuales, calcularSumasSemanas } from "../../utils/funcs";
+import data from "../../utils/dataPrueba";
 
-export const data = [
-  { name: "Enero", ventas: 4000, gastos: 2400 },
-  { name: "Febrero", ventas: 3000, gastos: 1398 },
-  { name: "Marzo", ventas: 2000, gastos: 9800 },
-  { name: "Abril", ventas: 2780, gastos: 3908 },
-  { name: "Mayo", ventas: 1890, gastos: 4800 },
-  { name: "Junio", ventas: 1890, gastos: 4800 },
-  { name: "Julio", ventas: 1890, gastos: 4800 },
-];
+const COLORS = ["#0575ae", "#90aa74"];
 
-const ChartComponent = ({ mes, qtyChart,estFinData }) => {
+const ChartComponent = ({ mes, qtyChart }) => {
   const [windowHeight, setWindowHeight] = useState(window.innerHeight);
 
   useEffect(() => {
@@ -41,23 +31,31 @@ const ChartComponent = ({ mes, qtyChart,estFinData }) => {
   }, []);
 
   const [chartType, setChartType] = useState("bar");
+  //ORDENAR POR MES
+  ConvertMonth(mes)
 
-  const COLORS = ["#0575ae", "#90aa74"];
+  const filtrarPorParametro = (filter) => {
+    if (filter === "weekly") {
+      const groupedData = calcularSumasSemanas(data);
 
-  const dataNueva = estFinData?.map(data=>{
-    return{name:data.month,ventas:data.ventas,gastos:data.gastos}
-  })
+      return groupedData;
+    } else if (filter === "monthly") {
+      const groupedData = calcularSumasMensuales(data);
 
-  const dataOrdenada = ordenarPorMes(dataNueva)
-
-
-  const datosEnero = getDataMes(dataOrdenada,mes);
+      return groupedData;
+    } else if (filter === "yearly") {
+      const groupedData = calcularSumasAnuales(data);
+      return groupedData;
+    } else {
+      return data;
+    }
+  };
 
   const renderChart = () => {
     switch (chartType) {
       case "bar":
         return (
-          <BarChart data={mes ? datosEnero : dataOrdenada}>
+          <BarChart data={filtrarPorParametro(mes)}>
             <XAxis dataKey="name" />
             <YAxis />
             <Bar
@@ -67,7 +65,7 @@ const ChartComponent = ({ mes, qtyChart,estFinData }) => {
               label={{ position: "top" }}
               activeFill="transparent"
             >
-              {dataOrdenada?.ventas?.map((entry, index) => (
+              {data?.ventas?.map((entry, index) => (
                 <Cell key={`ventas-cell-${index}`} fill={COLORS[0]} />
               ))}
             </Bar>
@@ -78,7 +76,7 @@ const ChartComponent = ({ mes, qtyChart,estFinData }) => {
               label={{ position: "top" }}
               activeFill="transparent"
             >
-              {dataOrdenada?.gastos?.map((entry, index) => (
+              {data?.gastos?.map((entry, index) => (
                 <Cell key={`gastos-cell-${index}`} fill={COLORS[1]} />
               ))}
             </Bar>
@@ -87,7 +85,7 @@ const ChartComponent = ({ mes, qtyChart,estFinData }) => {
         );
       case "line":
         return (
-          <LineChart data={mes ? datosEnero : dataOrdenada}>
+          <LineChart data={filtrarPorParametro(mes)}>
             <XAxis dataKey="name" />
             <YAxis />
             <Line
@@ -116,7 +114,7 @@ const ChartComponent = ({ mes, qtyChart,estFinData }) => {
         <h2
           className={` ${mes ? "text-2xl" : "text-4xl"} text-white font-bold`}
         >
-          {mes ? `Grafica del Mes: ${mes.toUpperCase()}` : "Grafica Anual"}{" "}
+          {mes ? `Grafica: ${ConvertMonth()}` : "Grafica Anual"}{" "}
         </h2>
         <ul className="bg-white rounded-lg overflow-hidden flex items-center gap-3">
           <button

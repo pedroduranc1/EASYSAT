@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { AlertCircle } from "lucide-react";
 import { ordenarPorMes } from "../../../assets/adminData";
 
-export const IngresosGastos = ({FirmaDigital,ContaEstFin}) => {
+export const IngresosGastos = ({ FirmaDigital, ContaEstFin }) => {
   const [Mes, setMes] = useState("enero");
 
   const dataNueva = ContaEstFin?.map((data) => {
@@ -19,26 +19,26 @@ export const IngresosGastos = ({FirmaDigital,ContaEstFin}) => {
     <>
       {FirmaDigital?.FirmaDigitalUrl ? (
         <>
-          <div className="w-full overflow-hidden lg:w-1/2 pt-10 md:pt-0 p-2 md:p-8 h-full ">
-            <select
-              onChange={(data) => setMes(data.target.value)}
-              className={` invisible bg-gray-50 border mb-5 border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5`}
-            ></select>
-            <ChartComponent estFinData={ContaEstFin} />
-          </div>
+          
           <div className="w-full overflow-hidden lg:w-1/2 pt-10 md:pt-0 p-2 md:p-8 h-full ">
             <select
               onChange={(data) => setMes(data.target.value)}
               className={` bg-gray-50 border mb-5 border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5`}
             >
-              {dataOrdenada.map((estFin, index) => (
-                <option key={index} value={estFin.month}>
-                  <span className="first-letter:uppercase">{estFin.name}</span>{" "}
-                  <span>{estFin.year}</span>
-                </option>
-              ))}
+              <option value={"all"}>
+                <span>Todos</span>
+              </option>
+              <option value={"weekly"}>
+                <span>Semanal</span>
+              </option>
+              <option value={"monthly"}>
+                <span>Mensual</span>
+              </option>
+              <option value={"yearly"}>
+                <span>Anual</span>
+              </option>
             </select>
-            <ChartComponent qtyChart={1} mes={Mes} estFinData={ContaEstFin} />
+            <ChartComponent  mes={Mes} estFinData={ContaEstFin} />
           </div>
         </>
       ) : (
