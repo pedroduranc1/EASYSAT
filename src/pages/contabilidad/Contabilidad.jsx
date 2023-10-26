@@ -82,9 +82,7 @@ export const Contabilidad = () => {
       >
         <div className="pb-[3.9%] h-full min-h-screen w-full ">
           <div
-            className={`${
-              dataOrdenada.length > 1 ? "lg:flex" : "hidden"
-            }  pt-[17%] items-center md:pt-[7%] lg:pt-[5%] h-full`}
+            className={`flex pt-[17%] items-center md:pt-[7%] lg:pt-[5%] h-full`}
           >
             <div className="bg-LogoBlue rounded-tr-3xl rounded-br-3xl w-full lg:w-[20%] lg:h-full">
               <ul className="w-full  h-full flex gap-4 flex-col py-10 items-center">
@@ -152,46 +150,6 @@ export const Contabilidad = () => {
             {Selected == "Finanzas" && (
               <Documentos dataOrdenada={dataOrdenada} />
             )}
-          </div>
-          <div
-            className={`${
-              dataOrdenada.length == 0 ? "lg:flex" : "hidden"
-            }  pt-[17%] items-center md:pt-[7%] lg:pt-[5%] h-full`}
-          >
-            <div className="bg-LogoBlue rounded-tr-3xl rounded-br-3xl w-full lg:w-[20%] lg:h-full">
-              <ul className="w-full  h-full flex gap-4 flex-col py-10 items-center">
-                <li className="w-full flex flex-col items-end">
-                  <button
-                    onClick={() => setSelected("Contabilidad")}
-                    className={`${
-                      Selected === "Contabilidad" && "bg-white"
-                    } py-2 rounded-l-3xl font-bold w-full md:w-[80%] md:ml-auto`}
-                  >
-                    Contabilidad
-                  </button>
-                </li>
-                <li className="w-full flex flex-col items-end">
-                  <button
-                    onClick={() => setSelected("Finanzas")}
-                    className={`${
-                      Selected === "Finanzas" && "bg-white"
-                    } py-2 rounded-l-3xl font-bold w-full md:w-[80%] md:ml-auto`}
-                  >
-                    Estados Financieros
-                  </button>
-                </li>
-              </ul>
-            </div>
-            <div className="flex w-full h-full p-8">
-              <div className=" rounded-md">
-                <h2 className="text-2xl md:text-3xl text-white font-bold">
-                  Su gestor aun no a agregado estados financieros
-                </h2>
-                <h3 className="text-2xl md:text-3xl text-white font-bold">
-                  En la brevedad posible podra tenerlas a su alcance
-                </h3>
-              </div>
-            </div>
           </div>
         </div>
       </section>
