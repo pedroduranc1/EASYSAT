@@ -4,11 +4,14 @@ import { useAuth } from "../hooks/useAuth";
 import { toast } from "../components/ui/use-toast";
 import { User as UserCtrl } from "../api/fb.user";
 import { SubsCtrl } from "../api/check/fb.subs";
+import { useNavigate } from "react-router-dom";
 
 const Subs = new SubsCtrl();
 const UserCl = new UserCtrl();
 const SubscriptionButton = ({ price, plan }) => {
   const { User ,updateUser} = useAuth();
+
+  const navigate = useNavigate()
 
   const getPriceInPesos = (price) => {
     let precio;
@@ -70,13 +73,18 @@ const SubscriptionButton = ({ price, plan }) => {
       const result = await Subs.createBlog(subData);
       await UserCl.UpdatePlanById(subData.uid,plan);
       await updateUser(subData);
-      if (result) {
-        toast({
-          title:`Felicidades Adquiriste el plan existosamente`,
-        });
-      } else {
-        console.error("Error al crear el blog");
+      if(!User?.rfc){
+        navigate("/success")
+      }else{
+        if (result) {
+          toast({
+            title:`Felicidades Renovaste el plan existosamente`,
+          });
+        } else {
+          console.error("Error al crear el blog");
+        }
       }
+     
       
     } catch (error) {
       console.error("Error processing payment:", error);
