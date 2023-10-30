@@ -9,6 +9,7 @@ import { toast } from "../components/ui/use-toast";
 import { useFormik } from "formik";
 import { initialValues, validationSchema } from "../utils/main.form";
 import { Main } from "../components/Main/index";
+import { useLocation } from "react-router-dom";
 
 const Subs = new SubsCtrl();
 const UserCtrl = new User();
@@ -18,6 +19,8 @@ export const MainPrueba = () => {
 
   const [selection, setselection] = useState("Mision");
   const { data: subInfo } = useQuery("subs", () => Subs.getSubs());
+
+  const location = useLocation();
 
   const formik = useFormik({
     initialValues: initialValues(),
@@ -69,6 +72,15 @@ export const MainPrueba = () => {
       });
     })();
   }, []);
+
+  useEffect(() => {
+    const { hash } = location
+    const newStr = hash.replace(/#/g, "");
+    const element = document.getElementById(newStr)
+    element?.scrollIntoView();
+  }, [location])
+  
+
 
   return (
     <MainLayoutDg>

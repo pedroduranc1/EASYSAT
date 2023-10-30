@@ -6,7 +6,6 @@ import fondo from "../../../assets/fondo.webp";
 export const Heroes = () => {
   return (
     <section
-      div
       className="flex items-center justify-center h-fit md:h-screen overflow-hidden bg-fixed bg-center bg-contain md:bg-cover"
       style={{ backgroundImage: `url(${fondo})` }}
     >
