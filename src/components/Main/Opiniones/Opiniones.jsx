@@ -12,7 +12,7 @@ export const Opiniones = () => {
               Lo que opinan
             </h2>
             <h4 className="text-black text-3xl md:text-4xl font-bold text-center">
-              otros Cliente de Nosotros
+              otros clientes de nosotros
             </h4>
           </div>
           <div className="mt-10 grid p-3 gap-10 grid-cols-1 md:grid-cols-3">
