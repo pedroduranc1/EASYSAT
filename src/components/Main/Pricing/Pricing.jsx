@@ -21,7 +21,7 @@ export const Pricing = () => {
             nuestros paquetes
           </h4>
           <h4 className="text-black text-base md:text-xl text-center font-bold pb-3">
-            Diseñados para adaptarse a tus necesidades especificas y <br />
+            Diseñados para adaptarse a tus necesidades específicas y <br />
             garantizar su cumplimiento.
           </h4>
         </div>
@@ -52,7 +52,7 @@ export const Pricing = () => {
                     className="flex font-semibold items-center"
                   >
                     <CheckIcon className="mr-2 w-[20%] text-LogoGreen" />{" "}
-                    <span className="w-[80%] lg:text-xl">{cont.title}</span>
+                    <span className="w-[80%] lg:text-xl">{cont.title}.</span>
                   </motion.li>
                 ))}
               </ul>

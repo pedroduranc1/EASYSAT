@@ -42,11 +42,11 @@ export const Nosotros = () => {
                 Quienes somos
               </h2>
               <p className="text-white hidden text-justify z-10 font-bold group-hover:block text-[12px] px-[7%]">
-                EasySat es una aplicacion web para simplificar el cumplimiento
+                EasySat es una aplicación web para simplificar el cumplimiento
                 de tus obligaciones fiscales, creado por contadores para
                 emprendedores que no les guste batallar con temas fiscales y de
-                esa autoridad gubernamental que se llama SAT, olvidate de
-                batallar con el sat y utiliza EasySat
+                esa autoridad gubernamental que se llama SAT, olvídate de
+                batallar con el sat y utiliza EasySAT
               </p>
             </div>
             <div className="w-full md:w-[60%] md:mr-auto md:mt-auto h-[30vh] md:h-[21vh]">
@@ -97,12 +97,12 @@ export const Nosotros = () => {
                 alt=""
               />
               <h2 className="text-white font-bold z-10 text-xl group-hover:-translate-y-3 -translate-y-7">
-                Porque Elegirnos
+                Porque elegirnos
               </h2>
               <p className="text-white hidden z-10 text-justify font-bold group-hover:block text-[12px] px-[5%]">
                 Somos un despacho de contadores y auditores establecido desde
                 hace ya de 10 años, con sus oficinas centrales en el centro de
-                Monterrey Nuevo Leon, nuestros contadores constantemente
+                Monterrey Nuevo León, nuestros contadores constantemente
                 actualizados, garantizan tu seguridad en temas fiscales.
               </p>
             </div>
@@ -120,8 +120,8 @@ export const Nosotros = () => {
             transition={{ delay: 0.8 }}
             className="text-center text-3xl md:text-5xl font-bold text-white"
           >
-            Deja de batallar con el sat y <br />
-            utiliza EasySat
+            Deja de batallar con el SAT y <br />
+            utiliza EasySAT
           </motion.h2>
         </div>
 
@@ -145,7 +145,7 @@ export const Nosotros = () => {
                 EXPERIMENTA LA DIFERENCIA!
               </h2>
               <p className="text-white w-[70%] md:w-full text-base md:text-xl  text-center">
-                Descubre como esta herramienta pueda impulsar tu exito
+                Descubre como esta herramienta pueda impulsar tu éxito
               </p>
 
               <button className="md:bg-black bg-black text-white md:text-white mt-5 lg:mt-5 rounded-lg px-4 py-2 font-semibold">

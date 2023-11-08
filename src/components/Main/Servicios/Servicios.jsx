@@ -21,10 +21,10 @@ export const Servicios = ({selection}) => {
             servicios
           </h2>
           <h4 className="text-white text-xl text-center font-semibold">
-            Expertos en simplificar tus impuestos y maximizar tus beneficios
+            Expertos en simplificar tus impuestos y maximizar tus beneficios.
           </h4>
           <h4 className="text-white text-xl text-center font-semibold pb-3">
-            Descrube nuestros servicios
+            Descubre nuestros servicios
           </h4>
         </div>
         <div className="w-full grid grid-cols-1 px-4 pt-5 md:pt-0 md:grid-cols-2 lg:grid-cols-4 gap-3 mt-10">

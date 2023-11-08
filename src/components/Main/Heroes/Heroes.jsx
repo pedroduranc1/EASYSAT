@@ -35,12 +35,12 @@ export const Heroes = () => {
             className="md:mt-[20%] lg:mt-[15%] text-center mt-10 text-2xl md:text-3xl lg:text-4xl font-bold uppercase"
             style={{ WebkitTextStroke: "1px white" }}
           >
-            contabilidad para personas fisicas y morales.
+            contabilidad para personas fisÍcas y morales.
           </h2>
           <h4 className="text-center  lg:mt-[5%] md:text-2xl text-xl  font-bold uppercase">
             llevar una contabilidad financiera adecuada es fundamental para el{" "}
             <br />
-            exito y sostenibilidad de una empresa
+            exÍto y sostenibilidad de una empresa
           </h4>
           <RotatingDivs />
         </div>

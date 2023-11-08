@@ -38,11 +38,6 @@ export const CursosBlogs = () => {
             transition={{ delay: 0.2 }}
             className="w-full relative shadow-2xl lg:w-1/2 "
           >
-            {/* <img
-              className="w-full h-full rounded-md"
-              src={cursos}
-              alt="A group of People"
-            /> */}
             <video className="w-full relative scale-110 h-full rounded-md" autoPlay muted={muted}  loop>
               <source src={corte1} type="video/mp4" />
               Tu navegador no soporta el elemento de video.
@@ -55,7 +50,7 @@ export const CursosBlogs = () => {
           </div>
           <div className="w-full lg:w-1/2 flex flex-col justify-center">
             <h1 className="text-3xl lg:text-4xl text-center font-bold leading-9 text-white pb-4">
-              Cursos en Linea
+              Cursos en Línea
             </h1>
             <p className="font-normal text-base text-center leading-6 text-white ">
               Accede a cursos interactivos y actualizados que te permitirán
@@ -89,7 +84,7 @@ export const CursosBlogs = () => {
           </div>
           <div className="w-full lg:w-1/2 flex flex-col justify-center">
             <h1 className="text-3xl lg:text-4xl text-center font-bold leading-9 text-white pb-4">
-              Blogs Informativos
+              Blogs informativos
             </h1>
             <p className="font-normal text-base text-center leading-6 text-white ">
               Accede a blogs interactivos y actualizados que te permitirán

@@ -17,7 +17,7 @@ export const services = [
         Plan:'Pendientes',
         contents:[
             {
-                title:"Según tu régimen de plataformas digitales realizaremos tu declaración mensual "
+                title:"Según tu régimen de plataformas digitales realizaremos tu declaración mensual"
             },
         ],
         precio:499
@@ -39,7 +39,7 @@ export const services = [
         Plan:'Empresas',
         contents:[
             {
-                title:"Realizaremos la declaración mensual y la declaración informativa para que cumplas con tus obligaciones fiscales "
+                title:"Realizaremos la declaración mensual y la declaración informativa para que cumplas con tus obligaciones fiscales"
             }
         ],
         precio:799,

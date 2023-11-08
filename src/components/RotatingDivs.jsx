@@ -83,7 +83,7 @@ export default function App() {
                   Conscientes de la complejidad de la legislación fiscal
                   mexicana y de la gran cantidad de obligaciones que las
                   autoridades requieren a los contribuyentes nuestra misión como
-                  Easy SAT Contabilidad en linéa es ayudar a las empresas que
+                  Easy SAT Contabilidad en línea es ayudar a las empresas que
                   desean cumplir con sus obligaciones fiscales de manera
                   correcta y oportuna, tomando en cuenta también los beneficios
                   que las mismas leyes ofrecen a los contribuyentes, del tal
@@ -112,7 +112,7 @@ export default function App() {
               <div className="flex flex-col justify-center w-full rounded-md p-4 bg-white items-center">
                 <h2 className="font-bold text-4xl">Visión</h2>
                 <p className="text-center mt-4 text-sm">
-                  Consolidarnos como un servicio de contabilidad en linéa de
+                  Consolidarnos como un servicio de contabilidad en línea de
                   reconocido prestigio en base al cumplimiento siempre oportuno
                   de todos nuestros compromisos desarrollados con
                   profesionalismo, ética y diligencia.
