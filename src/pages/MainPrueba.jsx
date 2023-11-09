@@ -74,13 +74,18 @@ export const MainPrueba = () => {
   }, []);
 
   useEffect(() => {
-    const { hash } = location
+    const { hash } = location;
     const newStr = hash.replace(/#/g, "");
-    const element = document.getElementById(newStr)
+    const element = document.getElementById(newStr);
     element?.scrollIntoView();
-  }, [location])
-  
 
+    if (hash === "" || hash === "/") {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
+    }
+  }, [location]);
 
   return (
     <MainLayoutDg>
