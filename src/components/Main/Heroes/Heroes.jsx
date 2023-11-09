@@ -13,22 +13,6 @@ export const Heroes = () => {
         <div className="lg:w-1/2 md:w-[60%] h-full flex items-center justify-center">
           <img src={logo} alt="" />
         </div>
-        {/* NUEVO CONTEXT INFO */}
-        {/* <div className="lg:w-1/2 md:w-[40%] h-full flex flex-col  items-center">
-          <h2
-            className="md:mt-[40%] lg:mt-[15%] text-center mt-10 text-2xl md:text-3xl lg:text-4xl font-bold uppercase"
-            style={{ WebkitTextStroke: "1px white" }}
-          >
-            contabilidad para personas fisicas y morales.
-          </h2>
-          <h4 className="text-center   font-bold text-base mt-5 uppercase">
-            llevar una contabilidad financiera adecuada es fundamental para el{" "}
-            <br />
-            exito y sostenibilidad de una empresa
-          </h4>
-
-          <RotatingDivs />
-        </div> */}
         <div className="lg:w-1/2 md:w-[40%]  flex flex-col gap-10 md:gap-7 "
         >
           <h2
@@ -40,7 +24,7 @@ export const Heroes = () => {
           <h4 className="text-center  lg:mt-[5%] md:text-2xl text-xl  font-bold uppercase">
             llevar una contabilidad financiera adecuada es fundamental para el{" "}
             <br />
-            exÍto y sostenibilidad de una empresa
+            éxito y sostenibilidad de una empresa
           </h4>
           <RotatingDivs />
         </div>

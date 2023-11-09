@@ -274,7 +274,7 @@ export const NavbarDg = ({ isblack }) => {
                       to={'/Contabilidad'}
                       className={` w-full py-2 font-semibold hover:bg-LogoYellow hover:text-white transition-all flex justify-center items-center rounded-lg `}
                     >
-                      EasySat
+                      EasySAT
                     </Link>
                   )}
 

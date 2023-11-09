@@ -42,7 +42,7 @@ export const Nosotros = () => {
                 Quienes somos
               </h2>
               <p className="text-white hidden text-justify z-10 font-bold group-hover:block text-[12px] px-[7%]">
-                EasySat es una aplicación web para simplificar el cumplimiento
+                EasySAT es una aplicación web para simplificar el cumplimiento
                 de tus obligaciones fiscales, creado por contadores para
                 emprendedores que no les guste batallar con temas fiscales y de
                 esa autoridad gubernamental que se llama SAT, olvídate de
