@@ -226,10 +226,11 @@ export const NavbarDg = ({ isblack }) => {
             </Link>
           )}
           <MenuIcon
+            onMouseEnter={()=>setMenuDesktopToggle(true)}
             onClick={() => setMenuDesktopToggle(!MenuDesktopToggle)}
             className={`${
               scrollPassedLimit
-                ? "rounded-b-md bg-white shadow-md text-black"
+                ? "rounded-b-md z-50 bg-white shadow-md text-black"
                 : " rounded-full text-white  "
             }  cursor-pointer p-1 `}
             size={40}
@@ -249,6 +250,7 @@ export const NavbarDg = ({ isblack }) => {
                   opacity: 0,
                   translateX: 100,
                 }}
+                onMouseLeave={()=> setMenuDesktopToggle(false)}
                 className={`absolute bg-white right-0 flex-col top-0 rounded-l-2xl shadow-2xl w-[200px] h-fit`}
               >
                 <div className="w-full flex justify-end px-3">

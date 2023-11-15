@@ -6,7 +6,7 @@ import { BlogCard } from "../CardBlog";
 const BlogCarousel = ({ array, isPopular }) => {
   const [scrollPosition, setScrollPosition] = useState(0);
   const [scrollInterval, setScrollInterval] = useState(null); // Estado para almacenar el intervalo
-  const [maxScroll, setmaxScroll] = useState(0)
+  const [maxScroll, setmaxScroll] = useState(0);
 
   const CarouselRef = useRef(null);
   const ContentRef = useRef(null);
@@ -90,38 +90,42 @@ const BlogCarousel = ({ array, isPopular }) => {
     };
   }, []);
 
-
   return (
     <div
       ref={CarouselRef}
-      className="w-full relative h-fit overflow-auto sm:overflow-hidden px-[3%] py-2"
+      className="w-full relative  h-fit  px-[3%] py-2"
     >
       {!screenWidth < 750 && (
-        <div className="h-full w-fit absolute flex justify-center items-center -left-[1%] z-10 top-0  p-4">
-        <div className="w-fit h-fit flex shadow-md justify-center items-center   bg-white rounded-full">
-          <ChevronLeft
-            className=" text-black hidden sm:flex  cursor-pointer w-10 h-10 "
-            onMouseEnter={() => startScroll("left")}
-            onMouseLeave={stopScroll}
-          />
+        <div className="h-full w-fit absolute flex justify-center items-center -left-[4%] lg:-left-[3%] z-10 top-0  p-4">
+          <div className="w-fit h-fit flex shadow-md justify-center items-center   bg-white rounded-full">
+            <ChevronLeft
+              className=" text-black hidden sm:flex  cursor-pointer w-10 h-10 "
+              onMouseEnter={() => startScroll("left")}
+              onMouseLeave={stopScroll}
+            />
+          </div>
         </div>
-      </div>
       )}
 
       <div
-        ref={ContentRef}
-        className="w-fit relative flex h-full transition-all"
-        style={{ transform: `translateX(${scrollPosition}px)` }}
+        className="w-[95%] relative overflow-auto sm:overflow-hidden flex h-full transition-all"
       >
-        {/* CARD BLOG */}
-        <AnimatePresence>
-          {array.map((blog, index) => (
-            <BlogCard key={index} blog={blog} />
-          ))}
-        </AnimatePresence>
+        <div 
+        ref={ContentRef}
+        className="w-fit flex transition-all"
+        style={{ transform: `translateX(${scrollPosition}px)` }}
+        
+        >
+          {/* CARD BLOG */}
+          <AnimatePresence>
+            {array.map((blog, index) => (
+              <BlogCard key={index} blog={blog} />
+            ))}
+          </AnimatePresence>
+        </div>
       </div>
       {!screenWidth < 750 && (
-        <div className="h-full w-fit absolute flex z-10 justify-center items-center -right-[1%] top-0  p-4">
+        <div className="h-full w-fit absolute flex z-10 justify-center items-center -right-[1%] lg:right-[1%] top-0  p-4">
           <div className="w-fit h-fit flex shadow-md justify-center items-center   bg-white rounded-full">
             <ChevronRight
               className=" text-black hidden sm:flex  cursor-pointer w-10 h-10 "
