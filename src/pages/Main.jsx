@@ -93,7 +93,7 @@ export const Main = () => {
             </div>
           </div>
 
-          <p className="text-esatDark  w-[80%] md:w-[45%] text-center bg-white/70 px-3 md:px-8 py-3  rounded-md font-semibold text-base md:text-2xl mt-[3%]">Llevamos tu contabilidad online de una manera confiable <br /> y ordenada con apoyo de nuestros contadores expertos.</p>
+          <p className="text-esatDark  w-[80%] md:w-fit text-center bg-white/70 px-3 md:px-8 py-3  rounded-md font-semibold text-base md:text-2xl mt-[3%]">Llevamos tu contabilidad online de una manera confiable <br /> y ordenada con apoyo de nuestros contadores expertos.</p>
         </div>
       </div>
 
