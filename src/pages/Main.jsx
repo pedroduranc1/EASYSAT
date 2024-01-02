@@ -105,7 +105,7 @@ export const Main = () => {
         <div className="md:px-[20%] px-[5%] flex flex-wrap gap-10 py-10 md:py-0 place-content-center h-fit md:h-[40vh] bg-esatLight w-full">
           <div className="w-[200px] transition-all cursor-pointer hover:h-full py-4 flex flex-col group space-y-3 justify-center items-center h-[150px] bg-white rounded-md shadow-md">
             <img src={aseFiscal} className="h-[50px] mx-auto" alt="" />
-            <h3 className="text-esatDark font-semibold md:text-xl text-base text-center">Asesoria Físcal</h3>
+            <h3 className="text-esatDark font-semibold md:text-xl text-base text-center">{servicioData[0].title}</h3>
             <p className="px-3 hidden group-hover:flex text-center">{servicioData[0].description}</p>
           </div>
           <div className="w-[200px] group transition-all cursor-pointer hover:h-full py-4 flex flex-col space-y-3 justify-center items-center h-[150px] bg-white rounded-md shadow-md">
@@ -281,8 +281,8 @@ export const Main = () => {
       </div>
 
       {/* CURSOS */}
-      <div className="w-full flex h-fit flex-col items-center">
-        <h2 className="text-3xl md:text-5xl text-esatDark font-bold">Cursos</h2>
+      <div className="w-full mt-10 flex h-fit flex-col items-center">
+        <h2 className="text-3xl mt-5 md:text-5xl text-esatDark font-bold">Cursos</h2>
         <h4 className="text-center text-base md:text-2xl text-esatDark font-medium my-4">
           En EasySAT, cree en el poder del conocimiento.
           <br /> Por eso te ofrecemos cursos interactivos y actualizados que te permitiran

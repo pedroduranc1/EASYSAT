@@ -1,7 +1,7 @@
 export const servicioData =[
   {
-    title:"Asesoría Fiscal",
-    description:"Nuestros expertos te guiaran en la forma de decisiones financieras y fiscales, optimizando tus estrategias para lograr un crecimiento sostenible"
+    title:"Asesoría Físcal",
+    description:"Nuestros expertos te guiaran en la toma de decisiones financieras y fiscales, optimizando tus estrategias para lograr un crecimiento sostenible"
   },
   {
     title:"Facturación electrónica",
@@ -9,7 +9,7 @@ export const servicioData =[
   },
   {
     title:"Facturación electrónica",
-    description:"Agiliza tus procesos contables con la facturación electrónica de manera digital y segura"
+    description:"Agiliza tus procesos contables con la emisión de CDFI 4.0 de manera facil y segura"
   },
   {
     title: "Declaración de impuestos personales y empresariales",
