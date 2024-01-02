@@ -59,10 +59,18 @@ export const Navbar = () => {
 
   }
 
+  const scrollToTop = () => {
+    // Scroll hacia el tope de la página
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth', // O 'auto' para un desplazamiento instantáneo
+    });
+  };
+
 
   return (
     <div className='fixed bg-white shadow-md z-50 w-full flex px-[3%] md:px-[5%] lg:px-[10%] py-5 items-center justify-between'>
-      <Link to={"/"}>
+      <Link onClick={()=>{if(location.pathname === "/"){scrollToTop()}}} to={"/"}>
         <img src={logo} className='aspect-auto w-fit h-[70px]' alt="" />
       </Link>
 

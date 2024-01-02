@@ -37,7 +37,7 @@ export const Opiniones = () => {
                   </div>
                 </div>
 
-                <p className="mb-5">{opi.msg}</p>
+                <p className="mb-5 mt-auto">{opi.msg}</p>
               </div>
             ))}
           </div>

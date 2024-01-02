@@ -18,6 +18,9 @@ import CursosCarousel from "../components/cursos/CursosCarousel";
 import { useQuery } from "react-query";
 import { CursosCtrl } from "../api/fb.cursos";
 
+import { servicioData } from "../assets/serviciosData";
+
+
 const CursosCtrlr = new CursosCtrl();
 export const Main = () => {
   const { User } = useAuth();
@@ -99,18 +102,21 @@ export const Main = () => {
         <h2 className="text-5xl font-semibold uppercase text-esatDark">servicios</h2>
         <p className="text-esatDark text-2xl mt-2 text-center">Expertos en simplificar tus impuestos y maximizar tus beneficios. <br />Descubre nuestros servicios</p>
 
-        <div className="md:px-[20%] px-[5%] grid grid-cols-1 md:grid-cols-3 gap-10 py-10 md:py-0 place-content-center h-fit md:h-[40vh] bg-esatLight w-full">
-          <div className="w-full flex flex-col space-y-3 justify-center items-center h-full py-[8%] bg-white rounded-md shadow-md">
+        <div className="md:px-[20%] px-[5%] flex flex-wrap gap-10 py-10 md:py-0 place-content-center h-fit md:h-[40vh] bg-esatLight w-full">
+          <div className="w-[200px] transition-all cursor-pointer hover:h-full py-4 flex flex-col group space-y-3 justify-center items-center h-[150px] bg-white rounded-md shadow-md">
             <img src={aseFiscal} className="h-[50px] mx-auto" alt="" />
             <h3 className="text-esatDark font-semibold md:text-xl text-base text-center">Asesoria Físcal</h3>
+            <p className="px-3 hidden group-hover:flex text-center">{servicioData[0].description}</p>
           </div>
-          <div className="w-full flex flex-col space-y-3 justify-center items-center h-full py-[8%] bg-white rounded-md shadow-md">
+          <div className="w-[200px] group transition-all cursor-pointer hover:h-full py-4 flex flex-col space-y-3 justify-center items-center h-[150px] bg-white rounded-md shadow-md">
             <img src={aseFiscal} className="h-[50px] mx-auto" alt="" />
             <h3 className="text-esatDark font-semibold md:text-xl text-base text-center">Facturación Electrónica</h3>
+            <p className="px-3 hidden group-hover:flex text-center">{servicioData[1].description}</p>
           </div>
-          <div className="w-full flex flex-col space-y-3 justify-center items-center h-full py-[8%] bg-white rounded-md shadow-md">
+          <div className="w-[200px] group transition-all cursor-pointer hover:h-full py-4 flex flex-col space-y-3 justify-center items-center h-[150px] bg-white rounded-md shadow-md">
             <img src={declaracion} className="h-[50px] mx-auto" alt="" />
             <h3 className="text-esatDark font-semibold md:text-xl text-base text-center">Declaración de Impuestos</h3>
+            <p className="px-3 text-sm hidden group-hover:flex text-center">{servicioData[3].description}</p>
           </div>
         </div>
       </div>
@@ -162,7 +168,7 @@ export const Main = () => {
               </li>
               <li className="flex items-center space-x-3">
                 <svg className="flex-shrink-0 w-10 h-10 text-green-800 dark:text-green-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"></path></svg>
-                <span className="uppercase text-xl font-semibold group-hover:text-white">Decleracion de impuestos</span>
+                <span className="uppercase text-xl font-semibold group-hover:text-white">declaración de impuestos</span>
               </li>
             </ul>
             <a href="#" className="uppercase w-[80%] hover:bg-white hover:text-esatDark mx-auto rounded-md bg-LogoBlue py-2 px-4 text-white">Comprar ahora</a>
@@ -196,7 +202,7 @@ export const Main = () => {
               </li>
               <li className="flex items-center space-x-3">
                 <svg className="flex-shrink-0 w-10 h-10 text-green-800 dark:text-green-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"></path></svg>
-                <span className="uppercase text-xl font-semibold group-hover:text-white">Decleracion de impuestos</span>
+                <span className="uppercase text-xl font-semibold group-hover:text-white">declaración de impuestos</span>
               </li>
             </ul>
             <a href="#" className="uppercase w-[80%] hover:bg-white hover:text-esatDark mx-auto rounded-md bg-LogoBlue py-2 px-4 text-white">Comprar ahora</a>
@@ -231,7 +237,7 @@ export const Main = () => {
               </li>
               <li className="flex items-center space-x-3">
                 <svg className="flex-shrink-0 w-10 h-10 text-green-800 dark:text-green-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"></path></svg>
-                <span className="uppercase text-xl font-semibold group-hover:text-white">Decleracion de impuestos</span>
+                <span className="uppercase text-xl font-semibold group-hover:text-white">declaración de impuestos</span>
               </li>
             </ul>
             <a href="#" className="uppercase w-[80%] hover:bg-white hover:text-esatDark mx-auto rounded-md bg-LogoBlue py-2 px-4 text-white">Comprar ahora</a>

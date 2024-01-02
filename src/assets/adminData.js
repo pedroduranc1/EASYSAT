@@ -145,7 +145,7 @@ export const OpinionesClientes = [
     imgUrl: "https://i.pinimg.com/564x/db/a8/62/dba862849c0550a89cce67a6e582e21d.jpg",
     nombre: "Judith Cantu",
     cargo: "Cafetería",
-    msg: `Gracias por preocuparse de mantenernos actualizados a los que no sabemos de el sat , su blog de actualización y cursos me ayudan a estar al día`,
+    msg: `Gracias por preocuparse de mantenernos actualizados a los que no sabemos de el SAT, sus cursos y asesoría me ayudan a estar al día.`,
   },
 ];
 
