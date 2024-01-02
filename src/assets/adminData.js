@@ -1,19 +1,19 @@
 export const SubAdminData = [
-  {
-    path: "/crear-blog",
-    title: "Crear Blog",
-    icon: "FilePlus2",
-  },
-  {
-    path: "/actualizar-blog",
-    title: "Modificar Blog",
-    icon: "PenLine",
-  },
-  {
-    path: "/eliminar-blog",
-    title: "Eliminar Blog",
-    icon: "Trash2",
-  },
+  // {
+  //   path: "/crear-blog",
+  //   title: "Crear Blog",
+  //   icon: "FilePlus2",
+  // },
+  // {
+  //   path: "/actualizar-blog",
+  //   title: "Modificar Blog",
+  //   icon: "PenLine",
+  // },
+  // {
+  //   path: "/eliminar-blog",
+  //   title: "Eliminar Blog",
+  //   icon: "Trash2",
+  // },
   {
     path: "/crear-curso",
     title: "Crear Curso",
@@ -96,33 +96,33 @@ export const meses = [
 
 export const PreguntasFrecuentesData = [
   {
-    pregunta: "Que necesito para empezar y cuál es el proceso ?",
+    pregunta: "Qué necesito para empezar?",
     respuesta:
-      "1.- Empezaremos por realizarte un diagnóstico fiscal a la medida , un contador para fines prácticos es como un doctor , realizaremos el análisis de tu situación fiscal y te daremos “una receta” a la medida con tu tratamiento a seguir , esto es en una reunión 1 a 1 en línea vía zoom , con el fin para realizar el diagnóstico ocupamos tu contraseña de acceso al sat .",
+      "Solo requieres tu RFC y CIEC (contraseña de acceso al SAT), con ella iniciaremos realizando un diagnóstico de tu situación fiscal y el proceso a seguir para regularizarte ante el SAT, esto en una reunión 1 a 1 en linea via zoom. En caso de no contar con tu contraseña, nosotros te brindamos la asesoría para obtenerla.",
   },
   {
-    pregunta: "Mi información está protegida ?",
+    pregunta: "Por qué elegir EasySAT?",
     respuesta:
-      "Si , cuando envías tus datos por esta página , te enviamos nuestro aviso de privacidad , dando buen uso a toda la información que nos otorgas ",
-  },
-  {
-    pregunta: "Como me brindarán tranquilidad en temas fiscales ?",
-    respuesta: [
-      '1.- Somos un despacho con contadores certificados de más de 10 años de experiencia',
-      '2.- Contamos con varias afiliaciones que certifican que trabajamos a la vanguardia en actualizaciones fiscales y contables',
-      '3.- Nos dedicamos 24/7 a esto con el fin de que tú te preocupes por tu negocio y nosotros de tu contabilidad',
-      '4.- Te daremos cursos de actualización en temas fiscales'
+    [
+      '1.- Somos un despacho de contadores certificados con más de 10 años de experiencia',
+      '2.- Nuestra tecnologia te brindara un servicio más confiable y eficiente',
+      '3.- Te daremos cursos de actualización en temas fiscales',
     ]
   },
   {
-    pregunta: "Como hablo con un contador si todo es en línea ?",
+    pregunta: "Cómo hablo con un contador si todo es en línea?",
     respuesta:
-      "Tendrás acceso a una agenda de juntas periódicas programadas con el contador que se te asigne , así como una línea de atención a clientes vía WhatsApp para rápida consulta ",
+      "Se te asignará un contador con el cual podrás tener acceso a una agenda de juntas periódicas, así como la atención vía WhatsApp para rápida consulta",
   },
   {
-    pregunta: "Si no me gusto el servicio , puedo cancelar ? ",
+    pregunta: "Mi información estará protegida?",
     respuesta:
-      "Claro que si, el servicio se puede cancelar en cualquier momento y no es por suscripción , es por pago de mensualidad",
+      "Si, cuando envías tus datos por esta página, te enviamos nuestro aviso de privacidad, dando buen uso a toda la información que nos otorgas.",
+  },
+  {
+    pregunta: "Si no me gusto el servicio, puedo cancelar?",
+    respuesta:
+      "Claro que si, puedes cancelar el servicio en el momento que requieras, ya que no contamos con plazos forzosos",
   },
 ];
 

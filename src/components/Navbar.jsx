@@ -1,203 +1,153 @@
-import React, { useState } from "react";
-import { FerrisWheel, Menu, LogOut, User as UserIcon } from "lucide-react";
-import { Link } from "react-router-dom";
-import { motion, AnimatePresence } from "framer-motion";
-import { useAuth } from "../hooks/useAuth";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import React, { useEffect, useState } from 'react'
+import logo from "../assets/logocolor.webp";
+import { Link, useLocation } from 'react-router-dom';
+import { useAuth } from '../hooks/useAuth';
+import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
+import { LogOut, Menu, UserIcon } from 'lucide-react';
+import { AnimatePresence, motion } from 'framer-motion';
 
 export const Navbar = () => {
-  const { User, logout } = useAuth();
 
+  const [bgWhite, setBgWhite] = useState(false);
+  const [currentHash, setCurrentHash] = useState(null);
   const [toggleMenu, settoggleMenu] = useState(false);
-
-  const showDashboard = () => {
-    if (User) {
-      if (User.UserRole.includes("Admin")) {
-        return (
-          <li>
-            <Link
-              className="px-2 py-4 hover:border-b-2 hover:border-slate-500 transition-all"
-              to="/Solicitudes"
-            >
-              Solicitudes
-            </Link>
-          </li>
-        );
-      } else {
-        return null;
-      }
-    }
-  };
-
-  const showDashboardMobile = () => {
-    if (User) {
-      if (User.UserRole.includes("Admin")) {
-        return (
-          <li className="border-b-2 hover:bg-slate-100 hover:rounded-md hover:text-black transition-all p-2">
-            <Link className="w-full block" to="/Solicitudes">
-              Solicitudes
-            </Link>
-          </li>
-        );
-      } else {
-        return null;
-      }
-    }
-  };
 
   const handleMenuToggle = () => {
     settoggleMenu(!toggleMenu);
   };
 
+  const { User, logout } = useAuth();
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 0) {
+        setBgWhite(true);
+      } else {
+        setBgWhite(false);
+      }
+    };
+
+    const handleHash = () => {
+      const hashes = ['#servicios', '#preguntas', '#contacto'];
+      const newHash = hashes.find(hash => {
+        const element = document.querySelector(hash);
+        if (element && element.getBoundingClientRect().top >= 0) {
+          return hash;
+        }
+      })
+      setCurrentHash(newHash);
+    }
+
+    window.addEventListener('scroll', handleScroll);
+
+    window.addEventListener('scroll', handleHash);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
+  const location = useLocation();
+
+  const isCurrentPath = (path) => {
+
+    if (path.startsWith('#')) {
+      return window.location.hash === path;
+    }
+
+    return location.pathname === path;
+
+  }
+
+
   return (
-    <div className="bg-white flex flex-col justify-center items-center shadow-md w-full">
-      <div className="max-w-6xl flex justify-between items-center w-full p-6">
-        {/* icon logo */}
+    <div className='fixed bg-white shadow-md z-50 w-full flex px-[3%] md:px-[5%] lg:px-[10%] py-5 items-center justify-between'>
+      <Link to={"/"}>
+        <img src={logo} className='aspect-auto w-fit h-[70px]' alt="" />
+      </Link>
 
-        <Link
-          className="flex flex-row text-2xl font-semibold cursor-pointer items-center"
-          to="/"
-        >
-          <FerrisWheel />
-          <h1>DGYA</h1>
-        </Link>
 
-        {/* opc */}
-        <div className="hidden md:flex">
-          <ul className="flex [&>li]:text-slate-600 [&>li]:font-semibold flex-row space-x-5">
-            <li>
-              <Link
-                className="px-2 py-4 hover:border-b-2 hover:border-slate-500 transition-all"
-                to="/"
-              >
-                Inicio
-              </Link>
-            </li>
-            <li>
-              <Link
-                className="px-2 py-4 hover:border-b-2 hover:border-slate-500 transition-all"
-                to="/Contabilidad"
-              >
-                Contabilidad
-              </Link>
-            </li>
-            <li>
-              <Link
-                className="px-2 py-4 hover:border-b-2 hover:border-slate-500 transition-all"
-                to="/Cursos"
-              >
-                Cursos
-              </Link>
-            </li>
-            <li>
-              <Link
-                className="px-2 py-4 hover:border-b-2 hover:border-slate-500 transition-all"
-                to="/Blogs"
-              >
-                Blogs
-              </Link>
-            </li>
-            {showDashboard()}
-          </ul>
-        </div>
+      <div className={` hidden md:block transition-all py-4 px-3`}>
+        <ul className='flex items-center gap-x-3'>
+          <a className={`uppercase text-center ${isCurrentPath('#servicios') ? 'text-LogoBlue' : 'text-esatDark'}`} href="#servicios">servicios</a>
+          <a className={`uppercase inline-block whitespace-nowrap text-center ${isCurrentPath('#preguntas') ? 'text-LogoBlue' : 'text-esatDark'}`} href="#preguntas">preguntas frecuentes</a>
 
-        {/* settings */}
-        <div>
-          <ul className="hidden md:flex [&>li]:text-slate-600 [&>li]:font-semibold">
-            {User ? (
-              <div className="flex items-center space-x-3">
-                <Link
-                  to="/Perfil"
-                  className=" flex items-center justify-center space-x-3"
-                >
-                  <Avatar>
-                    <AvatarImage src={User.Img_url} />
-                    <AvatarFallback className="bg-black">
-                      <UserIcon className="text-white" />
-                    </AvatarFallback>
-                  </Avatar>
-                  {User?.Username && <p>{User.Username}</p>}
-                </Link>
-                <LogOut onClick={logout} className="w-5 h-5 cursor-pointer" />
-              </div>
-            ) : (
+          <Link className={`uppercase text-center ${isCurrentPath('/cursos') ? 'text-LogoBlue' : 'text-esatDark'}`} to={'/cursos'}>Cursos</Link>
+
+          <a className={`uppercase text-center ${isCurrentPath('#contacto') ? 'text-LogoBlue' : 'text-esatDark'}`} href="#contacto">Contacto</a>
+
+          {
+            User ? (<li><div className="flex py-1 cursor-pointer  transition-all items-center justify-between md:justify-start md:gap-x-3">
+              <Link
+                to="/Perfil"
+                className="w-full flex gap-x-3 items-center"
+              >
+                <Avatar>
+                  <AvatarImage src={User.Img_url} />
+                  <AvatarFallback className="bg-black">
+                    <UserIcon className="text-white" />
+                  </AvatarFallback>
+                </Avatar>
+                {User.Username && <p>{User.Username}</p>}
+              </Link>
+              <LogOut
+                onClick={logout}
+                className="w-5 h-5 cursor-pointer"
+              />
+            </div></li>) : (<>
               <li>
-                <Link
-                  className="px-2 py-4 hover:border-b-2 hover:border-slate-500 transition-all"
-                  to="/Login"
-                >
-                  Iniciar Sesion
-                </Link>
+                <Link className='uppercase whitespace-nowrap text-esatDark' to={'/Login'}>Iniciar Sesión</Link>
               </li>
-            )}
-          </ul>
-          <Menu
-            onClick={handleMenuToggle}
-            className="flex ml-auto cursor-pointer md:hidden"
-          />
-        </div>
+              <li>
+                <Link className='uppercase bg-LogoBlue py-2 px-4 text-white rounded-md hover:-translate-y-2' to={'/Registro'}>Regístrate</Link>
+              </li>
+            </>)
+          }
+
+        </ul>
       </div>
-      {/* toggle menu */}
+
+      <Menu className='block md:hidden' size={30} onClick={handleMenuToggle} />
       <AnimatePresence>
         {toggleMenu && (
           <motion.div
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
-            className="flex flex-col w-full px-6 py-4 md:hidden"
+            className="flex flex-col w-full h-screen absolute left-0 top-0 bg-white px-6 py-4 md:hidden"
           >
-            <ul>
-              <li className="border-b-2 hover:bg-slate-100 hover:rounded-md hover:text-black transition-all p-2">
-                <Link className="w-full block" to="/">
-                  Inicio
-                </Link>
+            <Menu
+              size={40}
+              onClick={handleMenuToggle}
+              className={`flex ml-auto ${toggleMenu ? "text-esatDark" : "text-white"
+                } cursor-pointer md:hidden -translate-x-2 mb-5
+                
+                `}
+            />
+            <ul className="flex flex-col justify-center gap-y-5 text-black font-semibold text-lg">
+              <li className='w-full transition-colors py-2 rounded-md  group hover:bg-esatLight'>
+                <a className='w-full h-full inline-block ' href="">Servicios</a>
               </li>
-              <li className="border-b-2 hover:bg-slate-100 hover:rounded-md hover:text-black transition-all p-2">
-                <Link className="w-full block" to="/Contabilidad">
-                  Contabilidad
-                </Link>
+              <li className='w-full transition-colors py-2 rounded-md  group hover:bg-esatLight'>
+                <a className='w-full h-full inline-block ' href="">Preguntas Frecuentas</a>
               </li>
-              <li className="border-b-2 hover:bg-slate-100 hover:rounded-md hover:text-black transition-all p-2">
-                <Link className="w-full block" to="/Cursos">
-                  Cursos
-                </Link>
+              <li className='w-full transition-colors py-2 rounded-md  group hover:bg-esatLight'>
+                <Link className='w-full h-full inline-block ' to={"/cursos"}>Cursos</Link>
               </li>
-              <li className="border-b-2 hover:bg-slate-100 hover:rounded-md hover:text-black transition-all p-2">
-                <Link className="w-full block" to="/Blogs">
-                  Blogs
-                </Link>
+              <li className='w-full transition-colors py-2 rounded-md  group hover:bg-esatLight'>
+                <a className='w-full h-full inline-block ' href="">Contacto</a>
               </li>
-              {showDashboardMobile()}
-              {User ? (
-                <div className="flex px-2 py-2 hover:border-b-2 cursor-pointer hover:border-slate-500 transition-all items-center justify-between md:justify-start md:space-x-3">
-                  <Link
-                    to="/Perfil"
-                    className="w-full flex space-x-3 items-center"
-                  >
-                    <Avatar>
-                      <AvatarImage src={User.Img_url} />
-                      <AvatarFallback className="bg-black">
-                        <UserIcon className="text-white" />
-                      </AvatarFallback>
-                    </Avatar>
-                    {User.Username && <p>{User.Username}</p>}
-                  </Link>
-                  <LogOut onClick={logout} className="w-5 h-5 cursor-pointer" />
-                </div>
-              ) : (
-                <li>
-                  <Link
-                    className="px-2 py-4 hover:border-b-2 hover:border-slate-500 transition-all"
-                    to="/Login"
-                  >
-                    Iniciar Sesion
-                  </Link>
-                </li>
-              )}
+              <li className='w-full transition-colors py-2 rounded-md  group hover:bg-esatLight'>
+                <Link className='w-full h-full inline-block ' to={"/login"}>Iniciar Sesion</Link>
+              </li>
+              <li className='w-full transition-colors py-2 rounded-md  group hover:bg-esatLight'>
+                <Link className='w-full h-full inline-block ' to={"/registro"}>Registrate</Link>
+              </li>
             </ul>
           </motion.div>
         )}
       </AnimatePresence>
+
     </div>
-  );
-};
+  )
+}

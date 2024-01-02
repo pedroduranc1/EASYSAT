@@ -289,49 +289,6 @@ export const NavbarDg = ({ isblack }) => {
                     </Link>
                   )}
 
-                  <div
-                    onClick={() => {
-                      setArrowToggle(!ArrowToggle);
-                    }}
-                    className={` w-full  font-semibold cursor-pointer   transition-all flex flex-col justify-center items-center rounded-lg `}
-                  >
-                    <AnimatePresence onExitComplete={true}>
-                      <div className="w-full hover:bg-LogoYellow hover:text-white py-2 rounded-lg h-full flex justify-center items-center">
-                        <button className="">Blog</button>
-                        {ArrowToggle && (
-                          <ChevronDown className="translate-y-1" size={20} />
-                        )}
-                      </div>
-                      {ArrowToggle && (
-                        <>
-                          {User ? (
-                            <Link
-                              to={`/${User?.uid}/Blogs/Favoritos`}
-                              className="mt-2 hover:bg-LogoYellow group hover:text-white w-full flex justify-center items-center py-2 rounded-lg gap-x-1"
-                            >
-                              <Star
-                                size={20}
-                                className="text-LogoYellow  group-hover:text-white group-hover:fill-white fill-LogoYellow"
-                              />
-                              Favoritos
-                            </Link>
-                          ) : (
-                            <Link
-                              to={`/Login`}
-                              className="mt-2 hover:bg-LogoYellow group hover:text-white w-full flex justify-center items-center py-2 rounded-lg gap-x-1"
-                            >
-                              <Star
-                                size={20}
-                                className="text-LogoYellow  group-hover:text-white group-hover:fill-white fill-LogoYellow"
-                              />
-                              Favoritos
-                            </Link>
-                          )}
-                        </>
-                      )}
-                    </AnimatePresence>
-                  </div>
-
                   <Link
                     to="/#contacto"
                     className={`${

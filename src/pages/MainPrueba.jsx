@@ -91,15 +91,15 @@ export const MainPrueba = () => {
     <MainLayoutDg>
       {/* MAIN */}
       <Main.Heroes />
-
-      {/* NOSOTROS */}
-      <Main.Nosotros />
       {/* SERVICIOS */}
       <Main.Servicios selection={selection} />
+      {/* NOSOTROS */}
+      <Main.Nosotros />
+
       {/* PRICING */}
-      <Main.Pricing />
+      {/* <Main.Pricing /> */}
       {/* CURSOS Y BLOGS */}
-      <Main.CursosBlogs />
+      {/* <Main.CursosBlogs /> */}
       {/* PREGUNTAS FRECUENTES */}
       <Main.Preguntas />
       {/* CTA */}

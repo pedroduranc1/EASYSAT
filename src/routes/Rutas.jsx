@@ -22,8 +22,6 @@ import { Contabilidad } from "../pages/contabilidad/Contabilidad";
 import { Cursos } from "../pages/cursos/Cursos";
 import { Curso } from "../pages/cursos/curso/Curso";
 import { Video } from "../pages/cursos/curso/video-curso/Video";
-import { Blogs } from "../pages/blogs/Blogs";
-import { Blog } from "../pages/blogs/blog/Blog";
 import { LoginPage } from "../pages/auth/LoginPage";
 import { Perfil } from "../pages/perfil/Perfil";
 import { ErrorPage } from "../pages/404";
@@ -37,17 +35,18 @@ import { CreateEstFinPage } from "../pages/estados-financieros/Create.EstFin";
 import { UpdateEstFin } from "../pages/estados-financieros/Update.EstFin";
 import { DeleteEstFin } from "../pages/estados-financieros/Delete.EstFin";
 import { RegistroPage } from "../pages/auth/RegistroPage";
-import { BlogsFav } from "../pages/blogs/favoritos/BlogsFav";
 import { CursosFav } from "../pages/cursos/favoritos/CursosFav";
+import { PruebasExcel } from "../pages/pruebas/PruebasExcel";
+import { PruebasXml } from "../pages/pruebas/PruebasXml";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <MainPrueba />,
+    element: <Main />,
   },
   {
     path: "/Prueba",
-    element: <Main />,
+    element: <MainPrueba />,
   },
   {
     path: "/Contabilidad",
@@ -69,22 +68,22 @@ const router = createBrowserRouter([
     path: "/curso/:cursoId/video/:id",
     element: <Video />,
   },
-  {
-    path: "/Blogs",
-    element: <Blogs />,
-  },
-  {
-    path: "/:id/Blogs/Favoritos",
-    element: <BlogsFav />,
-  },
+  // {
+  //   path: "/Blogs",
+  //   element: <Blogs />,
+  // },
+  // {
+  //   path: "/:id/Blogs/Favoritos",
+  //   element: <BlogsFav />,
+  // },
   {
     path: "/:id/Cursos/Favoritos",
     element: <CursosFav />,
   },
-  {
-    path: "/Blog/:slug",
-    element: <Blog />,
-  },
+  // {
+  //   path: "/Blog/:slug",
+  //   element: <Blog />,
+  // },
   {
     path: "/Login",
     element: <LoginPage />,
@@ -185,6 +184,14 @@ const router = createBrowserRouter([
     path: "/Registro",
     element: <RegistroPage />,
   },
+  {
+    path:"/Pruebas/excel",
+    element: <PruebasExcel />
+  },
+  {
+    path:"/Pruebas/xml",
+    element: <PruebasXml />
+  }
 ]);
 
 export const Rutas = () => {

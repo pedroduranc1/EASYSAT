@@ -23,10 +23,10 @@ export const NavOptions = [
     name: "Cursos",
     to: "/Cursos",
   },
-  {
-    name: "Blogs",
-    to: "/Blogs",
-  },
+  // {
+  //   name: "Blogs",
+  //   to: "/Blogs",
+  // },
   {
     name: "Clientes",
     to: "/Clientes",
@@ -62,10 +62,10 @@ export const NavOptionsSinLog = [
     name: "Contacto",
     to: "/#contacto",
   },
-  {
-    name: "Blogs",
-    to: "/Blogs",
-  },
+  // {
+  //   name: "Blogs",
+  //   to: "/Blogs",
+  // },
   {
     name: "Iniciar Sesion",
     to: "/Login",
@@ -97,10 +97,10 @@ export const NavOptionsLog = [
     name: "Cursos",
     to: "/Cursos",
   },
-  {
-    name: "Blogs",
-    to: "/Blogs",
-  },
+  // {
+  //   name: "Blogs",
+  //   to: "/Blogs",
+  // },
   {
     name: "Clientes",
     to: "/Clientes",
@@ -136,10 +136,10 @@ export const NavOptionsLogNoAdmin = [
       name: "Cursos",
       to: "/Cursos",
     },
-    {
-      name: "Blogs",
-      to: "/Blogs",
-    },
+    // {
+    //   name: "Blogs",
+    //   to: "/Blogs",
+    // },
     {
       name: "Perfil",
       to: "/Perfil",

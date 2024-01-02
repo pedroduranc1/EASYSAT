@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useAuth } from "../hooks/useAuth";
 import { Toaster } from "@/components/ui/toaster";
+import { Navbar } from "@/components/Navbar";
 import { NavbarDg } from "../components/NavbarDg";
 import logo from "../assets/logoNuevo.png";
 import { useLocation } from "react-router-dom";
@@ -26,7 +27,8 @@ export const MainLayoutDg = ({ children, isblack }) => {
 
   return (
     <div className="flex flex-col bg-slate-100 w-full min-h-screen">
-      <NavbarDg isblack={isblack} />
+      <Navbar/>
+      {/* <NavbarDg isblack={isblack} /> */}
       <div className="w-full">{children}</div>
 
       {pathname == "/" && (

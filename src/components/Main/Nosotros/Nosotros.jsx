@@ -19,7 +19,7 @@ export const Nosotros = () => {
   return (
     <div id="acerca" className="w-full pb-[5%] relative h-full bg-white">
         {/* NOSOTROS SECTION */}
-        <div className="w-full md:h-screen lg:h-[70vh] px-[5%] lg:px-[20%]">
+        <div className="w-full hidden md:h-screen lg:h-[70vh] px-[5%] lg:px-[20%]">
           <div className="w-full grid grid-cols-1 md:grid-cols-3 pt-20">
             <div className="w-full md:w-[60%] md:ml-auto md:mt-auto h-[30vh] md:h-[21vh]">
               <img
@@ -111,7 +111,7 @@ export const Nosotros = () => {
 
         {/* PALABRA MOTIVADORA */}
         <div
-          className="w-full flex justify-center overflow-hidden items-center bg-center bg-cover bg-fixed h-[50vh] mt-28"
+          className="w-full hidden flex justify-center overflow-hidden items-center bg-center bg-cover bg-fixed h-[50vh] mt-28"
           style={{ backgroundImage: `url(${imgMotivadora})` }}
         >
           <motion.h2
