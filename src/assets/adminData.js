@@ -122,7 +122,7 @@ export const PreguntasFrecuentesData = [
   {
     pregunta: "Si no me gusto el servicio, ¿Puedo cancelar?",
     respuesta:
-      "Claro que si, puedes cancelar el servicio en el momento que requieras, ya que no contamos con plazos forzosos",
+      "Claro que sí, puedes cancelar el servicio en el momento que requieras, ya que no contamos con plazos forzosos",
   },
 ];
 
