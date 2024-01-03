@@ -8,6 +8,7 @@ import imgMotivadora from "../assets/nosotros1.webp";
 import declaracion from "../assets/ServicioImpuestos.svg";
 import aseFiscal from "../assets/ServicioAsesoriaFiscal.svg";
 import svgprueba from "../assets/icons/Elemento.svg";
+import Facturación from "../assets/ServicioFacturación.svg";
 
 import waves from "../assets/waves.webp";
 import { motion } from "framer-motion";
@@ -93,23 +94,23 @@ export const Main = () => {
             </div>
           </div>
 
-          <p className="text-esatDark  w-[80%] md:w-fit text-center bg-white/70 px-3 md:px-8 py-3  rounded-md font-semibold text-base md:text-2xl mt-[3%]">Llevamos tu contabilidad online de una manera confiable <br /> y ordenada con apoyo de nuestros contadores expertos.</p>
+          <p className="text-esatDark  w-[80%] md:w-fit text-center bg-white/40 px-3 md:px-8 py-3  rounded-md font-semibold text-base md:text-2xl mt-[3%]">Llevamos tu contabilidad online de una manera confiable <br /> y ordenada con apoyo de nuestros contadores expertos.</p>
         </div>
       </div>
 
       {/* SERVICIOS */}
-      <div id="servicios" className="w-full h-fit bg-esatLight flex flex-col justify-center items-center">
+      <div id="servicios" className="w-full h-fit hover:transition-all scroll-m-40 bg-esatLight flex flex-col justify-center items-center">
         <h2 className="text-5xl font-semibold uppercase text-esatDark">servicios</h2>
         <p className="text-esatDark text-2xl mt-2 text-center">Expertos en simplificar tus impuestos y maximizar tus beneficios. <br />Descubre nuestros servicios</p>
 
-        <div className="md:px-[20%] px-[5%] flex flex-wrap gap-10 py-10 md:py-0 place-content-center h-fit md:h-[40vh] bg-esatLight w-full">
+        <div className="md:px-[20%] px-[5%]  flex flex-wrap gap-10 py-[7%] place-content-center h-fit bg-esatLight w-full">
           <div className="w-[200px] transition-all cursor-pointer hover:h-full py-4 flex flex-col group space-y-3 justify-center items-center h-[150px] bg-white rounded-md shadow-md">
             <img src={aseFiscal} className="h-[50px] mx-auto" alt="" />
             <h3 className="text-esatDark font-semibold md:text-xl text-base text-center">{servicioData[0].title}</h3>
             <p className="px-3 hidden group-hover:flex text-center">{servicioData[0].description}</p>
           </div>
           <div className="w-[200px] group transition-all cursor-pointer hover:h-full py-4 flex flex-col space-y-3 justify-center items-center h-[150px] bg-white rounded-md shadow-md">
-            <img src={aseFiscal} className="h-[50px] mx-auto" alt="" />
+            <img src={Facturación} className="h-[50px] mx-auto" alt="" />
             <h3 className="text-esatDark font-semibold md:text-xl text-base text-center">Facturación Electrónica</h3>
             <p className="px-3 hidden group-hover:flex text-center">{servicioData[1].description}</p>
           </div>
@@ -122,7 +123,7 @@ export const Main = () => {
       </div>
 
       {/* PRICING */}
-      <div className="w-full h-[70vh] pb-[10%] relative bg-white">
+      <div className="w-full h-[70vh] hover:transition-all pb-[10%] relative bg-white">
         <div className="bg-esatLight w-full py-[3%] flex flex-col  items-center ">
           <h3 className="text-center uppercase text-3xl md:text-5xl font-semibold text-esatDark">
             Descubre <br />Nuestros Paquetes
@@ -138,79 +139,79 @@ export const Main = () => {
         />
 
         <div className="lg:px-[10%] md:px-[5%] px-[3%] gap-3 w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 py-4 md:absolute md:top-[45%] md:left-0 ">
-          <div className="flex flex-col p-6 transition-all cursor-pointer group hover:bg-esatDark hover:scale-110 shadow-2xl mx-auto w-fit px-15 text-center text-gray-900 bg-white rounded-lg  xl:p-8 ">
-            <h3 className="mb-4 ml-5 text-4xl group-hover:text-white uppercase font-bold mr-auto">resico</h3>
+          <div className="flex flex-col p-2 transition-all cursor-pointer group hover:bg-esatDark hover:scale-105 shadow-2xl mx-auto w-fit px-7 text-center text-gray-900 bg-white rounded-lg  xl:p-8 ">
+            <h3 className="mb-4 ml-5 text-4xl group-hover:text-white uppercase font-bold mr-auto">basico</h3>
             <div className="flex ml-5 mb-5 justify-center items-baseline mr-auto my-2">
-              <span className="mr-2 text-6xl group-hover:text-white text-LogoBlue font-bold">$579</span>
+              <span className="mr-2 text-5xl group-hover:text-white text-LogoBlue font-bold">$579</span>
               <span className="text-black group-hover:text-white text-2xl">/mes</span>
               <span className="text-xs ml-2 group-hover:text-white">*iva incluido*</span>
             </div>
 
-            <p className="text-xs text-gray-600 group-hover:text-white mb-3">El Régimen Simplificado de confianza  es ideal para personas que estan empezando en formalizarse ante el SAT.</p>
+            <p className="text-xs text-gray-600 group-hover:text-white mb-3">Plan diseñado para personas físicas que tributan en RESICO o RIF</p>
 
 
-            <ul role="list" className="mb-8 space-y-4 text-left">
+            <ul role="list" className="mb-8 flex justify-center flex-col w-full h-full space-y-6 text-left">
               <li className="flex items-center space-x-3">
-                <svg className="flex-shrink-0 w-10 h-10 text-green-800 dark:text-green-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"></path></svg>
-                <span className="uppercase text-xl font-semibold group-hover:text-white">Emisión de Facturas ilimitadas</span>
+                <svg className="flex-shrink-0 w-5 h-5 text-green-800 dark:text-green-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"></path></svg>
+                <span className="uppercase text-base font-semibold group-hover:text-white">Emisión de Facturas ilimitadas</span>
               </li>
               <li className="flex items-center space-x-3">
-                <svg className="flex-shrink-0 w-10 h-10 text-green-800 dark:text-green-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"></path></svg>
-                <span className="uppercase text-xl font-semibold group-hover:text-white">Asesoría contable personalizada y especifíca de tu régimen</span>
+                <svg className="flex-shrink-0 w-5 h-5 text-green-800 dark:text-green-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"></path></svg>
+                <span className="uppercase text-base font-semibold group-hover:text-white">Asesoría contable personalizada y especifíca de tu régimen</span>
               </li>
               <li className="flex items-center space-x-3">
-                <svg className="flex-shrink-0 w-10 h-10 text-green-800 dark:text-green-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"></path></svg>
-                <span className="uppercase text-xl font-semibold group-hover:text-white">Soporte vía WhatsApp</span>
+                <svg className="flex-shrink-0 w-5 h-5 text-green-800 dark:text-green-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"></path></svg>
+                <span className="uppercase text-base font-semibold group-hover:text-white">Soporte vía WhatsApp</span>
               </li>
               <li className="flex items-center space-x-3">
-                <svg className="flex-shrink-0 w-10 h-10 text-green-800 dark:text-green-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"></path></svg>
-                <span className="uppercase text-xl font-semibold group-hover:text-white">Soporte vía correo electroníco</span>
+                <svg className="flex-shrink-0 w-5 h-5 text-green-800 dark:text-green-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"></path></svg>
+                <span className="uppercase text-base font-semibold group-hover:text-white">Soporte vía correo electroníco</span>
               </li>
               <li className="flex items-center space-x-3">
-                <svg className="flex-shrink-0 w-10 h-10 text-green-800 dark:text-green-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"></path></svg>
-                <span className="uppercase text-xl font-semibold group-hover:text-white">declaración de impuestos</span>
+                <svg className="flex-shrink-0 w-5 h-5 text-green-800 dark:text-green-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"></path></svg>
+                <span className="uppercase text-base font-semibold group-hover:text-white">declaración de impuestos</span>
               </li>
             </ul>
-            <a href="#" className="uppercase w-[80%] hover:bg-white hover:text-esatDark mx-auto rounded-md bg-LogoBlue py-2 px-4 text-white">Comprar ahora</a>
+            <a href="#" className="uppercase w-[80%] mt-auto hover:bg-white hover:text-esatDark mx-auto rounded-md bg-LogoBlue py-2 px-4 text-white">Comprar ahora</a>
           </div>
-          <div className="flex flex-col p-6 transition-all cursor-pointer group hover:bg-esatDark hover:scale-110 shadow-2xl mx-auto w-fit px-15 text-center text-gray-900 bg-white rounded-lg  xl:p-8 ">
-            <h3 className="mb-4 ml-5 text-4xl group-hover:text-white uppercase font-bold mr-auto">basico</h3>
+          <div className="flex flex-col p-6 transition-all cursor-pointer group hover:bg-esatDark hover:scale-105 shadow-2xl mx-auto w-fit px-15 text-center text-gray-900 bg-white rounded-lg  xl:p-8 ">
+            <h3 className="mb-4 ml-5 text-3xl group-hover:text-white uppercase font-bold mr-auto">pro</h3>
             <div className="flex ml-5 mb-5 justify-center items-baseline mr-auto my-2">
-              <span className="mr-2 text-6xl group-hover:text-white text-LogoBlue font-bold">$749</span>
+              <span className="mr-2 text-5xl group-hover:text-white text-LogoBlue font-bold">$749</span>
               <span className="text-black group-hover:text-white text-2xl">/mes</span>
               <span className="text-xs ml-2 group-hover:text-white">*iva incluido*</span>
             </div>
 
             <p className="text-xs text-gray-600 group-hover:text-white mb-3">Este plan esta hecho para profesionales o emprendedores con un 1 régimen fiscal (Plataformas tecnologicas, Actividad Empresarial o Arrendamiento)</p>
 
-            <ul role="list" className="mb-8 space-y-4 text-left">
+            <ul role="list" className="mb-8 space-y-4 flex flex-col justify-center h-full w-full text-left">
               <li className="flex items-center space-x-3">
-                <svg className="flex-shrink-0 w-10 h-10 text-green-800 dark:text-green-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"></path></svg>
-                <span className="uppercase text-xl font-semibold group-hover:text-white">Emisión de Facturas ilimitadas</span>
+                <svg className="flex-shrink-0 w-5 h-5 text-green-800 dark:text-green-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"></path></svg>
+                <span className="uppercase text-base font-semibold group-hover:text-white">Emisión de Facturas ilimitadas</span>
               </li>
               <li className="flex items-center space-x-3">
-                <svg className="flex-shrink-0 w-10 h-10 text-green-800 dark:text-green-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"></path></svg>
-                <span className="uppercase text-xl font-semibold group-hover:text-white">Asesoría contable personalizada y especifíca de tu régimen</span>
+                <svg className="flex-shrink-0 w-5 h-5 text-green-800 dark:text-green-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"></path></svg>
+                <span className="uppercase text-base font-semibold group-hover:text-white">Asesoría contable personalizada y especifíca de tu régimen</span>
               </li>
               <li className="flex items-center space-x-3">
-                <svg className="flex-shrink-0 w-10 h-10 text-green-800 dark:text-green-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"></path></svg>
-                <span className="uppercase text-xl font-semibold group-hover:text-white">Soporte vía WhatsApp</span>
+                <svg className="flex-shrink-0 w-5 h-5 text-green-800 dark:text-green-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"></path></svg>
+                <span className="uppercase text-base font-semibold group-hover:text-white">Soporte vía WhatsApp</span>
               </li>
               <li className="flex items-center space-x-3">
-                <svg className="flex-shrink-0 w-10 h-10 text-green-800 dark:text-green-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"></path></svg>
-                <span className="uppercase text-xl font-semibold group-hover:text-white">Soporte vía correo electroníco</span>
+                <svg className="flex-shrink-0 w-5 h-5 text-green-800 dark:text-green-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"></path></svg>
+                <span className="uppercase text-base font-semibold group-hover:text-white">Soporte vía correo electroníco</span>
               </li>
               <li className="flex items-center space-x-3">
-                <svg className="flex-shrink-0 w-10 h-10 text-green-800 dark:text-green-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"></path></svg>
-                <span className="uppercase text-xl font-semibold group-hover:text-white">declaración de impuestos</span>
+                <svg className="flex-shrink-0 w-5 h-5 text-green-800 dark:text-green-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"></path></svg>
+                <span className="uppercase text-base font-semibold group-hover:text-white">declaración de impuestos</span>
               </li>
             </ul>
-            <a href="#" className="uppercase w-[80%] hover:bg-white hover:text-esatDark mx-auto rounded-md bg-LogoBlue py-2 px-4 text-white">Comprar ahora</a>
+            <a href="#" className="uppercase mt-auto w-[80%] hover:bg-white hover:text-esatDark mx-auto rounded-md bg-LogoBlue py-2 px-4 text-white">Comprar ahora</a>
           </div>
-          <div className="flex flex-col p-6 transition-all cursor-pointer group hover:bg-esatDark hover:scale-110 shadow-2xl mx-auto w-fit px-15 text-center text-gray-900 bg-white rounded-lg  xl:p-8 ">
-            <h3 className="mb-4 ml-5 text-4xl group-hover:text-white uppercase font-bold mr-auto">premium</h3>
+          <div className="flex flex-col p-6 transition-all cursor-pointer group hover:bg-esatDark hover:scale-105 shadow-2xl mx-auto w-fit px-15 text-center text-gray-900 bg-white rounded-lg  xl:p-8 ">
+            <h3 className="mb-4 ml-5 text-3xl group-hover:text-white uppercase font-bold mr-auto">premium</h3>
             <div className="flex ml-5 mb-5 justify-center items-baseline mr-auto my-2">
-              <span className="mr-2 text-6xl group-hover:text-white text-LogoBlue font-bold">$1049</span>
+              <span className="mr-2 text-5xl group-hover:text-white text-LogoBlue font-bold">$1049</span>
               <span className="text-black group-hover:text-white text-2xl">/mes</span>
               <span className="text-xs ml-2 group-hover:text-white">*iva incluido*</span>
             </div>
@@ -218,26 +219,26 @@ export const Main = () => {
             <p className="text-xs text-gray-600 group-hover:text-white mb-3">Si cuentas con 2 o mas regímenes, este es tu plan ideal</p>
 
 
-            <ul role="list" className="mb-8 space-y-4 text-left">
+            <ul role="list" className="mb-8 flex flex-col h-full w-full justify-center space-y-4 text-left">
               <li className="flex items-center space-x-3">
-                <svg className="flex-shrink-0 w-10 h-10 text-green-800 dark:text-green-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"></path></svg>
-                <span className="uppercase text-xl font-semibold group-hover:text-white">Emisión de Facturas ilimitadas</span>
+                <svg className="flex-shrink-0 w-5 h-5 text-green-800 dark:text-green-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"></path></svg>
+                <span className="uppercase text-base font-semibold group-hover:text-white">Emisión de Facturas ilimitadas</span>
               </li>
               <li className="flex items-center space-x-3">
-                <svg className="flex-shrink-0 w-10 h-10 text-green-800 dark:text-green-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"></path></svg>
-                <span className="uppercase text-xl font-semibold group-hover:text-white">Asesoría contable personalizada y especifíca de tu régimen</span>
+                <svg className="flex-shrink-0 w-5 h-5 text-green-800 dark:text-green-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"></path></svg>
+                <span className="uppercase text-base font-semibold group-hover:text-white">Asesoría contable personalizada y especifíca de tu régimen</span>
               </li>
               <li className="flex items-center space-x-3">
-                <svg className="flex-shrink-0 w-10 h-10 text-green-800 dark:text-green-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"></path></svg>
-                <span className="uppercase text-xl font-semibold group-hover:text-white">Soporte vía WhatsApp</span>
+                <svg className="flex-shrink-0 w-5 h-5 text-green-800 dark:text-green-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"></path></svg>
+                <span className="uppercase text-base font-semibold group-hover:text-white">Soporte vía WhatsApp</span>
               </li>
               <li className="flex items-center space-x-3">
-                <svg className="flex-shrink-0 w-10 h-10 text-green-800 dark:text-green-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"></path></svg>
-                <span className="uppercase text-xl font-semibold group-hover:text-white">Soporte vía correo electroníco</span>
+                <svg className="flex-shrink-0 w-5 h-5 text-green-800 dark:text-green-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"></path></svg>
+                <span className="uppercase text-base font-semibold group-hover:text-white">Soporte vía correo electroníco</span>
               </li>
               <li className="flex items-center space-x-3">
-                <svg className="flex-shrink-0 w-10 h-10 text-green-800 dark:text-green-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"></path></svg>
-                <span className="uppercase text-xl font-semibold group-hover:text-white">declaración de impuestos</span>
+                <svg className="flex-shrink-0 w-5 h-5 text-green-800 dark:text-green-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"></path></svg>
+                <span className="uppercase text-base font-semibold group-hover:text-white">declaración de impuestos</span>
               </li>
             </ul>
             <a href="#" className="uppercase w-[80%] hover:bg-white hover:text-esatDark mx-auto rounded-md bg-LogoBlue py-2 px-4 text-white">Comprar ahora</a>
@@ -247,7 +248,7 @@ export const Main = () => {
       </div>
 
 
-      <div className="w-full block h-[260vh] md:h-[120vh] lg:h-[50vh] bg-white" />
+      <div className="w-full block h-[180vh] md:h-[120vh] lg:h-[50vh] bg-white" />
       {/* APP INFO */}
       <div className="w-full pt-[10%]  h-fit  flex flex-col">
         <div
@@ -283,13 +284,12 @@ export const Main = () => {
       {/* CURSOS */}
       <div className="w-full mt-10 flex h-fit flex-col items-center">
         <h2 className="text-3xl mt-5 md:text-5xl text-esatDark font-bold">Cursos</h2>
-        <h4 className="text-center text-base md:text-2xl text-esatDark font-medium my-4">
-          En EasySAT, cree en el poder del conocimiento.
-          <br /> Por eso te ofrecemos cursos interactivos y actualizados que te permitiran
-          <br /> profundizar tus conocimientos en contabilidad, impuestos y finanzas
+
+        <h4 className="text-center w-full md:w-[60%] text-base md:text-2xl text-esatDark font-medium my-4">
+        En EasySAT te ofrecemos cursos interactivos y actualizados que te permitirán profundizar tus conocimientos en contabilidad, impuestos y finanzas.
         </h4>
 
-        <div className="w-full px-[3%] my-5">
+        <div className="w-full md:w-[75%] px-[3%] my-5">
           <CursosCarousel array={filteredCourses} />
         </div>
 
@@ -326,7 +326,7 @@ export const Main = () => {
       {/* CONTACTO */}
       <MainC.Contacto />
 
-      {pathname == "/Prueba" && (
+      {pathname == "/" && (
         <div className="fixed  left-[3%] bottom-[3%] bg-slate-700 rounded-full w-20 h-20 md:w-32 md:h-32">
           <div></div>
         </div>

@@ -10,7 +10,7 @@ import {
 
 export const Preguntas = () => {
   return (
-    <div id='preguntas' className="w-full bg-white h-fit">
+    <div id='preguntas' className="w-full scroll-m-40 bg-white h-fit">
         <div className="px-[3%] md:px-[5%] lg:px-[10%] flex w-full h-fit  flex-col md:flex-row py-5 md:pt-5">
           <div className="md:w-1/2 relative h-full bg-transparent  flex justify-center items-center">
             <div

@@ -95,7 +95,7 @@ const BlogCarousel = ({ array, isPopular }) => {
       ref={CarouselRef}
       className="w-full relative h-fit  px-[3%] py-2"
     >
-      {!screenWidth < 750 && (
+      {!screenWidth < 750 || array.lenght > 3 && (
         <div className="h-full w-fit absolute flex justify-center items-center -left-[7%] lg:-left-[3%] z-10 top-0  p-4">
           <div className="w-fit h-fit flex shadow-md justify-center items-center   bg-white rounded-full">
             <ChevronLeft
@@ -123,7 +123,7 @@ const BlogCarousel = ({ array, isPopular }) => {
           </AnimatePresence>
         </div>
       </div>
-      {!screenWidth < 750 && (
+      {!screenWidth < 750 || array.lenght > 3 && (
         <div className="h-full w-fit absolute flex z-10 justify-center items-center -right-[2%] lg:-right-[1%] top-0  p-4">
           <div className="w-fit h-fit flex shadow-md justify-center items-center   bg-white rounded-full">
             <ChevronRight
