@@ -104,15 +104,15 @@ export const PreguntasFrecuentesData = [
     pregunta: "¿Por qué elegir EasySAT?",
     respuesta:
     [
-      '1.- Somos un despacho de contadores certificados con más de 10 años de experiencia',
-      '2.- Nuestra tecnologia te brindara un servicio más confiable y eficiente',
-      '3.- Te daremos cursos de actualización en temas fiscales',
+      '1.- Somos un despacho de contadores certificados con más de 10 años de experiencia.',
+      '2.- Nuestra tecnología te brindará un servicio más confiable y eficiente.',
+      '3.- Te daremos cursos de actualización en temas fiscales.',
     ]
   },
   {
     pregunta: "¿Cómo hablo con un contador si todo es en línea?",
     respuesta:
-      "Se te asignará un contador con el cual podrás tener acceso a una agenda de juntas periódicas, así como la atención vía WhatsApp para rápida consulta",
+      "Se te asignará un contador con el cual podrás tener acceso a una agenda de juntas periódicas, así como la atención vía WhatsApp para rápida consulta.",
   },
   {
     pregunta: "¿Mi información estará protegida?",
@@ -122,7 +122,7 @@ export const PreguntasFrecuentesData = [
   {
     pregunta: "Si no me gusto el servicio, ¿Puedo cancelar?",
     respuesta:
-      "Claro que sí, puedes cancelar el servicio en el momento que requieras, ya que no contamos con plazos forzosos",
+      "Claro que sí, puedes cancelar el servicio en el momento que requieras, ya que no contamos con plazos forzosos.",
   },
 ];
 
