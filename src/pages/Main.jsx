@@ -112,7 +112,7 @@ export const Main = () => {
           <div className="w-[200px] group transition-all cursor-pointer hover:h-full py-4 flex flex-col space-y-3 justify-center items-center h-[150px] bg-white rounded-md shadow-md">
             <img src={Facturación} className="h-[50px] mx-auto" alt="" />
             <h3 className="text-esatDark font-semibold md:text-xl text-base text-center">Facturación Electrónica</h3>
-            <p className="px-3 hidden group-hover:flex text-center">{servicioData[1].description}</p>
+            <p className="px-3 hidden group-hover:flex text-center">{servicioData[2].description}</p>
           </div>
           <div className="w-[200px] group transition-all cursor-pointer hover:h-full py-4 flex flex-col space-y-3 justify-center items-center h-[150px] bg-white rounded-md shadow-md">
             <img src={declaracion} className="h-[50px] mx-auto" alt="" />
@@ -259,11 +259,11 @@ export const Main = () => {
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             transition={{ delay: 0.2 }}
-            className="h-full mx-auto md:mx-0 w-[70%] md:w-[50%] mb-5 md:mb-0 lg:w-[35%] scale-[120%]"
+            className="h-full mx-auto md:mx-0 w-[70%] lg:translate-y-[20%] xl:translate-y-0 md:w-[50%] mb-5 md:mb-0 lg:w-[35%] lg:scale-[150%] xl:scale-[130%]"
             src={cell}
             alt=""
           />
-          <div className="md:w-[70%] mb-20 md:my-20 lg:mb-0 flex flex-col justify-center items-center">
+          <div className="md:w-[70%] mb-20 md:py-[15%] lg:mb-0 flex flex-col justify-center items-center">
             <h2 className="md:text-2xl lg:text-4xl text-lg  text-white text-center font-bold">
               !OBTEN LA APLICACION AHORA Y <br />
               EXPERIMENTA LA DIFERENCIA!

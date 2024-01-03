@@ -77,12 +77,12 @@ export const Navbar = () => {
 
       <div className={` hidden md:block transition-all py-4 px-3`}>
         <ul className='flex items-center gap-x-3'>
-          <a className={`uppercase hover:-translate-y-1 transition-all text-center ${isCurrentPath('#servicios') ? 'text-LogoBlue' : 'text-esatDark'}`} href="#servicios">servicios</a>
-          <a className={`uppercase hover:-translate-y-1 transition-all inline-block whitespace-nowrap text-center ${isCurrentPath('#preguntas') ? 'text-LogoBlue' : 'text-esatDark'}`} href="#preguntas">preguntas frecuentes</a>
+          <a className={`uppercase text-center ${isCurrentPath('#servicios') ? 'text-LogoBlue' : 'text-esatDark'}`} href="#servicios">servicios</a>
+          <a className={`uppercase inline-block whitespace-nowrap text-center ${isCurrentPath('#preguntas') ? 'text-LogoBlue' : 'text-esatDark'}`} href="#preguntas">preguntas frecuentes</a>
 
-          <Link className={`uppercase hover:-translate-y-1 transition-all text-center ${isCurrentPath('/cursos') ? 'text-LogoBlue' : 'text-esatDark'}`} to={'/cursos'}>Cursos</Link>
+          <Link className={`uppercase text-center ${isCurrentPath('/cursos') ? 'text-LogoBlue' : 'text-esatDark'}`} to={'/cursos'}>Cursos</Link>
 
-          <a className={`uppercase hover:-translate-y-1 transition-all text-center ${isCurrentPath('#contacto') ? 'text-LogoBlue' : 'text-esatDark'}`} href="#contacto">Contacto</a>
+          <a className={`uppercase text-center ${isCurrentPath('#contacto') ? 'text-LogoBlue' : 'text-esatDark'}`} href="#contacto">Contacto</a>
 
           {
             User ? (<li><div className="flex py-1 cursor-pointer  transition-all items-center justify-between md:justify-start md:gap-x-3">
