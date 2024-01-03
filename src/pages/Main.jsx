@@ -144,7 +144,7 @@ export const Main = () => {
             <div className="flex ml-5 mb-5 justify-center items-baseline mr-auto my-2">
               <span className="mr-2 text-5xl group-hover:text-white text-LogoBlue font-bold">$579</span>
               <span className="text-black group-hover:text-white text-2xl">/mes</span>
-              <span className="text-xs ml-2 group-hover:text-white">*iva incluido*</span>
+              <span className="text-xs ml-2 group-hover:text-white">*IVA incluido*</span>
             </div>
 
             <p className="text-xs text-gray-600 group-hover:text-white mb-3">Plan diseñado para personas físicas que tributan en RESICO o RIF</p>
@@ -179,7 +179,7 @@ export const Main = () => {
             <div className="flex ml-5 mb-5 justify-center items-baseline mr-auto my-2">
               <span className="mr-2 text-5xl group-hover:text-white text-LogoBlue font-bold">$749</span>
               <span className="text-black group-hover:text-white text-2xl">/mes</span>
-              <span className="text-xs ml-2 group-hover:text-white">*iva incluido*</span>
+              <span className="text-xs ml-2 group-hover:text-white">*IVA incluido*</span>
             </div>
 
             <p className="text-xs text-gray-600 group-hover:text-white mb-3">Este plan esta hecho para profesionales o emprendedores con un 1 régimen fiscal (Plataformas tecnologicas, Actividad Empresarial o Arrendamiento)</p>
@@ -213,7 +213,7 @@ export const Main = () => {
             <div className="flex ml-5 mb-5 justify-center items-baseline mr-auto my-2">
               <span className="mr-2 text-5xl group-hover:text-white text-LogoBlue font-bold">$1049</span>
               <span className="text-black group-hover:text-white text-2xl">/mes</span>
-              <span className="text-xs ml-2 group-hover:text-white">*iva incluido*</span>
+              <span className="text-xs ml-2 group-hover:text-white">*IVA incluido*</span>
             </div>
 
             <p className="text-xs text-gray-600 group-hover:text-white mb-3">Si cuentas con 2 o mas regímenes, este es tu plan ideal</p>
