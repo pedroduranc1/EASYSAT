@@ -120,7 +120,7 @@ export const PreguntasFrecuentesData = [
       "Si, cuando envías tus datos por esta página, te enviamos nuestro aviso de privacidad, dando buen uso a toda la información que nos otorgas.",
   },
   {
-    pregunta: "¿Si no me gusto el servicio, puedo cancelar?",
+    pregunta: "Si no me gusto el servicio, ¿Puedo cancelar?",
     respuesta:
       "Claro que si, puedes cancelar el servicio en el momento que requieras, ya que no contamos con plazos forzosos",
   },
