@@ -96,12 +96,12 @@ export const meses = [
 
 export const PreguntasFrecuentesData = [
   {
-    pregunta: "Qué necesito para empezar?",
+    pregunta: "¿Qué necesito para empezar?",
     respuesta:
       "Solo requieres tu RFC y CIEC (contraseña de acceso al SAT), con ella iniciaremos realizando un diagnóstico de tu situación fiscal y el proceso a seguir para regularizarte ante el SAT, esto en una reunión 1 a 1 en linea via zoom. En caso de no contar con tu contraseña, nosotros te brindamos la asesoría para obtenerla.",
   },
   {
-    pregunta: "Por qué elegir EasySAT?",
+    pregunta: "¿Por qué elegir EasySAT?",
     respuesta:
     [
       '1.- Somos un despacho de contadores certificados con más de 10 años de experiencia',
@@ -110,17 +110,17 @@ export const PreguntasFrecuentesData = [
     ]
   },
   {
-    pregunta: "Cómo hablo con un contador si todo es en línea?",
+    pregunta: "¿Cómo hablo con un contador si todo es en línea?",
     respuesta:
       "Se te asignará un contador con el cual podrás tener acceso a una agenda de juntas periódicas, así como la atención vía WhatsApp para rápida consulta",
   },
   {
-    pregunta: "Mi información estará protegida?",
+    pregunta: "¿Mi información estará protegida?",
     respuesta:
       "Si, cuando envías tus datos por esta página, te enviamos nuestro aviso de privacidad, dando buen uso a toda la información que nos otorgas.",
   },
   {
-    pregunta: "Si no me gusto el servicio, puedo cancelar?",
+    pregunta: "¿Si no me gusto el servicio, puedo cancelar?",
     respuesta:
       "Claro que si, puedes cancelar el servicio en el momento que requieras, ya que no contamos con plazos forzosos",
   },
