@@ -9,7 +9,7 @@ export const servicioData =[
   },
   {
     title:"Facturación electrónica",
-    description:"Agiliza tus procesoss con la emisión de CDFI 4.0 de manera facil y segura"
+    description:"Agiliza tus procesos con la emisión de CDFI 4.0 de manera fácil y segura"
   },
   {
     title: "Declaración de impuestos personales y empresariales",
