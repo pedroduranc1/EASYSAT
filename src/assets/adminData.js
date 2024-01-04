@@ -98,7 +98,7 @@ export const PreguntasFrecuentesData = [
   {
     pregunta: "¿Qué necesito para empezar?",
     respuesta:
-      "Solo requieres tu RFC y CIEC (contraseña de acceso al SAT), con ella iniciaremos realizando un diagnóstico de tu situación fiscal y el proceso a seguir para regularizarte ante el SAT, esto en una reunión 1 a 1 en linea via zoom. En caso de no contar con tu contraseña, nosotros te brindamos la asesoría para obtenerla.",
+      "Solo requieres tu RFC y CIEC (contraseña de acceso al SAT), con ella iniciaremos realizando un diagnóstico de tu situación fiscal y el proceso a seguir para regularizarte ante el SAT, esto en una reunión 1 a 1 en línea vía zoom. En caso de no contar con tu contraseña, nosotros te brindamos la asesoría para obtenerla.",
   },
   {
     pregunta: "¿Por qué elegir EasySAT?",

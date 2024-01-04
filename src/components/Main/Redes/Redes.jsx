@@ -10,11 +10,11 @@ export const Redes = () => {
       <div className="absolute inset-0 bg-white">
         <div className="md:px-[20%] py-5 md:pt-5">
           <div className="space-y-3 p-4">
-            <h2 className="text-esatDark text-4xl md:text-5xl uppercase text-center">
-              Síguenos en Nuestas
+            <h2 className="text-esatDark text-4xl md:text-5xl text-center">
+            Síguenos en nuestras
             </h2>
-            <h4 className="text-esatDark text-4xl md:text-5xl uppercase text-center">
-              Redes Sociales
+            <h4 className="text-esatDark text-4xl md:text-5xl text-center">
+            redes sociales
             </h4>
 
             <div className="flex justify-center space-x-10 pt-7">
