@@ -71,7 +71,7 @@ export const Navbar = () => {
   return (
     <div className='fixed bg-white shadow-md z-50 w-full flex px-[3%] md:px-[5%] lg:px-[10%] py-5 items-center justify-between'>
       <Link onClick={()=>{if(location.pathname === "/"){scrollToTop()}}} to={"/"}>
-        <img src={logo} className='aspect-auto w-fit h-[70px]' alt="" />
+        <img src={logo} className='w-[25%] h-full' alt="" />
       </Link>
 
 
@@ -115,7 +115,7 @@ export const Navbar = () => {
         </ul>
       </div>
 
-      <Menu className='block md:hidden' size={30} onClick={handleMenuToggle} />
+      <Menu className='block w-[50%] md:hidden' size={30} onClick={handleMenuToggle} />
       <AnimatePresence>
         {toggleMenu && (
           <motion.div

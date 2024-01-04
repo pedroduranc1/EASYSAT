@@ -8,8 +8,8 @@ import { useFormik } from "formik";
 import { Auth } from "../../api/fb.auth";
 import { Link, useNavigate } from "react-router-dom";
 import { useToast } from "../../components/ui/use-toast";
-import fondo from '../../assets/fondo.webp'
-import logo from '../../assets/logo.webp'
+import logo from '../../assets/logo.png'
+import loginimg from '../../assets/blogs.webp'
 
 const AuthCtrl = new Auth();
 
@@ -67,143 +67,76 @@ export const LoginPage = () => {
 
   return (
     <AuthLayout>
-      <div className="flex items-center justify-center h-full md:h-screen overflow-hidden bg-fixed bg-center bg-cover"
-      style={{backgroundImage:`url(${fondo})`}}
+      <div className="flex items-center justify-center h-screen max-h-screen overflow-hidden bg-gradient-to-t from-esatDark via-LogoBlue to-cyan-400"
       >
-        <div className="w-full h-screen pt-[10%] md:pt-0">
-          <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-[70vh] lg:py-0">
-            <img src={logo} className="w-[150px] mb-5" alt="" />
-            <div className="w-full bg-white rounded-lg shadow  md:mt-0 sm:max-w-md xl:p-0 ">
-              <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
-                <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl ">
-                  Inicia Sesion
-                </h1>
-                <form
-                  className="space-y-4 md:space-y-6"
-                  onSubmit={formik.handleSubmit}
-                >
-                  <div>
-                    <label
-                      htmlFor="email"
-                      className="block mb-2 text-sm font-medium text-gray-900 "
-                    >
-                      Correo
-                    </label>
-                    <input
-                      name="email"
-                      type="text"
-                      placeholder="name@company.com"
-                      value={formik.values.email}
-                      onChange={formik.handleChange}
-                      className={`bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5
-                        ${
-                          formik.errors.email &&
-                          "bg-red-500 text-white placeholder:text-white"
-                        }
-                        `}
-                    />
-                  </div>
-                  <div>
-                    <label
-                      htmlFor="password"
-                      className="block mb-2 text-sm font-medium text-gray-900 "
-                    >
-                      Contrasena
-                    </label>
-                    <div
-                      className={`bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 w-full p-2.5 flex justify-between
-                      ${formik.errors.password && "bg-red-500"}
-                      `}
-                    >
-                      <input
-                        className={`w-full bg-transparent outline-none border-0 focus:border-0 focus:ring-0 active:ring-0 active:border-0
-                      ${
-                        formik.errors.password &&
-                        "placeholder:text-white text-white"
-                      }
-                      `}
-                        type={togglePassword ? "text" : "password"}
-                        name="password"
-                        placeholder="*********"
-                        value={formik.values.password}
-                        onChange={formik.handleChange}
-                      />
-                      {togglePassword ? (
-                        <EyeOff
-                          className={`cursor-pointer ${
-                            formik.errors.password && "text-white"
-                          }`}
-                          onClick={handleTogglePassword}
-                        />
-                      ) : (
-                        <Eye
-                          className={`cursor-pointer ${
-                            formik.errors.password && "text-white"
-                          }`}
-                          onClick={handleTogglePassword}
-                        />
-                      )}
-                    </div>
-                  </div>
-                  <button
-                    type="submit"
-                    className="w-full flex justify-center text-white bg-black hover:bg-black/70 transition-colors focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center "
-                  >
-                    {formik.isSubmitting ? (
-                      <Loader2 className="animate-spin animate-infinite" />
-                    ) : (
-                      "Iniciar Sesion"
-                    )}
-                  </button>
-                  <h4>No tienes cuenta? <Link to="/Registro" className="underline">Registrate Aqui</Link></h4>
-                </form>
-              </div>
-            </div>
-          </div>
 
-          <div className="flex flex-col w-full justify-center">
-            <motion.h1
-              initial={{ opacity: 0, translateY: "-50%" }}
-              whileInView={{ opacity: 1, translateY: 0 }}
-              transition={{ delay: 0.2 }}
-              className="text-xl flex justify-center w-full text-white text-justify mb-5 md:text-2xl font-bold"
-            >
-              Iniciando Sesion tendras acceso <br /> a los siguientes productos
-            </motion.h1>
-            <ul className="w-full grid grid-cols-1 md:grid-cols-3 h-fit ">
-              <motion.li 
-              initial={{opacity:0,translateX:"-50%"}}
-              animate={{opacity:1,translateX:0}}
-              transition={{delay:0.3}}
-              className="w-full h-fit flex md:justify-center items-center px-6 py-2">
-                <Check className="mr-2 text-white" />
-                <div className="text-white">
-                  <h2>Acesso a tu cuenta de contabilidad</h2>
-                  <h4>Maneja y archiva todos tus registros contables.</h4>
-                </div>
-              </motion.li>
-              <motion.li 
-              initial={{opacity:0,translateX:"-50%"}}
-              animate={{opacity:1,translateX:0}}
-              transition={{delay:0.4}}
-              className="w-full h-fit flex md:justify-center items-center px-6 py-2">
-                <Check className="mr-2 text-white" />
-                <div className="text-white">
-                  <h2>Cursos Personalizados</h2>
-                  <h4>Obten Cursos de los mejores en el area.</h4>
-                </div>
-              </motion.li>
-              <motion.li 
-              initial={{opacity:0,translateX:"-50%"}}
-              animate={{opacity:1,translateX:0}}
-              transition={{delay:0.5}}
-              className="w-full h-fit flex md:justify-center items-center px-6 py-2">
-                <Check className="mr-2 text-white" />
-                <div className="text-white">
-                  <h2>Y muchas cosas mas.</h2>
-                </div>
-              </motion.li>
-            </ul>
+        <div className="w-[90%] md:w-[70%] flex mx-auto overflow-hidden rounded-md h-[80%] bg-white">
+          <div className="w-1/2 hidden md:flex relative bg-black h-full">
+            <img src={loginimg} className="w-full h-full" alt="" />
+            <div className="absolute inset-0 bg-black/70" />
+          </div>
+          <div className="w-full md:w-1/2 flex px-7 flex-col items-center pt-[5%] h-full">
+            <img className="w-1/2 " src={logo} alt="" />
+
+            <h2 className="text-black text-2xl font-bold mt-5">Iniciar Sesion</h2>
+            <h3 className="text-black/70">Bienvenido de nuevo! Ingresa tus datos</h3>
+
+            <form
+              className="w-full flex flex-col items-center"
+              onSubmit={formik.handleSubmit}>
+              <label className="mr-auto mt-7 text-esatDark" htmlFor="email">Correo electrónico</label>
+              <input
+                name="email"
+                type="email"
+                value={formik.values.email}
+                onChange={formik.handleChange}
+                className={`w-full py-2 px-2 transition-all outline-none border-[1px] rounded-md border-gray-200 focus:border-gray-600
+                ${formik.errors.email &&
+                  "border-red-500 border-2 text-white placeholder:text-red-600"
+                  }
+                `} />
+
+              <label className="mr-auto mt-3 text-esatDark" htmlFor="">Contraseña</label>
+              <div
+                className={`w-full py-2 px-2 transition-all outline-none border-[1px] flex justify-between rounded-md border-gray-200 focus:border-gray-600
+                      ${formik.errors.password && "border-red-600"}
+                      `}
+              >
+                <input
+                  className={`w-full bg-transparent outline-none border-0 focus:border-0 focus:ring-0 active:ring-0 active:border-0
+                      ${formik.errors.password &&
+                    "placeholder:text-red-600 text-red-500"
+                    }
+                      `}
+                  type={togglePassword ? "text" : "password"}
+                  name="password"
+                  value={formik.values.password}
+                  onChange={formik.handleChange}
+                />
+                {togglePassword ? (
+                  <EyeOff
+                    className={`cursor-pointer ${formik.errors.password && "text-red-500"
+                      }`}
+                    onClick={handleTogglePassword}
+                  />
+                ) : (
+                  <Eye
+                    className={`cursor-pointer ${formik.errors.password && "text-red-500"
+                      }`}
+                    onClick={handleTogglePassword}
+                  />
+                )}
+              </div>
+
+              <div className="mt-3 ml-auto text-base text-esatDark">Recordar Contraseña <input type="checkbox" /></div>
+
+              <button className="mt-10 md:mt-4 w-[70%] text-white mx-auto py-2 rounded-md bg-gradient-to-r from-esatDark via-LogoBlue to-cyan-600">Iniciar Sesion</button>
+              <Link to="#" className="underline font-light text-cyan-800 mt-10" >Olvide mi Contraseña</Link>
+              <Link className="font-light mb-5 md:mb-0" to="/registro">No tienes cuenta? <span className="text-cyan-800">Registrate</span></Link>
+            </form>
+
+
+
           </div>
         </div>
       </div>
