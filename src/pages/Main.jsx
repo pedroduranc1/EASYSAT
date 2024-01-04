@@ -191,7 +191,7 @@ export const Main = () => {
               </li>
               <li className="flex items-center space-x-3">
                 <svg className="flex-shrink-0 w-5 h-5 text-green-800 dark:text-green-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"></path></svg>
-                <span className="text-base font-semibold group-hover:text-white">Asesoría contable personalizada y especifíca de tu régimen</span>
+                <span className="text-base font-semibold group-hover:text-white">Asesoría contable personalizada y específica de tu régimen</span>
               </li>
               <li className="flex items-center space-x-3">
                 <svg className="flex-shrink-0 w-5 h-5 text-green-800 dark:text-green-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"></path></svg>
@@ -216,7 +216,7 @@ export const Main = () => {
               <span className="text-xs ml-2 group-hover:text-white">*IVA incluido*</span>
             </div>
 
-            <p className="text-xs text-gray-600 group-hover:text-white mb-3">Si cuentas con 2 o mas regímenes, este es tu plan ideal</p>
+            <p className="text-xs text-gray-600 group-hover:text-white mb-3">Si cuentas con 2 o más regímenes, este es tu plan ideal</p>
 
 
             <ul role="list" className="mb-8 flex flex-col h-full w-full justify-center space-y-4 text-left">
@@ -226,7 +226,7 @@ export const Main = () => {
               </li>
               <li className="flex items-center space-x-3">
                 <svg className="flex-shrink-0 w-5 h-5 text-green-800 dark:text-green-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"></path></svg>
-                <span className="text-base font-semibold group-hover:text-white">Asesoría contable personalizada y especifíca de tu régimen</span>
+                <span className="text-base font-semibold group-hover:text-white">Asesoría contable personalizada y específica de tu régimen</span>
               </li>
               <li className="flex items-center space-x-3">
                 <svg className="flex-shrink-0 w-5 h-5 text-green-800 dark:text-green-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"></path></svg>
