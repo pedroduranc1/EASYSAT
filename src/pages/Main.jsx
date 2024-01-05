@@ -82,9 +82,9 @@ export const Main = () => {
         style={{ backgroundImage: `url(${bgImage})` }}
       >
         <div className="w-full flex flex-col items-center justify-center h-full bg-gradient-to-t min-h-screen from-esatLight from-[15%] via-transparent  to-white">
-          <h1 className="uppercase text-4xl lg:text-7xl font-bold text-esatDark">Contabilidad para</h1>
+          <h1 className=" text-4xl lg:text-7xl font-bold text-esatDark">Contabilidad para</h1>
           <div className="flex items-center">
-            <h2 className="uppercase text-4xl lg:text-7xl flex font-bold text-esatDark mt-[1%]">
+            <h2 className=" text-4xl lg:text-7xl flex font-bold text-esatDark mt-[1%]">
               Personas
             </h2>
             <div className="w-full ml-3 h-fit p-5 bg-contain bg-no-repeat bg-center"
@@ -100,24 +100,24 @@ export const Main = () => {
 
       {/* SERVICIOS */}
       <div id="servicios" className="w-full h-fit hover:transition-all scroll-m-40 bg-esatLight flex flex-col justify-center items-center">
-        <h2 className="text-5xl font-semibold uppercase text-esatDark">servicios</h2>
+        <h2 className="text-5xl font-semibold  text-esatDark">Servicios</h2>
         <p className="text-esatDark text-2xl mt-2 text-center">Expertos en simplificar tus impuestos y maximizar tus beneficios. <br />Descubre nuestros servicios</p>
 
         <div className="md:px-[20%] px-[5%]  flex flex-wrap gap-10 py-[7%] place-content-center h-fit bg-esatLight w-full">
-          <div className="w-[200px] transition-all cursor-pointer hover:h-full py-4 flex flex-col group space-y-3 justify-center items-center h-[150px] bg-white rounded-md shadow-md">
+          <div className="w-[250px] transition-all cursor-pointer py-6 flex flex-col group space-y-3 items-center h-[300px] bg-white rounded-md shadow-md">
             <img src={aseFiscal} className="h-[50px] mx-auto" alt="" />
             <h3 className="text-esatDark font-semibold md:text-xl text-base text-center">{servicioData[0].title}</h3>
-            <p className="px-3 hidden group-hover:flex text-center">{servicioData[0].description}</p>
+            <p className="px-3  text-center">{servicioData[0].description}</p>
           </div>
-          <div className="w-[200px] group transition-all cursor-pointer hover:h-full py-4 flex flex-col space-y-3 justify-center items-center h-[150px] bg-white rounded-md shadow-md">
+          <div className="w-[250px] group transition-all cursor-pointer py-6 flex flex-col space-y-3 items-center h-[300px] bg-white rounded-md shadow-md">
             <img src={Facturación} className="h-[50px] mx-auto" alt="" />
             <h3 className="text-esatDark font-semibold md:text-xl text-base text-center">Facturación Electrónica</h3>
-            <p className="px-3 hidden group-hover:flex text-center">{servicioData[2].description}</p>
+            <p className="px-3  text-center">{servicioData[2].description}</p>
           </div>
-          <div className="w-[200px] group transition-all cursor-pointer hover:h-full py-4 flex flex-col space-y-3 justify-center items-center h-[150px] bg-white rounded-md shadow-md">
+          <div className="w-[250px] group transition-all cursor-pointer py-6 flex flex-col space-y-3 items-center h-[300px] bg-white rounded-md shadow-md">
             <img src={declaracion} className="h-[50px] mx-auto" alt="" />
             <h3 className="text-esatDark font-semibold md:text-xl text-base text-center">Declaración de Impuestos</h3>
-            <p className="px-3 text-sm hidden group-hover:flex text-center">{servicioData[3].description}</p>
+            <p className="px-3 text-sm  text-center">{servicioData[3].description}</p>
           </div>
         </div>
       </div>
@@ -125,7 +125,7 @@ export const Main = () => {
       {/* PRICING */}
       <div className="w-full h-[70vh] hover:transition-all pb-[10%] relative bg-white">
         <div className="bg-esatLight w-full py-[3%] flex flex-col  items-center ">
-          <h3 className="text-center uppercase text-3xl md:text-5xl font-semibold text-esatDark">
+          <h3 className="text-center text-3xl md:text-5xl font-semibold text-esatDark">
             Descubre <br />Nuestros Paquetes
           </h3>
           <p className="mt-3 text-center text-base md:text-2xl font-medium  text-esatDark">Diseñados para adaptarse a tus necesidades específicas y <br />

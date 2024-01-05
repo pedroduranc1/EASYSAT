@@ -29,8 +29,8 @@ module.exports = {
         'imagenPalabraMotivadora': `url(./src/assets/nosotros1.webp)`
       },
       colors: {
-        esatDark:"#0d2437",
-        esatLight:"#98d4e6",
+        esatDark:"#0f2538",
+        esatLight:"#29b9e5",
         DgyaLight: "#137EB7",
         DgyaBase: "#1867AF",
         DgyaDark: "#002C86",
