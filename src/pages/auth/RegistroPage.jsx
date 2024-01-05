@@ -317,7 +317,7 @@ export const RegistroPage = () => {
             </div>
 
             <div className="flex justify-center mt-3">
-              <span className="font-light mb-5">Ya tienes cuenta? <Link to="/login">Inicia Sesión</Link></span>
+              <span className="font-light mb-5">¿Ya tienes cuenta? <Link to="/login">Inicia Sesión</Link></span>
 
             </div>
 
