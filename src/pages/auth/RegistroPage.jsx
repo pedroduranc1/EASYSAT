@@ -190,8 +190,8 @@ export const RegistroPage = () => {
         <form onSubmit={formik.handleSubmit} className="bg-white w-[90%] md:w-[50%] lg:w-[30%] h-[90%] rounded-2xl shadow-2xl overflow-hidden">
           <img src={logo} className="w-[45%] pt-5 mx-auto" alt="" />
 
-          <h2 className="text-center text-xl md:text-3xl mt-10 font-bold">!Bienvenido a easySAT!</h2>
-          <p className="text-center text-[13px] font-light text-esatDark mt-1">Registrate para acceder a la plataforma</p>
+          <h2 className="text-center text-xl md:text-3xl mt-10 font-bold">¡Bienvenido a easySAT!</h2>
+          <p className="text-center text-[13px] font-light text-esatDark mt-1">Regístrate para acceder a la plataforma</p>
 
           <div className="w-[90%] md:w-[80%] mt-7 mx-auto">
 
@@ -231,7 +231,7 @@ export const RegistroPage = () => {
               <input
                 name="email"
                 type="email"
-                placeholder="Introduce tu correo electronico"
+                placeholder="Introduce tu correo electrónico"
                 value={formik.values.email}
                 onChange={formik.handleChange}
                 className={`w-full py-2 px-2 transition-all outline-none border-[1px] rounded-md border-gray-200 focus:border-gray-600
@@ -309,11 +309,11 @@ export const RegistroPage = () => {
             </div>
 
             <div className="mt-2 gap-x-2 flex justify-start">
-              <input type="checkbox" /> Acepto los Terminos y Condiciones
+              <input type="checkbox" /> Acepto los Términos y Condiciones
             </div>
 
             <div className="flex justify-center">
-              <button className="mt-10 md:mt-4 w-[70%] text-white mx-auto py-2 rounded-md bg-gradient-to-r from-esatDark via-LogoBlue to-cyan-600">Registrate</button>
+              <button className="mt-10 md:mt-4 w-[70%] text-white mx-auto py-2 rounded-md bg-gradient-to-r from-esatDark via-LogoBlue to-cyan-600">Regístrate</button>
             </div>
 
             <div className="flex justify-center mt-3">
