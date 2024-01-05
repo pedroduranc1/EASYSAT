@@ -129,9 +129,9 @@ export const LoginPage = () => {
 
               <div className="mt-3 ml-auto text-base text-esatDark">Recordar Contraseña <input type="checkbox" /></div>
 
-              <button className="mt-10 md:mt-4 w-[70%] text-white mx-auto py-2 rounded-md bg-gradient-to-r from-esatDark via-LogoBlue to-cyan-600">{formik.isSubmitting ? (<div className="flex justify-center transition-transform animate-spin"><Loader2/></div>) : "Iniciar Sesion"} </button>
-              <Link to="#" className="underline font-light text-cyan-800 mt-10" >Olvide mi Contraseña</Link>
-              <span className="font-light mb-5 md:mb-0">No tienes cuenta?  <Link to="/registro" className="text-cyan-800">Registrate</Link></span>
+              <button className="mt-10 md:mt-4 w-[70%] text-white mx-auto py-2 rounded-md bg-gradient-to-r from-esatDark via-LogoBlue to-cyan-600">{formik.isSubmitting ? (<div className="flex justify-center transition-transform animate-spin"><Loader2/></div>) : "Iniciar Sesión"} </button>
+              <Link to="#" className="underline font-light text-cyan-800 mt-10" >Olvidé mi Contraseña</Link>
+              <span className="font-light mb-5 md:mb-0">¿No tienes cuenta?  <Link to="/registro" className="text-cyan-800">Registrate</Link></span>
             </form>
 
 
