@@ -3,7 +3,7 @@ import logo from "../assets/logocolor.webp";
 import { Link, useLocation } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
-import { LogOut, Menu, UserIcon } from 'lucide-react';
+import { LogOut, Menu, User2, UserIcon } from 'lucide-react';
 import { AnimatePresence, motion } from 'framer-motion';
 
 export const Navbar = () => {
@@ -70,7 +70,7 @@ export const Navbar = () => {
 
   return (
     <div className='fixed bg-white shadow-md z-50 w-full flex px-[3%] md:px-[5%] lg:px-[10%] py-5 items-center justify-between'>
-      <Link onClick={()=>{if(location.pathname === "/"){scrollToTop()}}} to={"/"}>
+      <Link onClick={() => { if (location.pathname === "/") { scrollToTop() } }} to={"/"}>
         <img src={logo} className='w-[25%] h-full' alt="" />
       </Link>
 
@@ -88,19 +88,15 @@ export const Navbar = () => {
             User ? (<li><div className="flex py-1 cursor-pointer  transition-all items-center justify-between md:justify-start md:gap-x-3">
               <Link
                 to="/Perfil"
-                className="w-full flex gap-x-3 items-center"
+                className="w-[130px] flex border-2 cursor-pointer border-LogoBlue rounded-md px-3 py-1 gap-x-1 items-center"
               >
-                <Avatar>
-                  <AvatarImage src={User.Img_url} />
-                  <AvatarFallback className="bg-black">
-                    <UserIcon className="text-white" />
-                  </AvatarFallback>
-                </Avatar>
-                {User.Username && <p>{User.Username}</p>}
+                <User2 className='text-LogoBlue' />
+                <p className='w-full text-LogoBlue uppercase text-[14px]'>mi cuenta</p>
+
               </Link>
               <LogOut
                 onClick={logout}
-                className="w-5 h-5 cursor-pointer"
+                className="w-5 h-5 text-LogoBlue cursor-pointer"
               />
             </div></li>) : (<>
               <li className='hover:-translate-y-1 transition-all'>

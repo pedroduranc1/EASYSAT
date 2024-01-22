@@ -11,17 +11,9 @@ import {
 export const Preguntas = () => {
   return (
     <div id='preguntas' className="w-full scroll-m-40 bg-white h-fit">
-        <div className="px-[3%] md:px-[5%] lg:px-[10%] flex w-full h-fit  flex-col md:flex-row py-5 md:pt-5">
-          <div className="md:w-1/2 relative h-full bg-transparent  flex justify-center items-center">
-            <div
-              className="w-full h-[45dvh] invert grayscale opacity-20 bg-center bg-contain bg-no-repeat"
-              style={{ backgroundImage: `url(${logoBuho})` }}
-            ></div>
-            <h2 className="absolute  text-LogoBlue text-3xl font-bold">
-              Preguntas Frecuentes
-            </h2>
-          </div>
-          <div className="md:w-1/2 my-auto flex items-center justify-center h-full">
+        <div className="px-[3%] md:px-[5%] lg:px-[10%] flex w-full h-fit  flex-col  py-5 md:pt-5">
+        <h2 className="text-3xl font-semibold mx-auto my-3  text-esatDark">Preguntas Frecuentes</h2>
+          <div className="md:w-[70%] mx-auto my-auto flex items-center justify-center h-full">
             <Accordion type="single" collapsible className="w-full">
               {PreguntasFrecuentesData.map((preg, index) => (
                 <AccordionItem key={index} value={`item-${index}`}>

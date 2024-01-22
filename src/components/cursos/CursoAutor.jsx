@@ -81,10 +81,6 @@ export const CursoAutor = ({ id, blog }) => {
           )}
           <span className="text-gray-600">{blog?.likes?.length}</span>
         </div>
-        <div className="w-1/2 flex justify-end">
-          <MessagesSquare className="w-5 mr-2 text-gray-600" />
-          <span className="text-gray-600">{Coments?.length}</span>
-        </div>
       </div>
     </div>
   );

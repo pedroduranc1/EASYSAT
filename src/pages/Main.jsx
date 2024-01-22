@@ -81,7 +81,7 @@ export const Main = () => {
         className="bg-blue-500 w-full h-full min-h-screen bg-center bg-cover"
         style={{ backgroundImage: `url(${bgImage})` }}
       >
-        <div className="w-full flex flex-col items-center justify-center h-full bg-gradient-to-t min-h-screen from-esatLight from-[15%] via-transparent  to-white">
+        <div className="w-full flex flex-col items-center justify-center h-full bg-gradient-to-t min-h-screen  from-LogoBlue from-[15%] via-transparent  to-white">
           <h1 className=" text-4xl lg:text-7xl font-bold text-esatDark">Contabilidad para</h1>
           <div className="flex items-center">
             <h2 className=" text-4xl lg:text-7xl flex font-bold text-esatDark mt-[1%]">
@@ -99,32 +99,32 @@ export const Main = () => {
       </div>
 
       {/* SERVICIOS */}
-      <div id="servicios" className="w-full h-fit hover:transition-all scroll-m-40 bg-esatLight flex flex-col justify-center items-center">
+      <div id="servicios" className="w-full h-fit hover:transition-all scroll-m-40 bg-LogoBlue flex flex-col justify-center items-center">
         <h2 className="text-5xl font-semibold  text-esatDark">Servicios</h2>
         <p className="text-esatDark text-2xl mt-2 text-center">Expertos en simplificar tus impuestos y maximizar tus beneficios. <br />Descubre nuestros servicios</p>
 
-        <div className="md:px-[20%] px-[5%]  flex flex-wrap gap-10 py-[7%] place-content-center h-fit bg-esatLight w-full">
+        <div className="md:px-[10%] px-[5%]  flex flex-wrap gap-10 py-[7%] place-content-center h-fit bg-LogoBlue w-full">
           <div className="w-[250px] transition-all cursor-pointer py-6 flex flex-col group space-y-3 items-center h-[300px] bg-white rounded-md shadow-md">
             <img src={aseFiscal} className="h-[50px] mx-auto" alt="" />
             <h3 className="text-esatDark font-semibold md:text-xl text-base text-center">{servicioData[0].title}</h3>
-            <p className="px-3  text-center">{servicioData[0].description}</p>
+            <p className="px-3  text-start">{servicioData[0].description}</p>
           </div>
           <div className="w-[250px] group transition-all cursor-pointer py-6 flex flex-col space-y-3 items-center h-[300px] bg-white rounded-md shadow-md">
             <img src={Facturación} className="h-[50px] mx-auto" alt="" />
             <h3 className="text-esatDark font-semibold md:text-xl text-base text-center">Facturación Electrónica</h3>
-            <p className="px-3  text-center">{servicioData[2].description}</p>
+            <p className="px-3  text-start">{servicioData[2].description}</p>
           </div>
           <div className="w-[250px] group transition-all cursor-pointer py-6 flex flex-col space-y-3 items-center h-[300px] bg-white rounded-md shadow-md">
             <img src={declaracion} className="h-[50px] mx-auto" alt="" />
             <h3 className="text-esatDark font-semibold md:text-xl text-base text-center">Declaración de Impuestos</h3>
-            <p className="px-3 text-sm  text-center">{servicioData[3].description}</p>
+            <p className="px-3 text-sm  text-start">{servicioData[3].description}</p>
           </div>
         </div>
       </div>
 
       {/* PRICING */}
       <div className="w-full h-[70vh] hover:transition-all pb-[10%] relative bg-white">
-        <div className="bg-esatLight w-full py-[3%] flex flex-col  items-center ">
+        <div className="bg-LogoBlue w-full py-[3%] flex flex-col  items-center ">
           <h3 className="text-center text-3xl md:text-5xl font-semibold text-esatDark">
             Descubre <br />Nuestros Paquetes
           </h3>
@@ -132,7 +132,7 @@ export const Main = () => {
             garantizar su cumplimiento.
           </p>
         </div>
-        <div className="bg-esatLight hidden md:block w-full h-full"
+        <div className="bg-LogoBlue hidden md:block w-full h-full"
           style={{
             clipPath: `polygon(100% 0, 0 0, 100% 66%)`
           }}
