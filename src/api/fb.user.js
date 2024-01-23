@@ -15,7 +15,7 @@ import {
   getDownloadURL,
   deleteObject,
 } from "firebase/storage";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, sendPasswordResetEmail} from "firebase/auth";
 import { db, storage, auth } from "../utils/firebase";
 import { CursosCtrl } from "./fb.cursos";
 import { BlogsCtrl } from "./fb.blogs";
@@ -94,6 +94,17 @@ export class User {
     // Obtiene la URL de descarga
     const downloadURL = await getDownloadURL(fileRef);
     return downloadURL;
+  }
+
+  async resetPassword(email){
+    try {
+      await sendPasswordResetEmail(auth, email);
+
+      return true
+    } catch (error) {
+      console.log(error)
+      return false      
+    }
   }
 
   async updateMe(uid, data) {

@@ -13,3 +13,9 @@ export function validationSchema() {
     password: Yup.string().required(true),
   });
 }
+
+export function validationSchemaResset() {
+  return Yup.object({
+    email: Yup.string().required("Se necesita el correo para recuperar tu cuenta."),
+  });
+}

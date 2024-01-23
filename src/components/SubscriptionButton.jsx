@@ -17,17 +17,17 @@ const SubscriptionButton = ({ price, plan }) => {
     let precio;
     let dolarTaza = 0.0501;
 
-    if (price == 499) {
+    if (price == 579) {
       let pesos = price * dolarTaza;
       precio = pesos.toFixed(2).toString();
     }
 
-    if (price == 799) {
+    if (price == 749) {
       let pesos = price * dolarTaza;
       precio = pesos.toFixed(2).toString();
     }
 
-    if (price == 1499) {
+    if (price == 1049) {
       let pesos = price * dolarTaza;
       precio = pesos.toFixed(2).toString();
     }

@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { AuthLayout } from "../../layouts/AuthLayout";
-import { Check, Eye, EyeOff, Loader2 } from "lucide-react";
-import { motion } from "framer-motion";
+import { Eye, EyeOff, Loader2 } from "lucide-react";
 import { initialValues, validationSchema } from "../../utils/login.form";
 import { useAuth } from "../../hooks/useAuth";
 import { useFormik } from "formik";
@@ -130,7 +129,7 @@ export const LoginPage = () => {
               <div className="mt-3 ml-auto text-base text-esatDark">Recordar Contraseña <input type="checkbox" /></div>
 
               <button className="mt-10 md:mt-4 w-[70%] text-white mx-auto py-2 rounded-md bg-gradient-to-r from-esatDark via-LogoBlue to-cyan-600">{formik.isSubmitting ? (<div className="flex justify-center transition-transform animate-spin"><Loader2/></div>) : "Iniciar Sesión"} </button>
-              <Link to="#" className="underline font-semibold text-LogoBlue mt-10" >Olvidé mi Contraseña</Link>
+              <Link to="/resetPassword" className="underline font-semibold text-LogoBlue mt-10" >Olvidé mi Contraseña</Link>
               <span className="font-light mb-5 md:mb-0">¿No tienes cuenta?  <Link to="/registro" className="text-LogoBlue font-semibold underline">Regístrate</Link></span>
             </form>
 

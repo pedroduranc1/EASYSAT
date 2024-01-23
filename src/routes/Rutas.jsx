@@ -38,6 +38,7 @@ import { RegistroPage } from "../pages/auth/RegistroPage";
 import { CursosFav } from "../pages/cursos/favoritos/CursosFav";
 import { PruebasExcel } from "../pages/pruebas/PruebasExcel";
 import { PruebasXml } from "../pages/pruebas/PruebasXml";
+import { ResetPasswordPage } from "../pages/resetPassword/ResetPasswordPage";
 
 const router = createBrowserRouter([
   {
@@ -191,7 +192,11 @@ const router = createBrowserRouter([
   {
     path:"/Pruebas/xml",
     element: <PruebasXml />
-  }
+  },
+  {
+    path:"/resetPassword",
+    element: <ResetPasswordPage />
+  },
 ]);
 
 export const Rutas = () => {

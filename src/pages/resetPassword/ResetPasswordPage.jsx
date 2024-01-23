@@ -1,0 +1,80 @@
+import React from 'react'
+import { AuthLayout } from '../../layouts/AuthLayout'
+import logo from "../../assets/logo.png";
+import { useFormik } from 'formik';
+import { Link } from 'react-router-dom';
+import { validationSchemaResset } from '../../utils/login.form';
+import { User } from "../../api/fb.user";
+import { toast } from '../../components/ui/use-toast';
+
+const UserCtrl = new User();
+export const ResetPasswordPage = () => {
+
+    const formik = useFormik({
+        initialValues: {
+            email: ''
+        },
+        validationSchema: validationSchemaResset(),
+        validateOnChange: false,
+        onSubmit: async ({ email }) => {
+            console.log(email)
+
+            const result = await UserCtrl.resetPassword(email)
+
+            if (result) {
+                toast({
+                    title: "Correo de recuperacion enviado exitosamente",
+                });
+                formik.resetForm()
+            } else {
+                toast({
+                    title: "Ocurrio un error al momento de enviar el correo",
+                });
+            }
+        }
+    })
+
+    return (
+        <AuthLayout>
+            <div className="flex items-center justify-center h-screen max-h-screen overflow-hidden bg-gradient-to-t from-esatDark via-LogoBlue to-cyan-400"
+            >
+                <form onSubmit={formik.handleSubmit} className="bg-white w-[90%]  md:w-[50%] lg:w-[30%] h-[90dvh] md:h-[80dvh] mx-auto my-[1%] rounded-2xl shadow-2xl overflow-x-hidden">
+                    <img src={logo} className="w-[45%] mt-[7dvh] mx-auto" alt="" />
+                    <div className='px-[5%] mt-[5dvh]'>
+                        <h2 className="text-xl md:text-xl text-black/80 font-bold">Recupera tu cuenta</h2>
+                        <p className="text-[13px] font-light text-esatDark mt-1">Te enviaremos un enlace para cambiar la contraseña</p>
+                    </div>
+
+                    <div className='px-[7%]'>
+                        <div className="mt-[4dvh]">
+                            <label className="mr-auto text-esatDark" htmlFor="email">Correo electrónico</label>
+                            <input
+                                name="email"
+                                type="email"
+                                placeholder="Introduce tu correo electrónico"
+                                value={formik.values.email}
+                                onChange={formik.handleChange}
+                                className={`w-full py-2 px-2 transition-all outline-none border-[1px] rounded-md border-gray-200 focus:border-gray-600
+                ${formik.errors.email &&
+                                    "border-red-500 border-2 text-white placeholder:text-red-600"
+                                    }
+                `} />
+                        </div>
+                    </div>
+
+                    <div className="flex justify-center mt-[12dvh]">
+                        <button className=" w-[70%] text-white mx-auto py-2 rounded-md bg-gradient-to-r from-esatDark via-LogoBlue to-cyan-600">Enviar correo</button>
+                    </div>
+
+                    <div className='flex items-center flex-col mt-[5dvh]'>
+                        <span className="font-light ">Regresa  <Link to="/login" className="text-LogoBlue font-semibold underline">Inicio de Sesión</Link></span>
+
+                        <span className="font-light ">¿No tienes cuenta?  <Link to="/registro" className="text-LogoBlue font-semibold underline">Regístrate</Link></span>
+
+                    </div>
+
+                </form>
+            </div>
+        </AuthLayout>
+    )
+}

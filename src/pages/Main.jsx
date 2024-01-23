@@ -20,6 +20,8 @@ import { useQuery } from "react-query";
 import { CursosCtrl } from "../api/fb.cursos";
 
 import { servicioData } from "../assets/serviciosData";
+import { XCircle } from "lucide-react";
+import SubscriptionButton from "../components/SubscriptionButton";
 
 
 const CursosCtrlr = new CursosCtrl();
@@ -29,7 +31,7 @@ export const Main = () => {
 
   const { pathname } = useLocation();
 
-  const [ChatBot, setChatBot] = useState(false);
+  const [ChatBot, setChatBot] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
 
   const {
@@ -44,7 +46,7 @@ export const Main = () => {
     ) || [];
 
 
-    const [colorBoton, setColorBoton] = useState('colorOriginal'); // Reemplaza 'colorOriginal' con el color original del botón
+  const [colorBoton, setColorBoton] = useState('colorOriginal'); // Reemplaza 'colorOriginal' con el color original del botón
 
   const cambiarColorBoton = () => {
     setColorBoton('red'); // Reemplaza 'nuevoColor' con el color que desees
@@ -72,6 +74,11 @@ export const Main = () => {
       window.removeEventListener('scroll', handleScroll);
     };
   }, []);
+
+  const handleToggle = () => {
+    setChatBot(!ChatBot)
+  }
+
 
   return (
     <>
@@ -176,7 +183,18 @@ export const Main = () => {
                 <span className="text-base font-semibold group-hover:text-white">Declaración de impuestos</span>
               </li>
             </ul>
-            <a href="#" className="w-[80%] mt-auto hover:bg-white hover:text-esatDark mx-auto rounded-md bg-LogoBlue py-2 px-4 text-white">Comprar ahora</a>
+            {
+              User ?
+                (<>
+                  <SubscriptionButton
+                    price={579}
+                    plan={"Basico"}
+                  />
+                </>) :
+                (<>
+                  <Link to="/login" className="w-[80%] mt-auto hover:bg-white hover:text-esatDark mx-auto rounded-md bg-LogoBlue py-2 px-4 text-white">Comprar ahora</Link>
+                </>)
+            }
           </div>
           <div className="flex flex-col p-6 transition-all cursor-pointer group hover:bg-esatDark hover:scale-105 shadow-2xl mx-auto w-fit px-15 text-center text-gray-900 bg-white rounded-lg  xl:p-8 ">
             <h3 className="mb-4 ml-5 text-3xl group-hover:text-white font-bold mr-auto">Pro</h3>
@@ -214,7 +232,18 @@ export const Main = () => {
                 <span className="text-base font-semibold group-hover:text-white">Declaración de impuestos</span>
               </li>
             </ul>
-            <a href="#" className=" mt-auto w-[80%] hover:bg-white hover:text-esatDark mx-auto rounded-md bg-LogoBlue py-2 px-4 text-white">Comprar ahora</a>
+            {
+              User ?
+                (<>
+                  <SubscriptionButton
+                    price={749}
+                    plan={"Pro"}
+                  />
+                </>) :
+                (<>
+                  <Link to="/login" className="w-[80%] mt-auto hover:bg-white hover:text-esatDark mx-auto rounded-md bg-LogoBlue py-2 px-4 text-white">Comprar ahora</Link>
+                </>)
+            }
           </div>
           <div className="flex flex-col p-6 transition-all cursor-pointer group hover:bg-esatDark hover:scale-105 shadow-2xl mx-auto w-fit px-15 text-center text-gray-900 bg-white rounded-lg  xl:p-8 ">
             <h3 className="mb-4 ml-5 text-3xl group-hover:text-white font-bold mr-auto">Premium</h3>
@@ -253,14 +282,25 @@ export const Main = () => {
                 <span className="text-base font-semibold group-hover:text-white">Declaración de impuestos</span>
               </li>
             </ul>
-            <a href="#" className=" w-[80%] hover:bg-white hover:text-esatDark mx-auto rounded-md bg-LogoBlue py-2 px-4 text-white">Comprar ahora</a>
+            {
+              User ?
+                (<>
+                  <SubscriptionButton
+                    price={1049}
+                    plan={"Premium"}
+                  />
+                </>) :
+                (<>
+                  <Link to="/login" className="w-[80%] mt-auto hover:bg-white hover:text-esatDark mx-auto rounded-md bg-LogoBlue py-2 px-4 text-white">Comprar ahora</Link>
+                </>)
+            }
           </div>
-          
+
         </div>
       </div>
 
 
-      <div className="w-full block h-[180vh] md:h-[120vh] lg:h-[50vh] bg-white" />
+      <div className="w-full block h-[180vh] md:h-[120vh] lg:h-[70vh] bg-white" />
       {/* APP INFO */}
       <div className="w-full pt-[10%]  h-fit  flex flex-col">
         <div
@@ -284,7 +324,7 @@ export const Main = () => {
             </p>
 
             <button className="md:bg-black bg-black text-white md:text-white mt-5 lg:mt-5 rounded-lg px-4 py-2 font-semibold">
-            Próximamente
+              Próximamente
             </button>
 
             <Link to="/Registro" className='bg-white text-black font-bold rounded-md px-4 py-2 mt-2'>Regístrate</Link>
@@ -297,7 +337,7 @@ export const Main = () => {
         <h2 className="text-3xl mt-5 md:text-5xl text-esatDark font-bold">Cursos</h2>
 
         <h4 className="text-center w-full md:w-[60%] text-base md:text-2xl text-esatDark font-medium my-4">
-        En EasySAT te ofrecemos cursos interactivos y actualizados que te permitirán profundizar tus conocimientos en contabilidad, impuestos y finanzas.
+          En EasySAT te ofrecemos cursos interactivos y actualizados que te permitirán profundizar tus conocimientos en contabilidad, impuestos y finanzas.
         </h4>
 
         <div className="w-full md:w-[75%] px-[3%] my-5">
@@ -348,7 +388,7 @@ export const Main = () => {
           <div className="flex w-[98%] md:w-[400px] shadow-2xl mb-7 md:mb-0 rounded-md bg-LogoBlue h-14 p-4 justify-center items-center">
             <XCircle
               onClick={handleToggle}
-              className="absolute -left-[3%] -top-[2%] cursor-pointer text-LogoBlue hover:text-LogoGreen transition-colors"
+              className="absolute -left-[3%] -top-[2%] cursor-pointer text-esatLight hover:text-LogoGreen transition-colors"
             />
             <h3 className="text-white text-sm">
               Hola soy Kavii tu asistente virtual, es un placer saludarte, ¿en
