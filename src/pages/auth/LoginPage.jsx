@@ -69,9 +69,9 @@ export const LoginPage = () => {
       <div className="flex items-center justify-center h-screen max-h-screen overflow-hidden bg-gradient-to-t from-esatDark via-LogoBlue to-cyan-400"
       >
 
-        <div className="w-[90%] md:w-[55%] flex mx-auto overflow-hidden rounded-md h-auto bg-white">
-          <div className="w-1/2 hidden md:flex relative bg-black h-full">
-            <img src={loginimg} className="w-full h-full" alt="" />
+        <div className="w-[90%] md:w-[55%] my-[3dvh] flex mx-auto overflow-hidden rounded-md h-auto bg-white">
+          <div className="w-1/2 hidden md:flex bg-black h-[80dvh]">
+            <img src={loginimg} className="w-full bg-cover h-full" alt="" />
           </div>
           <div className="w-full md:w-1/2 flex px-7 flex-col items-center pt-[5%] h-full">
             <img className="w-1/2 " src={logo} alt="" />

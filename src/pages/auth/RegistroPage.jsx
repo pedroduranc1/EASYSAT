@@ -42,11 +42,11 @@ export const RegistroPage = () => {
   return (
     <AuthLayout>
       <div
-        className="flex  h-full min-h-screen md:h-screen overflow-hidden bg-gradient-to-t from-esatDark via-LogoBlue to-cyan-400"
+        className="flex  h-full min-h-screen md:h-screen  bg-gradient-to-t from-esatDark via-LogoBlue to-cyan-400"
       >
         
 
-        <form onSubmit={formik.handleSubmit} className="bg-white w-[90%]  md:w-[50%] lg:w-[30%] h-auto mx-auto my-[1%] rounded-2xl shadow-2xl overflow-x-hidden">
+        <form onSubmit={formik.handleSubmit} className="bg-white w-[90%]  md:w-[50%] lg:w-[30%] h-auto mx-auto my-[1%] rounded-2xl shadow-2xl overflow-hidden">
           <img src={logo} className="w-[45%] pt-5 mx-auto" alt="" />
 
           <h2 className="text-center text-xl md:text-3xl mt-2 font-bold">¡Bienvenido a easySAT!</h2>
