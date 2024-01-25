@@ -61,12 +61,12 @@ export const RegistroPage = () => {
                 <label className="mr-auto mt-7 text-esatDark" htmlFor="email">Nombre</label>
                 <input
                   name="Nombre"
-                  type="Nombre"
+                  type="text"
                   value={formik.values.Nombre}
                   onChange={formik.handleChange}
                   className={`w-full py-2 px-2 transition-all outline-none border-[1px] rounded-md border-gray-200 focus:border-gray-600
                 ${formik.errors.Nombre &&
-                    "border-red-500 border-2 text-white placeholder:text-red-600"
+                    "border-red-500 border-2  placeholder:text-red-600"
                     }
                 `} />
               </div>
@@ -74,12 +74,12 @@ export const RegistroPage = () => {
                 <label className="mr-auto mt-7 text-esatDark" htmlFor="email">Apellido</label>
                 <input
                   name="Apellido"
-                  type="Apellido"
+                  type="text"
                   value={formik.values.Apellido}
                   onChange={formik.handleChange}
                   className={`w-full py-2 px-2 transition-all outline-none border-[1px] rounded-md border-gray-200 focus:border-gray-600
                 ${formik.errors.Apellido &&
-                    "border-red-500 border-2 text-white placeholder:text-red-600"
+                    "border-red-500 border-2  placeholder:text-red-600"
                     }
                 `} />
               </div>

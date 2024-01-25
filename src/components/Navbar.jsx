@@ -28,7 +28,7 @@ export const Navbar = () => {
     };
 
     const handleHash = () => {
-      const hashes = ['#servicios', '#preguntas', '#contacto'];
+      const hashes = ['#servicios', '#planes', '#contacto',"#preguntas"];
       const newHash = hashes.find(hash => {
         const element = document.querySelector(hash);
         if (element && element.getBoundingClientRect().top >= 0) {
@@ -77,12 +77,15 @@ export const Navbar = () => {
 
       <div className={` hidden md:block transition-all py-4 px-3`}>
         <ul className='flex items-center gap-x-3'>
-          <a className={` text-center ${isCurrentPath('#servicios') ? 'text-LogoBlue' : 'text-esatDark'}`} href="#servicios">Servicios</a>
-          <a className={` inline-block whitespace-nowrap text-center ${isCurrentPath('#preguntas') ? 'text-LogoBlue' : 'text-esatDark'}`} href="#preguntas">Preguntas frecuentes</a>
+          <a className={`text-center ${isCurrentPath('#servicios') ? 'text-LogoBlue' : 'text-esatDark'}`} href="#servicios">Servicios</a>
+          
+          <a className={`inline-block whitespace-nowrap text-center ${isCurrentPath('#planes') ? 'text-LogoBlue' : 'text-esatDark'}`} href="#planes">Planes</a>
+          
+          <Link className={`text-center ${isCurrentPath('/cursos') ? 'text-LogoBlue' : 'text-esatDark'}`} to={'/cursos'}>Cursos</Link>
 
-          <Link className={` text-center ${isCurrentPath('/cursos') ? 'text-LogoBlue' : 'text-esatDark'}`} to={'/cursos'}>Cursos</Link>
+          <a className={`inline-block whitespace-nowrap text-center ${isCurrentPath('#preguntas') ? 'text-LogoBlue' : 'text-esatDark'}`} href="#preguntas">Preguntas frecuentes</a>
 
-          <a className={` text-center ${isCurrentPath('#contacto') ? 'text-LogoBlue' : 'text-esatDark'}`} href="#contacto">Contacto</a>
+          <a className={`text-center ${isCurrentPath('#contacto') ? 'text-LogoBlue' : 'text-esatDark'}`} href="#contacto">Contacto</a>
 
           {
             User ? (<li><div className="flex py-1 cursor-pointer  transition-all items-center justify-between md:justify-start md:gap-x-3">

@@ -130,7 +130,7 @@ export const Main = () => {
       </div>
 
       {/* PRICING */}
-      <div className="w-full h-[70vh] hover:transition-all pb-[10%] relative bg-white">
+      <div id="planes" className="w-full h-[70vh] hover:transition-all pb-[10%] relative bg-white">
         <div className="bg-cyan-200 w-full py-[3%] flex flex-col  items-center ">
           <h3 className="text-center text-3xl md:text-5xl font-semibold text-esatDark">
             Descubre <br />Nuestros Paquetes

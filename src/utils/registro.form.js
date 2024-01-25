@@ -18,8 +18,8 @@ export function initialValues() {
 
 export function validationSchema() {
   return Yup.object({
-    Nombre: Yup.string().required(true),
-    Apellido: Yup.string().required(true),
+    Nombre: Yup.string().matches(/^[^\d]+$/, 'Este campo no debe contener números').required(true),
+    Apellido: Yup.string().matches(/^[^\d]+$/, 'Este campo no debe contener números').required(true),
     Username: Yup.string(),
     email: Yup.string().email("Ingrese un correo valido").required(true),
     password: Yup.string().required(true),
