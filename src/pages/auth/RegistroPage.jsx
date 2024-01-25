@@ -17,6 +17,7 @@ export const RegistroPage = () => {
     initialValues: initialValues(),
     validationSchema: validationSchema(),
     onSubmit: async (formValue) => {
+
       const resp = await UserCtrl.createUser(formValue)
       if (resp == true) {
         toast({
@@ -39,15 +40,16 @@ export const RegistroPage = () => {
     settogglePassword(!togglePassword);
   };
 
+
   return (
     <AuthLayout>
       <div
-        className="flex  h-full min-h-screen md:h-screen  bg-gradient-to-t from-esatDark via-LogoBlue to-cyan-400"
+        className="flex items-center h-full min-h-[100dvh] md:h-screen bg-gradient-to-t from-esatDark via-LogoBlue to-cyan-400"
       >
         
 
-        <form onSubmit={formik.handleSubmit} className="bg-white w-[90%]  md:w-[50%] lg:w-[30%] h-auto mx-auto my-[1%] rounded-2xl shadow-2xl overflow-hidden">
-          <img src={logo} className="w-[45%] pt-5 mx-auto" alt="" />
+        <form onSubmit={formik.handleSubmit} className="bg-white w-[90%]  md:w-[50%] lg:w-[35%] h-fit mx-auto  rounded-2xl shadow-2xl overflow-hidden">
+          <img src={logo} onClick={()=>navigate("/")} className="w-[45%] cursor-pointer pt-5 mx-auto" alt="" />
 
           <h2 className="text-center text-xl md:text-3xl mt-2 font-bold">¡Bienvenido a easySAT!</h2>
           <p className="text-center text-[13px] font-light text-esatDark mt-1">Regístrate para acceder a la plataforma</p>
@@ -60,7 +62,6 @@ export const RegistroPage = () => {
                 <input
                   name="Nombre"
                   type="Nombre"
-                  placeholder="Introduce tu nombre"
                   value={formik.values.Nombre}
                   onChange={formik.handleChange}
                   className={`w-full py-2 px-2 transition-all outline-none border-[1px] rounded-md border-gray-200 focus:border-gray-600
@@ -74,7 +75,6 @@ export const RegistroPage = () => {
                 <input
                   name="Apellido"
                   type="Apellido"
-                  placeholder="Introduce tu apellido"
                   value={formik.values.Apellido}
                   onChange={formik.handleChange}
                   className={`w-full py-2 px-2 transition-all outline-none border-[1px] rounded-md border-gray-200 focus:border-gray-600
@@ -90,12 +90,11 @@ export const RegistroPage = () => {
               <input
                 name="email"
                 type="email"
-                placeholder="Introduce tu correo electrónico"
                 value={formik.values.email}
                 onChange={formik.handleChange}
                 className={`w-full py-2 px-2 transition-all outline-none border-[1px] rounded-md border-gray-200 focus:border-gray-600
                 ${formik.errors.email &&
-                  "border-red-500 border-2 text-white placeholder:text-red-600"
+                  "border-red-500 border-2  placeholder:text-red-600"
                   }
                 `} />
             </div>
@@ -134,32 +133,32 @@ export const RegistroPage = () => {
               </div>
             </div>
             <div className="mt-3">
-              <label className="mr-auto mt-3 text-esatDark" htmlFor="">Contraseña</label>
+              <label className="mr-auto mt-3 text-esatDark" htmlFor="">Confirma tu Contraseña</label>
               <div
                 className={`w-full py-2 px-2 transition-all outline-none border-[1px] flex justify-between rounded-md border-gray-200 focus:border-gray-600
-                      ${formik.errors.password && "border-red-600"}
+                      ${formik.errors.rePassword && "border-red-600"}
                       `}
               >
                 <input
                   className={`w-full bg-transparent outline-none border-0 focus:border-0 focus:ring-0 active:ring-0 active:border-0
-                      ${formik.errors.password &&
+                      ${formik.errors.rePassword &&
                     "placeholder:text-red-600 text-red-500"
                     }
                       `}
                   type={togglePassword ? "text" : "password"}
-                  name="password"
-                  value={formik.values.password}
+                  name="rePassword"
+                  value={formik.values.rePassword}
                   onChange={formik.handleChange}
                 />
                 {togglePassword ? (
                   <EyeOff
-                    className={`cursor-pointer ${formik.errors.password && "text-red-500"
+                    className={`cursor-pointer ${formik.errors.rePassword && "text-red-500"
                       }`}
                     onClick={handleTogglePassword}
                   />
                 ) : (
                   <Eye
-                    className={`cursor-pointer ${formik.errors.password && "text-red-500"
+                    className={`cursor-pointer ${formik.errors.rePassword && "text-red-500"
                       }`}
                     onClick={handleTogglePassword}
                   />
@@ -172,7 +171,11 @@ export const RegistroPage = () => {
             </div>
 
             <div className="flex justify-center">
-              <button className="mt-10 md:mt-4 w-[70%] text-white mx-auto py-2 rounded-md bg-gradient-to-r from-esatDark via-LogoBlue to-cyan-600">Regístrate</button>
+              <button type="submit" disabled={formik.isValid ? false : true} 
+              className="mt-10 md:mt-4 w-[70%] text-white mx-auto py-2 rounded-md bg-gradient-to-r from-esatDark via-LogoBlue to-cyan-600 disabled:opacity-50"
+              >
+                {formik.isSubmitting ? (<div className="flex justify-center transition-transform animate-spin"><Loader2/></div>) : "Regístrate"}
+                </button>
             </div>
 
             <div className="flex justify-center mt-3">

@@ -9,6 +9,7 @@ export function initialValues() {
     UserRole: "Cliente",
     email: "",
     password: "",
+    rePassword:"",
     Img_url:"",
     Cargo: "",
     Empresa: ""
@@ -19,8 +20,9 @@ export function validationSchema() {
   return Yup.object({
     Nombre: Yup.string().required(true),
     Apellido: Yup.string().required(true),
-    Username: Yup.string().required(true),
-    email: Yup.string().required(true),
+    Username: Yup.string(),
+    email: Yup.string().email("Ingrese un correo valido").required(true),
     password: Yup.string().required(true),
+    rePassword: Yup.string().required(true).oneOf([Yup.ref("password"),null],"Las Contraseñas deben coincidir")
   });
 }
