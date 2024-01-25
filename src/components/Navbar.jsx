@@ -136,10 +136,13 @@ export const Navbar = () => {
                 <a className='w-full h-full inline-block ' href="">Servicios</a>
               </li>
               <li className='w-full transition-colors py-2 rounded-md  group hover:bg-esatLight'>
-                <a className='w-full h-full inline-block ' href="">Preguntas Frecuentas</a>
+                <a className='w-full h-full inline-block ' href="">Planes</a>
               </li>
               <li className='w-full transition-colors py-2 rounded-md  group hover:bg-esatLight'>
                 <Link className='w-full h-full inline-block ' to={"/cursos"}>Cursos</Link>
+              </li>
+              <li className='w-full transition-colors py-2 rounded-md  group hover:bg-esatLight'>
+                <a className='w-full h-full inline-block ' href="">Preguntas Frecuentas</a>
               </li>
               <li className='w-full transition-colors py-2 rounded-md  group hover:bg-esatLight'>
                 <a className='w-full h-full inline-block ' href="">Contacto</a>
