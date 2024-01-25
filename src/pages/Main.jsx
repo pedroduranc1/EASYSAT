@@ -114,17 +114,17 @@ export const Main = () => {
           <div className="w-[250px] transition-all cursor-pointer py-6 flex flex-col group space-y-3 items-center h-[300px] bg-white rounded-md shadow-md">
             <img src={aseFiscal} className="h-[50px] mx-auto" alt="" />
             <h3 className="text-esatDark font-semibold md:text-xl text-base text-center">{servicioData[0].title}</h3>
-            <p className="px-3  text-start">{servicioData[0].description}</p>
+            <p className="px-3  text-justify">{servicioData[0].description}</p>
           </div>
           <div className="w-[250px] group transition-all cursor-pointer py-6 flex flex-col space-y-3 items-center h-[300px] bg-white rounded-md shadow-md">
             <img src={Facturación} className="h-[50px] mx-auto" alt="" />
             <h3 className="text-esatDark font-semibold md:text-xl text-base text-center">Facturación Electrónica</h3>
-            <p className="px-3  text-start">{servicioData[2].description}</p>
+            <p className="px-3  text-justify">{servicioData[2].description}</p>
           </div>
           <div className="w-[250px] group transition-all cursor-pointer py-6 flex flex-col space-y-3 items-center h-[300px] bg-white rounded-md shadow-md">
             <img src={declaracion} className="h-[50px] mx-auto" alt="" />
             <h3 className="text-esatDark font-semibold md:text-xl text-base text-center">Declaración de Impuestos</h3>
-            <p className="px-3 text-sm  text-start">{servicioData[3].description}</p>
+            <p className="px-3 text-sm  text-justify">{servicioData[3].description}</p>
           </div>
         </div>
       </div>
@@ -385,10 +385,10 @@ export const Main = () => {
 
       <div className="fixed z-50 flex-col md:flex-row right-[2%] bottom-[3%] rounded-full flex justify-center items-end md:items-center">
         {ChatBot ? (
-          <div className="flex w-[98%] md:w-[400px] shadow-2xl mb-7 md:mb-0 rounded-md bg-LogoBlue h-14 p-4 justify-center items-center">
+          <div className="flex w-[90%] md:w-[400px] shadow-2xl mb-7 md:mb-0 rounded-md bg-LogoBlue h-14 p-4 justify-center items-center">
             <XCircle
               onClick={handleToggle}
-              className="absolute -left-[3%] -top-[2%] cursor-pointer text-esatLight hover:text-LogoGreen transition-colors"
+              className="absolute left-[6%] -top-[6%] md:-left-[3%] md:-top-[2%] cursor-pointer text-esatLight hover:text-LogoGreen transition-colors"
             />
             <h3 className="text-white text-sm">
               Hola soy Kavii tu asistente virtual, es un placer saludarte, ¿en
