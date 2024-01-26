@@ -22,6 +22,7 @@ import { CursosCtrl } from "../api/fb.cursos";
 import { servicioData } from "../assets/serviciosData";
 import { XCircle } from "lucide-react";
 import SubscriptionButton from "../components/SubscriptionButton";
+import ReactPlayer from "react-player";
 
 
 const CursosCtrlr = new CursosCtrl();
@@ -33,6 +34,12 @@ export const Main = () => {
 
   const [ChatBot, setChatBot] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
+  const [volumen, setVolumen] = useState(0); // 1 representa el volumen completo (sin mutear)
+
+  const handleToggleMute = () => {
+    // Alternar entre 0 y 1 para mutear o desmutear
+    setVolumen((prevVolumen) => (prevVolumen === 0 ? 1 : 0));
+  };
 
   const {
     data: Cursos,
@@ -378,8 +385,16 @@ export const Main = () => {
       <MainC.Contacto />
 
       {pathname == "/" && (
-        <div className="fixed  left-[3%] bottom-[3%] bg-slate-700 rounded-full w-20 h-20 md:w-32 md:h-32">
-          <div></div>
+        <div className="fixed  left-[3%] bottom-[3%] bg-slate-700 overflow-hidden rounded-full w-20 h-20 md:w-32 md:h-32">
+          <ReactPlayer
+          onClick={handleToggleMute}
+          height={"100%"}
+          width={"100%"}
+          loop
+          playing
+          volume={volumen}
+          url={"https://firebasestorage.googleapis.com/v0/b/dgya-fb.appspot.com/o/ESATVIDEOS%2FWhatsApp%20Video%202024-01-26%20at%2014.32.55.mp4?alt=media&token=29cbd84d-e7cd-48f1-bfdd-ff550d1b0389"}
+          />
         </div>
       )}
 
