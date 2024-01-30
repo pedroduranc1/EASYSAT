@@ -4,7 +4,7 @@ import { ChevronRight, FileBarChart, Home, LineChart, Play, PlusCircle, Receipt 
 import { motion, AnimatePresence } from "framer-motion";
 import { MCOPC } from './MCOPC';
 
-import inicio from "../../assets/micuentasvg/inicio.svg";
+import Inicio from "../../assets/micuentasvg/Inicio.svg";
 import NuevaFactura from "../../assets/micuentasvg/NuevaFactura.svg";
 import Facturas from "../../assets/micuentasvg/Facturas.svg";
 import Declaraciones from "../../assets/micuentasvg/Declaraciones.svg";
@@ -29,7 +29,7 @@ const Micuenta = () => {
                     <ul className='w-full flex flex-col overflow-x-hidden h-full gap-y-3 mt-3'>
                         <li className='w-[250px]'>
                             <button onClick={() => setOPC(0)} className='flex py-2 items-center gap-x-4'>
-                                <img src={inicio} alt="" className='w-6 h-6 bg-contain' />
+                                <img src={Inicio} alt="" className='w-6 h-6 bg-contain' />
                                 <span className='text-white '>
                                     Inicio
                                 </span>
