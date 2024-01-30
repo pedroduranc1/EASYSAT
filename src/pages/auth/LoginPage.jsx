@@ -69,8 +69,8 @@ export const LoginPage = () => {
       >
 
         <div className="w-[90%] md:w-[55%] flex mx-auto overflow-hidden rounded-md h-fit bg-white">
-          <div className="w-1/2 hidden md:flex bg-black h-[80dvh]">
-            <img src={loginimg}  className="w-full bg-cover h-full" alt="" />
+          <div className="w-1/2 hidden md:flex bg-black h-[80dvh] xl:h-[82dvh]">
+            <img src={loginimg}  className="w-full bg-contain h-full" alt="" />
           </div>
           <div className="w-full md:w-1/2 flex px-7 flex-col items-center pt-[5%] h-full">
             <img className="w-1/2 cursor-pointer" onClick={()=> navigate("/")} src={logo} alt="" />

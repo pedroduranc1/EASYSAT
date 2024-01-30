@@ -390,10 +390,13 @@ export const Main = () => {
           onClick={handleToggleMute}
           height={"100%"}
           width={"100%"}
+          style={{
+            objectFit:"cover"
+          }}
           loop
           playing
           volume={volumen}
-          url={"https://firebasestorage.googleapis.com/v0/b/dgya-fb.appspot.com/o/ESATVIDEOS%2FWhatsApp%20Video%202024-01-26%20at%2014.32.55.mp4?alt=media&token=29cbd84d-e7cd-48f1-bfdd-ff550d1b0389"}
+          url={"https://firebasestorage.googleapis.com/v0/b/dgya-fb.appspot.com/o/ESATVIDEOS%2F202401291603.mp4?alt=media&token=6588d9b1-40b3-423a-8f2a-6634d3177087"}
           />
         </div>
       )}

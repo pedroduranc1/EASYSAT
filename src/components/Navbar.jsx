@@ -28,7 +28,7 @@ export const Navbar = () => {
     };
 
     const handleHash = () => {
-      const hashes = ['#servicios', '#planes', '#contacto',"#preguntas"];
+      const hashes = ['#servicios', '#planes', '#contacto', "#preguntas"];
       const newHash = hashes.find(hash => {
         const element = document.querySelector(hash);
         if (element && element.getBoundingClientRect().top >= 0) {
@@ -78,9 +78,9 @@ export const Navbar = () => {
       <div className={` hidden md:block transition-all py-4 px-3`}>
         <ul className='flex items-center gap-x-3'>
           <a className={`text-center ${isCurrentPath('#servicios') ? 'text-LogoBlue' : 'text-esatDark'}`} href="#servicios">Servicios</a>
-          
+
           <a className={`inline-block whitespace-nowrap text-center ${isCurrentPath('#planes') ? 'text-LogoBlue' : 'text-esatDark'}`} href="#planes">Planes</a>
-          
+
           <Link className={`text-center ${isCurrentPath('/cursos') ? 'text-LogoBlue' : 'text-esatDark'}`} to={'/cursos'}>Cursos</Link>
 
           <a className={`inline-block whitespace-nowrap text-center ${isCurrentPath('#preguntas') ? 'text-LogoBlue' : 'text-esatDark'}`} href="#preguntas">Preguntas frecuentes</a>
@@ -90,7 +90,7 @@ export const Navbar = () => {
           {
             User ? (<li><div className="flex py-1 cursor-pointer  transition-all items-center justify-between md:justify-start md:gap-x-3">
               <Link
-                to="/Perfil"
+                to="/micuenta"
                 className="w-[130px] flex border-2 cursor-pointer border-LogoBlue rounded-md px-3 py-1 gap-x-1 items-center"
               >
                 <User2 className='text-LogoBlue' />
@@ -147,12 +147,31 @@ export const Navbar = () => {
               <li className='w-full transition-colors py-2 rounded-md  group hover:bg-esatLight'>
                 <a className='w-full h-full inline-block ' href="">Contacto</a>
               </li>
-              <li className='w-full transition-colors py-2 rounded-md  group hover:bg-esatLight'>
-                <Link className='w-full h-full inline-block ' to={"/login"}>Iniciar Sesion</Link>
-              </li>
-              <li className='w-full transition-colors py-2 rounded-md  group hover:bg-esatLight'>
-                <Link className='w-full h-full inline-block ' to={"/registro"}>Registrate</Link>
-              </li>
+
+
+              {
+                User ? (<li><div className="flex py-1 cursor-pointer  transition-all items-center justify-between md:justify-start md:gap-x-3">
+                  <Link
+                    to="/micuenta"
+                    className="w-[130px] flex border-2 cursor-pointer border-LogoBlue rounded-md px-3 py-1 gap-x-1 items-center"
+                  >
+                    <User2 className='text-LogoBlue' />
+                    <p className='w-full text-LogoBlue uppercase text-[14px]'>mi cuenta</p>
+
+                  </Link>
+                  <LogOut
+                    onClick={logout}
+                    className="w-5 h-5 text-LogoBlue cursor-pointer"
+                  />
+                </div></li>) : (<>
+                  <li className='w-full transition-colors py-2 rounded-md  group hover:bg-esatLight'>
+                    <Link className='w-full h-full inline-block ' to={"/login"}>Iniciar Sesion</Link>
+                  </li>
+                  <li className='w-full transition-colors py-2 rounded-md  group hover:bg-esatLight'>
+                    <Link className='w-full h-full inline-block ' to={"/registro"}>Registrate</Link>
+                  </li>
+                </>)
+              }
             </ul>
           </motion.div>
         )}

@@ -39,6 +39,7 @@ import { CursosFav } from "../pages/cursos/favoritos/CursosFav";
 import { PruebasExcel } from "../pages/pruebas/PruebasExcel";
 import { PruebasXml } from "../pages/pruebas/PruebasXml";
 import { ResetPasswordPage } from "../pages/resetPassword/ResetPasswordPage";
+import Micuenta from "../pages/micuenta/Micuenta";
 
 const router = createBrowserRouter([
   {
@@ -196,6 +197,10 @@ const router = createBrowserRouter([
   {
     path:"/resetPassword",
     element: <ResetPasswordPage />
+  },
+  {
+    path:"/micuenta",
+    element: <Micuenta />
   },
 ]);
 

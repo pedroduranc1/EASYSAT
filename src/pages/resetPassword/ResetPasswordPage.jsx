@@ -2,7 +2,7 @@ import React from 'react'
 import { AuthLayout } from '../../layouts/AuthLayout'
 import logo from "../../assets/logo.png";
 import { useFormik } from 'formik';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { validationSchemaResset } from '../../utils/login.form';
 import { User } from "../../api/fb.user";
 import { toast } from '../../components/ui/use-toast';
@@ -10,6 +10,8 @@ import { Loader2 } from 'lucide-react';
 
 const UserCtrl = new User();
 export const ResetPasswordPage = () => {
+
+    const navigate = useNavigate()
 
     const formik = useFormik({
         initialValues: {
@@ -39,7 +41,7 @@ export const ResetPasswordPage = () => {
             <div className="flex items-center justify-center h-screen min-h-[100dvh] overflow-hidden bg-gradient-to-t from-esatDark via-LogoBlue to-cyan-400"
             >
                 <form onSubmit={formik.handleSubmit} className="bg-white w-[90%]  md:w-[50%] lg:w-[30%] h-fit pb-[5%] mx-auto rounded-2xl shadow-2xl overflow-x-hidden">
-                    <img src={logo} className="w-[45%] mt-[7%] mx-auto" alt="" />
+                    <img src={logo} onClick={()=>{navigate("/")}} className="w-[45%] cursor-pointer mt-[7%] mx-auto" alt="" />
                     <div className='px-[5%] mt-[5dvh]'>
                         <h2 className="text-xl md:text-xl text-black/80 font-bold">Recupera tu cuenta</h2>
                         <p className="text-[13px] font-light text-esatDark mt-1">Te enviaremos un enlace para cambiar la contraseña</p>
