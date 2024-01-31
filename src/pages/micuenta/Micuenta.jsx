@@ -9,13 +9,16 @@ import NuevaFactura from "../../assets/micuentasvg/NuevaFactura.svg";
 import Facturas from "../../assets/micuentasvg/Facturas.svg";
 import Declaraciones from "../../assets/micuentasvg/Declaraciones.svg";
 import Documentos from "../../assets/micuentasvg/Documentos.svg";
+import logo from "../../assets/logoNuevo.png";
+import { useNavigate } from 'react-router-dom';
 
 const Micuenta = () => {
-
     const [NavActive, setNavActive] = useState(false)
     const [FacturasAcordion, setFacturasAcordion] = useState(false)
     const [DeclaracionAcordion, setDeclaracionAcordion] = useState(false)
     const [DocumentosAcordion, setDocumentosAcordion] = useState(false)
+
+    const navigate = useNavigate()
 
     const [OPC, setOPC] = useState(21)
 
@@ -23,7 +26,7 @@ const Micuenta = () => {
         <MainLayoutDg>
             <div className='w-full flex h-screen min-h-[100dvh] pt-[12%] bg-gray-200'>
                 {/* MI CUENTA NAV */}
-                <div className={`${NavActive ? "w-[22%]" : "xl:w-[4%] lg:w-[5%] md:w-[6%]"}  overflow-hidden h-[85%] py-2 px-4 transition-all bg-LogoBlue rounded-r-xl`}>
+                <div className={`${NavActive ? "w-[22%]" : "xl:w-[4%] lg:w-[5%] md:w-[6%]"} md:block hidden  overflow-hidden h-[85%] py-2 px-4 transition-all bg-LogoBlue rounded-r-xl`}>
                     <ChevronRight onClick={() => setNavActive(!NavActive)} className={`text-white ${NavActive ? "rotate-0" : "rotate-90"} cursor-pointer transition-all`} />
 
                     <ul className='w-full flex flex-col overflow-x-hidden h-full gap-y-3 mt-3'>
@@ -116,6 +119,17 @@ const Micuenta = () => {
                     </ul>
                 </div>
 
+                <div className='flex flex-col justify-center items-center  md:hidden w-full h-full '>
+
+                    <div className='bg-white flex justify-center items-center flex-col px-4 py-6 rounded-md'>
+                        <img src={logo} className='w-[30%]' alt="" />
+                        <h2 className='text-esatDark text-2xl font-bold'>Para una mejor experiencia</h2>
+                        <p className='text-esatDark text-2xl font-bold'>Utiliza la App de EasySAT</p>
+                        <button onClick={()=> navigate("/")} className='mt-10 w-full mx-[5%] bg-gray-300 rounded-md py-2 font-bold cursor-pointer'>Proximamente</button>
+                    </div>
+
+                </div>
+
                 <OpcContainer opc={OPC} />
             </div>
         </MainLayoutDg>
@@ -123,7 +137,7 @@ const Micuenta = () => {
 }
 
 const OpcContainer = ({ opc }) => {
-    return (<div className='w-full h-full px-[6%]'>
+    return (<div className='w-full h-full md:block hidden px-[6%]'>
         {opc === 0 && (<MCOPC.Inicio />)}
         {opc === 1 && (<MCOPC.NuevaFactura />)}
         {opc === 21 && (<MCOPC.Emitidas />)}

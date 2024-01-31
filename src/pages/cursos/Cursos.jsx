@@ -53,7 +53,6 @@ export const Cursos = () => {
       <MainLayoutDg isblack={true}>
         <div
           className="bg-fixed bg-cover overflow-hidden min-h-screen h-full"
-          style={{ backgroundImage: `url(${fondo})` }}
         >
           <div className="max-w-6xl mx-auto">
             <div className={` px-[3%] lg:px-0 pt-[18%] md:pt-[8.4%]`}>
@@ -165,7 +164,7 @@ export const Cursos = () => {
 
             {filteredByLikes.length > 0 && (
               <>
-                <h2 className="text-3xl uppercase text-white font-bold mb-4 md:mb-10">
+                <h2 className="text-3xl uppercase text-black font-bold mb-4 md:mb-10">
                   popular
                 </h2>
                 <CursosCarousel isPopular={true} array={filteredByLikes} />
@@ -174,13 +173,13 @@ export const Cursos = () => {
 
             {filteredCourses.length > 0 ? (
               <>
-                <h2 className="text-3xl uppercase mt-10 text-white font-bold mb-4 md:mb-10">
+                <h2 className="text-3xl uppercase mt-10 text-black font-bold mb-4 md:mb-10">
                   recientes
                 </h2>
                 <CursosCarousel isPopular={true} array={filteredCourses} />
               </>
             ) : (
-              <h2 className="text-3xl uppercase mt-10 text-white font-bold mb-4 md:mb-10">
+              <h2 className="text-3xl uppercase mt-10 text-black font-bold mb-4 md:mb-10">
                 No existen Cursos disponibles aun
               </h2>
             )}

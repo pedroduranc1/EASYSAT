@@ -13,7 +13,7 @@ import { CalendarDays } from 'lucide-react'
 const Emitidas = () => {
   return (
     <div className='w-full h-full'>
-      <div className='flex h-[60%] justify-between items-center'>
+      <div className='md:flex hidden md:h-[60%] justify-between items-center'>
         <div className='w-[45%] h-full flex justify-center items-center bg-white rounded-md'>
           <Dialog key={1}>
             <DialogTrigger asChild>
@@ -102,7 +102,7 @@ const Emitidas = () => {
         </div>
       </div>
 
-      <div className='w-full h-[33%] px-[5%] bg-white rounded-md py-[1%] my-[2%]'>
+      <div className='w-full md:flex flex-col hidden md:h-[33%] px-[5%] bg-white rounded-md py-[1%] my-[2%]'>
         <div className='w-1/3'>
         <Dialog key={2}>
             <DialogTrigger asChild>
