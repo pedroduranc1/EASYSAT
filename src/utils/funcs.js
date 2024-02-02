@@ -57,6 +57,21 @@ export function calcularSumasSemanas(data) {
     "diciembre",
   ];
 
+  const mesesSemana = [
+    "01",
+    "02",
+    "03",
+    "04",
+    "05",
+    "06",
+    "07",
+    "08",
+    "09",
+    "10",
+    "11",
+    "12",
+  ];
+
   // Itera sobre los datos
   data.forEach((item) => {
     const fecha = new Date(item.fecha);
@@ -71,21 +86,21 @@ export function calcularSumasSemanas(data) {
 
     let rangoSemana;
     if (inicioSemana.getMonth() === finSemana.getMonth()) {
-      rangoSemana = `${mes} ${inicioSemana.getDate()} - ${finSemana.getDate()}, ${fecha.getFullYear()}`;
+      rangoSemana = `${mesesSemana[inicioSemana.getMonth()]}/${inicioSemana.getDate()} - ${mesesSemana[inicioSemana.getMonth()]}/${finSemana.getDate()}`;
     } else {
       // Si el rango cruza dos meses, ajusta el mes en el rango
       if (inicioSemana.getDate() > finSemana.getDate()) {
         rangoSemana = `${
-          meses[inicioSemana.getMonth()]
-        } ${inicioSemana.getDate()} - ${
-          meses[finSemana.getMonth()]
-        } ${finSemana.getDate()}, ${fecha.getFullYear()}`;
+          mesesSemana[inicioSemana.getMonth()]
+        }/${inicioSemana.getDate()} - ${
+          mesesSemana[finSemana.getMonth()]
+        }/${finSemana.getDate()}`;
       } else {
         rangoSemana = `${
-          meses[inicioSemana.getMonth()]
+          mesesSemana[inicioSemana.getMonth()]
         } ${inicioSemana.getDate()} - ${
-          meses[inicioSemana.getMonth()]
-        } ${finSemana.getDate()}, ${fecha.getFullYear()}`;
+          mesesSemana[inicioSemana.getMonth()]
+        } ${finSemana.getDate()}`;
       }
     }
 
@@ -134,18 +149,18 @@ export function calcularSumasMensuales(data) {
 
   // Nombres de los meses
   const nombresMeses = [
-    "enero",
-    "febrero",
-    "marzo",
-    "abril",
-    "mayo",
-    "junio",
-    "julio",
-    "agosto",
-    "septiembre",
-    "octubre",
-    "noviembre",
-    "diciembre",
+    "Enero",
+    "Febrero",
+    "Marzo",
+    "Abril",
+    "Mayo",
+    "Junio",
+    "Julio",
+    "Agosto",
+    "Septiembre",
+    "Octubre",
+    "Noviembre",
+    "Diciembre",
   ];
 
   // Itera sobre los datos

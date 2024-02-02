@@ -17,7 +17,7 @@ export const IngresosGastos = ({ FirmaDigital, ContaEstFin }) => {
 
   return (
     <>
-      {FirmaDigital?.FirmaDigitalUrl ? (
+      {FirmaDigital ? (
         <>
           
           <div className="w-full overflow-hidden lg:w-1/2 pt-10 md:pt-0 p-2 md:p-8 h-full ">

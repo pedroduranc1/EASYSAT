@@ -17,21 +17,20 @@ const Micuenta = () => {
     const [FacturasAcordion, setFacturasAcordion] = useState(false)
     const [DeclaracionAcordion, setDeclaracionAcordion] = useState(false)
     const [DocumentosAcordion, setDocumentosAcordion] = useState(false)
-
     const navigate = useNavigate()
 
-    const [OPC, setOPC] = useState(21)
+    const [OPC, setOPC] = useState(0)
 
     return (
         <MainLayoutDg>
-            <div className='w-full flex h-screen min-h-[100dvh] pt-[12%] bg-gray-200'>
+            <div className='w-full flex h-full min-h-[100dvh] pt-[12%] bg-gray-200'>
                 {/* MI CUENTA NAV */}
-                <div className={`${NavActive ? "w-[22%]" : "xl:w-[4%] lg:w-[5%] md:w-[6%]"} md:block hidden  overflow-hidden h-[85%] py-2 px-4 transition-all bg-LogoBlue rounded-r-xl`}>
+                <div className={`${NavActive ? "w-[18%]" : "xl:w-[4%] lg:w-[5%] md:w-[6%]"} md:block hidden mr-[5%] overflow-hidden h-fit py-2 px-4 transition-all bg-LogoBlue rounded-r-xl`}>
                     <ChevronRight onClick={() => setNavActive(!NavActive)} className={`text-white ${NavActive ? "rotate-0" : "rotate-90"} cursor-pointer transition-all`} />
 
                     <ul className='w-full flex flex-col overflow-x-hidden h-full gap-y-3 mt-3'>
                         <li className='w-[250px]'>
-                            <button onClick={() => setOPC(0)} className='flex py-2 items-center gap-x-4'>
+                            <button onClick={() => setOPC(0)} className='flex w-full py-2 items-center gap-x-4'>
                                 <img src={Inicio} alt="" className='w-6 h-6 bg-contain' />
                                 <span className='text-white '>
                                     Inicio
@@ -40,7 +39,7 @@ const Micuenta = () => {
                             <div className='w-[85%] ml-auto border-b border-gray-50/20' />
                         </li>
                         <li className='w-[250px]'>
-                            <button onClick={() => setOPC(1)} className='flex py-2 items-center gap-x-4'>
+                            <button onClick={() => setOPC(1)} className='flex w-full py-2 items-center gap-x-4'>
                                 <img src={NuevaFactura} alt="" className='w-6 h-6 bg-contain' />
                                 <span className='text-white'>
                                     Nueva Factura
@@ -94,10 +93,27 @@ const Micuenta = () => {
                                 </div>
                             </button>
 
+                            <AnimatePresence>
+                                {
+                                    DeclaracionAcordion &&
+                                    (<>
+                                        <div className='w-[85%] ml-auto'>
+                                            <button onClick={() => setOPC(31)} className='text-white text-[14px]'>Mensuales</button>
+                                        </div>
+                                        <div className='w-[85%] ml-auto'>
+                                            <button onClick={() => setOPC(32)} className='text-white text-[14px]'>Anuales</button>
+                                        </div>
+                                        <div className='w-[85%] ml-auto'>
+                                            <button onClick={() => setOPC(33)} className='text-white text-[14px]'>Pendientes</button>
+                                        </div>
+                                    </>)
+                                }
+                            </AnimatePresence>
+
                             <div className='w-[85%] ml-auto border-b border-gray-50/20' />
                         </li>
                         <li className='w-[250px]'>
-                            <button onClick={() => setOPC(4)} className='flex w-full py-2 relative items-center gap-x-4'>
+                            <button  className='flex w-full py-2 relative items-center gap-x-4'>
                                 <img src={Documentos} alt="" className='w-6 h-6 bg-contain' />
                                 <div onClick={() => { setDocumentosAcordion(!DocumentosAcordion) }} className='w-full flex items-center cursor-pointer '>
                                     <span className='text-white  flex items-center'>
@@ -106,6 +122,23 @@ const Micuenta = () => {
                                     <Play className={`${DocumentosAcordion ? "rotate-90" : "rotate-0"} ml-[28%] transition-all w-3 h-3 mr-3 text-white  fill-white`} />
                                 </div>
                             </button>
+
+                            <AnimatePresence>
+                                {
+                                    DocumentosAcordion &&
+                                    (<>
+                                        <div className='w-[85%] ml-auto'>
+                                            <button onClick={() => setOPC(41)} className='text-white text-[14px]'>Acuses</button>
+                                        </div>
+                                        <div className='w-[85%] ml-auto'>
+                                            <button onClick={() => setOPC(42)} className='text-white text-[14px]'>invoices</button>
+                                        </div>
+                                        <div className='w-[85%] ml-auto'>
+                                            <button onClick={() => setOPC(43)} className='text-white text-[14px]'>Documentos SAT</button>
+                                        </div>
+                                    </>)
+                                }
+                            </AnimatePresence>
                             <div className='w-[85%] ml-auto border-b border-gray-50/20' />
                         </li>
                         <li className='w-[250px]'>
@@ -137,15 +170,19 @@ const Micuenta = () => {
 }
 
 const OpcContainer = ({ opc }) => {
-    return (<div className='w-full h-full md:block hidden px-[6%]'>
+    return (<div className='w-[80%]  overflow-x-hidden h-full md:flex hidden'>
         {opc === 0 && (<MCOPC.Inicio />)}
         {opc === 1 && (<MCOPC.NuevaFactura />)}
         {opc === 21 && (<MCOPC.Emitidas />)}
         {opc === 22 && (<MCOPC.Recibidas />)}
         {opc === 23 && (<MCOPC.ConstanciaRetencion />)}
         {opc === 24 && (<MCOPC.GastosExtranjeros />)}
-        {opc === 3 && (<><h2>Declaraciones</h2></>)}
-        {opc === 4 && (<><h2>Documentos</h2></>)}
+        {opc === 31 && (<><h2>Mensuales</h2></>)}
+        {opc === 32 && (<><h2>Anuales</h2></>)}
+        {opc === 33 && (<><h2>Pendientes</h2></>)}
+        {opc === 41 && (<><h2>Acuses</h2></>)}
+        {opc === 42 && (<><h2>Invoices</h2></>)}
+        {opc === 43 && (<><h2>Documentos SAT</h2></>)}
 
     </div>)
 }
