@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { MainLayoutDg } from '../../layouts/MainLayoutDg'
 import { ChevronRight, FileBarChart, Home, LineChart, Play, PlusCircle, Receipt } from 'lucide-react'
 import { motion, AnimatePresence } from "framer-motion";
@@ -11,22 +11,30 @@ import Declaraciones from "../../assets/micuentasvg/Declaraciones.svg";
 import Documentos from "../../assets/micuentasvg/Documentos.svg";
 import logo from "../../assets/logoNuevo.png";
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../../hooks/useAuth';
 
 const Micuenta = () => {
-    const [NavActive, setNavActive] = useState(false)
+    const {User} = useAuth()
+
+    const [NavActive, setNavActive] = useState(true)
     const [FacturasAcordion, setFacturasAcordion] = useState(false)
     const [DeclaracionAcordion, setDeclaracionAcordion] = useState(false)
     const [DocumentosAcordion, setDocumentosAcordion] = useState(false)
     const navigate = useNavigate()
 
+    useEffect(() => {
+        if(!User){
+            navigate("/", { replace: true });
+        }
+      }, [User])
+
     const [OPC, setOPC] = useState(0)
 
     return (
         <MainLayoutDg>
-            <div className='w-full flex h-full min-h-[100dvh] pt-[12%] bg-gray-200'>
+            <div className='w-full flex h-full min-h-[100dvh] pt-[15dvh] bg-gray-200'>
                 {/* MI CUENTA NAV */}
-                <div className={`${NavActive ? "w-[18%]" : "xl:w-[4%] lg:w-[5%] md:w-[6%]"} md:block hidden mr-[5%] overflow-hidden h-fit py-2 px-4 transition-all bg-LogoBlue rounded-r-xl`}>
-                    <ChevronRight onClick={() => setNavActive(!NavActive)} className={`text-white ${NavActive ? "rotate-0" : "rotate-90"} cursor-pointer transition-all`} />
+                <div className={`${NavActive ? "w-fit" : "xl:w-[4%] lg:w-[5%] md:w-[6%]"} md:block hidden mr-[5%] overflow-hidden h-[100] py-2 px-4 transition-all bg-LogoBlue`}>
 
                     <ul className='w-full flex flex-col overflow-x-hidden h-full gap-y-3 mt-3'>
                         <li className='w-[250px]'>
@@ -69,10 +77,13 @@ const Micuenta = () => {
                                             <button onClick={() => setOPC(22)} className='text-white text-[14px]'>Recibidas</button>
                                         </div>
                                         <div className='w-[85%] ml-auto'>
-                                            <button onClick={() => setOPC(23)} className='text-white text-[14px]'>Constancias de Retencion</button>
+                                            <button onClick={() => setOPC(23)} className='text-white text-[14px]'>Constancias de Retención</button>
                                         </div>
                                         <div className='w-[85%] ml-auto'>
                                             <button onClick={() => setOPC(24)} className='text-white text-[14px]'>Gastos Extranjeros</button>
+                                        </div>
+                                        <div className='w-[85%] ml-auto'>
+                                            <button onClick={() => setOPC(24)} className='text-white text-[14px]'>Pedimentos de Importanción</button>
                                         </div>
                                     </>)
                                 }
@@ -113,7 +124,16 @@ const Micuenta = () => {
                             <div className='w-[85%] ml-auto border-b border-gray-50/20' />
                         </li>
                         <li className='w-[250px]'>
-                            <button  className='flex w-full py-2 relative items-center gap-x-4'>
+                            <button onClick={() => setOPC(0)} className='flex w-full py-2 items-center gap-x-4'>
+                                <img src={Documentos} alt="" className='w-6 h-6 bg-contain' />
+                                <span className='text-white '>
+                                    Estados de Resultados
+                                </span>
+                            </button>
+                            <div className='w-[85%] ml-auto border-b border-gray-50/20' />
+                        </li>
+                        <li className='w-[250px]'>
+                            <button className='flex w-full py-2 relative items-center gap-x-4'>
                                 <img src={Documentos} alt="" className='w-6 h-6 bg-contain' />
                                 <div onClick={() => { setDocumentosAcordion(!DocumentosAcordion) }} className='w-full flex items-center cursor-pointer '>
                                     <span className='text-white  flex items-center'>
@@ -145,7 +165,7 @@ const Micuenta = () => {
                             <button className='flex py-2 items-center gap-x-4'>
                                 <LineChart className='text-white ' />
                                 <span className='text-white '>
-
+                                    Análisis de Datos
                                 </span>
                             </button>
                         </li>
@@ -158,7 +178,7 @@ const Micuenta = () => {
                         <img src={logo} className='w-[30%]' alt="" />
                         <h2 className='text-esatDark text-2xl font-bold'>Para una mejor experiencia</h2>
                         <p className='text-esatDark text-2xl font-bold'>Utiliza la App de EasySAT</p>
-                        <button onClick={()=> navigate("/")} className='mt-10 w-full mx-[5%] bg-gray-300 rounded-md py-2 font-bold cursor-pointer'>Proximamente</button>
+                        <button onClick={() => navigate("/")} className='mt-10 w-full mx-[5%] bg-gray-300 rounded-md py-2 font-bold cursor-pointer'>Proximamente</button>
                     </div>
 
                 </div>
@@ -170,7 +190,7 @@ const Micuenta = () => {
 }
 
 const OpcContainer = ({ opc }) => {
-    return (<div className='w-[80%]  overflow-x-hidden h-full md:flex hidden'>
+    return (<div className='w-[80%]  overflow-x-hidden pt-5 h-full md:flex hidden'>
         {opc === 0 && (<MCOPC.Inicio />)}
         {opc === 1 && (<MCOPC.NuevaFactura />)}
         {opc === 21 && (<MCOPC.Emitidas />)}

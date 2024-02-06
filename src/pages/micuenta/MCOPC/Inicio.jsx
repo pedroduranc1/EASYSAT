@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import ChartComponent from '../../../components/graficas/ChartComponent'
 import { meses, ordenarPorMes } from '../../../assets/adminData'
 import {
@@ -9,12 +9,24 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "../../../components/ui/dropdown-menu"
+
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "../../../components/ui/select"
 import { ChevronDown } from 'lucide-react'
+import { obtenerGastosVentasPorFecha } from '../../../utils/funcs'
 
 const Inicio = () => {
+  const fechaActual = new Date();
+  const mesActual = fechaActual.getMonth();
+  const anoActual = fechaActual.getFullYear();
 
-  const [MesFiltro, setMesFiltro] = useState(null)
-  const [Mes, setMes] = useState("Febrero")
   const ContaEstFin = [
     {
       gastos: 5000,
@@ -46,10 +58,6 @@ const Inicio = () => {
     },
   ]
 
-  const fechaActual = new Date();
-  const mesActual = fechaActual.getMonth();
-  const anoActual = fechaActual.getFullYear();
-
   const nombresMeses = [
     "Enero",
     "Febrero",
@@ -64,6 +72,11 @@ const Inicio = () => {
     "Noviembre",
     "Diciembre",
   ];
+  const [Year, setYear] = useState(anoActual)
+  const [MesFiltro, setMesFiltro] = useState(`${nombresMeses[mesActual]} ${Year}`)
+  const [Mes, setMes] = useState("Febrero")
+  const [IngresosMes, setIngresosMes] = useState(null)
+  const [GastosMes, setGastosMes] = useState(null)
 
   const dataNueva = ContaEstFin?.map((data) => {
     return {
@@ -73,6 +86,12 @@ const Inicio = () => {
   });
   const dataOrdenada = ordenarPorMes(dataNueva);
 
+  useEffect(() => {
+    const data = obtenerGastosVentasPorFecha(dataOrdenada, MesFiltro)
+    setGastosMes(data.gastos)
+    setIngresosMes(data.ventas)
+  }, [MesFiltro])
+
   const resumen = dataOrdenada.reduce((acumulador, transaccion) => {
     acumulador.gastos += transaccion.gastos;
     acumulador.ventas += transaccion.ventas;
@@ -80,8 +99,14 @@ const Inicio = () => {
   }, { gastos: 0, ventas: 0 });
 
   // Formatea los resultados
-  const totalGastosFormateado = resumen.gastos.toLocaleString('es-VE');
-  const totalVentasFormateado = resumen.ventas.toLocaleString('es-VE');
+  const totalGastosFormateado = GastosMes?.toLocaleString('es-MX');
+  const totalVentasFormateado = IngresosMes?.toLocaleString('es-MX');
+
+  const handleSelectChange = (selectedOption) => {
+    // Cuando cambia la selección, actualiza el estado y muestra la selección por consola
+    setMesFiltro(selectedOption.value);
+    console.log("Opción seleccionada:", selectedOption.value);
+  };
 
   return (
     <div className='w-full flex flex-col  justify-center items-center h-full rounded-md'>
@@ -106,14 +131,14 @@ const Inicio = () => {
             <h2 className='font-semibold w-full group-hover:text-white text-center text-[14px]'>Utilidad o perdida acumulada</h2>
 
             <h5 className='font-bold group-hover:text-white text-esatDark text-[35px]'>
-              $ 1.500,00
+              $1.500,00
             </h5>
           </div>
         </div>
       </div>
       <div className='w-[100%] gap-x-3 flex h-[69%]  shadow-lg rounded-md'>
         <div className='w-[70%] bg-white rounded-md shadow-lg'>
-          <ChartComponent mes={Mes} data={dataOrdenada} />
+          <ChartComponent mes={Mes} Year={Year} setYear={setYear} data={dataOrdenada} />
         </div>
         <div className='w-[30%] flex-col gap-y-3 h-[25%] flex justify-around items-center'>
           <div className='w-full h-full bg-white shadow-lg px-[5%] py-3 rounded-md'>
@@ -121,13 +146,27 @@ const Inicio = () => {
             <h5 className='font-bold text-LogoBlue/90 text-[35px]'>
               ${totalVentasFormateado}
             </h5>
-            <DropdownMenu key={1}>
-              <DropdownMenuTrigger className="flex items-center gap-x-3">{MesFiltro ? MesFiltro : `${nombresMeses[mesActual]} ${anoActual}`} <ChevronDown className="w-4 h-4" /></DropdownMenuTrigger>
-              <DropdownMenuContent>
-                <DropdownMenuItem onClick={() => setMesFiltro(`${nombresMeses[mesActual-1]} ${anoActual}`)}>{nombresMeses[mesActual-1]} {anoActual}</DropdownMenuItem>
-                <DropdownMenuItem onClick={() => setMesFiltro(`${nombresMeses[mesActual]} ${anoActual}`)}>{nombresMeses[mesActual]} {anoActual}</DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
+            <Select
+              key={1}
+              className="border-none ring-0 focus:ring-0 text-black placeholder:text-black"
+              onValueChange={(e)=>{setMesFiltro(e)}}
+              value={MesFiltro}
+            >
+              <SelectTrigger className="w-fit border-none ring-0 focus:ring-0 px-0">
+                <SelectValue placeholder="Selecciona una Fecha" />
+              </SelectTrigger>
+              <SelectContent className="h-[40dvh] px-0">
+                {nombresMeses.map((mes) => (
+                  <SelectItem
+                    key={mes}
+                    value={`${mes} ${Year}`}
+                  >
+                    {mes} {Year}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+
             <p className='font-semibold text-black/60'></p>
           </div>
 
@@ -136,13 +175,26 @@ const Inicio = () => {
             <h5 className='font-bold text-LogoGreen/90 text-[35px]'>
               ${totalGastosFormateado}
             </h5>
-            <DropdownMenu key={2}>
-              <DropdownMenuTrigger className="flex items-center gap-x-3">{MesFiltro ? MesFiltro : `${nombresMeses[mesActual]} ${anoActual}`} <ChevronDown className="w-4 h-4" /></DropdownMenuTrigger>
-              <DropdownMenuContent>
-                <DropdownMenuItem onClick={() => setMesFiltro(`${nombresMeses[mesActual-1]} ${anoActual}`)}>{nombresMeses[mesActual-1]} {anoActual}</DropdownMenuItem>
-                <DropdownMenuItem onClick={() => setMesFiltro(`${nombresMeses[mesActual]} ${anoActual}`)}>{nombresMeses[mesActual]} {anoActual}</DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
+            <Select
+              key={2}
+              className="border-none ring-0 focus:ring-0 text-black placeholder:text-black"
+              onValueChange={(e)=>{setMesFiltro(e)}}
+              value={MesFiltro}
+            >
+              <SelectTrigger className="w-fit border-none ring-0 focus:ring-0 px-0">
+                <SelectValue placeholder="Selecciona una Fecha" />
+              </SelectTrigger>
+              <SelectContent className="h-[40dvh] px-0">
+                {nombresMeses.map((mes) => (
+                  <SelectItem
+                    key={mes}
+                    value={`${mes} ${Year}`}
+                  >
+                    {mes} {Year}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
           </div>
         </div>
       </div>

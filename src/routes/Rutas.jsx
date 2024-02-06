@@ -40,6 +40,7 @@ import { PruebasExcel } from "../pages/pruebas/PruebasExcel";
 import { PruebasXml } from "../pages/pruebas/PruebasXml";
 import { ResetPasswordPage } from "../pages/resetPassword/ResetPasswordPage";
 import Micuenta from "../pages/micuenta/Micuenta";
+import InfoFiscal from "../pages/infoFiscal/InfoFiscal";
 
 const router = createBrowserRouter([
   {
@@ -202,6 +203,10 @@ const router = createBrowserRouter([
     path:"/micuenta",
     element: <Micuenta />
   },
+  {
+    path:"/informacionFiscal",
+    element: <InfoFiscal />
+  }
 ]);
 
 export const Rutas = () => {

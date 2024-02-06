@@ -1,8 +1,7 @@
 export function getCurrentDate() {
   const date = new Date();
-  const formatted = `${date.getDate()}/${
-    date.getMonth() + 1
-  }/${date.getFullYear()}`;
+  const formatted = `${date.getDate()}/${date.getMonth() + 1
+    }/${date.getFullYear()}`;
 
   return formatted;
 }
@@ -90,17 +89,13 @@ export function calcularSumasSemanas(data) {
     } else {
       // Si el rango cruza dos meses, ajusta el mes en el rango
       if (inicioSemana.getDate() > finSemana.getDate()) {
-        rangoSemana = `${
-          mesesSemana[inicioSemana.getMonth()]
-        }/${inicioSemana.getDate()} - ${
-          mesesSemana[finSemana.getMonth()]
-        }/${finSemana.getDate()}`;
+        rangoSemana = `${mesesSemana[inicioSemana.getMonth()]
+          }/${inicioSemana.getDate()} - ${mesesSemana[finSemana.getMonth()]
+          }/${finSemana.getDate()}`;
       } else {
-        rangoSemana = `${
-          mesesSemana[inicioSemana.getMonth()]
-        } ${inicioSemana.getDate()} - ${
-          mesesSemana[inicioSemana.getMonth()]
-        } ${finSemana.getDate()}`;
+        rangoSemana = `${mesesSemana[inicioSemana.getMonth()]
+          } ${inicioSemana.getDate()} - ${mesesSemana[inicioSemana.getMonth()]
+          } ${finSemana.getDate()}`;
       }
     }
 
@@ -144,7 +139,7 @@ Date.prototype.getWeek = function () {
   return Math.ceil(((d - yearStart) / 86400000 + 1) / 7);
 };
 
-export function calcularSumasMensuales(data) {
+export function calcularSumasMensuales(data, Year) {
   const meses = {};
 
   // Nombres de los meses
@@ -163,25 +158,29 @@ export function calcularSumasMensuales(data) {
     "Diciembre",
   ];
 
-  // Itera sobre los datos
+  // Crear un objeto con todos los meses del año con ventas y gastos en 0
+  nombresMeses.forEach((nombreMes) => {
+    const claveMes = `${Year}-${nombreMes}`;
+    meses[claveMes] = {
+      mes: nombreMes,
+      year: Year,
+      ventas: 0,
+      gastos: 0,
+    };
+  });
+
+  // Iterar sobre los datos y sumarlos a los meses correspondientes
   data.forEach((item) => {
     const fecha = new Date(item.fecha);
     const año = fecha.getFullYear();
-    const mes = nombresMeses[fecha.getMonth()]; // Obtén el nombre del mes
 
+    const mes = nombresMeses[fecha.getMonth()]; // Obtén el nombre del mes
     const claveMes = `${año}-${mes}`;
 
-    if (!meses[claveMes]) {
-      meses[claveMes] = {
-        mes: mes,
-        year: año,
-        ventas: 0,
-        gastos: 0,
-      };
+    if (meses[claveMes]) {
+      meses[claveMes].ventas += item.ventas;
+      meses[claveMes].gastos += item.gastos;
     }
-
-    meses[claveMes].ventas += item.ventas;
-    meses[claveMes].gastos += item.gastos;
   });
 
   const resultado = Object.values(meses);
@@ -197,6 +196,43 @@ export function calcularSumasMensuales(data) {
   });
 
   return resultado;
+}
+
+export function obtenerGastosVentasPorFecha(data, fechaStr) {
+  // Convierte la cadena de fecha en una fecha válida
+  const partesFecha = fechaStr.split(' ');
+  if (partesFecha.length !== 2) {
+    throw new Error("El formato de fecha no es válido. Debe ser 'Mes Año' (por ejemplo, 'Febrero 2024').");
+  }
+  const nombreMes = partesFecha[0];
+  const year = parseInt(partesFecha[1]);
+
+  if (isNaN(year)) {
+    throw new Error("El año en la fecha no es válido.");
+  }
+
+  const SumasPorMes = calcularSumasMensuales(data,year);
+
+  // Busca el mes y año en los datos y suma los gastos y ventas correspondientes
+  const mesEncontrado = SumasPorMes.filter((item) => {
+    return item.mes == nombreMes && item.year == year;
+  });
+
+  if (mesEncontrado) {
+    return {
+      mes: nombreMes,
+      año: year,
+      ventas: mesEncontrado[0].ventas,
+      gastos: mesEncontrado[0].gastos,
+    };
+  } else {
+    return {
+      mes: nombreMes,
+      año: year,
+      ventas: 0,
+      gastos: 0,
+    };
+  }
 }
 
 export function calcularSumasAnuales(data) {

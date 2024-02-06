@@ -31,10 +31,13 @@ const upperFirtsLetter = (frase) => {
     .join(' ');
 }
 
-const ChartComponent = ({ qtyChart, data }) => {
+const ChartComponent = ({ qtyChart, data,Year,setYear }) => {
   const [windowHeight, setWindowHeight] = useState(window.innerHeight);
+  const fechaActual = new Date();
+  // const mesActual = fechaActual.getMonth();
+  const anoActual = fechaActual.getFullYear();
+
   const [mes, setmes] = useState("monthly")
-  const [Year, setYear] = useState(null)
 
   useEffect(() => {
     const handleResize = () => {
@@ -55,23 +58,10 @@ const ChartComponent = ({ qtyChart, data }) => {
   //ORDENAR POR MES
   ConvertMonth(mes)
 
-  const filtrarPorParametro = (filter) => {
-    if (filter === "weekly") {
-      const groupedData = calcularSumasSemanas(data);
-
-      return groupedData;
-    } else if (filter === "monthly") {
-      const groupedData = calcularSumasMensuales(data);
-
-      return groupedData;
-    } else if (filter === "yearly") {
-      const groupedData = calcularSumasAnuales(data);
-      return groupedData;
-    } else {
-      const groupedData = calcularSumasMensuales(data);
-
-      return groupedData;
-    }
+  const filtrarPorParametro = () => {
+    const groupedData = calcularSumasMensuales(data,Year);
+      
+    return groupedData;
   };
 
   const renderChart = () => {
@@ -106,7 +96,6 @@ const ChartComponent = ({ qtyChart, data }) => {
                 <Cell key={`gastos-cell-${index}`} fill={COLORS[1]} />
               ))}
             </Bar>
-            <Tooltip />
           </BarChart>
         );
       case "line":
@@ -129,7 +118,6 @@ const ChartComponent = ({ qtyChart, data }) => {
               stroke={COLORS[1]}
               name="Gastos"
             />
-            <Tooltip />
           </LineChart>
         );
       default:
@@ -157,7 +145,7 @@ const ChartComponent = ({ qtyChart, data }) => {
 
         <ul className="bg-white rounded-lg overflow-hidden flex items-center gap-3">
           <DropdownMenu key={2}>
-            <DropdownMenuTrigger className="flex items-center gap-x-3">{Year ? Year : "Anual"} <ChevronDown className="w-4 h-4"/></DropdownMenuTrigger>
+            <DropdownMenuTrigger className="flex items-center gap-x-3">{Year ? Year : anoActual} <ChevronDown className="w-4 h-4"/></DropdownMenuTrigger>
             <DropdownMenuContent>
               <DropdownMenuItem onClick={()=>setYear("2022")}>2022</DropdownMenuItem>
               <DropdownMenuItem onClick={()=>setYear("2023")}>2023</DropdownMenuItem>
