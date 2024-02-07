@@ -1,14 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import ChartComponent from '../../../components/graficas/ChartComponent'
 import { meses, ordenarPorMes } from '../../../assets/adminData'
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "../../../components/ui/dropdown-menu"
 
 import {
   Select,
@@ -109,17 +101,17 @@ const Inicio = () => {
   };
 
   return (
-    <div className='w-full flex flex-col  justify-center items-center h-full rounded-md'>
+    <div className='w-full flex flex-col pr-[3%] justify-center items-center h-full rounded-md'>
       <div className='w-[100%] overflow-hidden py-2 rounded-md'>
         <div className='w-[70%] h-full flex justify-center gap-x-3 rounded-md'>
-          <div className='w-[30%] border-2 border-gray-300 group hover:bg-esatDark transition-all cursor-pointer bg-white shadow-lg px-[2%] py-3 flex flex-col justify-center items-center rounded-md'>
+          <div className='w-1/3 border-2 border-gray-300 group hover:bg-esatDark transition-all cursor-pointer bg-white shadow-lg px-[2%] py-3 flex flex-col justify-center items-center rounded-md'>
             <h2 className='font-light group-hover:text-white text-center text-[18px]'>Total a pagar del mes</h2>
 
             <span className='flex group-hover:text-white items-center gap-x-1 mt-2'> <span className='font-light'>IVA</span><p className='text-esatDark group-hover:text-white font-semibold text-xl'>$850,00</p></span>
             <span className='flex group-hover:text-white items-center gap-x-1'> <span className='font-light'>ISR</span><p className='text-esatDark group-hover:text-white font-semibold text-xl'>$250,00</p></span>
 
           </div>
-          <div className='w-[30%] border-2 border-gray-300 group hover:bg-esatDark transition-all cursor-pointer bg-white shadow-lg px-[1%] py-3 flex flex-col justify-center items-center rounded-md'>
+          <div className='w-1/3 border-2 border-gray-300 group hover:bg-esatDark transition-all cursor-pointer bg-white shadow-lg px-[1%] py-3 flex flex-col justify-center items-center rounded-md'>
             <h2 className='font-semibold w-full group-hover:text-white text-center text-[14px]'>Vista previa declaracion anual</h2>
             <h2 className='font-light group-hover:text-white text-center text-[14px]'>ISR por pagar o a favor</h2>
 
@@ -127,11 +119,11 @@ const Inicio = () => {
               ${totalVentasFormateado}
             </h5>
           </div>
-          <div className='w-[30%] border-2 border-gray-300 group hover:bg-esatDark transition-all cursor-pointer bg-white shadow-lg px-[1%] py-3 flex flex-col justify-center items-center rounded-md'>
+          <div className='w-1/3 border-2 border-gray-300 group hover:bg-esatDark transition-all cursor-pointer bg-white shadow-lg px-[1%] py-3 flex flex-col justify-center items-center rounded-md'>
             <h2 className='font-semibold w-full group-hover:text-white text-center text-[14px]'>Utilidad o perdida acumulada</h2>
 
             <h5 className='font-bold group-hover:text-white text-esatDark text-[35px]'>
-              $1.500,00
+              $1,500.00
             </h5>
           </div>
         </div>
@@ -141,18 +133,14 @@ const Inicio = () => {
           <ChartComponent mes={Mes} Year={Year} setYear={setYear} data={dataOrdenada} />
         </div>
         <div className='w-[30%] flex-col gap-y-3 h-[25%] flex justify-around items-center'>
-          <div className='w-full h-full bg-white shadow-lg px-[5%] py-3 rounded-md'>
-            <h2 className='font-semibold text-[18px]'>Ingresos</h2>
-            <h5 className='font-bold text-LogoBlue/90 text-[35px]'>
-              ${totalVentasFormateado}
-            </h5>
-            <Select
+          <div className='w-full flex justify-end'>
+          <Select
               key={1}
               className="border-none ring-0 focus:ring-0 text-black placeholder:text-black"
               onValueChange={(e)=>{setMesFiltro(e)}}
               value={MesFiltro}
             >
-              <SelectTrigger className="w-fit border-none ring-0 focus:ring-0 px-0">
+              <SelectTrigger className="w-fit border-2 border-gray-300 ring-0 focus:ring-0 px-3">
                 <SelectValue placeholder="Selecciona una Fecha" />
               </SelectTrigger>
               <SelectContent className="h-[40dvh] px-0">
@@ -166,7 +154,13 @@ const Inicio = () => {
                 ))}
               </SelectContent>
             </Select>
+          </div>
 
+          <div className='w-full h-full bg-white shadow-lg px-[5%] py-3 rounded-md'>
+            <h2 className='font-semibold text-[18px]'>Ingresos</h2>
+            <h5 className='font-bold text-LogoBlue/90 text-[35px]'>
+              ${totalVentasFormateado}
+            </h5>
             <p className='font-semibold text-black/60'></p>
           </div>
 
@@ -175,26 +169,6 @@ const Inicio = () => {
             <h5 className='font-bold text-LogoGreen/90 text-[35px]'>
               ${totalGastosFormateado}
             </h5>
-            <Select
-              key={2}
-              className="border-none ring-0 focus:ring-0 text-black placeholder:text-black"
-              onValueChange={(e)=>{setMesFiltro(e)}}
-              value={MesFiltro}
-            >
-              <SelectTrigger className="w-fit border-none ring-0 focus:ring-0 px-0">
-                <SelectValue placeholder="Selecciona una Fecha" />
-              </SelectTrigger>
-              <SelectContent className="h-[40dvh] px-0">
-                {nombresMeses.map((mes) => (
-                  <SelectItem
-                    key={mes}
-                    value={`${mes} ${Year}`}
-                  >
-                    {mes} {Year}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
           </div>
         </div>
       </div>

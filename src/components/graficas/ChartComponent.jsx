@@ -22,6 +22,16 @@ import {
   DropdownMenuTrigger,
 } from "../../components/ui/dropdown-menu"
 
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "../../components/ui/select"
+
 const COLORS = ["#0575ae", "#90aa74"];
 
 const upperFirtsLetter = (frase) => {
@@ -31,7 +41,7 @@ const upperFirtsLetter = (frase) => {
     .join(' ');
 }
 
-const ChartComponent = ({ qtyChart, data,Year,setYear }) => {
+const ChartComponent = ({ qtyChart, data, Year, setYear }) => {
   const [windowHeight, setWindowHeight] = useState(window.innerHeight);
   const fechaActual = new Date();
   // const mesActual = fechaActual.getMonth();
@@ -59,8 +69,8 @@ const ChartComponent = ({ qtyChart, data,Year,setYear }) => {
   ConvertMonth(mes)
 
   const filtrarPorParametro = () => {
-    const groupedData = calcularSumasMensuales(data,Year);
-      
+    const groupedData = calcularSumasMensuales(data, Year);
+
     return groupedData;
   };
 
@@ -78,7 +88,7 @@ const ChartComponent = ({ qtyChart, data,Year,setYear }) => {
               dataKey="ventas"
               fill={COLORS[0]}
               name="Ventas"
-              label={{ position: "top" }}
+              //label={{ position: "top" }}
               activeFill="transparent"
             >
               {data?.ventas?.map((entry, index) => (
@@ -89,7 +99,7 @@ const ChartComponent = ({ qtyChart, data,Year,setYear }) => {
               dataKey="gastos"
               fill={COLORS[1]}
               name="Gastos"
-              label={{ position: "top" }}
+              //label={{ position: "top" }}
               activeFill="transparent"
             >
               {data?.gastos?.map((entry, index) => (
@@ -143,15 +153,35 @@ const ChartComponent = ({ qtyChart, data,Year,setYear }) => {
         </div>
 
 
-        <ul className="bg-white rounded-lg overflow-hidden flex items-center gap-3">
-          <DropdownMenu key={2}>
-            <DropdownMenuTrigger className="flex items-center gap-x-3">{Year ? Year : anoActual} <ChevronDown className="w-4 h-4"/></DropdownMenuTrigger>
-            <DropdownMenuContent>
-              <DropdownMenuItem onClick={()=>setYear("2022")}>2022</DropdownMenuItem>
-              <DropdownMenuItem onClick={()=>setYear("2023")}>2023</DropdownMenuItem>
-              <DropdownMenuItem onClick={()=>setYear("2024")}>2024</DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
+        <ul className="bg-white relative rounded-lg overflow-hidden flex items-center gap-3">
+
+          <Select
+            key={1}
+            className="border-none relative ring-0 focus:ring-0 text-black placeholder:text-black"
+            onValueChange={(e) => { setYear(e) }}
+            value={`${Year}`}
+          >
+            <SelectTrigger className="w-fit h-fit border-none ring-0 focus:ring-0 px-0">
+              <SelectValue placeholder="Selecciona una Fecha" />
+            </SelectTrigger>
+            <SelectContent className="h-fit px-0 absolute -top-1 -right-10">
+              <SelectItem
+                value={`2022`}
+              >
+                2022
+              </SelectItem>
+              <SelectItem
+                value={`2023`}
+              >
+                2023
+              </SelectItem>
+              <SelectItem
+                value={`2024`}
+              >
+                2024
+              </SelectItem>
+            </SelectContent>
+          </Select>
         </ul>
       </div>
 

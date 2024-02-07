@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { MainLayoutDg } from '../../layouts/MainLayoutDg'
 import { useAuth } from '../../hooks/useAuth'
 import { Link, useNavigate } from 'react-router-dom'
@@ -33,6 +33,8 @@ const InfoFiscal = () => {
     const fileInputKEY2 = useRef(null);
 
     const fileInputLogo = useRef(null);
+
+    const [RegimenFiscal, setRegimenFiscal] = useState(null)
 
     const handleClickLogo = () => {
         fileInputLogo.current.click();
@@ -96,18 +98,18 @@ const InfoFiscal = () => {
 
     return (
         <MainLayoutDg>
-            <div className='w-full flex h-full min-h-[100dvh] pt-[20dvh] bg-gray-200'>
+            <div className='w-full flex h-full min-h-[100dvh] pt-[20dvh] bg-white'>
                 <div className='w-full h-full mx-[2%] md:mx-[10%]'>
                     <div className='w-full'>
-                        <h2 className='font-light text-cyan-800 text-3xl mb-5'>¡Hola! Bienvenido</h2>
+                        <h2 className='font-semibold text-cyan-800 text-3xl mb-5'>¡Hola! Bienvenido</h2>
 
                         <p className='text-cyan-800'>Completa la siguiente informacion para que puedas emitir facturas cuanto antes</p>
 
-                        <h2 className='font-light mt-2 text-cyan-800 text-3xl mb-5'>Información personal</h2>
+                        <h2 className='font-semibold mt-2 text-cyan-800 text-3xl mb-5'>Información personal</h2>
                     </div>
                     <div className='w-full flex flex-col md:flex-row py-2'>
                         {/* LOGO */}
-                        <div className='border-2 w-full md:w-1/2  flex md:flex-row flex-col gap-y-3 md:gap-y-0 gap-x-5 justify-around py-4 px-2 border-gray-500 rounded-md'>
+                        <div className='border-2 bg-gray-100 w-full md:w-1/2  flex md:flex-row flex-col gap-y-3 md:gap-y-0 gap-x-5 justify-around py-4 px-2 border-gray-500 rounded-md'>
                             <div onClick={handleClickLogo} className='w-[80%] mx-auto md:mx-0 md:w-[40%] relative bg-gray-400/40 cursor-pointer shadow-md shadow-gray-400 rounded-md flex justify-center items-center'>
                                 <User2 className='w-40 h-40 fill-white text-white' />
 
@@ -139,7 +141,7 @@ const InfoFiscal = () => {
                             </div>
                         </div>
                         {/* Razon social */}
-                        <div className='w-full mt-5 md:mt-0 md:w-1/2 px-3'>
+                        <div className='w-full  mt-5 md:mt-0 md:w-1/2 px-3'>
                             <label htmlFor="RS">Razón social*</label>
                             <input className='w-full border-2 border-gray-500 bg-gray-200 py-1 px-3 rounded-sm' type="text" id='RS' />
 
@@ -151,7 +153,7 @@ const InfoFiscal = () => {
 
                                 <div className='w-1/2'>
                                     <label htmlFor="CIEC">CIEC*</label>
-                                    <input className='w-full border-2 border-gray-500 bg-gray-200 py-1 px-3 rounded-sm' type="text" id='CIEC' />
+                                    <input className='w-full border-2 border-gray-500 bg-gray-200 py-1 px-3 rounded-sm' type="password" id='CIEC' />
                                 </div>
                             </div>
 
@@ -161,19 +163,37 @@ const InfoFiscal = () => {
                                     <Select
                                         key={1}
                                         className="border-none ring-0 focus:ring-0 text-black placeholder:text-black"
-                                    // onValueChange={(e) => { setMesFiltro(e) }}
-                                    // value={MesFiltro}
+                                        onValueChange={(e) => { setRegimenFiscal(e) }}
+                                        value={RegimenFiscal}
                                     >
                                         <SelectTrigger className="w-full border-2 border-gray-500 bg-gray-200">
-                                            <SelectValue placeholder="Selecciona una opción" />
+                                            <SelectValue placeholder="" />
                                         </SelectTrigger>
-                                        <SelectContent className="h-[40dvh] px-0">
+                                        <SelectContent className="h-fit px-0">
 
                                             <SelectItem
                                             // key={mes}
-                                            // value={`${mes} ${Year}`}
+                                            value={`Régimen Personas Físicas con  Actividades Empresariales y Profesionales`}
                                             >
-                                                opcion 1
+                                                Régimen Personas Físicas con  Actividades Empresariales y Profesionales
+                                            </SelectItem>
+                                            <SelectItem
+                                            // key={mes}
+                                            value={`Régimen de Incorporación Fiscal`}
+                                            >
+                                                Régimen de Incorporación Fiscal
+                                            </SelectItem>
+                                            <SelectItem
+                                            // key={mes}
+                                            value={`Régimen de las Actividades Empresariales con Ingresos a través de Plataformas Tecnológicas`}
+                                            >
+                                                Régimen de las Actividades Empresariales con Ingresos a través de Plataformas Tecnológicas
+                                            </SelectItem>
+                                            <SelectItem
+                                            // key={mes}
+                                            value={`Régimen Simplificado de Confianza`}
+                                            >
+                                                Régimen Simplificado de Confianza
                                             </SelectItem>
                                         </SelectContent>
                                     </Select>
@@ -185,13 +205,13 @@ const InfoFiscal = () => {
                                 </div>
                             </div>
 
-                            <label htmlFor="telefono">Numero</label>
+                            <label htmlFor="telefono">Número de celular para notificaciones</label>
                             <input className='w-full border-2 border-gray-500 bg-gray-200 py-1 px-3 rounded-sm' type="tel" id='telefono' />
                         </div>
                     </div>
 
                     <div className='w-full'>
-                        <h2 className='font-light mt-2 text-cyan-800 text-3xl mb-5'>Domicilio fiscal</h2>
+                        <h2 className='font-semibold mt-2 text-cyan-800 text-3xl mb-5'>Domicilio fiscal</h2>
                     </div>
 
                     <div className='w-full py-2'>
@@ -213,7 +233,7 @@ const InfoFiscal = () => {
                             </div>
                         </div>
 
-                        <div className='w-full flex px-3 md:flex-row flex-col items-center justify-between gap-x-5 mt-4'>
+                        <div className='w-full flex md:flex-row flex-col items-center justify-between gap-x-5 mt-4'>
                             <div className='w-full md:w-1/3'>
                                 <label htmlFor="Colonia">Colonia*</label>
                                 <Select
@@ -245,11 +265,11 @@ const InfoFiscal = () => {
                             <div className='w-full md:w-1/3 flex justify-between items-center gap-x-5'>
                                 <div className='w-1/2'>
                                     <label htmlFor="NumExterior">No. exterior</label>
-                                    <input placeholder='NumExterior' className='w-full border-2 border-gray-500 bg-gray-200 py-1 px-3 rounded-sm' type="text" id='NumExterior' />
+                                    <input placeholder='No. exterior' className='w-full border-2 border-gray-500 bg-gray-200 py-1 px-3 rounded-sm' type="text" id='NumExterior' />
                                 </div>
                                 <div className='w-1/2'>
                                     <label htmlFor="NumInterior">No. interior</label>
-                                    <input placeholder='NumInterior' className='w-full border-2 border-gray-500 bg-gray-200 py-1 px-3 rounded-sm' type="text" id='NumInterior' />
+                                    <input placeholder='No. interior' className='w-full border-2 border-gray-500 bg-gray-200 py-1 px-3 rounded-sm' type="text" id='NumInterior' />
                                 </div>
 
                             </div>
@@ -257,14 +277,14 @@ const InfoFiscal = () => {
                     </div>
 
                     <div className='w-full'>
-                        <h2 className='font-light mt-2 text-cyan-800 text-3xl mb-3'>Firma electrónica avanzada y certificado de sellos digitales</h2>
+                        <h2 className='font-semibold mt-2 text-cyan-800 text-3xl mb-3'>Firma electrónica avanzada y certificado de sellos digitales</h2>
 
                         <p className='text-gray-600'>*Es importante que subas tus sellos digitales, ya que sin ellos no podrás emitir facturas.</p>
                     </div>
 
 
                     <div className='w-full flex md:flex-row flex-col gap-y-3 md:gap-y-0 items-center justify-between py-4 px-2 gap-x-5'>
-                        <div className='w-full md:w-1/2 border-gray-500 rounded-sm border-2 px-9 py-5'>
+                        <div className='w-full md:w-1/2 bg-gray-100 border-gray-500 rounded-sm border-2 px-9 py-5'>
                             <label htmlFor="Estado">Sube tu archivo .CER</label>
                             <div onClick={handleClickCER} className='w-full border-2 border-gray-500 flex overflow-hidden mt-3 rounded-md items-center justify-end'>
                                 <button className='w-[33%] py-1 h-full bg-gray-300 border-l-2 border-gray-500'>Browse</button>
@@ -302,7 +322,7 @@ const InfoFiscal = () => {
                                 <button className='bg-esatDark text-white w-[50%] py-3'>Cargar archivos</button>
                             </div>
                         </div>
-                        <div className='w-full md:w-1/2 border-gray-500 rounded-sm border-2 px-9 py-5'>
+                        <div className='w-full md:w-1/2 bg-gray-100 border-gray-500 rounded-sm border-2 px-9 py-5'>
                             <label htmlFor="Estado">Sube tu archivo .CER</label>
                             <div onClick={handleClickCER2} className='w-full border-2 border-gray-500 flex overflow-hidden mt-3 rounded-md items-center justify-end'>
                                 <button className='w-[33%] py-1 h-full bg-gray-300 border-l-2 border-gray-500'>Browse</button>

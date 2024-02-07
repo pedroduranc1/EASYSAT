@@ -12,9 +12,9 @@ import { CalendarDays } from 'lucide-react'
 
 const NuevaFactura = () => {
   return (
-    <div className='w-full h-full'>
-      <div className='md:flex hidden md:h-[41dvh] justify-between items-center'>
-        <div className='w-[45%] h-full flex justify-center items-center bg-white rounded-md'>
+    <div className='w-full h-full pr-[4%] pt-[1%]'>
+      <div className='md:flex hidden md:h-[41dvh] gap-x-6 justify-between items-center'>
+        <div className='w-1/2 h-full flex justify-center items-center bg-white rounded-md'>
           <Dialog key={1}>
             <DialogTrigger asChild>
               <button className='py-2 w-[60%] rounded-md cursor-pointer bg-gray-200'>Seleccionar Cliente</button>
@@ -40,7 +40,7 @@ const NuevaFactura = () => {
             </DialogContent>
           </Dialog>
         </div>
-        <div className='w-[50%] px-[5%] h-full bg-white rounded-md'>
+        <div className='w-1/2 px-[5%] h-full bg-white rounded-md'>
           <div className='mt-5 flex justify-between items-center'>
             <h3 className='w-[75%]'>Fecha de Emision</h3>
             <input className='bg-gray-200 py-1 w-full rounded-md' type="date" />
@@ -74,14 +74,6 @@ const NuevaFactura = () => {
             <div className='w-[20%] ml-5'></div>
           </div>
 
-          <div className='mt-3 flex justify-between items-center'>
-            <h3 className='w-[75%]'>Moneda</h3>
-            <select className='w-full bg-gray-200 py-1 rounded-md'>
-              <option value=""></option>
-              <option value="isdas">Moneda</option>
-            </select>
-            <div className='w-[20%] ml-5'></div>
-          </div>
 
           <div className='mt-3 flex w-[85%] gap-x-2 justify-between items-center'>
             <div className='mt-3 flex w-1/2 justify-between items-center'>
