@@ -42,7 +42,7 @@ const Inicio = () => {
       fecha: new Date("2024-01-15")
     },
     {
-      gastos: 10000,
+      gastos: 13000,
       ventas: 20000,
       year: "2024",
       month: "Febrero",
@@ -91,8 +91,9 @@ const Inicio = () => {
   }, { gastos: 0, ventas: 0 });
 
   // Formatea los resultados
-  const totalGastosFormateado = GastosMes?.toLocaleString('es-MX');
-  const totalVentasFormateado = IngresosMes?.toLocaleString('es-MX');
+  const totalGastosFormateado = GastosMes?.toLocaleString('es-MX', { minimumFractionDigits: 2, useGrouping: true });
+  const totalVentasFormateado = IngresosMes?.toLocaleString('es-MX', { minimumFractionDigits: 2, useGrouping: true });
+
 
   const handleSelectChange = (selectedOption) => {
     // Cuando cambia la selección, actualiza el estado y muestra la selección por consola
@@ -134,10 +135,10 @@ const Inicio = () => {
         </div>
         <div className='w-[30%] flex-col gap-y-3 h-[25%] flex justify-around items-center'>
           <div className='w-full flex justify-end'>
-          <Select
+            <Select
               key={1}
               className="border-none ring-0 focus:ring-0 text-black placeholder:text-black"
-              onValueChange={(e)=>{setMesFiltro(e)}}
+              onValueChange={(e) => { setMesFiltro(e) }}
               value={MesFiltro}
             >
               <SelectTrigger className="w-fit border-2 border-gray-300 ring-0 focus:ring-0 px-3">

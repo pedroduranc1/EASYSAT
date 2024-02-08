@@ -198,6 +198,7 @@ export function calcularSumasMensuales(data, Year) {
   return resultado;
 }
 
+
 export function obtenerGastosVentasPorFecha(data, fechaStr) {
   // Convierte la cadena de fecha en una fecha válida
   const partesFecha = fechaStr.split(' ');

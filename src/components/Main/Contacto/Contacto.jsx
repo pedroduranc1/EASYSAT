@@ -1,8 +1,8 @@
 import React from 'react'
 
-export const Contacto = () => {
+export const Contacto = ({contactoRef}) => {
   return (
-    <div id="contacto" className="w-full  bg-esatDark  md:h-full  flex flex-col">
+    <div id="contacto" ref={contactoRef} className="w-full  bg-esatDark  md:h-full  flex flex-col">
       <div
         className="w-full h-full  flex flex-col px-[5%] md:px-[10%] lg:px-[20%]  bg-[length:100%_100%] bg-no-repeat bg-center "
 

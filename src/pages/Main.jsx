@@ -86,6 +86,47 @@ export const Main = () => {
     setChatBot(!ChatBot)
   }
 
+  const contactoRef = useRef(null);
+  const preguntasRef = useRef(null);
+  const planesRef = useRef(null);
+  const serviciosRef = useRef(null);
+
+  // Función para desplazarse a la sección de contacto
+  const scrollToSite = () => {
+    if (contactoRef.current) {
+      contactoRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    if (preguntasRef.current) {
+      preguntasRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    if (planesRef.current) {
+      planesRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    if (serviciosRef.current) {
+      serviciosRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  // Efecto que se ejecuta una vez al montar el componente para desplazarse automáticamente a la sección de contacto
+  useEffect(() => {
+    // Verificar si la URL de la página contiene el fragmento #algo
+    if (window.location.hash === '#contacto') {
+      scrollToSite();
+    }
+    if (window.location.hash === '#preguntas') {
+      scrollToSite();
+    }
+    if (window.location.hash === '#planes') {
+      scrollToSite();
+    }
+    if (window.location.hash === '#servicios') {
+      scrollToSite();
+    }
+  }, []);
+
 
   return (
     <>
@@ -113,7 +154,7 @@ export const Main = () => {
       </div>
 
       {/* SERVICIOS */}
-      <div id="servicios" className="w-full h-fit hover:transition-all scroll-m-40 bg-cyan-200 flex flex-col justify-center items-center">
+      <div id="servicios" ref={serviciosRef} className="w-full h-fit hover:transition-all scroll-m-40 bg-cyan-200 flex flex-col justify-center items-center">
         <h2 className="text-5xl font-semibold  text-esatDark">Servicios</h2>
         <p className="text-esatDark text-2xl mt-2 text-center">Expertos en simplificar tus impuestos y maximizar tus beneficios. <br />Descubre nuestros servicios</p>
 
@@ -137,7 +178,7 @@ export const Main = () => {
       </div>
 
       {/* PRICING */}
-      <div id="planes" className="w-full h-[70vh] hover:transition-all pb-[10%] relative bg-white">
+      <div id="planes" ref={planesRef} className="w-full h-[70vh] hover:transition-all pb-[10%] relative bg-white">
         <div className="bg-cyan-200 w-full py-[3%] flex flex-col  items-center ">
           <h3 className="text-center text-3xl md:text-5xl font-semibold text-esatDark">
             Descubre <br />Nuestros Paquetes
@@ -372,7 +413,7 @@ export const Main = () => {
         </motion.h2>
       </div>
 
-      <MainC.Preguntas />
+      <MainC.Preguntas preguntasRef={preguntasRef} />
 
       <div className="w-full h-10 my-5 bg-esatDark"
         style={{ clipPath: "polygon(100% 1%, 0 0, 50% 18%)" }}
@@ -382,7 +423,7 @@ export const Main = () => {
       <MainC.Redes />
 
       {/* CONTACTO */}
-      <MainC.Contacto />
+      <MainC.Contacto contactoRef={contactoRef} />
 
       {pathname == "/" && (
         <div className="fixed  left-[3%] bottom-[3%] bg-slate-700 overflow-hidden rounded-full w-20 h-20 md:w-32 md:h-32">

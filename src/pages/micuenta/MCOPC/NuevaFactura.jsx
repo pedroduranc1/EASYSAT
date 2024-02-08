@@ -44,7 +44,7 @@ const NuevaFactura = () => {
           <div className='mt-5 flex justify-between items-center'>
             <h3 className='w-[75%]'>Fecha de Emision</h3>
             <input className='bg-gray-200 py-1 w-full rounded-md' type="date" />
-            <CalendarDays className='w-[20%] ml-5' />
+            <div className='w-[20%] ml-5'></div>
           </div>
 
           <div className='mt-3 flex justify-between items-center'>

@@ -83,11 +83,16 @@ const ChartComponent = ({ qtyChart, data, Year, setYear }) => {
               {mes === 'ano' && <XAxis dataKey="mes" tickFormatter={(value) => value} />}
               {mes === 'semana' && <XAxis dataKey="rangoSemana" tickFormatter={(value) => value} />}
             </XAxis>
-            <YAxis />
+            <YAxis tickFormatter={(tick) => {
+              // Formatear el número tick según tus necesidades
+              // Aquí puedes aplicar la lógica de formateo que desees
+              // Por ejemplo, puedes usar toLocaleString para agregar separadores de miles y decimales
+              return tick.toLocaleString('es-MX');
+            }} />
             <Bar
               dataKey="ventas"
               fill={COLORS[0]}
-              name="Ventas"
+              name="ventas"
               //label={{ position: "top" }}
               activeFill="transparent"
             >
@@ -98,7 +103,7 @@ const ChartComponent = ({ qtyChart, data, Year, setYear }) => {
             <Bar
               dataKey="gastos"
               fill={COLORS[1]}
-              name="Gastos"
+              name="gastos"
               //label={{ position: "top" }}
               activeFill="transparent"
             >

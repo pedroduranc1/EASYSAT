@@ -147,13 +147,13 @@ const Micuenta = () => {
                                 {
                                     DocumentosAcordion &&
                                     (<>
-                                        <div className='w-[] ml-auto'>
+                                        <div className='w-[78%] ml-auto'>
                                             <button onClick={() => setOPC(41)} className='text-white text-[14px]'>Acuses</button>
                                         </div>
-                                        <div className='w-[] ml-auto'>
+                                        <div className='w-[78%] ml-auto'>
                                             <button onClick={() => setOPC(42)} className='text-white text-[14px]'>invoices</button>
                                         </div>
-                                        <div className='w-[] ml-auto'>
+                                        <div className='w-[78%] ml-auto'>
                                             <button onClick={() => setOPC(43)} className='text-white text-[14px]'>Documentos SAT</button>
                                         </div>
                                     </>)

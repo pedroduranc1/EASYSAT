@@ -1,5 +1,5 @@
 import { Search } from 'lucide-react'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {
   Table,
   TableBody,
@@ -10,39 +10,35 @@ import {
   TableHeader,
   TableRow,
 } from "../../../components/ui/table"
+import { emitidasPrueba } from '../../../assets/adminData';
 
-const invoices = [
-  {
-    invoice: "INV001",
-    paymentStatus: "Paid",
-    totalAmount: "$250.00",
-    paymentMethod: "Credit Card",
-  },
-  {
-    invoice: "INV002",
-    paymentStatus: "Pending",
-    totalAmount: "$150.00",
-    paymentMethod: "PayPal",
-  },
-  {
-    invoice: "INV003",
-    paymentStatus: "Unpaid",
-    totalAmount: "$350.00",
-    paymentMethod: "Bank Transfer",
-  },
-  {
-    invoice: "INV004",
-    paymentStatus: "Paid",
-    totalAmount: "$450.00",
-    paymentMethod: "Credit Card",
-  },
-  {
-    invoice: "INV005",
-    paymentStatus: "Paid",
-    totalAmount: "$550.00",
-    paymentMethod: "PayPal",
-  },
-]
+const formatISODateToNormal = (isoDateString) => {
+  const date = new Date(isoDateString);
+  // Asegúrate de que la fecha esté en el formato deseado. Puedes ajustar este formato según necesites.
+  return `${date.getDate().toString().padStart(2, '0')}/${(date.getMonth() + 1).toString().padStart(2, '0')}/${date.getFullYear()}`;
+};
+
+const extractDataWithPagination = (invoices, pageNumber = 1, pageSize = 5) => {
+  // Calcular el índice de inicio de los objetos para la página actual
+  const startIndex = (pageNumber - 1) * pageSize;
+  // Filtrar los objetos para obtener solo los de la página actual
+  const paginatedItems = invoices.slice(startIndex, startIndex + pageSize);
+
+  // Extraer los datos específicos de cada objeto paginado
+  return paginatedItems.map(invoice => ({
+    periodoDeCobro: formatISODateToNormal(invoice.fecha_timbrado),
+    fechaDeEmision: formatISODateToNormal(invoice.fecha_emision),  // Se asume el mismo valor para ambos, revisa esto para ajustar según necesidades
+    cliente: invoice.nombre_receptor,
+    rfc: invoice.rfc_receptor,
+    subtotal: invoice.subtotal.toLocaleString('es-MX', { minimumFractionDigits: 2, useGrouping: true }),
+    total: invoice.total.toLocaleString('es-MX', { minimumFractionDigits: 2, useGrouping: true }),
+    formaDePago: invoice.formadepago,
+    serie: invoice.serie,
+    folio: invoice.folio,
+    tipoDeCDFI: invoice.usocfdi,
+    estado: invoice.estado_sat
+  }));
+};
 
 const HeadersEmitidas = [
   'PERIODO DE COBRO',
@@ -61,6 +57,7 @@ const HeadersEmitidas = [
 const Emitidas = () => {
   const [startIndex, setStartIndex] = useState(0);
   const [headerStartIndex, setHeaderStartIndex] = useState(0);
+  const [Pagi, setPagi] = useState(1)
 
   const clickDer = () => {
     if (startIndex >= 5) {
@@ -75,6 +72,111 @@ const Emitidas = () => {
       setStartIndex(startIndex - 1);
     }
   }
+
+  useEffect(() => {
+    setFacturasEmitidas(extractDataWithPagination(emitidasPrueba, Pagi, pageSize))
+  }, [Pagi])
+  
+  const pageSize = 4;
+  const [page, setPage] = useState(1);
+  const [FacturasEmitidas, setFacturasEmitidas] = useState([]);
+
+  useEffect(() => {
+    setFacturasEmitidas(extractDataWithPagination(emitidasPrueba, page, pageSize));
+  }, [page]);
+
+  const totalPages = Math.ceil(emitidasPrueba.length / pageSize);
+
+  const nextPage = () => {
+    setPage((prevPage) => (prevPage < totalPages ? prevPage + 1 : prevPage));
+  };
+
+  const prevPage = () => {
+    setPage((prevPage) => (prevPage > 1 ? prevPage - 1 : prevPage));
+  };
+  
+
+  const selectedTablePosition = (index, invoice) => {
+    if (index === 0) {
+      return (
+        <>
+          <TableCell className="text-center text-[12px]">{invoice.periodoDeCobro}</TableCell>
+          <TableCell className="text-center text-[12px]">{invoice.fechaDeEmision}</TableCell>
+          <TableCell className="text-center text-[12px]">{invoice.cliente}</TableCell>
+          <TableCell className="text-center text-[12px]">{invoice.rfc}</TableCell>
+          <TableCell className="text-center text-[12px]">{invoice.subtotal}</TableCell>
+          <TableCell className="text-center text-[12px]">{invoice.total}</TableCell>
+        </>
+      )
+    }
+
+    if (index === 1) {
+      return (
+        <>
+          <TableCell className="text-center text-[12px]">{invoice.fechaDeEmision}</TableCell>
+          <TableCell className="text-center text-[10px]">{invoice.cliente}</TableCell>
+          <TableCell className="text-center text-[12px]">{invoice.rfc}</TableCell>
+          <TableCell className="text-center text-[12px]">{invoice.subtotal}</TableCell>
+          <TableCell className="text-center text-[12px]">{invoice.total}</TableCell>
+          <TableCell className="text-center text-[12px]">{invoice.formaDePago}</TableCell>
+        </>
+      )
+    }
+
+    if (index === 2) {
+      return (
+        <>
+          <TableCell className="text-center text-[10px]">{invoice.cliente}</TableCell>
+          <TableCell className="text-center text-[12px]">{invoice.rfc}</TableCell>
+          <TableCell className="text-center text-[12px]">{invoice.subtotal}</TableCell>
+          <TableCell className="text-center text-[12px]">{invoice.total}</TableCell>
+          <TableCell className="text-center text-[12px]">{invoice.formaDePago}</TableCell>
+          <TableCell className="text-center text-[12px]">{invoice.serie}</TableCell>
+        </>
+      )
+    }
+
+    if (index === 3) {
+      return (
+        <>
+          <TableCell className="text-center text-[12px]">{invoice.rfc}</TableCell>
+          <TableCell className="text-center text-[12px]">{invoice.subtotal}</TableCell>
+          <TableCell className="text-center text-[12px]">{invoice.total}</TableCell>
+          <TableCell className="text-center text-[12px]">{invoice.formaDePago}</TableCell>
+          <TableCell className="text-center text-[12px]">{invoice.serie}</TableCell>
+          <TableCell className="text-center text-[12px]">{invoice.folio}</TableCell>
+        </>
+      )
+    }
+
+    if (index === 4) {
+      return (
+        <>
+          <TableCell className="text-center text-[12px]">{invoice.subtotal}</TableCell>
+          <TableCell className="text-center text-[12px]">{invoice.total}</TableCell>
+          <TableCell className="text-center text-[12px]">{invoice.formaDePago}</TableCell>
+          <TableCell className="text-center text-[12px]">{invoice.serie}</TableCell>
+          <TableCell className="text-center text-[12px]">{invoice.folio}</TableCell>
+          <TableCell className="text-center text-[12px]">{invoice.tipoDeCDFI}</TableCell>
+        </>
+      )
+    }
+
+    if (index === 5) {
+      return (
+        <>
+          <TableCell className="text-center text-[12px]">{invoice.total}</TableCell>
+          <TableCell className="text-center text-[12px]">{invoice.formaDePago}</TableCell>
+          <TableCell className="text-center text-[12px]">{invoice.serie}</TableCell>
+          <TableCell className="text-center text-[12px]">{invoice.folio}</TableCell>
+          <TableCell className="text-center text-[12px]">{invoice.tipoDeCDFI}</TableCell>
+          <TableCell className="text-center text-[12px]">{invoice.estado}</TableCell>
+        </>
+      )
+    }
+  }
+
+  //queda pendiente busqueda por rfc o cliente
 
   return (
     <div className='w-full flex flex-col pr-[10%] pt-2 justify-center items-center h-full rounded-md'>
@@ -92,21 +194,20 @@ const Emitidas = () => {
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead className="text-[10px] w-[25dvw] text-center">{HeadersEmitidas[startIndex]}</TableHead>
-              <TableHead className="text-[10px] w-[25dvw] text-center">{HeadersEmitidas[startIndex + 1]}</TableHead>
-              <TableHead className="text-[10px] w-[25dvw] text-center">{HeadersEmitidas[startIndex + 2]}</TableHead>
-              <TableHead className="text-[10px] w-[25dvw] text-center">{HeadersEmitidas[startIndex + 3]}</TableHead>
-              <TableHead className="text-[10px] w-[25dvw] text-center">{HeadersEmitidas[startIndex + 4]}</TableHead>
-              <TableHead className="text-[10px] w-[25dvw] text-center">{HeadersEmitidas[startIndex + 5]}</TableHead>
+              <TableHead className="text-[10px] w-[250px] text-center">{HeadersEmitidas[startIndex]}</TableHead>
+              <TableHead className="text-[10px] w-[250px] text-center">{HeadersEmitidas[startIndex + 1]}</TableHead>
+              <TableHead className="text-[10px] w-[250px] text-center">{HeadersEmitidas[startIndex + 2]}</TableHead>
+              <TableHead className="text-[10px] w-[250px] text-center">{HeadersEmitidas[startIndex + 3]}</TableHead>
+              <TableHead className="text-[10px] w-[250px] text-center">{HeadersEmitidas[startIndex + 4]}</TableHead>
+              <TableHead className="text-[10px] w-[250px] text-center">{HeadersEmitidas[startIndex + 5]}</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
-            {invoices.map((invoice) => (
+            {FacturasEmitidas.map((invoice, index) => (
               <TableRow key={invoice.invoice}>
-                <TableCell className="text-center">{invoice.invoice}</TableCell>
-                <TableCell className="text-center">{invoice.paymentStatus}</TableCell>
-                <TableCell className="text-center">{invoice.paymentMethod}</TableCell>
-                <TableCell className="text-center">{invoice.totalAmount}</TableCell>
+                {
+                  selectedTablePosition(startIndex, invoice)
+                }
               </TableRow>
             ))}
           </TableBody>
@@ -114,11 +215,17 @@ const Emitidas = () => {
 
       </div>
 
-      <div className='w-full flex items-center justify-start mt-3'>
+      <div className='absolute bottom-5 gap-x-52  flex justify-between'>
         <div className='flex items-center gap-x-1'>
           <button onClick={() => clickIzq()} className='text-[10px] cursor-pointer text-gray-500'>{"<"}</button>
           Recorrer la Tabla
           <button onClick={() => clickDer()} className='text-[10px] cursor-pointer text-gray-500'>{">"}</button>
+        </div>
+
+        <div className='flex items-center gap-x-1'>
+          <button onClick={() => prevPage()} className='text-[10px] cursor-pointer text-gray-500'>{"<"}</button>
+          Pag {page} / {totalPages}
+          <button onClick={() => nextPage()} className='text-[10px] cursor-pointer text-gray-500'>{">"}</button>
         </div>
       </div>
     </div>
