@@ -13,12 +13,18 @@ import {
 import { emitidasPrueba } from '../../../assets/adminData';
 
 const formatISODateToNormal = (isoDateString) => {
+  // Verificar si la fecha de entrada ya está en el formato deseado (dd/mm/yyyy)
+  if (/^\d{2}\/\d{2}\/\d{4}$/.test(isoDateString)) {
+    return isoDateString; // Devolver la fecha de entrada sin modificar
+  }
+
+  // Si la fecha no está en el formato deseado, convertirla a formato normal
   const date = new Date(isoDateString);
   // Asegúrate de que la fecha esté en el formato deseado. Puedes ajustar este formato según necesites.
   return `${date.getDate().toString().padStart(2, '0')}/${(date.getMonth() + 1).toString().padStart(2, '0')}/${date.getFullYear()}`;
 };
 
-const extractDataWithPagination = (invoices, pageNumber = 1, pageSize = 5) => {
+const extractDataWithPagination = (invoices, pageNumber, pageSize) => {
   // Calcular el índice de inicio de los objetos para la página actual
   const startIndex = (pageNumber - 1) * pageSize;
   // Filtrar los objetos para obtener solo los de la página actual
@@ -76,13 +82,17 @@ const Emitidas = () => {
   useEffect(() => {
     setFacturasEmitidas(extractDataWithPagination(emitidasPrueba, Pagi, pageSize))
   }, [Pagi])
-  
+
   const pageSize = 4;
   const [page, setPage] = useState(1);
   const [FacturasEmitidas, setFacturasEmitidas] = useState([]);
+  const [FacturasFiltradas, setFacturasFiltradas] = useState(extractDataWithPagination(emitidasPrueba, page, pageSize));
+  const [FacturasEmitidasCompletas, setFacturasEmitidasCompletas] = useState(null);
 
   useEffect(() => {
+    setFacturasEmitidasCompletas(extractDataWithPagination(emitidasPrueba, pageSize, pageSize))
     setFacturasEmitidas(extractDataWithPagination(emitidasPrueba, page, pageSize));
+    setFacturasFiltradas(extractDataWithPagination(emitidasPrueba, page, pageSize));
   }, [page]);
 
   const totalPages = Math.ceil(emitidasPrueba.length / pageSize);
@@ -94,7 +104,7 @@ const Emitidas = () => {
   const prevPage = () => {
     setPage((prevPage) => (prevPage > 1 ? prevPage - 1 : prevPage));
   };
-  
+
 
   const selectedTablePosition = (index, invoice) => {
     if (index === 0) {
@@ -176,6 +186,50 @@ const Emitidas = () => {
     }
   }
 
+  const eliminarDuplicados = (array) => {
+    // Objeto para almacenar los UUID ya vistos
+    const vistos = {};
+
+    // Filtrar el array, manteniendo solo los elementos no vistos previamente
+    return array.filter((obj) => {
+      // Verificar si el UUID del objeto ya ha sido visto
+      if (vistos[obj.uuid]) {
+        return false; // Si ya ha sido visto, omitir este objeto
+      }
+      // Si no ha sido visto, marcarlo como visto y mantenerlo
+      vistos[obj.uuid] = true;
+      return true;
+    });
+  }
+
+  const filtrarFacturas = (searchValue) => {
+    if (!searchValue) {
+      setFacturasFiltradas([...FacturasEmitidas]);
+      return;
+    }
+
+    const valorBuscado = searchValue.toLowerCase();
+
+    let filtradasPorRFC = emitidasPrueba.filter(factura =>
+      factura.rfc_receptor.toLowerCase().includes(valorBuscado)
+    );
+
+    let filtradasPorNombre = emitidasPrueba.filter(factura =>
+      factura.nombre_receptor.toLowerCase().includes(valorBuscado)
+    );
+
+    const dataCompleta = [...filtradasPorNombre, ...filtradasPorRFC]
+    const dataSinDupli = eliminarDuplicados(dataCompleta);
+
+    setFacturasFiltradas(extractDataWithPagination(dataSinDupli, page, pageSize))
+  };
+
+  const handleChange = (event) => {
+    const valorInput = event.target.value;
+    filtrarFacturas(valorInput);
+  };
+
+
   //queda pendiente busqueda por rfc o cliente
 
   return (
@@ -184,7 +238,7 @@ const Emitidas = () => {
         <h2 className='font-[12px] text-4xl'>Facturas emitidas</h2>
 
         <div className='w-[30%] flex px-3 items-center border-2 border-gray-400 rounded-lg'>
-          <input className='py-1 w-full ring-0 outline-none border-none text-[14px] placeholder:text-[14px]' type="text" placeholder='Buscar cliente, RFC...' />
+          <input onChange={handleChange} className='py-1 w-full ring-0 outline-none border-none text-[14px] placeholder:text-[14px]' type="text" placeholder='Buscar cliente, RFC...' />
 
           <Search className='w-5 h-5 text-gray-400' />
         </div>
@@ -203,7 +257,8 @@ const Emitidas = () => {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {FacturasEmitidas.map((invoice, index) => (
+
+            {FacturasFiltradas?.map((invoice, index) => (
               <TableRow key={invoice.invoice}>
                 {
                   selectedTablePosition(startIndex, invoice)
@@ -222,11 +277,19 @@ const Emitidas = () => {
           <button onClick={() => clickDer()} className='text-[10px] cursor-pointer text-gray-500'>{">"}</button>
         </div>
 
-        <div className='flex items-center gap-x-1'>
-          <button onClick={() => prevPage()} className='text-[10px] cursor-pointer text-gray-500'>{"<"}</button>
-          Pag {page} / {totalPages}
-          <button onClick={() => nextPage()} className='text-[10px] cursor-pointer text-gray-500'>{">"}</button>
-        </div>
+        {
+          Pagi == totalPages ? (
+            <></>
+          ):
+          (
+            <div className='flex items-center gap-x-1'>
+              <button onClick={() => prevPage()} className='text-[10px] cursor-pointer text-gray-500'>{"<"}</button>
+              Pag {page} / {totalPages}
+              <button onClick={() => nextPage()} className='text-[10px] cursor-pointer text-gray-500'>{">"}</button>
+            </div>
+          )
+        }
+
       </div>
     </div>
   )
