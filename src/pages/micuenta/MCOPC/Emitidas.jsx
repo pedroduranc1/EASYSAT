@@ -83,7 +83,7 @@ const Emitidas = () => {
     setFacturasEmitidas(extractDataWithPagination(emitidasPrueba, Pagi, pageSize))
   }, [Pagi])
 
-  const pageSize = 4;
+  const pageSize = 5;
   const [page, setPage] = useState(1);
   const [FacturasEmitidas, setFacturasEmitidas] = useState([]);
   const [FacturasFiltradas, setFacturasFiltradas] = useState(extractDataWithPagination(emitidasPrueba, page, pageSize));
