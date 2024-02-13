@@ -83,7 +83,7 @@ const Micuenta = () => {
                                             <button onClick={() => setOPC(24)} className='text-white text-[12px]'>Gastos Extranjeros</button>
                                         </div>
                                         <div className='w-[78%] ml-auto'>
-                                            <button onClick={() => setOPC(24)} className='text-white text-[12px]'>Pedimentos de Importación</button>
+                                            <button onClick={() => setOPC(25)} className='text-white text-[12px]'>Pedimentos de Importación</button>
                                         </div>
                                     </>)
                                 }
@@ -197,6 +197,7 @@ const OpcContainer = ({ opc }) => {
         {opc === 22 && (<MCOPC.Recibidas />)}
         {opc === 23 && (<MCOPC.ConstanciaRetencion />)}
         {opc === 24 && (<MCOPC.GastosExtranjeros />)}
+        {opc === 25 && (<MCOPC.Pedimentos />)}
         {opc === 31 && (<><h2>Mensuales</h2></>)}
         {opc === 32 && (<><h2>Anuales</h2></>)}
         {opc === 33 && (<><h2>Pendientes</h2></>)}

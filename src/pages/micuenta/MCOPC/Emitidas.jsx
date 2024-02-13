@@ -62,28 +62,13 @@ const HeadersEmitidas = [
 
 const Emitidas = () => {
   const [startIndex, setStartIndex] = useState(0);
-  const [headerStartIndex, setHeaderStartIndex] = useState(0);
   const [Pagi, setPagi] = useState(1)
-
-  const clickDer = () => {
-    if (startIndex >= 5) {
-    } else {
-      setStartIndex(startIndex + 1);
-    }
-  }
-
-  const clickIzq = () => {
-    if (startIndex <= 0) {
-    } else {
-      setStartIndex(startIndex - 1);
-    }
-  }
 
   useEffect(() => {
     setFacturasEmitidas(extractDataWithPagination(emitidasPrueba, Pagi, pageSize))
   }, [Pagi])
 
-  const pageSize = 5;
+  const pageSize = 6;
   const [page, setPage] = useState(1);
   const [FacturasEmitidas, setFacturasEmitidas] = useState([]);
   const [FacturasFiltradas, setFacturasFiltradas] = useState(extractDataWithPagination(emitidasPrueba, page, pageSize));
@@ -104,87 +89,6 @@ const Emitidas = () => {
   const prevPage = () => {
     setPage((prevPage) => (prevPage > 1 ? prevPage - 1 : prevPage));
   };
-
-
-  const selectedTablePosition = (index, invoice) => {
-    if (index === 0) {
-      return (
-        <>
-          <TableCell className="text-center text-[12px]">{invoice.periodoDeCobro}</TableCell>
-          <TableCell className="text-center text-[12px]">{invoice.fechaDeEmision}</TableCell>
-          <TableCell className="text-center text-[12px]">{invoice.cliente}</TableCell>
-          <TableCell className="text-center text-[12px]">{invoice.rfc}</TableCell>
-          <TableCell className="text-center text-[12px]">{invoice.subtotal}</TableCell>
-          <TableCell className="text-center text-[12px]">{invoice.total}</TableCell>
-        </>
-      )
-    }
-
-    if (index === 1) {
-      return (
-        <>
-          <TableCell className="text-center text-[12px]">{invoice.fechaDeEmision}</TableCell>
-          <TableCell className="text-center text-[10px]">{invoice.cliente}</TableCell>
-          <TableCell className="text-center text-[12px]">{invoice.rfc}</TableCell>
-          <TableCell className="text-center text-[12px]">{invoice.subtotal}</TableCell>
-          <TableCell className="text-center text-[12px]">{invoice.total}</TableCell>
-          <TableCell className="text-center text-[12px]">{invoice.formaDePago}</TableCell>
-        </>
-      )
-    }
-
-    if (index === 2) {
-      return (
-        <>
-          <TableCell className="text-center text-[10px]">{invoice.cliente}</TableCell>
-          <TableCell className="text-center text-[12px]">{invoice.rfc}</TableCell>
-          <TableCell className="text-center text-[12px]">{invoice.subtotal}</TableCell>
-          <TableCell className="text-center text-[12px]">{invoice.total}</TableCell>
-          <TableCell className="text-center text-[12px]">{invoice.formaDePago}</TableCell>
-          <TableCell className="text-center text-[12px]">{invoice.serie}</TableCell>
-        </>
-      )
-    }
-
-    if (index === 3) {
-      return (
-        <>
-          <TableCell className="text-center text-[12px]">{invoice.rfc}</TableCell>
-          <TableCell className="text-center text-[12px]">{invoice.subtotal}</TableCell>
-          <TableCell className="text-center text-[12px]">{invoice.total}</TableCell>
-          <TableCell className="text-center text-[12px]">{invoice.formaDePago}</TableCell>
-          <TableCell className="text-center text-[12px]">{invoice.serie}</TableCell>
-          <TableCell className="text-center text-[12px]">{invoice.folio}</TableCell>
-        </>
-      )
-    }
-
-    if (index === 4) {
-      return (
-        <>
-          <TableCell className="text-center text-[12px]">{invoice.subtotal}</TableCell>
-          <TableCell className="text-center text-[12px]">{invoice.total}</TableCell>
-          <TableCell className="text-center text-[12px]">{invoice.formaDePago}</TableCell>
-          <TableCell className="text-center text-[12px]">{invoice.serie}</TableCell>
-          <TableCell className="text-center text-[12px]">{invoice.folio}</TableCell>
-          <TableCell className="text-center text-[12px]">{invoice.tipoDeCDFI}</TableCell>
-        </>
-      )
-    }
-
-    if (index === 5) {
-      return (
-        <>
-          <TableCell className="text-center text-[12px]">{invoice.total}</TableCell>
-          <TableCell className="text-center text-[12px]">{invoice.formaDePago}</TableCell>
-          <TableCell className="text-center text-[12px]">{invoice.serie}</TableCell>
-          <TableCell className="text-center text-[12px]">{invoice.folio}</TableCell>
-          <TableCell className="text-center text-[12px]">{invoice.tipoDeCDFI}</TableCell>
-          <TableCell className="text-center text-[12px]">{invoice.estado}</TableCell>
-        </>
-      )
-    }
-  }
 
   const eliminarDuplicados = (array) => {
     // Objeto para almacenar los UUID ya vistos
@@ -229,9 +133,6 @@ const Emitidas = () => {
     filtrarFacturas(valorInput);
   };
 
-
-  //queda pendiente busqueda por rfc o cliente
-
   return (
     <div className='w-full flex flex-col pr-[10%] pt-2 justify-center items-center h-full rounded-md'>
       <div className='bg-white border-2 px-5 flex items-center justify-between border-gray-300 w-full py-5 rounded-lg'>
@@ -244,8 +145,21 @@ const Emitidas = () => {
         </div>
       </div>
 
-      <div className='w-full bg-white border-2 border-gray-300 rounded-lg mt-5'>
-        <Table>
+      <div className='w-full flex items-center py-2 justify-start'>
+        <div className='flex items-center gap-x-1'>
+          {/* Renderizado condicional para mostrar o no la flecha izquierda */}
+          {!(page <= 1) && (<button onClick={prevPage} className='text-[10px] cursor-pointer text-gray-500'>{"<"}</button>)}
+
+          Pag {page}
+
+          {!(page === totalPages) && (<button onClick={nextPage} className='text-[10px] cursor-pointer text-gray-500'>{">"}</button>)}
+
+        </div>
+      </div>
+
+
+      <div className='w-full overflow-x-auto bg-white border-2 border-gray-300 rounded-lg mt-5'>
+        <Table className="w-[150dvw] overflow-x-auto">
           <TableHeader>
             <TableRow>
               <TableHead className="text-[10px] w-[250px] text-center">{HeadersEmitidas[startIndex]}</TableHead>
@@ -254,43 +168,35 @@ const Emitidas = () => {
               <TableHead className="text-[10px] w-[250px] text-center">{HeadersEmitidas[startIndex + 3]}</TableHead>
               <TableHead className="text-[10px] w-[250px] text-center">{HeadersEmitidas[startIndex + 4]}</TableHead>
               <TableHead className="text-[10px] w-[250px] text-center">{HeadersEmitidas[startIndex + 5]}</TableHead>
+              <TableHead className="text-[10px] w-[250px] text-center">{HeadersEmitidas[startIndex + 6]}</TableHead>
+              <TableHead className="text-[10px] w-[250px] text-center">{HeadersEmitidas[startIndex + 7]}</TableHead>
+              <TableHead className="text-[10px] w-[250px] text-center">{HeadersEmitidas[startIndex + 8]}</TableHead>
+              <TableHead className="text-[10px] w-[250px] text-center">{HeadersEmitidas[startIndex + 9]}</TableHead>
+              <TableHead className="text-[10px] w-[250px] text-center">{HeadersEmitidas[startIndex + 10]}</TableHead>
+
             </TableRow>
           </TableHeader>
           <TableBody>
-
             {FacturasFiltradas?.map((invoice, index) => (
               <TableRow key={invoice.invoice}>
-                {
-                  selectedTablePosition(startIndex, invoice)
-                }
+                <TableCell className="text-center text-[12px]">{invoice.periodoDeCobro}</TableCell>
+                <TableCell className="text-center text-[12px]">{invoice.fechaDeEmision}</TableCell>
+                <TableCell className="text-center text-[12px]">{invoice.cliente}</TableCell>
+                <TableCell className="text-center text-[12px]">{invoice.rfc}</TableCell>
+                <TableCell className="text-center text-[12px]">{invoice.subtotal}</TableCell>
+                <TableCell className="text-center text-[12px]">{invoice.total}</TableCell>
+                <TableCell className="text-center text-[12px]">{invoice.formaDePago}</TableCell>
+                <TableCell className="text-center text-[12px]">{invoice.serie}</TableCell>
+                <TableCell className="text-center text-[12px]">{invoice.folio}</TableCell>
+                <TableCell className="text-center text-[12px]">{invoice.tipoDeCDFI}</TableCell>
+                <TableCell className="text-center text-[12px]">{invoice.estado}</TableCell>
               </TableRow>
             ))}
           </TableBody>
         </Table>
-
       </div>
 
-      <div className='absolute bottom-5 gap-x-52  flex justify-between'>
-        <div className='flex items-center gap-x-1'>
-          <button onClick={() => clickIzq()} className='text-[10px] cursor-pointer text-gray-500'>{"<"}</button>
-          Recorrer la Tabla
-          <button onClick={() => clickDer()} className='text-[10px] cursor-pointer text-gray-500'>{">"}</button>
-        </div>
 
-        {
-          Pagi == totalPages ? (
-            <></>
-          ):
-          (
-            <div className='flex items-center gap-x-1'>
-              <button onClick={() => prevPage()} className='text-[10px] cursor-pointer text-gray-500'>{"<"}</button>
-              Pag {page} / {totalPages}
-              <button onClick={() => nextPage()} className='text-[10px] cursor-pointer text-gray-500'>{">"}</button>
-            </div>
-          )
-        }
-
-      </div>
     </div>
   )
 }

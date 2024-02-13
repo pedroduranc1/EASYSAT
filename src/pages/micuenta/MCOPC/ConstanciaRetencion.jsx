@@ -15,20 +15,19 @@ const HeadersConstancias = [
 const ConstanciaRetencion = () => {
   const [startIndex, setStartIndex] = useState(0);
   const [Pagi, setPagi] = useState(1)
+  const pageSize = 6;
+  const [page, setPage] = useState(1);
 
-  const clickDer = () => {
-    if (startIndex >= 5) {
-    } else {
-      setStartIndex(startIndex + 1);
-    }
-  }
 
-  const clickIzq = () => {
-    if (startIndex <= 0) {
-    } else {
-      setStartIndex(startIndex - 1);
-    }
-  }
+  const totalPages = Math.ceil(10 / pageSize);
+
+  const nextPage = () => {
+    setPage((prevPage) => (prevPage < totalPages ? prevPage + 1 : prevPage));
+  };
+
+  const prevPage = () => {
+    setPage((prevPage) => (prevPage > 1 ? prevPage - 1 : prevPage));
+  };
   return (
     <div className='w-full flex flex-col pr-[10%] pt-2 justify-center items-center h-full rounded-md'>
       <div className='bg-white border-2 px-5 flex items-center justify-between border-gray-300 w-full py-5 rounded-lg'>
@@ -40,6 +39,18 @@ const ConstanciaRetencion = () => {
             className='py-1 w-full ring-0 outline-none border-none text-[14px] placeholder:text-[14px]' type="text" placeholder='Buscar proveedor, RFC...' />
 
           <Search className='w-5 h-5 text-gray-400' />
+        </div>
+      </div>
+
+      <div className='w-full items-center justify-start py-2'>
+        <div className='flex items-center gap-x-1'>
+          {/* Renderizado condicional para mostrar o no la flecha izquierda */}
+          {!(page <= 1) && (<button onClick={prevPage} className='text-[10px] cursor-pointer text-gray-500'>{"<"}</button>)}
+
+          Pag {page}
+
+          {!(page === totalPages) && (<button onClick={nextPage} className='text-[10px] cursor-pointer text-gray-500'>{">"}</button>)}
+
         </div>
       </div>
 
@@ -129,30 +140,13 @@ const ConstanciaRetencion = () => {
               <TableHead className="text-[10px] w-[250px] text-center">200.60</TableHead>
               <TableHead className="text-[10px] w-[250px] text-center">2023</TableHead>
             </TableRow>
-            
+
           </TableBody>
         </Table>
 
       </div>
 
-      <div className='absolute bottom-5 gap-x-52 w-[60dvw]  flex justify-start'>
-        
-
-        {
-          Pagi == 0 ? (
-            <></>
-          ) :
-            (
-              <div className='flex items-center gap-x-1'>
-                <button onClick={() => prevPage()} className='text-[10px] cursor-pointer text-gray-500'>{"<"}</button>
-                {/* Pag {page} / {totalPages} */}
-                Pag 1 / ...
-                <button onClick={() => nextPage()} className='text-[10px] cursor-pointer text-gray-500'>{">"}</button>
-              </div>
-            )
-        }
-
-      </div>
+      
     </div>
   )
 }

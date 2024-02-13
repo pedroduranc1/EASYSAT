@@ -3,7 +3,7 @@ import logo from "../assets/logocolor.webp";
 import { Link, useLocation } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
-import { LogOut, Menu, User2, UserIcon } from 'lucide-react';
+import { Bell, LogOut, Menu, Search, User2, User2Icon, UserIcon } from 'lucide-react';
 import { AnimatePresence, motion } from 'framer-motion';
 
 export const Navbar = () => {
@@ -59,10 +59,10 @@ export const Navbar = () => {
 
   }
 
-  const isMainPath = () =>{
-    if(location.pathname === "/"){
+  const isMainPath = () => {
+    if (location.pathname === "/") {
       return true
-    }else{
+    } else {
       return false
     }
   }
@@ -75,51 +75,71 @@ export const Navbar = () => {
     });
   };
 
-
   return (
     <div className='fixed bg-white shadow-md z-50 w-full flex px-[3%] md:px-[5%] lg:px-[10%] py-5 items-center justify-between'>
-      <Link onClick={() => { if (location.pathname === "/") { scrollToTop() } }} to={"/"}>
-        <img src={logo} className='w-[25%] h-full' alt="" />
+      <Link className='v-[25vw]' onClick={() => { if (location.pathname === "/") { scrollToTop() } }} to={"/"}>
+        <img src={logo} className='h-20' alt="" />
       </Link>
 
 
-      <div className={` hidden md:block transition-all py-4 px-3`}>
+      <div className={` hidden w-[75vw] md:flex justify-end transition-all py-4 px-3`}>
         <ul className='flex items-center gap-x-3'>
-          <a className={`text-center ${isCurrentPath('#servicios') ? 'text-LogoBlue' : 'text-esatDark'}`} href={`${isMainPath() ? "#servicios" : "/#servicios"}`}>Servicios</a>
-
-          <a className={`inline-block whitespace-nowrap text-center ${isCurrentPath('#planes') ? 'text-LogoBlue' : 'text-esatDark'}`} href={`${isMainPath() ? "#planes" : "/#planes"}`}>Planes</a>
-
-          <Link className={`text-center ${isCurrentPath('/cursos') ? 'text-LogoBlue' : 'text-esatDark'}`} to={'/cursos'}>Cursos</Link>
-
-          <a className={`inline-block whitespace-nowrap text-center ${isCurrentPath('#preguntas') ? 'text-LogoBlue' : 'text-esatDark'}`} href={`${isMainPath() ? "#preguntas" : "/#preguntas"}`}>Preguntas frecuentes</a>
-
-          <a className={`text-center ${isCurrentPath('#contacto') ? 'text-LogoBlue' : 'text-esatDark'}`} href={`${isMainPath() ? "#contacto" : "/#contacto"}`}>Contacto</a>
-
           {
-            User ? (<li><div className="flex py-1 cursor-pointer  transition-all items-center justify-between md:justify-start md:gap-x-3">
-              <Link
-                to="/micuenta"
-                className="w-[130px] flex border-2 cursor-pointer border-LogoBlue rounded-md px-3 py-1 gap-x-1 items-center"
-              >
-                <User2 className='text-LogoBlue' />
-                <p className='w-full text-LogoBlue uppercase text-[14px]'>mi cuenta</p>
+            location.pathname === "/micuenta" || location.pathname === "/informacionFiscal"
+              ? (<div className='flex items-center gap-x-3'>
+              
+              <div className='bg-gray-300 rounded-full w-[15dvw] px-3 flex items-center gap-x-3'>
+                <Search className='w-5 h-5 font-bold text-gray-400'/>
+                <input type="text" className='w-full outline-none border-none ring-0 bg-gray-300' />
+              </div>
+              <div>
+                <Bell className='w-5 h-5 font-bold text-LogoBlue'/>
+              </div>
 
-              </Link>
-              <LogOut
-                onClick={logout}
-                className="w-5 h-5 text-LogoBlue cursor-pointer"
-              />
-            </div></li>) : (<>
-              <li className='hover:-translate-y-1 transition-all'>
-                <Link className=' hover:-translate-y-1 transition-all whitespace-nowrap text-esatDark' to={'/Login'}>Iniciar Sesión</Link>
-              </li>
-              <li className='hover:-translate-y-1 transition-all'>
-                <Link className='  bg-LogoBlue py-2 px-4 text-white rounded-md ' to={'/Registro'}>Regístrate</Link>
-              </li>
-            </>)
+              <div className='w-7 h-7 p-1 flex items-center justify-center shadow-lg rounded-full bg-black'>
+                <User2Icon className='text-white'/>
+              </div>
+              </div>)
+              : (<>
+                <a className={`text-center ${isCurrentPath('#servicios') ? 'text-LogoBlue' : 'text-esatDark'}`} href={`${isMainPath() ? "#servicios" : "/#servicios"}`}>Servicios</a>
+
+                <a className={`inline-block whitespace-nowrap text-center ${isCurrentPath('#planes') ? 'text-LogoBlue' : 'text-esatDark'}`} href={`${isMainPath() ? "#planes" : "/#planes"}`}>Planes</a>
+
+                <Link className={`text-center ${isCurrentPath('/cursos') ? 'text-LogoBlue' : 'text-esatDark'}`} to={'/cursos'}>Cursos</Link>
+
+                <a className={`inline-block whitespace-nowrap text-center ${isCurrentPath('#preguntas') ? 'text-LogoBlue' : 'text-esatDark'}`} href={`${isMainPath() ? "#preguntas" : "/#preguntas"}`}>Preguntas frecuentes</a>
+
+                <a className={`text-center ${isCurrentPath('#contacto') ? 'text-LogoBlue' : 'text-esatDark'}`} href={`${isMainPath() ? "#contacto" : "/#contacto"}`}>Contacto</a>
+
+                {
+                  User ? (<li><div className="flex py-1 cursor-pointer  transition-all items-center justify-between md:justify-start md:gap-x-3">
+                    <Link
+                      to="/micuenta"
+                      className="w-[130px] flex border-2 cursor-pointer border-LogoBlue rounded-md px-3 py-1 gap-x-1 items-center"
+                    >
+                      <User2 className='text-LogoBlue' />
+                      <p className='w-full text-LogoBlue uppercase text-[14px]'>mi cuenta</p>
+
+                    </Link>
+                    <LogOut
+                      onClick={logout}
+                      className="w-5 h-5 text-LogoBlue cursor-pointer"
+                    />
+                  </div></li>) : (<>
+                    <li className='hover:-translate-y-1 transition-all'>
+                      <Link className=' hover:-translate-y-1 transition-all whitespace-nowrap text-esatDark' to={'/Login'}>Iniciar Sesión</Link>
+                    </li>
+                    <li className='hover:-translate-y-1 transition-all'>
+                      <Link className='  bg-LogoBlue py-2 px-4 text-white rounded-md ' to={'/Registro'}>Regístrate</Link>
+                    </li>
+                  </>)
+                }
+              </>)
           }
 
+
         </ul>
+
       </div>
 
       <Menu className='block w-[50%] md:hidden' size={30} onClick={handleMenuToggle} />

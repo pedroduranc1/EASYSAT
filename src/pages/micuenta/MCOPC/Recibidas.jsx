@@ -52,7 +52,7 @@ const Recibidas = () => {
 
   const [startIndex, setStartIndex] = useState(0);
   const [Pagi, setPagi] = useState(1)
-  const pageSize = 4;
+  const pageSize = 6;
   const [page, setPage] = useState(1);
   const [FacturasEmitidas, setFacturasEmitidas] = useState([]);
   const [FacturasFiltradas, setFacturasFiltradas] = useState(extractDataWithPagination(recibidasPrueba, page, pageSize));
@@ -76,20 +76,6 @@ const Recibidas = () => {
   const prevPage = () => {
     setPage((prevPage) => (prevPage > 1 ? prevPage - 1 : prevPage));
   };
-
-  const clickDer = () => {
-    if (startIndex >= 5) {
-    } else {
-      setStartIndex(startIndex + 1);
-    }
-  }
-
-  const clickIzq = () => {
-    if (startIndex <= 0) {
-    } else {
-      setStartIndex(startIndex - 1);
-    }
-  }
 
   const eliminarDuplicados = (array) => {
     // Objeto para almacenar los UUID ya vistos
@@ -157,16 +143,26 @@ const Recibidas = () => {
 
         <div className='w-[30%] flex px-3 items-center border-2 border-gray-400 rounded-lg'>
           <input
-            onChange={handleChange} 
+            onChange={handleChange}
             className='py-1 w-full ring-0 outline-none border-none text-[14px] placeholder:text-[14px]' type="text" placeholder='Buscar cliente, RFC...' />
 
           <Search className='w-5 h-5 text-gray-400' />
         </div>
+      </div>
 
+      <div className='w-full flex items-center py-2 justify-start'>
+        <div className='flex items-center gap-x-1'>
+          {/* Renderizado condicional para mostrar o no la flecha izquierda */}
+          {!(page <= 1) && (<button onClick={prevPage} className='text-[10px] cursor-pointer text-gray-500'>{"<"}</button>)}
 
+          Pag {page}
+
+          {!(page === totalPages) && (<button onClick={nextPage} className='text-[10px] cursor-pointer text-gray-500'>{">"}</button>)}
+
+        </div>
       </div>
       <div className='w-full bg-white border-2 border-gray-300 rounded-lg mt-5'>
-        <Table>
+        <Table className="w-[150dvw] overflow-x-auto">
           <TableHeader>
             <TableRow>
               <TableHead className="text-[10px] w-[250px] text-center">{HeadersEmitidas[startIndex]}</TableHead>
@@ -178,65 +174,42 @@ const Recibidas = () => {
               <TableHead className="text-[10px] w-[250px] text-center">{HeadersEmitidas[startIndex + 6]}</TableHead>
               <TableHead className="text-[10px] w-[250px] text-center">{HeadersEmitidas[startIndex + 7]}</TableHead>
               <TableHead className="text-[10px] w-[250px] text-center">{HeadersEmitidas[startIndex + 8]}</TableHead>
+              <TableHead className="text-[10px] w-[250px] text-center">{HeadersEmitidas[startIndex + 9]}</TableHead>
+              <TableHead className="text-[10px] w-[250px] text-center">{HeadersEmitidas[startIndex + 10]}</TableHead>
+              <TableHead className="text-[10px] w-[250px] text-center">{HeadersEmitidas[startIndex + 11]}</TableHead>
+              <TableHead className="text-[10px] w-[250px] text-center">{HeadersEmitidas[startIndex + 12]}</TableHead>
+              <TableHead className="text-[10px] w-[250px] text-center">{HeadersEmitidas[startIndex + 13]}</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
-            <TableRow >
-              <TableCell className="text-center text-[12px]">Prueba</TableCell>
-              <TableCell className="text-center text-[12px]">Prueba</TableCell>
-              <TableCell className="text-center text-[12px]">Prueba</TableCell>
-              <TableCell className="text-center text-[12px]">Prueba</TableCell>
-              <TableCell className="text-center text-[12px]">Prueba</TableCell>
-              <TableCell className="text-center text-[12px]">Prueba</TableCell>
-              <TableCell className="text-center text-[12px]">Prueba</TableCell>
-              <TableCell className="text-center text-[12px]">Prueba</TableCell>
-              <TableCell className="text-center text-[12px]">Prueba</TableCell>
-            </TableRow>
-            <TableRow >
-              <TableCell className="text-center text-[12px]">Prueba</TableCell>
-              <TableCell className="text-center text-[12px]">Prueba</TableCell>
-              <TableCell className="text-center text-[12px]">Prueba</TableCell>
-              <TableCell className="text-center text-[12px]">Prueba</TableCell>
-              <TableCell className="text-center text-[12px]">Prueba</TableCell>
-              <TableCell className="text-center text-[12px]">Prueba</TableCell>
-              <TableCell className="text-center text-[12px]">Prueba</TableCell>
-              <TableCell className="text-center text-[12px]">Prueba</TableCell>
-              <TableCell className="text-center text-[12px]">Prueba</TableCell>
-            </TableRow>
-            <TableRow >
-              <TableCell className="text-center text-[12px]">Prueba</TableCell>
-              <TableCell className="text-center text-[12px]">Prueba</TableCell>
-              <TableCell className="text-center text-[12px]">Prueba</TableCell>
-              <TableCell className="text-center text-[12px]">Prueba</TableCell>
-              <TableCell className="text-center text-[12px]">Prueba</TableCell>
-              <TableCell className="text-center text-[12px]">Prueba</TableCell>
-              <TableCell className="text-center text-[12px]">Prueba</TableCell>
-              <TableCell className="text-center text-[12px]">Prueba</TableCell>
-              <TableCell className="text-center text-[12px]">Prueba</TableCell>
-            </TableRow>
-            <TableRow >
-              <TableCell className="text-center text-[12px]">Prueba</TableCell>
-              <TableCell className="text-center text-[12px]">Prueba</TableCell>
-              <TableCell className="text-center text-[12px]">Prueba</TableCell>
-              <TableCell className="text-center text-[12px]">Prueba</TableCell>
-              <TableCell className="text-center text-[12px]">Prueba</TableCell>
-              <TableCell className="text-center text-[12px]">Prueba</TableCell>
-              <TableCell className="text-center text-[12px]">Prueba</TableCell>
-              <TableCell className="text-center text-[12px]">Prueba</TableCell>
-              <TableCell className="text-center text-[12px]">Prueba</TableCell>
-            </TableRow>
+            {console.log(FacturasFiltradas)}
+            {
+              FacturasFiltradas.map((factura) => (
+                <TableRow >
+                  <TableCell className="text-center text-[12px]">Prueba</TableCell>
+                  <TableCell className="text-center text-[12px]">Prueba</TableCell>
+                  <TableCell className="text-center text-[12px]">Prueba</TableCell>
+                  <TableCell className="text-center text-[12px]">Prueba</TableCell>
+                  <TableCell className="text-center text-[12px]">Prueba</TableCell>
+                  <TableCell className="text-center text-[12px]">Prueba</TableCell>
+                  <TableCell className="text-center text-[12px]">Prueba</TableCell>
+                  <TableCell className="text-center text-[12px]">Prueba</TableCell>
+                  <TableCell className="text-center text-[12px]">Prueba</TableCell>
+                  <TableCell className="text-center text-[12px]">Prueba</TableCell>
+                  <TableCell className="text-center text-[12px]">Prueba</TableCell>
+                  <TableCell className="text-center text-[12px]">Prueba</TableCell>
+                  <TableCell className="text-center text-[12px]">Prueba</TableCell>
+                  <TableCell className="text-center text-[12px]">Prueba</TableCell>
+                </TableRow>
+              ))
+            }
+
           </TableBody>
         </Table>
 
       </div>
 
-      <div className='absolute bottom-5 gap-x-52  flex justify-between'>
-        <div className='flex items-center gap-x-1'>
-          <button onClick={() => clickIzq()} className='text-[10px] cursor-pointer text-gray-500'>{"<"}</button>
-          Recorrer la Tabla
-          <button onClick={() => clickDer()} className='text-[10px] cursor-pointer text-gray-500'>{">"}</button>
-        </div>
-      </div>
+
     </div>
   )
 }
