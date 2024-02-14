@@ -5,6 +5,20 @@ import { useAuth } from '../hooks/useAuth';
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
 import { Bell, LogOut, Menu, Search, User2, User2Icon, UserIcon } from 'lucide-react';
 import { AnimatePresence, motion } from 'framer-motion';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuPortal,
+  DropdownMenuSeparator,
+  DropdownMenuShortcut,
+  DropdownMenuSub,
+  DropdownMenuSubContent,
+  DropdownMenuSubTrigger,
+  DropdownMenuTrigger,
+} from "../components/ui/dropdown-menu"
 
 export const Navbar = () => {
 
@@ -87,18 +101,39 @@ export const Navbar = () => {
           {
             location.pathname === "/micuenta" || location.pathname === "/informacionFiscal"
               ? (<div className='flex items-center gap-x-3'>
-              
-              <div className='bg-gray-300 rounded-full w-[15dvw] px-3 flex items-center gap-x-3'>
-                <Search className='w-5 h-5 font-bold text-gray-400'/>
-                <input type="text" className='w-full outline-none border-none ring-0 bg-gray-300' />
-              </div>
-              <div>
-                <Bell className='w-5 h-5 font-bold text-LogoBlue'/>
-              </div>
 
-              <div className='w-7 h-7 p-1 flex items-center justify-center shadow-lg rounded-full bg-black'>
-                <User2Icon className='text-white'/>
-              </div>
+                <div className='bg-gray-300 rounded-full w-[15dvw] px-3 flex items-center gap-x-3'>
+                  <Search className='w-5 h-5 font-bold text-gray-400' />
+                  <input type="text" className='w-full outline-none border-none ring-0 bg-gray-300' />
+                </div>
+                <div>
+                  <Bell className='w-5 h-5 font-bold text-LogoBlue' />
+                </div>
+
+
+                <div className='relative'>
+                <DropdownMenu className="relative right-0 top-0">
+                  <DropdownMenuTrigger asChild>
+                    <div className='w-7 h-7 p-1 cursor-pointer flex items-center justify-center shadow-lg rounded-full bg-black'>
+                      <User2Icon className='text-white' />
+                    </div>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent className="absolute -right-5 w-52">
+                    <DropdownMenuGroup >
+                      <DropdownMenuItem className="hover:bg-LogoGreen focus:bg-LogoGreen cursor-pointer">
+                        Configuracion de perfil
+                      </DropdownMenuItem>
+                      <DropdownMenuItem className="hover:bg-LogoGreen focus:bg-LogoGreen cursor-pointer">
+                        Configuracion de factura
+                      </DropdownMenuItem  >
+                      <DropdownMenuItem className="hover:bg-LogoGreen focus:bg-red-500 cursor-pointer" onClick={()=>{logout()}}>
+                        Salir
+                      </DropdownMenuItem>
+                    </DropdownMenuGroup>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+                </div>
+                
               </div>)
               : (<>
                 <a className={`text-center ${isCurrentPath('#servicios') ? 'text-LogoBlue' : 'text-esatDark'}`} href={`${isMainPath() ? "#servicios" : "/#servicios"}`}>Servicios</a>
