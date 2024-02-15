@@ -106,7 +106,7 @@ const Inicio = () => {
       <div className='w-[100%] overflow-hidden py-2 rounded-md'>
         <div className='w-[70%] h-full flex justify-center gap-x-3 rounded-md'>
           <div className='w-1/3 border-2 border-gray-300 group hover:bg-esatDark transition-all cursor-pointer bg-white shadow-lg px-[2%] py-3 flex flex-col justify-center items-center rounded-md'>
-            <h2 className='font-light group-hover:text-white text-center text-[18px]'>Total a pagar del mes</h2>
+            <h2 className='font-semibold group-hover:text-white text-center text-[18px]'>Total a pagar del mes</h2>
 
             <span className='flex group-hover:text-white items-center gap-x-1 mt-2'> <span className='font-light'>IVA</span><p className='text-esatDark group-hover:text-white font-semibold text-xl'>$850.00</p></span>
             <span className='flex group-hover:text-white items-center gap-x-1'> <span className='font-light'>ISR</span><p className='text-esatDark group-hover:text-white font-semibold text-xl'>$250.00</p></span>

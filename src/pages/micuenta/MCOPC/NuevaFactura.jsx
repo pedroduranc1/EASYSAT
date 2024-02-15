@@ -97,7 +97,7 @@ const NuevaFactura = () => {
         <div className='w-1/3'>
           <Dialog key={2}>
             <DialogTrigger asChild>
-              <button className='py-2 w-[100%] rounded-md cursor-pointer bg-gray-200'>Seleccionar Cliente</button>
+              <button className='py-2 w-[100%] rounded-md cursor-pointer bg-gray-200'>Seleccionar Producto</button>
             </DialogTrigger>
             <DialogContent className="sm:max-w-[425px] overflow-y-auto overflow-x-hidden max-h-[400px]">
               <div className='w-full h-full flex gap-y-3 flex-col '>

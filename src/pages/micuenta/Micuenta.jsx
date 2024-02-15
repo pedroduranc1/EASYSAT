@@ -202,7 +202,7 @@ const OpcContainer = ({ opc }) => {
         {opc === 32 && (<><h2>Anuales</h2></>)}
         {opc === 33 && (<><h2>Pendientes</h2></>)}
         {opc === 41 && (<><h2>Acuses</h2></>)}
-        {opc === 42 && (<><h2>Invoices</h2></>)}
+        {opc === 42 && (<MCOPC.Invoices/>)}
         {opc === 43 && (<><h2>Documentos SAT</h2></>)}
 
     </div>)

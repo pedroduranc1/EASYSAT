@@ -95,11 +95,11 @@ const Pedimentos = () => {
 
 
                     <div className='w-1/3 flex justify-center'>
-                      |
+                      <input type="text" className='w-full border-none outline-none text-center placeholder:text-black' placeholder='|' />
                     </div>
 
                     <div className='w-1/3 flex justify-center'>
-                      AAA
+                      <input type="text" className='w-full border-none outline-none text-center placeholder:text-black' placeholder='AAA' />
                     </div>
                   </div>
 
@@ -120,11 +120,11 @@ const Pedimentos = () => {
 
 
                     <div className='w-1/3 flex justify-center'>
-                      02540114584
+                      <input type="text" className='w-full border-none outline-none text-center placeholder:text-black' placeholder='02540114584' />
                     </div>
 
                     <div className='w-1/3 flex justify-center'>
-                      000
+                      <input type="text" className='w-full border-none outline-none text-center placeholder:text-black' placeholder='000' />
                     </div>
                   </div>
 
@@ -141,11 +141,11 @@ const Pedimentos = () => {
 
 
                     <div className='w-1/3 flex justify-center'>
-                      02540114584
+                      <input type="text" className='w-full border-none outline-none text-center placeholder:text-black' placeholder='02540114584' />
                     </div>
 
                     <div className='w-1/3 flex justify-center'>
-                      000
+                      <input type="text" className='w-full border-none outline-none text-center placeholder:text-black' placeholder='000' />
                     </div>
                   </div>
                 </div>

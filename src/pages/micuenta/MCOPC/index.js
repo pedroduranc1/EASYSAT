@@ -5,6 +5,7 @@ import Emitidas from "./Emitidas";
 import ConstanciaRetencion from "./ConstanciaRetencion";
 import GastosExtranjeros from "./GastosExtranjeros";
 import Pedimentos from "./Pedimentos";
+import Invoices from "./Invoices";
 
 export const MCOPC = {
     Inicio,
@@ -13,5 +14,6 @@ export const MCOPC = {
     Recibidas,
     ConstanciaRetencion,
     GastosExtranjeros,
-    Pedimentos
+    Pedimentos,
+    Invoices
 }

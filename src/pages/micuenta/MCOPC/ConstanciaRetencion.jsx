@@ -1,6 +1,7 @@
-import { Search } from 'lucide-react'
+import { Plus, Search } from 'lucide-react'
 import React, { useState } from 'react'
 import { Table, TableBody, TableHead, TableHeader, TableRow } from '../../../components/ui/table'
+import { Dialog, DialogClose, DialogContent, DialogFooter, DialogTrigger } from '../../../components/ui/dialog'
 
 const HeadersConstancias = [
   'Periodo',
@@ -31,7 +32,31 @@ const ConstanciaRetencion = () => {
   return (
     <div className='w-full flex flex-col pr-[10%] pt-2 justify-center items-center h-full rounded-md'>
       <div className='bg-white border-2 px-5 flex items-center justify-between border-gray-300 w-full py-5 rounded-lg'>
-        <h2 className='font-[12px] text-4xl'>Constancias de Retención</h2>
+        
+        <div className='flex items-center gap-x-3'>
+        <h2 className='font-[12px] text-3xl'>Constancias de Retención</h2>
+
+          <Dialog key={`agregarDialog`} className="flex items-center mt-1">
+            <DialogTrigger asChild>
+              <button className='w-fit border-2 border-gray-300 rounded-md px-3 py-1 flex items-center gap-x-2'>
+                <div className='w-4 h-4 p-[1px] flex items-center justify-center rounded-full bg-black'>
+                  <Plus className='text-white' />
+                </div>
+                <span>Agregar</span>
+              </button>
+            </DialogTrigger>
+            <DialogContent className="max-w-2xl">
+              <div className="flex items-center space-x-2">
+
+              </div>
+              <DialogFooter className="sm:justify-end mt-5">
+                <DialogClose asChild>
+                  <button className='px-4 py-1 rounded-md bg-transparent border-2 border-gray-400 hover:border-LogoBlue hover:bg-LogoBlue hover:text-white'>Guardar</button>
+                </DialogClose>
+              </DialogFooter>
+            </DialogContent>
+          </Dialog>
+        </div>
 
         <div className='w-[30%] flex px-3 items-center border-2 border-gray-400 rounded-lg'>
           <input
@@ -146,7 +171,7 @@ const ConstanciaRetencion = () => {
 
       </div>
 
-      
+
     </div>
   )
 }
