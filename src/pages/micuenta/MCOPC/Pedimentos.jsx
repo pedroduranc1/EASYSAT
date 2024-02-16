@@ -5,6 +5,9 @@ import { Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, Di
 import { Table, TableBody, TableHead, TableHeader, TableRow, TableCell } from '../../../components/ui/table';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../../../components/ui/select';
 
+import EditarSVG from "../../../assets/Editar.svg";
+import EliminarSVG from "../../../assets/Eliminar.svg";
+
 const headerPedimentos = [
   'Período',
   'Valor Aduanal',
@@ -203,7 +206,7 @@ const Pedimentos = () => {
                 <TableCell className="text-center flex items-center justify-center gap-x-3 text-[12px]">
                   <Dialog key={`Edit ${index}`} className="flex items-center mt-1">
                     <DialogTrigger asChild>
-                      <Pencil className='w-5 h-5 text-gray-500 font-bold cursor-pointer' />
+                    <img className='w-6 h-6 cursor-pointer' src={EditarSVG} />
                     </DialogTrigger>
                     <DialogContent className="max-w-2xl">
                       <div className="flex items-center space-x-2">
@@ -305,7 +308,7 @@ const Pedimentos = () => {
 
                   <Dialog key={`Delete ${index}`} className="flex items-center mt-1">
                     <DialogTrigger asChild>
-                      <Trash className='w-5 h-5 text-gray-500 font-bold cursor-pointer' />
+                    <img className='w-6 h-6 cursor-pointer' src={EliminarSVG} />
                     </DialogTrigger>
                     <DialogContent className="max-w-2xl">
                       <div className="flex items-center space-x-2">

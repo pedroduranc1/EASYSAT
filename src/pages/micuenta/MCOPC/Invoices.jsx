@@ -2,6 +2,10 @@ import { Pencil, Plus, Search, Trash } from 'lucide-react'
 import React, { useState } from 'react'
 import { Dialog, DialogClose, DialogContent, DialogFooter, DialogTrigger } from '../../../components/ui/dialog'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '../../../components/ui/table'
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../../../components/ui/select'
+
+import EditarSVG from "../../../assets/Editar.svg";
+import EliminarSVG from "../../../assets/Eliminar.svg";
 
 const meses = [
     'Enero',
@@ -56,7 +60,71 @@ const Invoices = () => {
                         </DialogTrigger>
                         <DialogContent className="max-w-2xl">
                             <div className="flex items-center space-x-2">
-                                
+                                <div className="grid flex-1 pt-5 gap-2">
+                                    <div className='border-[2px] flex justify-around w-full py-1 px-4 border-gray-200 rounded-md'>
+                                        <div className='w-1/3 text-center'>Período de Pago</div>
+                                        <div className='w-1/3 text-center'>Cuenta de Gastos</div>
+                                        <div className='w-1/3 text-center'>Fecha</div>
+                                    </div>
+
+                                    <div className='w-full py-2 flex justify-around items-center'>
+                                        <div className='w-1/3 flex justify-center'>
+                                            <Select
+                                                key={1}
+                                                className="border-none ring-0 focus:ring-0 text-black placeholder:text-black"
+                                                onValueChange={(e) => { setMesFiltro(e) }}
+                                                value={MesFiltro}
+                                            >
+                                                <SelectTrigger className="w-fit border-2 border-gray-300 ring-0 focus:ring-0 px-3">
+                                                    <SelectValue placeholder="Selecciona un Mes" />
+                                                </SelectTrigger>
+                                                <SelectContent className="h-[20dvh] px-0">
+                                                    {meses.map((mes) => (
+                                                        <SelectItem
+                                                            key={mes}
+                                                            value={`${mes}`}
+                                                        >
+                                                            {mes}
+                                                        </SelectItem>
+                                                    ))}
+                                                </SelectContent>
+                                            </Select>
+                                        </div>
+                                        <div className='w-1/3 flex justify-center'>
+                                            <input type="text" className='w-full border-none outline-none text-center placeholder:text-black' placeholder='|' />
+                                        </div>
+
+                                        <div className='w-1/3 flex justify-center'>
+                                            <input type="date" className='w-full border-none outline-none text-center placeholder:text-black' placeholder='15/06/2024' />
+                                        </div>
+                                    </div>
+
+                                    <div>
+                                        <hr className='w-full' />
+                                    </div>
+
+                                    <div className='border-[2px] mt-10 flex justify-around w-full py-1 px-4 border-gray-200 rounded-md'>
+                                        <div className='w-1/3 text-center'>Proveedor</div>
+                                        <div className='w-1/3 text-center'>Folio</div>
+                                        <div className='w-1/3 text-center'>Total MN</div>
+                                    </div>
+
+                                    <div className='w-full py-2 flex justify-around items-center'>
+                                        <div className='w-1/3 flex justify-center'>
+                                            {MesFiltro}
+                                        </div>
+
+
+                                        <div className='w-1/3 flex justify-center'>
+                                            <input type="text" className='w-full border-none outline-none text-center placeholder:text-black' placeholder='02540114584' />
+                                        </div>
+
+                                        <div className='w-1/3 flex justify-center'>
+                                            <input type="text" className='w-full border-none outline-none text-center placeholder:text-black' placeholder='000' />
+                                        </div>
+                                    </div>
+
+                                </div>
                             </div>
                             <DialogFooter className="sm:justify-end mt-5">
                                 <DialogClose asChild>
@@ -102,11 +170,75 @@ const Invoices = () => {
                                 <TableCell className="text-center flex items-center justify-center gap-x-3 text-[12px]">
                                     <Dialog key={`Edit ${index}`} className="flex items-center mt-1">
                                         <DialogTrigger asChild>
-                                            <Pencil className='w-5 h-5 text-gray-500 font-bold cursor-pointer' />
+                                            <img className='w-6 h-6 cursor-pointer' src={EditarSVG} />
                                         </DialogTrigger>
                                         <DialogContent className="max-w-2xl">
                                             <div className="flex items-center space-x-2">
-                                                
+                                                <div className="grid flex-1 pt-5 gap-2">
+                                                    <div className='border-[2px] flex justify-around w-full py-1 px-4 border-gray-200 rounded-md'>
+                                                        <div className='w-1/3 text-center'>Período de Pago</div>
+                                                        <div className='w-1/3 text-center'>Cuenta de Gastos</div>
+                                                        <div className='w-1/3 text-center'>Fecha</div>
+                                                    </div>
+
+                                                    <div className='w-full py-2 flex justify-around items-center'>
+                                                        <div className='w-1/3 flex justify-center'>
+                                                            <Select
+                                                                key={1}
+                                                                className="border-none ring-0 focus:ring-0 text-black placeholder:text-black"
+                                                                onValueChange={(e) => { setMesFiltro(e) }}
+                                                                value={MesFiltro}
+                                                            >
+                                                                <SelectTrigger className="w-fit border-2 border-gray-300 ring-0 focus:ring-0 px-3">
+                                                                    <SelectValue placeholder="Selecciona un Mes" />
+                                                                </SelectTrigger>
+                                                                <SelectContent className="h-[20dvh] px-0">
+                                                                    {meses.map((mes) => (
+                                                                        <SelectItem
+                                                                            key={mes}
+                                                                            value={`${mes}`}
+                                                                        >
+                                                                            {mes}
+                                                                        </SelectItem>
+                                                                    ))}
+                                                                </SelectContent>
+                                                            </Select>
+                                                        </div>
+                                                        <div className='w-1/3 flex justify-center'>
+                                                            <input type="text" className='w-full border-none outline-none text-center placeholder:text-black' placeholder='|' />
+                                                        </div>
+
+                                                        <div className='w-1/3 flex justify-center'>
+                                                            <input type="date" className='w-full border-none outline-none text-center placeholder:text-black' placeholder='15/06/2024' />
+                                                        </div>
+                                                    </div>
+
+                                                    <div>
+                                                        <hr className='w-full' />
+                                                    </div>
+
+                                                    <div className='border-[2px] mt-10 flex justify-around w-full py-1 px-4 border-gray-200 rounded-md'>
+                                                        <div className='w-1/3 text-center'>Proveedor</div>
+                                                        <div className='w-1/3 text-center'>Folio</div>
+                                                        <div className='w-1/3 text-center'>Total MN</div>
+                                                    </div>
+
+                                                    <div className='w-full py-2 flex justify-around items-center'>
+                                                        <div className='w-1/3 flex justify-center'>
+                                                            {MesFiltro}
+                                                        </div>
+
+
+                                                        <div className='w-1/3 flex justify-center'>
+                                                            <input type="text" className='w-full border-none outline-none text-center placeholder:text-black' placeholder='02540114584' />
+                                                        </div>
+
+                                                        <div className='w-1/3 flex justify-center'>
+                                                            <input type="text" className='w-full border-none outline-none text-center placeholder:text-black' placeholder='000' />
+                                                        </div>
+                                                    </div>
+
+                                                </div>
                                             </div>
                                             <DialogFooter className="sm:justify-end mt-5">
                                                 <DialogClose asChild>
@@ -118,11 +250,75 @@ const Invoices = () => {
 
                                     <Dialog key={`Delete ${index}`} className="flex items-center mt-1">
                                         <DialogTrigger asChild>
-                                            <Trash className='w-5 h-5 text-gray-500 font-bold cursor-pointer' />
+                                            <img className='w-6 h-6 cursor-pointer' src={EliminarSVG} />
                                         </DialogTrigger>
                                         <DialogContent className="max-w-2xl">
                                             <div className="flex items-center space-x-2">
-                                                
+                                                <div className="grid flex-1 pt-5 gap-2">
+                                                    <div className='border-[2px] flex justify-around w-full py-1 px-4 border-gray-200 rounded-md'>
+                                                        <div className='w-1/3 text-center'>Período de Pago</div>
+                                                        <div className='w-1/3 text-center'>Cuenta de Gastos</div>
+                                                        <div className='w-1/3 text-center'>Fecha</div>
+                                                    </div>
+
+                                                    <div className='w-full py-2 flex justify-around items-center'>
+                                                        <div className='w-1/3 flex justify-center'>
+                                                            <Select
+                                                                key={1}
+                                                                className="border-none ring-0 focus:ring-0 text-black placeholder:text-black"
+                                                                onValueChange={(e) => { setMesFiltro(e) }}
+                                                                value={MesFiltro}
+                                                            >
+                                                                <SelectTrigger className="w-fit border-2 border-gray-300 ring-0 focus:ring-0 px-3">
+                                                                    <SelectValue placeholder="Selecciona un Mes" />
+                                                                </SelectTrigger>
+                                                                <SelectContent className="h-[20dvh] px-0">
+                                                                    {meses.map((mes) => (
+                                                                        <SelectItem
+                                                                            key={mes}
+                                                                            value={`${mes}`}
+                                                                        >
+                                                                            {mes}
+                                                                        </SelectItem>
+                                                                    ))}
+                                                                </SelectContent>
+                                                            </Select>
+                                                        </div>
+                                                        <div className='w-1/3 flex justify-center'>
+                                                            <input type="text" className='w-full border-none outline-none text-center placeholder:text-black' placeholder='|' />
+                                                        </div>
+
+                                                        <div className='w-1/3 flex justify-center'>
+                                                            <input type="date" className='w-full border-none outline-none text-center placeholder:text-black' placeholder='15/06/2024' />
+                                                        </div>
+                                                    </div>
+
+                                                    <div>
+                                                        <hr className='w-full' />
+                                                    </div>
+
+                                                    <div className='border-[2px] mt-10 flex justify-around w-full py-1 px-4 border-gray-200 rounded-md'>
+                                                        <div className='w-1/3 text-center'>Proveedor</div>
+                                                        <div className='w-1/3 text-center'>Folio</div>
+                                                        <div className='w-1/3 text-center'>Total MN</div>
+                                                    </div>
+
+                                                    <div className='w-full py-2 flex justify-around items-center'>
+                                                        <div className='w-1/3 flex justify-center'>
+                                                            {MesFiltro}
+                                                        </div>
+
+
+                                                        <div className='w-1/3 flex justify-center'>
+                                                            <input type="text" className='w-full border-none outline-none text-center placeholder:text-black' placeholder='02540114584' />
+                                                        </div>
+
+                                                        <div className='w-1/3 flex justify-center'>
+                                                            <input type="text" className='w-full border-none outline-none text-center placeholder:text-black' placeholder='000' />
+                                                        </div>
+                                                    </div>
+
+                                                </div>
                                             </div>
                                             <DialogFooter className="sm:justify-end mt-5">
                                                 <DialogClose asChild>

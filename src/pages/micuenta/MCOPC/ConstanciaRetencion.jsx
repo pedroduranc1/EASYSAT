@@ -2,6 +2,9 @@ import { Plus, Search } from 'lucide-react'
 import React, { useState } from 'react'
 import { Table, TableBody, TableHead, TableHeader, TableRow } from '../../../components/ui/table'
 import { Dialog, DialogClose, DialogContent, DialogFooter, DialogTrigger } from '../../../components/ui/dialog'
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../../../components/ui/select'
+import EditarSVG from "../../../assets/Editar.svg";
+import EliminarSVG from "../../../assets/Eliminar.svg";
 
 const HeadersConstancias = [
   'Periodo',
@@ -13,11 +16,36 @@ const HeadersConstancias = [
   'Ejercicio'
 ]
 
+const meses = [
+  'Enero',
+  'Febrero',
+  'Marzo',
+  'Abril',
+  'Mayo',
+  'Junio',
+  'Julio',
+  'Agosto',
+  'Septiembre',
+  'Octubre',
+  'Noviembre',
+  'Diciembre'
+]
+
+const dataFake = [
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+]
+
 const ConstanciaRetencion = () => {
   const [startIndex, setStartIndex] = useState(0);
   const [Pagi, setPagi] = useState(1)
   const pageSize = 6;
   const [page, setPage] = useState(1);
+  const [MesFiltro, setMesFiltro] = useState('Enero')
 
 
   const totalPages = Math.ceil(10 / pageSize);
@@ -32,9 +60,9 @@ const ConstanciaRetencion = () => {
   return (
     <div className='w-full flex flex-col pr-[10%] pt-2 justify-center items-center h-full rounded-md'>
       <div className='bg-white border-2 px-5 flex items-center justify-between border-gray-300 w-full py-5 rounded-lg'>
-        
+
         <div className='flex items-center gap-x-3'>
-        <h2 className='font-[12px] text-3xl'>Constancias de Retención</h2>
+          <h2 className='font-[12px] text-3xl'>Constancias de Retención</h2>
 
           <Dialog key={`agregarDialog`} className="flex items-center mt-1">
             <DialogTrigger asChild>
@@ -47,7 +75,75 @@ const ConstanciaRetencion = () => {
             </DialogTrigger>
             <DialogContent className="max-w-2xl">
               <div className="flex items-center space-x-2">
+                <div className="grid flex-1 pt-5 gap-2">
+                  <div className='border-[2px] flex justify-around w-full py-1 px-4 border-gray-200 rounded-md'>
+                    <div className='w-1/3 text-center'>Período</div>
+                    <div className='w-1/3 text-center'>Proveedor</div>
+                    <div className='w-1/3 text-center'>RFC</div>
+                  </div>
 
+                  <div className='w-full py-2 flex justify-around items-center'>
+                    <div className='w-1/3 flex flex-col items-center justify-center'>
+                      <Select
+                        key={1}
+                        className="border-none ring-0 focus:ring-0 text-black placeholder:text-black"
+                        onValueChange={(e) => { setMesFiltro(e) }}
+                        value={MesFiltro}
+                      >
+                        <SelectTrigger className="w-[90%] border-2 border-gray-300 ring-0 focus:ring-0 px-3">
+                          <SelectValue placeholder="Selecciona un Mes" />
+                        </SelectTrigger>
+                        <SelectContent className="h-[20dvh] px-0">
+                          {meses.map((mes) => (
+                            <SelectItem
+                              key={mes}
+                              value={`${mes}`}
+                            >
+                              {mes}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </div>
+                    <div className='w-1/3 flex justify-center'>
+                      <input type="text" className='w-[90%] border-2 border-gray-300 py-[6px] rounded-md outline-none text-center placeholder:text-black' />
+                    </div>
+
+                    <div className='w-1/3 flex justify-center'>
+                      <input type="text" className='w-[90%] border-2 border-gray-300 py-[6px] rounded-md outline-none text-center placeholder:text-black' />
+                    </div>
+                  </div>
+
+
+                  <div className='border-[2px] flex justify-around w-full py-1 px-4 border-gray-200 rounded-md'>
+                    <div className='w-1/2 text-center'>Monto de Operación</div>
+                    <div className='w-1/2 text-center'>Retención de IVA</div>
+                  </div>
+
+                  <div className='w-full py-2 flex gap-x-3 px-2 justify-around items-center'>
+                    <div className='w-1/2 flex justify-center'>
+                      <input type="text" className='w-full border-2 border-gray-300 py-[6px] rounded-md outline-none text-center placeholder:text-black' />
+                    </div>
+                    <div className='w-1/2 flex justify-center'>
+                      <input type="text" className='w-full border-2 border-gray-300 py-[6px] rounded-md outline-none text-center placeholder:text-black' />
+                    </div>
+                  </div>
+
+                  <div className='border-[2px] flex justify-around w-full py-1 px-4 border-gray-200 rounded-md'>
+                    <div className='w-1/2 text-center'>Retención de ISR</div>
+                    <div className='w-1/2 text-center'>Ejercicio</div>
+                  </div>
+
+                  <div className='w-full py-2 flex gap-x-3 px-2 justify-around items-center'>
+                    <div className='w-1/2 flex justify-center'>
+                      <input type="text" className='w-full border-2 border-gray-300 py-[6px] rounded-md outline-none text-center placeholder:text-black' />
+                    </div>
+                    <div className='w-1/2 flex justify-center'>
+                      <input type="text" className='w-full border-2 border-gray-300 py-[6px] rounded-md outline-none text-center placeholder:text-black' />
+                    </div>
+                  </div>
+
+                </div>
               </div>
               <DialogFooter className="sm:justify-end mt-5">
                 <DialogClose asChild>
@@ -90,81 +186,195 @@ const ConstanciaRetencion = () => {
               <TableHead className="text-[12px] w-[250px] font-bold text-center">{HeadersConstancias[startIndex + 4]}</TableHead>
               <TableHead className="text-[12px] w-[250px] font-bold text-center">{HeadersConstancias[startIndex + 5]}</TableHead>
               <TableHead className="text-[12px] w-[250px] font-bold text-center">{HeadersConstancias[startIndex + 6]}</TableHead>
+              <TableHead className="w-[150px]"></TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
 
-            {/* {FacturasFiltradas?.map((invoice, index) => (
-              <TableRow key={invoice.invoice}>
-                {
-                  selectedTablePosition(startIndex, invoice)
-                }
-              </TableRow>
-            ))} */}
+            {
+              dataFake.map((data) => (
+                <TableRow>
+                  <TableHead className="text-[10px] w-[250px] text-center">Enero 2024</TableHead>
+                  <TableHead className="text-[10px] w-[250px] text-center">Universidad</TableHead>
+                  <TableHead className="text-[10px] w-[250px] text-center">GOB21239092</TableHead>
+                  <TableHead className="text-[10px] w-[250px] text-center">19,200.00</TableHead>
+                  <TableHead className="text-[10px] w-[250px] text-center">466.54</TableHead>
+                  <TableHead className="text-[10px] w-[250px] text-center">200.60</TableHead>
+                  <TableHead className="text-[10px] w-[250px] text-center">2023</TableHead>
+                  <TableHead className="text-[10px] w-[90px] flex justify-around items-center text-center">
+                    <Dialog key={`EditarDialog`} className="flex items-center mt-1">
+                      <DialogTrigger asChild>
+                        <img className='w-6 h-6 cursor-pointer' src={EditarSVG} />
 
-            <TableRow>
-              <TableHead className="text-[10px] w-[250px] text-center">Enero 2024</TableHead>
-              <TableHead className="text-[10px] w-[250px] text-center">Universidad</TableHead>
-              <TableHead className="text-[10px] w-[250px] text-center">GOB21239092</TableHead>
-              <TableHead className="text-[10px] w-[250px] text-center">19,200.00</TableHead>
-              <TableHead className="text-[10px] w-[250px] text-center">466.54</TableHead>
-              <TableHead className="text-[10px] w-[250px] text-center">200.60</TableHead>
-              <TableHead className="text-[10px] w-[250px] text-center">2023</TableHead>
-            </TableRow>
-            <TableRow>
-              <TableHead className="text-[10px] w-[250px] text-center">Marzo 2024</TableHead>
-              <TableHead className="text-[10px] w-[250px] text-center">Universidad</TableHead>
-              <TableHead className="text-[10px] w-[250px] text-center">GOB21239092</TableHead>
-              <TableHead className="text-[10px] w-[250px] text-center">19,200.00</TableHead>
-              <TableHead className="text-[10px] w-[250px] text-center">466.54</TableHead>
-              <TableHead className="text-[10px] w-[250px] text-center">200.60</TableHead>
-              <TableHead className="text-[10px] w-[250px] text-center">2023</TableHead>
-            </TableRow>
-            <TableRow>
-              <TableHead className="text-[10px] w-[250px] text-center">Septiembre 2024</TableHead>
-              <TableHead className="text-[10px] w-[250px] text-center">Universidad</TableHead>
-              <TableHead className="text-[10px] w-[250px] text-center">GOB21239092</TableHead>
-              <TableHead className="text-[10px] w-[250px] text-center">19,200.00</TableHead>
-              <TableHead className="text-[10px] w-[250px] text-center">466.54</TableHead>
-              <TableHead className="text-[10px] w-[250px] text-center">200.60</TableHead>
-              <TableHead className="text-[10px] w-[250px] text-center">2023</TableHead>
-            </TableRow>
-            <TableRow>
-              <TableHead className="text-[10px] w-[250px] text-center">Octubre 2024</TableHead>
-              <TableHead className="text-[10px] w-[250px] text-center">Universidad</TableHead>
-              <TableHead className="text-[10px] w-[250px] text-center">GOB21239092</TableHead>
-              <TableHead className="text-[10px] w-[250px] text-center">19,200.00</TableHead>
-              <TableHead className="text-[10px] w-[250px] text-center">466.54</TableHead>
-              <TableHead className="text-[10px] w-[250px] text-center">200.60</TableHead>
-              <TableHead className="text-[10px] w-[250px] text-center">2023</TableHead>
-            </TableRow>
-            <TableRow>
-              <TableHead className="text-[10px] w-[250px] text-center">Octubre 2024</TableHead>
-              <TableHead className="text-[10px] w-[250px] text-center">Universidad</TableHead>
-              <TableHead className="text-[10px] w-[250px] text-center">GOB21239092</TableHead>
-              <TableHead className="text-[10px] w-[250px] text-center">19,200.00</TableHead>
-              <TableHead className="text-[10px] w-[250px] text-center">466.54</TableHead>
-              <TableHead className="text-[10px] w-[250px] text-center">200.60</TableHead>
-              <TableHead className="text-[10px] w-[250px] text-center">2023</TableHead>
-            </TableRow>
-            <TableRow>
-              <TableHead className="text-[10px] w-[250px] text-center">Octubre 2024</TableHead>
-              <TableHead className="text-[10px] w-[250px] text-center">Universidad</TableHead>
-              <TableHead className="text-[10px] w-[250px] text-center">GOB21239092</TableHead>
-              <TableHead className="text-[10px] w-[250px] text-center">19,200.00</TableHead>
-              <TableHead className="text-[10px] w-[250px] text-center">466.54</TableHead>
-              <TableHead className="text-[10px] w-[250px] text-center">200.60</TableHead>
-              <TableHead className="text-[10px] w-[250px] text-center">2023</TableHead>
-            </TableRow>
-            <TableRow>
-              <TableHead className="text-[10px] w-[250px] text-center">Octubre 2024</TableHead>
-              <TableHead className="text-[10px] w-[250px] text-center">Universidad</TableHead>
-              <TableHead className="text-[10px] w-[250px] text-center">GOB21239092</TableHead>
-              <TableHead className="text-[10px] w-[250px] text-center">19,200.00</TableHead>
-              <TableHead className="text-[10px] w-[250px] text-center">466.54</TableHead>
-              <TableHead className="text-[10px] w-[250px] text-center">200.60</TableHead>
-              <TableHead className="text-[10px] w-[250px] text-center">2023</TableHead>
-            </TableRow>
+                      </DialogTrigger>
+                      <DialogContent className="max-w-2xl">
+                        <div className="flex items-center space-x-2">
+                          <div className="grid flex-1 pt-5 gap-2">
+                            <div className='border-[2px] flex justify-around w-full py-1 px-4 border-gray-200 rounded-md'>
+                              <div className='w-1/3 text-center'>Período</div>
+                              <div className='w-1/3 text-center'>Proveedor</div>
+                              <div className='w-1/3 text-center'>RFC</div>
+                            </div>
+
+                            <div className='w-full py-2 flex justify-around items-center'>
+                              <div className='w-1/3 flex flex-col items-center justify-center'>
+                                <Select
+                                  key={1}
+                                  className="border-none ring-0 focus:ring-0 text-black placeholder:text-black"
+                                  onValueChange={(e) => { setMesFiltro(e) }}
+                                  value={MesFiltro}
+                                >
+                                  <SelectTrigger className="w-[90%] border-2 border-gray-300 ring-0 focus:ring-0 px-3">
+                                    <SelectValue placeholder="Selecciona un Mes" />
+                                  </SelectTrigger>
+                                  <SelectContent className="h-[20dvh] px-0">
+                                    {meses.map((mes) => (
+                                      <SelectItem
+                                        key={mes}
+                                        value={`${mes}`}
+                                      >
+                                        {mes}
+                                      </SelectItem>
+                                    ))}
+                                  </SelectContent>
+                                </Select>
+                              </div>
+                              <div className='w-1/3 flex justify-center'>
+                                <input type="text" className='w-[90%] border-2 border-gray-300 py-[6px] rounded-md outline-none text-center placeholder:text-black' />
+                              </div>
+
+                              <div className='w-1/3 flex justify-center'>
+                                <input type="text" className='w-[90%] border-2 border-gray-300 py-[6px] rounded-md outline-none text-center placeholder:text-black' />
+                              </div>
+                            </div>
+
+
+                            <div className='border-[2px] flex justify-around w-full py-1 px-4 border-gray-200 rounded-md'>
+                              <div className='w-1/2 text-center'>Monto de Operación</div>
+                              <div className='w-1/2 text-center'>Retención de IVA</div>
+                            </div>
+
+                            <div className='w-full py-2 flex gap-x-3 px-2 justify-around items-center'>
+                              <div className='w-1/2 flex justify-center'>
+                                <input type="text" className='w-full border-2 border-gray-300 py-[6px] rounded-md outline-none text-center placeholder:text-black' />
+                              </div>
+                              <div className='w-1/2 flex justify-center'>
+                                <input type="text" className='w-full border-2 border-gray-300 py-[6px] rounded-md outline-none text-center placeholder:text-black' />
+                              </div>
+                            </div>
+
+                            <div className='border-[2px] flex justify-around w-full py-1 px-4 border-gray-200 rounded-md'>
+                              <div className='w-1/2 text-center'>Retención de ISR</div>
+                              <div className='w-1/2 text-center'>Ejercicio</div>
+                            </div>
+
+                            <div className='w-full py-2 flex gap-x-3 px-2 justify-around items-center'>
+                              <div className='w-1/2 flex justify-center'>
+                                <input type="text" className='w-full border-2 border-gray-300 py-[6px] rounded-md outline-none text-center placeholder:text-black' />
+                              </div>
+                              <div className='w-1/2 flex justify-center'>
+                                <input type="text" className='w-full border-2 border-gray-300 py-[6px] rounded-md outline-none text-center placeholder:text-black' />
+                              </div>
+                            </div>
+
+                          </div>
+                        </div>
+                        <DialogFooter className="sm:justify-end mt-5">
+                          <DialogClose asChild>
+                            <button className='px-4 py-1 rounded-md bg-transparent border-2 border-gray-400 hover:border-LogoBlue hover:bg-LogoBlue hover:text-white'>Editar</button>
+                          </DialogClose>
+                        </DialogFooter>
+                      </DialogContent>
+                    </Dialog>
+
+                    <Dialog key={`EliminarDialog`} className="flex items-center mt-1">
+                      <DialogTrigger asChild>
+                      <img className='w-6 h-6 cursor-pointer' src={EliminarSVG} />
+
+                      </DialogTrigger>
+                      <DialogContent className="max-w-2xl">
+                        <div className="flex items-center space-x-2">
+                          <div className="grid flex-1 pt-5 gap-2">
+                            <div className='border-[2px] flex justify-around w-full py-1 px-4 border-gray-200 rounded-md'>
+                              <div className='w-1/3 text-center'>Período</div>
+                              <div className='w-1/3 text-center'>Proveedor</div>
+                              <div className='w-1/3 text-center'>RFC</div>
+                            </div>
+
+                            <div className='w-full py-2 flex justify-around items-center'>
+                              <div className='w-1/3 flex flex-col items-center justify-center'>
+                                <Select
+                                  key={1}
+                                  className="border-none ring-0 focus:ring-0 text-black placeholder:text-black"
+                                  onValueChange={(e) => { setMesFiltro(e) }}
+                                  value={MesFiltro}
+                                >
+                                  <SelectTrigger className="w-[90%] border-2 border-gray-300 ring-0 focus:ring-0 px-3">
+                                    <SelectValue placeholder="Selecciona un Mes" />
+                                  </SelectTrigger>
+                                  <SelectContent className="h-[20dvh] px-0">
+                                    {meses.map((mes) => (
+                                      <SelectItem
+                                        key={mes}
+                                        value={`${mes}`}
+                                      >
+                                        {mes}
+                                      </SelectItem>
+                                    ))}
+                                  </SelectContent>
+                                </Select>
+                              </div>
+                              <div className='w-1/3 flex justify-center'>
+                                <input type="text" className='w-[90%] border-2 border-gray-300 py-[6px] rounded-md outline-none text-center placeholder:text-black' />
+                              </div>
+
+                              <div className='w-1/3 flex justify-center'>
+                                <input type="text" className='w-[90%] border-2 border-gray-300 py-[6px] rounded-md outline-none text-center placeholder:text-black' />
+                              </div>
+                            </div>
+
+
+                            <div className='border-[2px] flex justify-around w-full py-1 px-4 border-gray-200 rounded-md'>
+                              <div className='w-1/2 text-center'>Monto de Operación</div>
+                              <div className='w-1/2 text-center'>Retención de IVA</div>
+                            </div>
+
+                            <div className='w-full py-2 flex gap-x-3 px-2 justify-around items-center'>
+                              <div className='w-1/2 flex justify-center'>
+                                <input type="text" className='w-full border-2 border-gray-300 py-[6px] rounded-md outline-none text-center placeholder:text-black' />
+                              </div>
+                              <div className='w-1/2 flex justify-center'>
+                                <input type="text" className='w-full border-2 border-gray-300 py-[6px] rounded-md outline-none text-center placeholder:text-black' />
+                              </div>
+                            </div>
+
+                            <div className='border-[2px] flex justify-around w-full py-1 px-4 border-gray-200 rounded-md'>
+                              <div className='w-1/2 text-center'>Retención de ISR</div>
+                              <div className='w-1/2 text-center'>Ejercicio</div>
+                            </div>
+
+                            <div className='w-full py-2 flex gap-x-3 px-2 justify-around items-center'>
+                              <div className='w-1/2 flex justify-center'>
+                                <input type="text" className='w-full border-2 border-gray-300 py-[6px] rounded-md outline-none text-center placeholder:text-black' />
+                              </div>
+                              <div className='w-1/2 flex justify-center'>
+                                <input type="text" className='w-full border-2 border-gray-300 py-[6px] rounded-md outline-none text-center placeholder:text-black' />
+                              </div>
+                            </div>
+
+                          </div>
+                        </div>
+                        <DialogFooter className="sm:justify-end mt-5">
+                          <DialogClose asChild>
+                            <button className='px-4 py-1 rounded-md bg-transparent border-2 border-gray-400 hover:border-LogoBlue hover:bg-LogoBlue hover:text-white'>Eliminar</button>
+                          </DialogClose>
+                        </DialogFooter>
+                      </DialogContent>
+                    </Dialog>
+                  </TableHead>
+                </TableRow>
+              ))
+            }
 
           </TableBody>
         </Table>

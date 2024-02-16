@@ -79,14 +79,11 @@ const ChartComponent = ({ qtyChart, data, Year, setYear }) => {
       case "bar":
         return (
           <BarChart data={filtrarPorParametro(mes)}>
-            <XAxis dataKey={mes === "monthly" ? "mes" : mes === "yearly" ? "year" : "rangoSemana"} tick={{ interval: 0 }} tickFormatter={(value) => value}>
+            <XAxis dataKey={mes === "monthly" ? "mes" : mes === "yearly" ? "year" : "rangoSemana"} tick={{ interval: 0 }} tickFormatter={(value) => value.substring(0, 3)}>
               {mes === 'ano' && <XAxis dataKey="mes" tickFormatter={(value) => value} />}
               {mes === 'semana' && <XAxis dataKey="rangoSemana" tickFormatter={(value) => value} />}
             </XAxis>
             <YAxis tickFormatter={(tick) => {
-              // Formatear el número tick según tus necesidades
-              // Aquí puedes aplicar la lógica de formateo que desees
-              // Por ejemplo, puedes usar toLocaleString para agregar separadores de miles y decimales
               return tick.toLocaleString('es-MX');
             }} />
             <Bar
@@ -116,7 +113,7 @@ const ChartComponent = ({ qtyChart, data, Year, setYear }) => {
       case "line":
         return (
           <LineChart data={filtrarPorParametro(mes)}>
-            <XAxis dataKey={mes === "monthly" ? "mes" : mes === "yearly" ? "year" : "rangoSemana"} tick={{ interval: 0 }} tickFormatter={(value) => value}>
+            <XAxis dataKey={mes === "monthly" ? "mes" : mes === "yearly" ? "year" : "rangoSemana"} tick={{ interval: 0 }} tickFormatter={(value) => value.substring(0, 3)}>
               {mes === 'ano' && <XAxis dataKey="mes" tickFormatter={(value) => value} />}
               {mes === 'semana' && <XAxis dataKey="rangoSemana" tickFormatter={(value) => value} />}
             </XAxis>
