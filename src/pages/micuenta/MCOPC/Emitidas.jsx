@@ -68,7 +68,7 @@ const Emitidas = () => {
     setFacturasEmitidas(extractDataWithPagination(emitidasPrueba, Pagi, pageSize))
   }, [Pagi])
 
-  const pageSize = 6;
+  const pageSize = 5;
   const [page, setPage] = useState(1);
   const [FacturasEmitidas, setFacturasEmitidas] = useState([]);
   const [FacturasFiltradas, setFacturasFiltradas] = useState(extractDataWithPagination(emitidasPrueba, page, pageSize));
@@ -145,17 +145,7 @@ const Emitidas = () => {
         </div>
       </div>
 
-      <div className='w-full flex items-center py-2 justify-start'>
-        <div className='flex items-center gap-x-1'>
-          {/* Renderizado condicional para mostrar o no la flecha izquierda */}
-          {!(page <= 1) && (<button onClick={prevPage} className='text-[10px] cursor-pointer text-gray-500'>{"<"}</button>)}
 
-          Pag {page}
-
-          {!(page === totalPages) && (<button onClick={nextPage} className='text-[10px] cursor-pointer text-gray-500'>{">"}</button>)}
-
-        </div>
-      </div>
 
 
       <div className='w-full overflow-x-auto bg-white border-2 border-gray-300 rounded-lg mt-5'>
@@ -194,8 +184,20 @@ const Emitidas = () => {
             ))}
           </TableBody>
         </Table>
-      </div>
 
+
+      </div>
+      <div className='w-full flex items-center py-2 justify-start'>
+        <div className='flex items-center gap-x-1'>
+          {/* Renderizado condicional para mostrar o no la flecha izquierda */}
+          {!(page <= 1) && (<button onClick={prevPage} className='text-[10px] cursor-pointer text-gray-500'>{"<"}</button>)}
+
+          Pag {page}
+
+          {!(page === totalPages) && (<button onClick={nextPage} className='text-[10px] cursor-pointer text-gray-500'>{">"}</button>)}
+
+        </div>
+      </div>
 
     </div>
   )

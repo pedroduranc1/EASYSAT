@@ -46,6 +46,9 @@ const ConstanciaRetencion = () => {
   const pageSize = 6;
   const [page, setPage] = useState(1);
   const [MesFiltro, setMesFiltro] = useState('Enero')
+  const [MontoOpe, setMontoOpe] = useState(0);
+  const [retenIva, setretenIva] = useState(0);
+  const [retenIsr, setretenIsr] = useState(0);
 
 
   const totalPages = Math.ceil(10 / pageSize);
@@ -57,6 +60,45 @@ const ConstanciaRetencion = () => {
   const prevPage = () => {
     setPage((prevPage) => (prevPage > 1 ? prevPage - 1 : prevPage));
   };
+
+  const handleChange = (event) => {
+    // Extraer el valor actual del input
+    let value = event.target.value;
+
+    // Permitir números y punto decimal
+    value = value.replace(/[^0-9.]/g, '');
+
+    // Evitar múltiples puntos decimales
+    const match = value.match(/\./g);
+    if (match && match.length > 1) {
+      value = value.replace(/\.+$/, "");
+    }
+    // Ajustar la posición del cursor después del formateo
+    setTimeout(() => {
+      event.target.selectionStart = selectionStart;
+      event.target.selectionEnd = selectionStart;
+    });
+
+    // Formatear a moneda manteniendo la posición del cursor
+    const selectionStart = event.target.selectionStart;
+    const formattedValue = formatToCurrency(value);
+
+    return formattedValue
+  };
+
+
+  const formatToCurrency = (amount) => {
+    // Convertir el string a número para formatear correctamente
+    const numberAmount = Number(amount) || 0;
+
+    return new Intl.NumberFormat('es-MX', {
+      style: 'currency',
+      currency: 'MXN',
+      minimumFractionDigits: 2, // Asegúrate de incluir dos dígitos decimales
+    }).format(numberAmount).replace('MX$', '').trim(); // Remover el símbolo de peso si es necesario
+  };
+
+
   return (
     <div className='w-full flex flex-col pr-[10%] pt-2 justify-center items-center h-full rounded-md'>
       <div className='bg-white border-2 px-5 flex items-center justify-between border-gray-300 w-full py-5 rounded-lg'>
@@ -122,10 +164,24 @@ const ConstanciaRetencion = () => {
 
                   <div className='w-full py-2 flex gap-x-3 px-2 justify-around items-center'>
                     <div className='w-1/2 flex justify-center'>
-                      <input type="text" className='w-full border-2 border-gray-300 py-[6px] rounded-md outline-none text-center placeholder:text-black' />
+                      <input
+                        type="text"
+                        className='w-full border-2 border-gray-300 py-[6px] rounded-md outline-none text-center placeholder:text-black'
+                        value={MontoOpe}
+                        onChange={(e) => {
+                          setMontoOpe(handleChange(e))
+                        }}
+                      />
                     </div>
                     <div className='w-1/2 flex justify-center'>
-                      <input type="text" className='w-full border-2 border-gray-300 py-[6px] rounded-md outline-none text-center placeholder:text-black' />
+                      <input
+                        type="text"
+                        className='w-full border-2 border-gray-300 py-[6px] rounded-md outline-none text-center placeholder:text-black'
+                        value={retenIva}
+                        onChange={(e) => {
+                          setretenIva(handleChange(e))
+                        }}
+                      />
                     </div>
                   </div>
 
@@ -136,7 +192,14 @@ const ConstanciaRetencion = () => {
 
                   <div className='w-full py-2 flex gap-x-3 px-2 justify-around items-center'>
                     <div className='w-1/2 flex justify-center'>
-                      <input type="text" className='w-full border-2 border-gray-300 py-[6px] rounded-md outline-none text-center placeholder:text-black' />
+                      <input
+                        type="text"
+                        className='w-full border-2 border-gray-300 py-[6px] rounded-md outline-none text-center placeholder:text-black'
+                        value={retenIsr}
+                        onChange={(e) => {
+                          setretenIsr(handleChange(e))
+                        }}
+                      />
                     </div>
                     <div className='w-1/2 flex justify-center'>
                       <input type="text" className='w-full border-2 border-gray-300 py-[6px] rounded-md outline-none text-center placeholder:text-black' />
@@ -163,17 +226,7 @@ const ConstanciaRetencion = () => {
         </div>
       </div>
 
-      <div className='w-full items-center justify-start py-2'>
-        <div className='flex items-center gap-x-1'>
-          {/* Renderizado condicional para mostrar o no la flecha izquierda */}
-          {!(page <= 1) && (<button onClick={prevPage} className='text-[10px] cursor-pointer text-gray-500'>{"<"}</button>)}
 
-          Pag {page}
-
-          {!(page === totalPages) && (<button onClick={nextPage} className='text-[10px] cursor-pointer text-gray-500'>{">"}</button>)}
-
-        </div>
-      </div>
 
       <div className='w-full bg-white border-2 border-gray-300 rounded-lg mt-5'>
         <Table>
@@ -256,10 +309,24 @@ const ConstanciaRetencion = () => {
 
                             <div className='w-full py-2 flex gap-x-3 px-2 justify-around items-center'>
                               <div className='w-1/2 flex justify-center'>
-                                <input type="text" className='w-full border-2 border-gray-300 py-[6px] rounded-md outline-none text-center placeholder:text-black' />
+                                <input
+                                  type="text"
+                                  className='w-full border-2 border-gray-300 py-[6px] rounded-md outline-none text-center placeholder:text-black'
+                                  value={MontoOpe}
+                                  onChange={(e) => {
+                                    setMontoOpe(handleChange(e))
+                                  }}
+                                />
                               </div>
                               <div className='w-1/2 flex justify-center'>
-                                <input type="text" className='w-full border-2 border-gray-300 py-[6px] rounded-md outline-none text-center placeholder:text-black' />
+                                <input
+                                  type="text"
+                                  className='w-full border-2 border-gray-300 py-[6px] rounded-md outline-none text-center placeholder:text-black'
+                                  value={retenIva}
+                                  onChange={(e) => {
+                                    setretenIva(handleChange(e))
+                                  }}
+                                />
                               </div>
                             </div>
 
@@ -270,7 +337,14 @@ const ConstanciaRetencion = () => {
 
                             <div className='w-full py-2 flex gap-x-3 px-2 justify-around items-center'>
                               <div className='w-1/2 flex justify-center'>
-                                <input type="text" className='w-full border-2 border-gray-300 py-[6px] rounded-md outline-none text-center placeholder:text-black' />
+                                <input
+                                  type="text"
+                                  className='w-full border-2 border-gray-300 py-[6px] rounded-md outline-none text-center placeholder:text-black'
+                                  value={retenIsr}
+                                  onChange={(e) => {
+                                    setretenIsr(handleChange(e))
+                                  }}
+                                />
                               </div>
                               <div className='w-1/2 flex justify-center'>
                                 <input type="text" className='w-full border-2 border-gray-300 py-[6px] rounded-md outline-none text-center placeholder:text-black' />
@@ -289,7 +363,7 @@ const ConstanciaRetencion = () => {
 
                     <Dialog key={`EliminarDialog`} className="flex items-center mt-1">
                       <DialogTrigger asChild>
-                      <img className='w-6 h-6 cursor-pointer' src={EliminarSVG} />
+                        <img className='w-6 h-6 cursor-pointer' src={EliminarSVG} />
 
                       </DialogTrigger>
                       <DialogContent className="max-w-2xl">
@@ -341,10 +415,24 @@ const ConstanciaRetencion = () => {
 
                             <div className='w-full py-2 flex gap-x-3 px-2 justify-around items-center'>
                               <div className='w-1/2 flex justify-center'>
-                                <input type="text" className='w-full border-2 border-gray-300 py-[6px] rounded-md outline-none text-center placeholder:text-black' />
+                                <input
+                                  type="text"
+                                  className='w-full border-2 border-gray-300 py-[6px] rounded-md outline-none text-center placeholder:text-black'
+                                  value={MontoOpe}
+                                  onChange={(e) => {
+                                    setMontoOpe(handleChange(e))
+                                  }}
+                                />
                               </div>
                               <div className='w-1/2 flex justify-center'>
-                                <input type="text" className='w-full border-2 border-gray-300 py-[6px] rounded-md outline-none text-center placeholder:text-black' />
+                                <input
+                                  type="text"
+                                  className='w-full border-2 border-gray-300 py-[6px] rounded-md outline-none text-center placeholder:text-black'
+                                  value={retenIva}
+                                  onChange={(e) => {
+                                    setretenIva(handleChange(e))
+                                  }}
+                                />
                               </div>
                             </div>
 
@@ -355,7 +443,14 @@ const ConstanciaRetencion = () => {
 
                             <div className='w-full py-2 flex gap-x-3 px-2 justify-around items-center'>
                               <div className='w-1/2 flex justify-center'>
-                                <input type="text" className='w-full border-2 border-gray-300 py-[6px] rounded-md outline-none text-center placeholder:text-black' />
+                                <input
+                                  type="text"
+                                  className='w-full border-2 border-gray-300 py-[6px] rounded-md outline-none text-center placeholder:text-black'
+                                  value={retenIsr}
+                                  onChange={(e) => {
+                                    setretenIsr(handleChange(e))
+                                  }}
+                                />
                               </div>
                               <div className='w-1/2 flex justify-center'>
                                 <input type="text" className='w-full border-2 border-gray-300 py-[6px] rounded-md outline-none text-center placeholder:text-black' />
@@ -379,6 +474,18 @@ const ConstanciaRetencion = () => {
           </TableBody>
         </Table>
 
+      </div>
+
+      <div className='w-full items-center justify-start py-2'>
+        <div className='flex items-center gap-x-1'>
+          {/* Renderizado condicional para mostrar o no la flecha izquierda */}
+          {!(page <= 1) && (<button onClick={prevPage} className='text-[10px] cursor-pointer text-gray-500'>{"<"}</button>)}
+
+          Pag {page}
+
+          {!(page === totalPages) && (<button onClick={nextPage} className='text-[10px] cursor-pointer text-gray-500'>{">"}</button>)}
+
+        </div>
       </div>
 
 

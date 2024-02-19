@@ -150,17 +150,7 @@ const Recibidas = () => {
         </div>
       </div>
 
-      <div className='w-full flex items-center py-2 justify-start'>
-        <div className='flex items-center gap-x-1'>
-          {/* Renderizado condicional para mostrar o no la flecha izquierda */}
-          {!(page <= 1) && (<button onClick={prevPage} className='text-[10px] cursor-pointer text-gray-500'>{"<"}</button>)}
 
-          Pag {page}
-
-          {!(page === totalPages) && (<button onClick={nextPage} className='text-[10px] cursor-pointer text-gray-500'>{">"}</button>)}
-
-        </div>
-      </div>
       <div className='w-full bg-white border-2 border-gray-300 rounded-lg mt-5'>
         <Table className="w-[150dvw] overflow-x-auto">
           <TableHeader>
@@ -207,6 +197,18 @@ const Recibidas = () => {
           </TableBody>
         </Table>
 
+      </div>
+
+      <div className='w-full flex items-center py-2 justify-start'>
+        <div className='flex items-center gap-x-1'>
+          {/* Renderizado condicional para mostrar o no la flecha izquierda */}
+          {!(page <= 1) && (<button onClick={prevPage} className='text-[10px] cursor-pointer text-gray-500'>{"<"}</button>)}
+
+          Pag {page}
+
+          {!(page === totalPages) && (<button onClick={nextPage} className='text-[10px] cursor-pointer text-gray-500'>{">"}</button>)}
+
+        </div>
       </div>
 
 

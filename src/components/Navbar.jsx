@@ -121,10 +121,10 @@ export const Navbar = () => {
                   <DropdownMenuContent className="absolute -right-5 w-52">
                     <DropdownMenuGroup >
                       <DropdownMenuItem className="hover:bg-LogoGreen focus:bg-LogoGreen cursor-pointer">
-                        Configuracion de perfil
+                        Configuración de perfil
                       </DropdownMenuItem>
                       <DropdownMenuItem className="hover:bg-LogoGreen focus:bg-LogoGreen cursor-pointer">
-                        Configuracion de factura
+                        Configuración de factura
                       </DropdownMenuItem  >
                       <DropdownMenuItem className="hover:bg-LogoGreen focus:bg-red-500 cursor-pointer" onClick={()=>{logout()}}>
                         Salir
