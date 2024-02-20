@@ -13,22 +13,52 @@ export const PruebasExcel = () => {
 
     const handleFileChange = (e) => {
         const selectedFile = e.target.files[0];
-
+    
         if (selectedFile) {
             setFile(selectedFile);
-
+    
             const reader = new FileReader();
             reader.onload = (event) => {
                 const binaryData = event.target.result;
                 const workbook = XLSX.read(binaryData, { type: 'binary' });
                 const sheetName = workbook.SheetNames[0];
                 const sheet = workbook.Sheets[sheetName];
-                const jsonData = XLSX.utils.sheet_to_json(sheet, { header: 1 });
-                setData(jsonData);
+                let jsonData = XLSX.utils.sheet_to_json(sheet, { header: 1 });
+    
+                // Paso 1 y 2: Limpiar datos y filtrar filas no deseadas
+                let cleanedData = jsonData.map(row =>
+                    row.map(cell => {
+                        if (typeof cell === 'string') {
+                            let cleaned = cell.replace(/\(val\._act\.\)_/ig, "").replace(/[\r\n]+/g, " ");
+                            cleaned = cleaned.replace(/[^\w\s]/gi, '').replace(/\s+/g, '_');
+                            return cleaned;
+                        }
+                        return cell;
+                    })
+                ).filter(row => row.length != 0 && row.length > 20);
+    
+                // Paso 3: Asumiendo que ya tienes una estructura limpia y consistente
+                // Paso 4 y 5: Eliminar duplicados y filtrar valores inconsistentes (simplificado)
+                let uniqueRows = [];
+                let valueTypes = {}; // Para almacenar los tipos esperados de cada columna
+    
+                cleanedData.forEach(row => {
+                    // Supongamos que la unicidad se determina por una combinación de columnas, por ejemplo, las primeras tres columnas
+                    let uniqueKey = row.slice(0, 3).join('|');
+                    if (!uniqueRows.find(existingRow => existingRow.slice(0, 3).join('|') === uniqueKey)) {
+                        // Validar y corregir tipos de datos aquí según sea necesario
+                        uniqueRows.push(row);
+                    }
+                });
+    
+                // Establecer datos filtrados y únicos
+                setData(uniqueRows);
             };
             reader.readAsBinaryString(selectedFile);
         }
     };
+    
+
 
     useEffect(() => {
         if (data.length > 0) {
@@ -56,7 +86,7 @@ export const PruebasExcel = () => {
                         <h1>Contenido de Prueba para archvios excel</h1>
                         <div className='flex space-x-3'>
                             <h2>Tipo de Factura a Cargar: </h2>
-                            <select onChange={(e)=>{setTipoDeFactura(e.target.value)}}>
+                            <select onChange={(e) => { setTipoDeFactura(e.target.value) }}>
                                 <option value="Emitidas">Facturas Emitidas</option>
                                 <option value="Recibidas">Facturas Recibidas</option>
                             </select>

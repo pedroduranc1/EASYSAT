@@ -43,11 +43,49 @@ const dataFake = [
 const GastosExtranjeros = () => {
   const [startIndex, setstartIndex] = useState(0)
   const [MesFiltro, setMesFiltro] = useState('Enero')
+  const [MontoMN, setMontoMN] = useState(0)
+
+  const handleChange = (event) => {
+    // Extraer el valor actual del input
+    let value = event.target.value;
+
+    // Permitir números y punto decimal
+    value = value.replace(/[^0-9.]/g, '');
+
+    // Evitar múltiples puntos decimales
+    const match = value.match(/\./g);
+    if (match && match.length > 1) {
+      value = value.replace(/\.+$/, "");
+    }
+    // Ajustar la posición del cursor después del formateo
+    setTimeout(() => {
+      event.target.selectionStart = selectionStart;
+      event.target.selectionEnd = selectionStart;
+    });
+
+    // Formatear a moneda manteniendo la posición del cursor
+    const selectionStart = event.target.selectionStart;
+    const formattedValue = formatToCurrency(value);
+
+    return formattedValue
+  };
+
+
+  const formatToCurrency = (amount) => {
+    // Convertir el string a número para formatear correctamente
+    const numberAmount = Number(amount) || 0;
+
+    return new Intl.NumberFormat('es-MX', {
+      style: 'currency',
+      currency: 'MXN',
+      minimumFractionDigits: 2, // Asegúrate de incluir dos dígitos decimales
+    }).format(numberAmount).replace('MX$', '').trim(); // Remover el símbolo de peso si es necesario
+  };
   return (
     <div className='w-full flex flex-col pr-[10%] pt-2 justify-center items-center h-full rounded-md'>
       <div className='bg-white border-2 px-5 flex items-center justify-between border-gray-300 w-full py-5 rounded-lg'>
         <div className='flex items-center gap-x-3'>
-          <h2 className='font-[12px] text-4xl'>Gastos Extranjeros/Invoices§</h2>
+          <h2 className='font-[12px] text-4xl'>Gastos Extranjeros/Invoices</h2>
 
           <Dialog key={`agregarDialog`} className="flex items-center mt-1">
             <DialogTrigger asChild>
@@ -91,7 +129,21 @@ const GastosExtranjeros = () => {
                       </Select>
                     </div>
                     <div className='w-1/3 flex justify-center'>
-                      <input type="text" className='w-[90%] border-2 border-gray-300 py-[6px] rounded-md outline-none text-center placeholder:text-black' />
+                      <Select
+                        key={2}
+                        className="border-none ring-0 focus:ring-0 text-black placeholder:text-black"
+
+                      >
+                        <SelectTrigger className="w-fit border-2 border-gray-300 ring-0 focus:ring-0 px-3">
+                          <SelectValue placeholder="Selecciona Cuenta" />
+                        </SelectTrigger>
+                        <SelectContent className="h-[20dvh] px-0">
+                          <SelectItem
+                          >
+                            Cuenta 1
+                          </SelectItem>
+                        </SelectContent>
+                      </Select>
                     </div>
 
                     <div className='w-1/3 flex justify-center'>
@@ -116,11 +168,18 @@ const GastosExtranjeros = () => {
 
 
                     <div className='w-1/3 flex justify-center'>
-                      <input type="text" className='w-[90%] border-2 border-gray-300 py-[6px] rounded-md outline-none text-center placeholder:text-black' />
+                      <input type="number" className='w-[90%] border-2 border-gray-300 py-[6px] rounded-md outline-none text-center placeholder:text-black' />
                     </div>
 
                     <div className='w-1/3 flex justify-center'>
-                      <input type="text" className='w-[90%] border-2 border-gray-300 py-[6px] rounded-md outline-none text-center placeholder:text-black' />
+                      <input
+                        type="text"
+                        className='w-[90%] border-2 border-gray-300 py-[6px] rounded-md outline-none text-center placeholder:text-black'
+                        value={MontoMN}
+                        onChange={(e) => {
+                          setMontoMN(handleChange(e))
+                        }}
+                      />
                     </div>
                   </div>
 
@@ -205,7 +264,21 @@ const GastosExtranjeros = () => {
                               </Select>
                             </div>
                             <div className='w-1/3 flex justify-center'>
-                              <input type="text" className='w-[90%] border-2 border-gray-300 py-[6px] rounded-md outline-none text-center placeholder:text-black' />
+                              <Select
+                                key={2}
+                                className="border-none ring-0 focus:ring-0 text-black placeholder:text-black"
+
+                              >
+                                <SelectTrigger className="w-fit border-2 border-gray-300 ring-0 focus:ring-0 px-3">
+                                  <SelectValue placeholder="Selecciona Cuenta" />
+                                </SelectTrigger>
+                                <SelectContent className="h-[20dvh] px-0">
+                                  <SelectItem
+                                  >
+                                    Cuenta 1
+                                  </SelectItem>
+                                </SelectContent>
+                              </Select>
                             </div>
 
                             <div className='w-1/3 flex justify-center'>
@@ -230,11 +303,18 @@ const GastosExtranjeros = () => {
 
 
                             <div className='w-1/3 flex justify-center'>
-                              <input type="text" className='w-[90%] border-2 border-gray-300 py-[6px] rounded-md outline-none text-center placeholder:text-black' />
+                              <input type="number" className='w-[90%] border-2 border-gray-300 py-[6px] rounded-md outline-none text-center placeholder:text-black' />
                             </div>
 
                             <div className='w-1/3 flex justify-center'>
-                              <input type="text" className='w-[90%] border-2 border-gray-300 py-[6px] rounded-md outline-none text-center placeholder:text-black' />
+                              <input
+                                type="text"
+                                className='w-[90%] border-2 border-gray-300 py-[6px] rounded-md outline-none text-center placeholder:text-black'
+                                value={MontoMN}
+                                onChange={(e) => {
+                                  setMontoMN(handleChange(e))
+                                }}
+                              />
                             </div>
                           </div>
 
@@ -285,7 +365,21 @@ const GastosExtranjeros = () => {
                               </Select>
                             </div>
                             <div className='w-1/3 flex justify-center'>
-                              <input type="text" className='w-[90%] border-2 border-gray-300 py-[6px] rounded-md outline-none text-center placeholder:text-black' />
+                              <Select
+                                key={2}
+                                className="border-none ring-0 focus:ring-0 text-black placeholder:text-black"
+
+                              >
+                                <SelectTrigger className="w-fit border-2 border-gray-300 ring-0 focus:ring-0 px-3">
+                                  <SelectValue placeholder="Selecciona Cuenta" />
+                                </SelectTrigger>
+                                <SelectContent className="h-[20dvh] px-0">
+                                  <SelectItem
+                                  >
+                                    Cuenta 1
+                                  </SelectItem>
+                                </SelectContent>
+                              </Select>
                             </div>
 
                             <div className='w-1/3 flex justify-center'>
@@ -310,11 +404,18 @@ const GastosExtranjeros = () => {
 
 
                             <div className='w-1/3 flex justify-center'>
-                              <input type="text" className='w-[90%] border-2 border-gray-300 py-[6px] rounded-md outline-none text-center placeholder:text-black' />
+                              <input type="number" className='w-[90%] border-2 border-gray-300 py-[6px] rounded-md outline-none text-center placeholder:text-black' />
                             </div>
 
                             <div className='w-1/3 flex justify-center'>
-                              <input type="text" className='w-[90%] border-2 border-gray-300 py-[6px] rounded-md outline-none text-center placeholder:text-black' />
+                              <input
+                                type="text"
+                                className='w-[90%] border-2 border-gray-300 py-[6px] rounded-md outline-none text-center placeholder:text-black'
+                                value={MontoMN}
+                                onChange={(e) => {
+                                  setMontoMN(handleChange(e))
+                                }}
+                              />
                             </div>
                           </div>
 

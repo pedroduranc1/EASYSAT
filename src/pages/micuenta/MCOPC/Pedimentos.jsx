@@ -44,9 +44,55 @@ const dataFake = [
   {},
 ]
 
+
+
 const Pedimentos = () => {
   const [startIndex, setstartIndex] = useState(0)
   const [MesFiltro, setMesFiltro] = useState('Enero')
+  const [ValorAdua, setValorAdua] = useState(0)
+  const [IGI, setIGI] = useState(0)
+  const [DTA, setDTA] = useState(0)
+  const [TotalCompra, setTotalCompra] = useState(0)
+  const [Total16, setTotal16] = useState(0)
+  const [IvaPrv, setIvaPrv] = useState(0)
+  const [IvaTotal, setIvaTotal] = useState(0)
+
+  const handleChange = (event) => {
+    // Extraer el valor actual del input
+    let value = event.target.value;
+
+    // Permitir números y punto decimal
+    value = value.replace(/[^0-9.]/g, '');
+
+    // Evitar múltiples puntos decimales
+    const match = value.match(/\./g);
+    if (match && match.length > 1) {
+      value = value.replace(/\.+$/, "");
+    }
+    // Ajustar la posición del cursor después del formateo
+    setTimeout(() => {
+      event.target.selectionStart = selectionStart;
+      event.target.selectionEnd = selectionStart;
+    });
+
+    // Formatear a moneda manteniendo la posición del cursor
+    const selectionStart = event.target.selectionStart;
+    const formattedValue = formatToCurrency(value);
+
+    return formattedValue
+  };
+
+
+  const formatToCurrency = (amount) => {
+    // Convertir el string a número para formatear correctamente
+    const numberAmount = Number(amount) || 0;
+
+    return new Intl.NumberFormat('es-MX', {
+      style: 'currency',
+      currency: 'MXN',
+      minimumFractionDigits: 2, // Asegúrate de incluir dos dígitos decimales
+    }).format(numberAmount).replace('MX$', '').trim(); // Remover el símbolo de peso si es necesario
+  };
 
   return (
     <div className='w-full flex flex-col pr-[10%] pt-2 justify-center items-center h-full rounded-md'>
@@ -98,11 +144,25 @@ const Pedimentos = () => {
 
 
                     <div className='w-1/3 flex justify-center'>
-                      <input type="text" className='w-[90%] border-2 border-gray-300 py-[6px] rounded-md outline-none text-center placeholder:text-black' />
+                      <input
+                        type="text"
+                        className='w-[90%] border-2 border-gray-300 py-[6px] rounded-md outline-none text-center placeholder:text-black'
+                        value={ValorAdua}
+                        onChange={(e) => {
+                          setValorAdua(handleChange(e))
+                        }}
+                      />
                     </div>
 
                     <div className='w-1/3 flex justify-center'>
-                      <input type="text" className='w-[90%] border-2 border-gray-300 py-[6px] rounded-md outline-none text-center placeholder:text-black' />
+                      <input
+                        type="text"
+                        className='w-[90%] border-2 border-gray-300 py-[6px] rounded-md outline-none text-center placeholder:text-black'
+                        value={IGI}
+                        onChange={(e) => {
+                          setIGI(handleChange(e))
+                        }}
+                      />
                     </div>
                   </div>
 
@@ -118,7 +178,14 @@ const Pedimentos = () => {
 
                   <div className='w-full py-2 flex justify-around items-center'>
                     <div className='w-1/3 flex justify-center'>
-                      <input type="text" className='w-[90%] border-2 border-gray-300 py-[6px] rounded-md outline-none text-center placeholder:text-black' />
+                      <input
+                        type="text"
+                        className='w-[90%] border-2 border-gray-300 py-[6px] rounded-md outline-none text-center placeholder:text-black'
+                        value={DTA}
+                        onChange={(e) => {
+                          setDTA(handleChange(e))
+                        }}
+                      />
                     </div>
 
 
@@ -127,7 +194,14 @@ const Pedimentos = () => {
                     </div>
 
                     <div className='w-1/3 flex justify-center'>
-                      <input type="text" className='w-[90%] border-2 border-gray-300 py-[6px] rounded-md outline-none text-center placeholder:text-black' />
+                      <input
+                        type="text"
+                        className='w-[90%] border-2 border-gray-300 py-[6px] rounded-md outline-none text-center placeholder:text-black'
+                        value={TotalCompra}
+                        onChange={(e) => {
+                          setTotalCompra(handleChange(e))
+                        }}
+                      />
                     </div>
                   </div>
 
@@ -139,15 +213,36 @@ const Pedimentos = () => {
 
                   <div className='w-full py-2 flex justify-around items-center'>
                     <div className='w-1/3 flex justify-center'>
-                      <input type="text" className='w-[90%] border-2 border-gray-300 py-[6px] rounded-md outline-none text-center placeholder:text-black' />
+                      <input
+                        type="text"
+                        className='w-[90%] border-2 border-gray-300 py-[6px] rounded-md outline-none text-center placeholder:text-black'
+                        value={Total16}
+                        onChange={(e) => {
+                          setTotal16(handleChange(e))
+                        }}
+                      />
                     </div>
 
                     <div className='w-1/3 flex justify-center'>
-                      <input type="text" className='w-[90%] border-2 border-gray-300 py-[6px] rounded-md outline-none text-center placeholder:text-black' />
+                      <input
+                        type="text"
+                        className='w-[90%] border-2 border-gray-300 py-[6px] rounded-md outline-none text-center placeholder:text-black'
+                        value={IvaPrv}
+                        onChange={(e) => {
+                          setIvaPrv(handleChange(e))
+                        }}
+                      />
                     </div>
 
                     <div className='w-1/3 flex justify-center'>
-                      <input type="text" className='w-[90%] border-2 border-gray-300 py-[6px] rounded-md outline-none text-center placeholder:text-black' />
+                      <input
+                        type="text"
+                        className='w-[90%] border-2 border-gray-300 py-[6px] rounded-md outline-none text-center placeholder:text-black'
+                        value={IvaTotal}
+                        onChange={(e) => {
+                          setIvaTotal(handleChange(e))
+                        }}
+                      />
                     </div>
                   </div>
                 </div>
@@ -242,11 +337,25 @@ const Pedimentos = () => {
 
 
                             <div className='w-1/3 flex justify-center'>
-                              <input type="text" className='w-[90%] border-2 border-gray-300 py-[6px] rounded-md outline-none text-center placeholder:text-black' />
+                              <input
+                                type="text"
+                                className='w-[90%] border-2 border-gray-300 py-[6px] rounded-md outline-none text-center placeholder:text-black'
+                                value={ValorAdua}
+                                onChange={(e) => {
+                                  setValorAdua(handleChange(e))
+                                }}
+                              />
                             </div>
 
                             <div className='w-1/3 flex justify-center'>
-                              <input type="text" className='w-[90%] border-2 border-gray-300 py-[6px] rounded-md outline-none text-center placeholder:text-black' />
+                              <input
+                                type="text"
+                                className='w-[90%] border-2 border-gray-300 py-[6px] rounded-md outline-none text-center placeholder:text-black'
+                                value={IGI}
+                                onChange={(e) => {
+                                  setIGI(handleChange(e))
+                                }}
+                              />
                             </div>
                           </div>
 
@@ -262,7 +371,14 @@ const Pedimentos = () => {
 
                           <div className='w-full py-2 flex justify-around items-center'>
                             <div className='w-1/3 flex justify-center'>
-                              <input type="text" className='w-[90%] border-2 border-gray-300 py-[6px] rounded-md outline-none text-center placeholder:text-black' />
+                              <input
+                                type="text"
+                                className='w-[90%] border-2 border-gray-300 py-[6px] rounded-md outline-none text-center placeholder:text-black'
+                                value={DTA}
+                                onChange={(e) => {
+                                  setDTA(handleChange(e))
+                                }}
+                              />
                             </div>
 
 
@@ -271,7 +387,14 @@ const Pedimentos = () => {
                             </div>
 
                             <div className='w-1/3 flex justify-center'>
-                              <input type="text" className='w-[90%] border-2 border-gray-300 py-[6px] rounded-md outline-none text-center placeholder:text-black' />
+                              <input
+                                type="text"
+                                className='w-[90%] border-2 border-gray-300 py-[6px] rounded-md outline-none text-center placeholder:text-black'
+                                value={TotalCompra}
+                                onChange={(e) => {
+                                  setTotalCompra(handleChange(e))
+                                }}
+                              />
                             </div>
                           </div>
 
@@ -283,15 +406,36 @@ const Pedimentos = () => {
 
                           <div className='w-full py-2 flex justify-around items-center'>
                             <div className='w-1/3 flex justify-center'>
-                              <input type="text" className='w-[90%] border-2 border-gray-300 py-[6px] rounded-md outline-none text-center placeholder:text-black' />
+                              <input
+                                type="text"
+                                className='w-[90%] border-2 border-gray-300 py-[6px] rounded-md outline-none text-center placeholder:text-black'
+                                value={Total16}
+                                onChange={(e) => {
+                                  setTotal16(handleChange(e))
+                                }}
+                              />
                             </div>
 
                             <div className='w-1/3 flex justify-center'>
-                              <input type="text" className='w-[90%] border-2 border-gray-300 py-[6px] rounded-md outline-none text-center placeholder:text-black' />
+                              <input
+                                type="text"
+                                className='w-[90%] border-2 border-gray-300 py-[6px] rounded-md outline-none text-center placeholder:text-black'
+                                value={IvaPrv}
+                                onChange={(e) => {
+                                  setIvaPrv(handleChange(e))
+                                }}
+                              />
                             </div>
 
                             <div className='w-1/3 flex justify-center'>
-                              <input type="text" className='w-[90%] border-2 border-gray-300 py-[6px] rounded-md outline-none text-center placeholder:text-black' />
+                              <input
+                                type="text"
+                                className='w-[90%] border-2 border-gray-300 py-[6px] rounded-md outline-none text-center placeholder:text-black'
+                                value={IvaTotal}
+                                onChange={(e) => {
+                                  setIvaTotal(handleChange(e))
+                                }}
+                              />
                             </div>
                           </div>
                         </div>
@@ -343,11 +487,25 @@ const Pedimentos = () => {
 
 
                             <div className='w-1/3 flex justify-center'>
-                              <input type="text" className='w-[90%] border-2 border-gray-300 py-[6px] rounded-md outline-none text-center placeholder:text-black' />
+                              <input
+                                type="text"
+                                className='w-[90%] border-2 border-gray-300 py-[6px] rounded-md outline-none text-center placeholder:text-black'
+                                value={ValorAdua}
+                                onChange={(e) => {
+                                  setValorAdua(handleChange(e))
+                                }}
+                              />
                             </div>
 
                             <div className='w-1/3 flex justify-center'>
-                              <input type="text" className='w-[90%] border-2 border-gray-300 py-[6px] rounded-md outline-none text-center placeholder:text-black' />
+                              <input
+                                type="text"
+                                className='w-[90%] border-2 border-gray-300 py-[6px] rounded-md outline-none text-center placeholder:text-black'
+                                value={IGI}
+                                onChange={(e) => {
+                                  setIGI(handleChange(e))
+                                }}
+                              />
                             </div>
                           </div>
 
@@ -363,7 +521,14 @@ const Pedimentos = () => {
 
                           <div className='w-full py-2 flex justify-around items-center'>
                             <div className='w-1/3 flex justify-center'>
-                              <input type="text" className='w-[90%] border-2 border-gray-300 py-[6px] rounded-md outline-none text-center placeholder:text-black' />
+                              <input
+                                type="text"
+                                className='w-[90%] border-2 border-gray-300 py-[6px] rounded-md outline-none text-center placeholder:text-black'
+                                value={DTA}
+                                onChange={(e) => {
+                                  setDTA(handleChange(e))
+                                }}
+                              />
                             </div>
 
 
@@ -372,7 +537,14 @@ const Pedimentos = () => {
                             </div>
 
                             <div className='w-1/3 flex justify-center'>
-                              <input type="text" className='w-[90%] border-2 border-gray-300 py-[6px] rounded-md outline-none text-center placeholder:text-black' />
+                              <input
+                                type="text"
+                                className='w-[90%] border-2 border-gray-300 py-[6px] rounded-md outline-none text-center placeholder:text-black'
+                                value={TotalCompra}
+                                onChange={(e) => {
+                                  setTotalCompra(handleChange(e))
+                                }}
+                              />
                             </div>
                           </div>
 
@@ -384,15 +556,36 @@ const Pedimentos = () => {
 
                           <div className='w-full py-2 flex justify-around items-center'>
                             <div className='w-1/3 flex justify-center'>
-                              <input type="text" className='w-[90%] border-2 border-gray-300 py-[6px] rounded-md outline-none text-center placeholder:text-black' />
+                              <input
+                                type="text"
+                                className='w-[90%] border-2 border-gray-300 py-[6px] rounded-md outline-none text-center placeholder:text-black'
+                                value={Total16}
+                                onChange={(e) => {
+                                  setTotal16(handleChange(e))
+                                }}
+                              />
                             </div>
 
                             <div className='w-1/3 flex justify-center'>
-                              <input type="text" className='w-[90%] border-2 border-gray-300 py-[6px] rounded-md outline-none text-center placeholder:text-black' />
+                              <input
+                                type="text"
+                                className='w-[90%] border-2 border-gray-300 py-[6px] rounded-md outline-none text-center placeholder:text-black'
+                                value={IvaPrv}
+                                onChange={(e) => {
+                                  setIvaPrv(handleChange(e))
+                                }}
+                              />
                             </div>
 
                             <div className='w-1/3 flex justify-center'>
-                              <input type="text" className='w-[90%] border-2 border-gray-300 py-[6px] rounded-md outline-none text-center placeholder:text-black' />
+                              <input
+                                type="text"
+                                className='w-[90%] border-2 border-gray-300 py-[6px] rounded-md outline-none text-center placeholder:text-black'
+                                value={IvaTotal}
+                                onChange={(e) => {
+                                  setIvaTotal(handleChange(e))
+                                }}
+                              />
                             </div>
                           </div>
                         </div>
