@@ -3,6 +3,7 @@ import { MainLayoutDg } from '../../layouts/MainLayoutDg'
 import { useAuth } from '../../hooks/useAuth'
 import { Link, useNavigate } from 'react-router-dom'
 import { Eye, EyeOff, Pencil, User2 } from 'lucide-react'
+import * as Yup from "yup";
 
 import {
     Select,
@@ -13,6 +14,7 @@ import {
     SelectTrigger,
     SelectValue,
 } from "../../components/ui/select"
+import { useFormik } from 'formik'
 
 const InfoFiscal = () => {
 
@@ -25,6 +27,8 @@ const InfoFiscal = () => {
             navigate("/", { replace: true });
         }
     }, [User])
+
+    const [RazonSocial, setRazonSocial] = useState("")
 
     const fileInputCER = useRef(null);
     const fileInputKEY = useRef(null);
@@ -111,10 +115,85 @@ const InfoFiscal = () => {
         }
     };
 
+    const formik = useFormik({
+        initialValues: {
+            razonSocial: "",
+            rfc: "",
+            ciec: "",
+            regimenFiscal: "",
+            folio: 0,
+            telefono: "",
+            codigoPostal: "",
+            municipio: "",
+            estado: "",
+            colonia: "",
+            calle: "",
+            noExterior: "",
+            noInterior: "",
+            SelloArchCer: null,
+            contraFirmaAvan: "",
+            contraSellosDig: ""
+        },
+        validationSchema: Yup.object({
+            razonSocial: Yup.string()
+                .matches(/^[A-Za-z ]+$/, "Solo se permiten letras")
+                .required("Requerido"),
+            rfc: Yup.string()
+                .matches(/^[A-Za-z0-9]{13}$/, "Debe ser alfanumérico y tener exactamente 13 caracteres")
+                .required("Requerido"),
+            ciec: Yup.string()
+                .matches(/^[A-Za-z0-9]+$/)
+                .required("Requerido"),
+            //regimenFiscal: 
+            folio: Yup.number()
+                .required("El folio es requerido")
+                .moreThan(0, "El folio debe ser mayor que 0"),
+            telefono: Yup.string()
+                .matches(/^[\d\s-]{10,14}$/, "El número de teléfono debe tener entre 10 y 14 dígitos y puede incluir espacios o guiones")
+                .required("Requerido"),
+            codigoPostal: Yup.string()
+                .matches(/^\d{5}$/, "El código postal debe tener 5 dígitos")
+                .required("Requerido"),
+            municipio: Yup.string()
+                .matches(/^[A-Za-z\s]+$/, "Solo se permiten letras y espacios")
+                .required("Requerido"),
+            estado: Yup.string()
+                .matches(/^[A-Za-z\s]+$/, "Solo se permiten letras y espacios")
+                .required("Requerido"),
+            colonia: Yup.string()
+                .matches(/^[A-Za-z0-9\s]+$/, "Solo se permiten caracteres alfanuméricos y espacios")
+                .required("Requerido"),
+            calle: Yup.string()
+                .matches(/^[A-Za-z0-9\s]+$/, "Solo se permiten caracteres alfanuméricos y espacios")
+                .required("Requerido"),
+            noExterior: Yup.string()
+                .matches(/^[A-Za-z0-9\s]*$/, "Solo se permiten caracteres alfanuméricos y espacios")
+                .notRequired(),
+            noInterior: Yup.string()
+                .matches(/^[A-Za-z0-9\s]*$/, "Solo se permiten caracteres alfanuméricos y espacios")
+                .notRequired(),
+            SelloArchCer: Yup.mixed()
+                .required("Un archivo es requerido")
+                .test("fileType", "Solo se admiten archivos .cer", (value) => {
+                    return value && value.name.endsWith('.cer');
+                }),
+            contraFirmaAvan: Yup.string()
+                .required("Requerido"),
+            contraSellosDig: Yup.string()
+                .required("Requerido"),
+        }),
+        validateOnChange: true,
+        onSubmit: async (formValue) => {
+            console.log(formValue)
+        }
+    })
+
     return (
         <MainLayoutDg>
             <div className='w-full flex h-full min-h-[100dvh] pt-[20dvh] bg-white'>
-                <div className='w-full h-full mx-[2%] md:mx-[10%]'>
+                <form
+                    onSubmit={formik.handleSubmit}
+                    className='w-full h-full mx-[2%] md:mx-[10%]'>
                     <div className='w-full'>
                         <h2 className='font-semibold text-cyan-800 text-3xl mb-5'>¡Hola! Bienvenido</h2>
 
@@ -158,36 +237,49 @@ const InfoFiscal = () => {
                         {/* Razon social */}
                         <div className='w-full  mt-5 md:mt-0 md:w-1/2 px-3'>
                             <label htmlFor="RS">Razón social*</label>
-                            <input className='w-full border-2 border-gray-500 py-1 px-3 rounded-sm' type="text" id='RS' />
+                            <input
+                                type="text"
+                                className={`w-full border-2 outline-none border-gray-500 py-1 px-3 rounded-sm ${formik.errors.razonSocial &&
+                                    "border-red-500 border-2  placeholder:text-red-600"
+                                    }`}
+                                name="razonSocial"
+                                value={formik.values.razonSocial}
+                                onChange={formik.handleChange}
+                            />
 
                             <div className='w-full flex items-center justify-between gap-x-5'>
                                 <div className='w-1/2'>
                                     <label htmlFor="RFC">RFC*</label>
-                                    <input className='w-full border-2 border-gray-500  py-1 px-3 rounded-sm' type="text" id='RFC' />
+                                    <input
+                                        className={`w-full border-2 outline-none border-gray-500 py-1 px-3 rounded-sm ${formik.errors.rfc &&
+                                            "border-red-500 border-2  placeholder:text-red-600"
+                                            }`}
+                                        name="rfc"
+                                        value={formik.values.rfc.toUpperCase()}
+                                        onChange={formik.handleChange} />
                                 </div>
 
                                 <div className='w-1/2'>
                                     <label htmlFor="CIEC">CIEC*</label>
                                     <div
-                                        className={`w-full py-1 px-2 transition-all outline-none border-2 flex justify-between rounded-md border-gray-500 focus:border-gray-600`}
+                                        className={`w-full flex border-2 outline-none py-1 px-3 rounded-sm ${formik.touched.ciec && formik.errors.ciec ? "border-red-500 placeholder:text-red-600" : "border-gray-500"
+                                            }`}
                                     >
                                         <input
-                                            className={`w-full bg-transparent outline-none border-0 focus:border-0 focus:ring-0 active:ring-0 active:border-0`}
+                                            className="w-full bg-transparent outline-none border-0 focus:border-0 focus:ring-0 active:ring-0 active:border-0"
                                             type={ToggleCIEC ? "text" : "password"}
-                                            name="password"
+                                            name="ciec"
+                                            value={formik.values.ciec}
+                                            onChange={formik.handleChange}
+                                            onBlur={formik.handleBlur} // Asegúrate de incluir el manejo del evento onBlur para actualizar formik.touched.ciec
                                         />
                                         {ToggleCIEC ? (
-                                            <EyeOff
-                                                className={`cursor-pointer`}
-                                                onClick={hcToggleCIEC}
-                                            />
+                                            <EyeOff className="cursor-pointer" onClick={hcToggleCIEC} />
                                         ) : (
-                                            <Eye
-                                                className={`cursor-pointer`}
-                                                onClick={hcToggleCIEC}
-                                            />
+                                            <Eye className="cursor-pointer" onClick={hcToggleCIEC} />
                                         )}
                                     </div>
+
                                 </div>
                             </div>
 
@@ -207,7 +299,7 @@ const InfoFiscal = () => {
 
                                             <SelectItem
                                                 // key={mes}
-                                                value={`Régimen Personas Físicas con  Actividades Empresariales y Profesionales`}
+                                                value={`Régimen Personas Físicas con Actividades Empresariales y Profesionales`}
                                             >
                                                 Régimen Personas Físicas con  Actividades Empresariales y Profesionales
                                             </SelectItem>
@@ -235,12 +327,27 @@ const InfoFiscal = () => {
 
                                 <div className='w-1/2'>
                                     <label htmlFor="CIEC">Folio de inicio</label>
-                                    <input className='w-full border-2 border-gray-500  py-1 px-3 rounded-sm' type="number" id='CIEC' />
+                                    <input
+                                        className={`w-full border-2 outline-none border-gray-500 py-1 px-3 rounded-sm ${formik.errors.folio &&
+                                            "border-red-500 border-2  placeholder:text-red-600"
+                                            }`}
+                                        type="number"
+                                        name="folio"
+                                        value={formik.values.folio}
+                                        onChange={formik.handleChange}
+                                    />
                                 </div>
                             </div>
 
                             <label htmlFor="telefono">Número de celular para notificaciones</label>
-                            <input className='w-full border-2 border-gray-500  py-1 px-3 rounded-sm' type="tel" id='telefono' />
+                            <input
+                                type="tel"
+                                className={`w-full border-2 outline-none border-gray-500 py-1 px-3 rounded-sm ${formik.errors.telefono &&
+                                    "border-red-500 border-2  placeholder:text-red-600"
+                                    }`}
+                                name="telefono"
+                                value={formik.values.telefono}
+                                onChange={formik.handleChange} />
                         </div>
                     </div>
 
@@ -253,24 +360,47 @@ const InfoFiscal = () => {
                         <div className='w-full px-3 md:px-0 flex md:flex-row flex-col items-center justify-between gap-x-5'>
                             <div className='w-full md:w-1/3'>
                                 <label htmlFor="CodPost">Codigo postal*</label>
-                                <input className='w-full border-2 border-gray-500  py-1 px-3 rounded-sm' type="number" id='CodPost' />
+                                <input
+                                    className={`w-full border-2 outline-none border-gray-500 py-1 px-3 rounded-sm ${formik.errors.codigoPostal &&
+                                        "border-red-500 border-2  placeholder:text-red-600"
+                                        }`}
+                                    type="number"
+                                    name="codigoPostal"
+                                    value={formik.values.codigoPostal}
+                                    onChange={formik.handleChange}
+                                />
                             </div>
 
                             <div className='w-full md:w-1/3'>
                                 <label htmlFor="Municipio">Municipio</label>
-                                <input className='w-full border-2 border-gray-500  py-1 px-3 rounded-sm' type="text" id='Municipio' />
+                                <input
+                                    type="text"
+                                    className={`w-full border-2 outline-none border-gray-500 py-1 px-3 rounded-sm ${formik.errors.municipio &&
+                                        "border-red-500 border-2  placeholder:text-red-600"
+                                        }`}
+                                    name="municipio"
+                                    value={formik.values.municipio}
+                                    onChange={formik.handleChange}
+                                />
                             </div>
 
                             <div className='w-full md:w-1/3'>
                                 <label htmlFor="Estado">Estado</label>
-                                <input className='w-full border-2 border-gray-500  py-1 px-3 rounded-sm' type="text" id='Estado' />
+                                <input
+                                    className={`w-full border-2 outline-none border-gray-500 py-1 px-3 rounded-sm ${formik.errors.estado &&
+                                        "border-red-500 border-2  placeholder:text-red-600"
+                                        }`}
+                                    type="text"
+                                    name="estado"
+                                    value={formik.values.estado}
+                                    onChange={formik.handleChange} />
                             </div>
                         </div>
 
                         <div className='w-full flex md:flex-row flex-col items-center justify-between gap-x-5 mt-4'>
                             <div className='w-full md:w-1/3'>
                                 <label htmlFor="Colonia">Colonia*</label>
-                                <Select
+                                {/* <Select
                                     key={2}
                                     className="border-none ring-0 focus:ring-0 text-black placeholder:text-black"
                                 // onValueChange={(e) => { setMesFiltro(e) }}
@@ -288,22 +418,53 @@ const InfoFiscal = () => {
                                             Colonia
                                         </SelectItem>
                                     </SelectContent>
-                                </Select>
+                                </Select> */}
+                                <input
+                                    className={`w-full border-2 outline-none border-gray-500 py-1 px-3 rounded-sm ${formik.errors.colonia &&
+                                        "border-red-500 border-2  placeholder:text-red-600"
+                                        }`}
+                                    type="text"
+                                    name="colonia"
+                                    value={formik.values.colonia}
+                                    onChange={formik.handleChange} />
                             </div>
 
                             <div className='w-full md:w-1/3'>
                                 <label htmlFor="Calle">Calle*</label>
-                                <input className='w-full border-2 border-gray-500  py-1 px-3 rounded-sm' type="text" id='Calle' />
+                                <input
+                                    className={`w-full border-2 outline-none border-gray-500 py-1 px-3 rounded-sm ${formik.errors.calle &&
+                                        "border-red-500 border-2  placeholder:text-red-600"
+                                        }`}
+                                    type="text"
+                                    name="calle"
+                                    value={formik.values.calle}
+                                    onChange={formik.handleChange} />
                             </div>
 
                             <div className='w-full md:w-1/3 flex justify-between items-center gap-x-5'>
                                 <div className='w-1/2'>
                                     <label htmlFor="NumExterior">No. exterior</label>
-                                    <input className='w-full border-2 border-gray-500  py-1 px-3 rounded-sm' type="text" id='NumExterior' />
+                                    <input
+                                        type="text"
+                                        className={`w-full border-2 outline-none border-gray-500 py-1 px-3 rounded-sm ${formik.errors.noExterior &&
+                                            "border-red-500 border-2  placeholder:text-red-600"
+                                            }`}
+                                        name="noExterior"
+                                        value={formik.values.noExterior}
+                                        onChange={formik.handleChange}
+                                    />
                                 </div>
                                 <div className='w-1/2'>
                                     <label htmlFor="NumInterior">No. interior</label>
-                                    <input className='w-full border-2 border-gray-500  py-1 px-3 rounded-sm' type="text" id='NumInterior' />
+                                    <input
+                                        type="text"
+                                        className={`w-full border-2 outline-none border-gray-500 py-1 px-3 rounded-sm ${formik.errors.noInterior &&
+                                            "border-red-500 border-2  placeholder:text-red-600"
+                                            }`}
+                                        name="noInterior"
+                                        value={formik.values.noInterior}
+                                        onChange={formik.handleChange}
+                                    />
                                 </div>
 
                             </div>
@@ -350,12 +511,15 @@ const InfoFiscal = () => {
                             <div className='mt-4'>
                                 <label htmlFor="ContraFirmaAvan">Contraseña de la firma electrónica avanzada</label>
                                 <div
-                                    className={`w-full py-1 px-2 transition-all outline-none border-2 flex justify-between rounded-md border-gray-500 focus:border-gray-600`}
+                                    className={`w-full flex border-2 outline-none py-1 px-3 rounded-sm ${formik.touched.contraFirmaAvan && formik.errors.contraFirmaAvan ? "border-red-500 placeholder:text-red-600" : "border-gray-500"
+                                        }`}
                                 >
                                     <input
                                         className={`w-full bg-transparent outline-none border-0 focus:border-0 focus:ring-0 active:ring-0 active:border-0`}
                                         type={CFA ? "text" : "password"}
-                                        name="CFA"
+                                        name="contraFirmaAvan"
+                                        value={formik.values.contraFirmaAvan}
+                                        onChange={formik.handleChange}
                                     />
                                     {CFA ? (
                                         <EyeOff
@@ -378,16 +542,29 @@ const InfoFiscal = () => {
                         </div>
                         <div className='w-full md:w-1/2  border-gray-500 rounded-sm border-2 px-9 py-5'>
                             <label htmlFor="Estado">Sube tu archivo .CER</label>
-                            <div onClick={handleClickCER2} className='w-full border-2 border-gray-500 flex overflow-hidden mt-3 rounded-md items-center justify-end'>
+                            <div
+                                onClick={handleClickCER2}
+                                className={`w-full border-2 border-gray-500 flex overflow-hidden mt-3 rounded-md items-center justify-end ${formik.touched.SelloArchCer && formik.errors.SelloArchCer
+                                        ? "border-red-500 placeholder:text-red-600"
+                                        : "border-gray-500"
+                                    }`}
+                            >
                                 <button className='w-[33%] py-1 h-full bg-gray-300 border-l-2 border-gray-500'>Browse</button>
                             </div>
+                            {
+                                formik.touched.SelloArchCer && formik.errors.SelloArchCer && (<h2 className='text-red-500 text-[10px]'>Archivo Invalido</h2>)
+                            }
                             <div>
                                 <input
                                     type="file"
-                                    accept=".CER"
                                     style={{ display: 'none' }}
                                     ref={fileInputCER2}
-                                    onChange={handleFileSelectCER2}
+                                    onChange={(e) => {
+                                        const file = e.target.files[0]; // Obtener el archivo seleccionado
+                                        if (file) {
+                                            formik.setFieldValue("SelloArchCer", file); // Establecer el archivo como valor del campo
+                                        }
+                                    }}
                                 />
                             </div>
 
@@ -409,12 +586,15 @@ const InfoFiscal = () => {
                                 <label htmlFor="ContraFirmaAvan">Contraseña de los sellos digitales*</label>
 
                                 <div
-                                    className={`w-full py-1 px-2 transition-all outline-none border-2 flex justify-between rounded-md border-gray-500 focus:border-gray-600`}
+                                    className={`w-full flex border-2 outline-none py-1 px-3 rounded-sm ${formik.touched.contraFirmaAvan && formik.errors.contraFirmaAvan ? "border-red-500 placeholder:text-red-600" : "border-gray-500"
+                                        }`}
                                 >
                                     <input
                                         className={`w-full bg-transparent outline-none border-0 focus:border-0 focus:ring-0 active:ring-0 active:border-0`}
                                         type={CSD ? "text" : "password"}
-                                        name="CSD"
+                                        name="contraSellosDig"
+                                        value={formik.values.contraSellosDig}
+                                        onChange={formik.handleChange}
                                     />
                                     {CSD ? (
                                         <EyeOff
@@ -441,12 +621,9 @@ const InfoFiscal = () => {
                             Terminar después
                         </Link>
 
-                        <button className='bg-LogoBlue py-3 px-10 text-white '>Finalizar</button>
+                        <button type='submit' className='bg-LogoBlue py-3 px-10 text-white '>Finalizar</button>
                     </div>
-                </div>
-
-
-
+                </form>
             </div>
         </MainLayoutDg>
     )
