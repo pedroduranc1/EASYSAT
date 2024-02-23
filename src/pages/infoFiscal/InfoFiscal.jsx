@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import { MainLayoutDg } from '../../layouts/MainLayoutDg'
 import { useAuth } from '../../hooks/useAuth'
 import { Link, useNavigate } from 'react-router-dom'
-import { Eye, EyeOff, Pencil, User2 } from 'lucide-react'
+import { Eye, EyeOff, Loader2, Pencil, User2 } from 'lucide-react'
 import * as Yup from "yup";
 
 import {
@@ -15,7 +15,10 @@ import {
     SelectValue,
 } from "../../components/ui/select"
 import { useFormik } from 'formik'
+import { InfoFiscal as INF } from "../../api/infoFiscal";
+import { useToast } from '../../components/ui/use-toast'
 
+const IFCTRL = new INF()
 const InfoFiscal = () => {
 
     const { User } = useAuth()
@@ -33,8 +36,8 @@ const InfoFiscal = () => {
     const fileInputCER = useRef(null);
     const fileInputKEY = useRef(null);
 
-    const fileInputCER2 = useRef(null);
-    const fileInputKEY2 = useRef(null);
+    const FileSelloCer = useRef(null);
+    const FileSelloKey = useRef(null);
 
     const fileInputLogo = useRef(null);
 
@@ -42,6 +45,13 @@ const InfoFiscal = () => {
     const [ToggleCIEC, setToggleCIEC] = useState(false)
     const [CFA, setCFA] = useState(false)
     const [CSD, setCFD] = useState(false)
+
+    // Estados para almacenar los nombres de los archivos
+    const [nombreArchivoCER, setNombreArchivoCER] = useState('');
+    const [nombreArchivoKEY, setNombreArchivoKEY] = useState('');
+    // Estados para almacenar los nombres de los archivos
+    const [NombreSelloCer, setNombreSelloCer] = useState('');
+    const [NombreSelloKey, setNombreSelloKey] = useState('')
 
     const hcToggleCIEC = () => {
         setToggleCIEC(!ToggleCIEC)
@@ -59,14 +69,6 @@ const InfoFiscal = () => {
         fileInputLogo.current.click();
     };
 
-    const handleClickCER2 = () => {
-        fileInputCER.current.click();
-    };
-
-    const handleClickKEY2 = () => {
-        fileInputKEY.current.click();
-    };
-
     const handleClickCER = () => {
         fileInputCER.current.click();
     };
@@ -74,6 +76,14 @@ const InfoFiscal = () => {
     const handleClickKEY = () => {
         fileInputKEY.current.click();
     };
+
+    const handleSelloCer = () => {
+        FileSelloCer.current.click();
+    }
+
+    const handleSelloKey = () => {
+        FileSelloKey.current.click();
+    }
 
     const [ImgSrc, setImgSrc] = useState("")
 
@@ -89,37 +99,39 @@ const InfoFiscal = () => {
         }
     };
 
-    const handleFileSelectKEY = (event) => {
-        const selectedFile = event.target.files[0];
-        if (selectedFile) {
-            alert(`Archivo seleccionado: ${selectedFile.name}`);
-            // Puedes realizar acciones adicionales aquí con el archivo seleccionado
+    const handleFileSelectKEY = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            formik.setFieldValue("FirmaArchKey", file);
+            setNombreArchivoKEY(file.name); // Actualizar el nombre del archivo
         }
     };
 
-    const handleFileSelectCER = (event) => {
-        const selectedFile = event.target.files[0];
-        if (selectedFile) {
-            alert(`Archivo seleccionado: ${selectedFile.name}`);
-            // Puedes realizar acciones adicionales aquí con el archivo seleccionado
+    const handleFileSelectCER = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            formik.setFieldValue("FirmaArchCer", file);
+            setNombreArchivoCER(file.name); // Actualizar el nombre del archivo
         }
     };
 
-    const handleFileSelectKEY2 = (event) => {
-        const selectedFile = event.target.files[0];
-        if (selectedFile) {
-            alert(`Archivo seleccionado: ${selectedFile.name}`);
-            // Puedes realizar acciones adicionales aquí con el archivo seleccionado
+    const handleFileSelloCer = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            formik.setFieldValue("SelloArchCer", file);
+            setNombreSelloCer(file.name);
         }
-    };
+    }
 
-    const handleFileSelectCER2 = (event) => {
-        const selectedFile = event.target.files[0];
-        if (selectedFile) {
-            alert(`Archivo seleccionado: ${selectedFile.name}`);
-            // Puedes realizar acciones adicionales aquí con el archivo seleccionado
+    const handleFileSelloKey = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            formik.setFieldValue("SelloArchKey", file);
+            setNombreSelloKey(file.name);
         }
-    };
+    }
+
+    const { toast } = useToast();
 
     const formik = useFormik({
         initialValues: {
@@ -142,7 +154,7 @@ const InfoFiscal = () => {
             SelloArchKey: null,
             contraFirmaAvan: "",
             contraSellosDig: "",
-            logotipo: null
+            logotipo: ""
         },
         validationSchema: Yup.object({
             razonSocial: Yup.string()
@@ -207,7 +219,6 @@ const InfoFiscal = () => {
             contraSellosDig: Yup.string()
                 .required("Requerido"),
             logotipo: Yup.mixed()
-                .required("Una imagen es requerida")
                 .test(
                     "fileType",
                     "Solo se admiten archivos JPG o PNG",
@@ -216,7 +227,45 @@ const InfoFiscal = () => {
         }),
         validateOnChange: true,
         onSubmit: async (formValue) => {
-            console.log(formValue)
+            let InfoFiscal = {
+                razonSocial: formValue.razonSocial,
+                rfc: formValue.rfc,
+                ciec: formValue.ciec,
+                regimenFiscal: formValue.regimenFiscal,
+                folio: formValue.folio,
+                telefono: formValue.telefono,
+                direccion: {
+                    codigoPostal: formValue.codigoPostal,
+                    municipio: formValue.municipio,
+                    estado: formValue.estado,
+                    colonia: formValue.colonia,
+                    calle: formValue.calle,
+                    noExterior: formValue.noExterior,
+                    noInterior: formValue.noInterior
+                },
+                contraFirma: formValue.contraFirmaAvan,
+                contraSello: formValue.contraSellosDig,
+                logotipoUrl: await IFCTRL.SubirFotoLogoTipo(formValue.logotipo,User.uid),
+                FirmaCerUrl: await IFCTRL.SubirArchivoCerKey(formValue.FirmaArchCer,User.uid,"FirmaCer"),
+                FirmaKeyUrl: await IFCTRL.SubirArchivoCerKey(formValue.FirmaArchKey,User.uid,"FirmaKey"),
+                SelloCerUrl: await IFCTRL.SubirArchivoCerKey(formValue.SelloArchCer,User.uid,"SelloCer"),
+                SelloKeyUrl: await IFCTRL.SubirArchivoCerKey(formValue.SelloArchKey,User.uid,"SelloKey"),
+            }
+
+            const resp = await IFCTRL.createInfoFiscal(User.uid,InfoFiscal)
+
+            if(resp){
+                toast({
+                    title: "Datos Agregados Exitosamente",
+                  });
+
+                navigate("/micuenta")
+            }else{
+                toast({
+                    variant: "destructive",
+                    title: "Error al Subir Datos",
+                  });
+            }
         }
     })
 
@@ -268,7 +317,7 @@ const InfoFiscal = () => {
                                     tamaño
                                 </p>
 
-                                <button className='w-[70%] py-3 px-5 bg-gray-300 text-gray-500 rounded-sm'>Guardar logo</button>
+                                <button disabled={formik.errors.logotipo ? true : false} className='w-[70%] py-3 px-5 disabled:opacity-50 bg-gray-300 text-gray-500 rounded-sm'>Guardar logo</button>
                             </div>
                         </div>
                         {/* Razon social */}
@@ -520,55 +569,48 @@ const InfoFiscal = () => {
                             <label htmlFor="Estado">Sube tu archivo .CER</label>
                             <div
                                 onClick={handleClickCER}
-                                className={`w-full border-2 border-gray-500 flex overflow-hidden mt-3 rounded-md items-center justify-end ${formik.touched.FirmaArchCer && formik.errors.FirmaArchCer
+                                className={`w-full border-2 border-gray-500 flex overflow-hidden mt-3 rounded-md items-center justify-end ${formik.errors.FirmaArchCer
                                     ? "border-red-500 placeholder:text-red-600"
                                     : "border-gray-500"
                                     }`}>
+                                {nombreArchivoCER && !formik.errors.FirmaArchCer && (
+                                    <h2 className='line-clamp-3 text-[12px] text-black w-[70%] overflow-hidden'>{nombreArchivoCER}</h2>
+                                )}
+                                {nombreArchivoCER && formik.errors.FirmaArchCer && (
+                                    <h2 className='text-red-500 text-[12px] mr-auto pl-4'>Archivo Invalido</h2>
+                                )}
                                 <button className='w-[33%] py-1 h-full bg-gray-300 border-l-2 border-gray-500'>Browse</button>
                             </div>
-                            {
-                                formik.touched.FirmaArchCer && formik.errors.FirmaArchCer && (<h2 className='text-red-500 text-[10px]'>Archivo Invalido</h2>)
-                            }
                             <div>
                                 <input
                                     type="file"
                                     style={{ display: 'none' }}
                                     ref={fileInputCER}
-                                    onChange={(e) => {
-                                        const file = e.target.files[0]; // Obtener el archivo seleccionado
-                                        if (file) {
-                                            formik.setFieldValue("FirmaArchCer", file); // Establecer el archivo como valor del campo
-                                        }
-
-                                        handleFileSelectCER(e)
-                                    }}
+                                    onChange={handleFileSelectCER}
                                 />
                             </div>
 
                             <label htmlFor="Estado">Sube tu archivo .KEY</label>
                             <div
                                 onClick={handleClickKEY}
-                                className={`w-full border-2 border-gray-500 flex overflow-hidden mt-3 rounded-md items-center justify-end ${formik.touched.FirmaArchKey && formik.errors.FirmaArchKey
+                                className={`w-full border-2 border-gray-500 flex overflow-hidden mt-3 rounded-md items-center justify-end ${formik.errors.FirmaArchKey
                                     ? "border-red-500 placeholder:text-red-600"
                                     : "border-gray-500"
                                     }`}>
+                                {nombreArchivoCER && !formik.errors.FirmaArchKey && (
+                                    <h2 className='line-clamp-3 text-[12px] w-[70%] overflow-hidden'>{nombreArchivoKEY}</h2>
+                                )}
+                                {nombreArchivoCER && formik.errors.FirmaArchKey && (
+                                    <h2 className='text-red-500 text-[12px] mr-auto pl-4'>Archivo Invalido</h2>
+                                )}
                                 <button className='w-[33%] py-1 h-full bg-gray-300 border-l-2 border-gray-500'>Browse</button>
                             </div>
-                            {
-                                formik.touched.FirmaArchKey && formik.errors.FirmaArchKey && (<h2 className='text-red-500 text-[10px]'>Archivo Invalido</h2>)
-                            }
                             <div>
                                 <input
                                     type="file"
                                     style={{ display: 'none' }}
                                     ref={fileInputKEY}
-                                    onChange={(e) => {
-                                        const file = e.target.files[0]; // Obtener el archivo seleccionado
-                                        if (file) {
-                                            formik.setFieldValue("FirmaArchCer", file); // Establecer el archivo como valor del campo
-                                        }
-                                        handleFileSelectKEY(e)
-                                    }}
+                                    onChange={handleFileSelectKEY}
                                 />
                             </div>
 
@@ -601,62 +643,56 @@ const InfoFiscal = () => {
                             </div>
 
                             <div className='flex items-center justify-end mt-5'>
-                                <button className='bg-esatDark text-white w-[50%] py-3'>Cargar archivos</button>
+                                <button disabled={!formik.errors.FirmaArchCer && !formik.errors.FirmaArchKey ? false : true} className='bg-esatDark disabled:opacity-50 text-white w-[50%] py-3'>Cargar archivos</button>
                             </div>
                         </div>
                         <div className='w-full md:w-1/2  border-gray-500 rounded-sm border-2 px-9 py-5'>
                             <label htmlFor="Estado">Sube tu archivo .CER</label>
                             <div
-                                onClick={handleClickCER2}
-                                className={`w-full border-2 border-gray-500 flex overflow-hidden mt-3 rounded-md items-center justify-end ${formik.touched.SelloArchCer && formik.errors.SelloArchCer
+                                onClick={handleSelloCer}
+                                className={`w-full border-2 border-gray-500 flex overflow-hidden mt-3 rounded-md items-center justify-end ${formik.errors.SelloArchCer
                                     ? "border-red-500 placeholder:text-red-600"
                                     : "border-gray-500"
                                     }`}
                             >
+                                {NombreSelloCer && !formik.errors.SelloArchCer && (
+                                    <h2 className='line-clamp-3 text-[12px] w-[70%] overflow-hidden'>{NombreSelloCer}</h2>
+                                )}
+                                {NombreSelloCer && formik.errors.SelloArchCer && (
+                                    <h2 className='text-red-500 text-[12px] mr-auto pl-4'>Archivo Invalido</h2>
+                                )}
                                 <button className='w-[33%] py-1 h-full bg-gray-300 border-l-2 border-gray-500'>Browse</button>
                             </div>
-                            {
-                                formik.touched.SelloArchCer && formik.errors.SelloArchCer && (<h2 className='text-red-500 text-[10px]'>Archivo Invalido</h2>)
-                            }
                             <div>
                                 <input
                                     type="file"
                                     style={{ display: 'none' }}
-                                    ref={fileInputCER2}
-                                    onChange={(e) => {
-                                        const file = e.target.files[0]; // Obtener el archivo seleccionado
-                                        if (file) {
-                                            formik.setFieldValue("SelloArchCer", file); // Establecer el archivo como valor del campo
-                                        }
-                                        handleFileSelectCER2(e)
-                                    }}
+                                    ref={FileSelloCer}
+                                    onChange={handleFileSelloCer}
                                 />
                             </div>
 
                             <label htmlFor="Estado">Sube tu archivo .KEY</label>
                             <div
-                                onClick={handleClickKEY2}
-                                className={`w-full border-2 border-gray-500 flex overflow-hidden mt-3 rounded-md items-center justify-end ${formik.touched.SelloArchCer && formik.errors.SelloArchCer
+                                onClick={handleSelloKey}
+                                className={`w-full border-2 border-gray-500 flex overflow-hidden mt-3 rounded-md items-center justify-end ${formik.errors.SelloArchKey
                                     ? "border-red-500 placeholder:text-red-600"
                                     : "border-gray-500"
                                     }`}>
+                                {NombreSelloKey && !formik.errors.SelloArchKey && (
+                                    <h2 className='line-clamp-3 text-[12px] w-[70%] overflow-hidden'>{NombreSelloKey}</h2>
+                                )}
+                                {NombreSelloKey && formik.errors.SelloArchKey && (
+                                    <h2 className='text-red-500 text-[12px] mr-auto pl-4'>Archivo Invalido</h2>
+                                )}
                                 <button className='w-[33%] py-1 h-full bg-gray-300 border-l-2 border-gray-500'>Browse</button>
                             </div>
-                            {
-                                formik.touched.SelloArchKey && formik.errors.SelloArchKey && (<h2 className='text-red-500 text-[10px]'>Archivo Invalido</h2>)
-                            }
                             <div>
                                 <input
                                     type="file"
                                     style={{ display: 'none' }}
-                                    ref={fileInputKEY2}
-                                    onChange={(e) => {
-                                        const file = e.target.files[0];
-                                        if (file) {
-                                            formik.setFieldValue("SelloArchKey", file)
-                                        }
-                                        handleFileSelectKEY2(e)
-                                    }}
+                                    ref={FileSelloKey}
+                                    onChange={handleFileSelloKey}
                                 />
                             </div>
 
@@ -689,7 +725,7 @@ const InfoFiscal = () => {
                             </div>
 
                             <div className='flex items-center justify-end mt-5'>
-                                <button className='bg-esatDark text-white w-[50%] py-3'>Cargar archivos</button>
+                                <button disabled={!formik.errors.SelloArchCer && !formik.errors.SelloArchKey ? false : true} className='bg-esatDark disabled:opacity-50 text-white w-[50%] py-3'>Cargar archivos</button>
                             </div>
                         </div>
                     </div>
@@ -699,7 +735,12 @@ const InfoFiscal = () => {
                             Terminar después
                         </Link>
 
-                        <button type='submit' className='bg-LogoBlue py-3 px-10 text-white '>Finalizar</button>
+                        <button 
+                        type='submit' 
+                        disabled={formik.isValid || !formik.isSubmitting ? false : true} 
+                        className='bg-LogoBlue disabled:opacity-50 py-3 px-10 text-white '>
+                            {formik.isSubmitting ? (<div className="flex justify-center transition-transform animate-spin"><Loader2 /></div>) : "Finalizar"}
+                        </button>
                     </div>
                 </form>
             </div>

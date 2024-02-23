@@ -37,7 +37,6 @@ export const LoginPage = () => {
 
         const infoFisc = await InfoFiscalCtrl.getInfoFiscal(uid)
 
-        console.log(infoFisc)
         if (infoFisc === false) {
           navigate("/informacionFiscal", { replace: true });
         } else {
