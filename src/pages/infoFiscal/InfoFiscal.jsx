@@ -4,7 +4,7 @@ import { useAuth } from '../../hooks/useAuth'
 import { Link, useNavigate } from 'react-router-dom'
 import { Eye, EyeOff, Loader2, Pencil, User2 } from 'lucide-react'
 import * as Yup from "yup";
-
+import { RegimenFiscalInfo } from "../../assets/adminData";
 import {
     Select,
     SelectContent,
@@ -41,7 +41,7 @@ const InfoFiscal = () => {
 
     const fileInputLogo = useRef(null);
 
-    const [RegimenFiscal, setRegimenFiscal] = useState(null)
+    const [RegimenFiscal, setRegimenFiscal] = useState("")
     const [ToggleCIEC, setToggleCIEC] = useState(false)
     const [CFA, setCFA] = useState(false)
     const [CSD, setCFD] = useState(false)
@@ -227,11 +227,12 @@ const InfoFiscal = () => {
         }),
         validateOnChange: true,
         onSubmit: async (formValue) => {
+            let findedRegimen = RegimenFiscalInfo.find(regimen => regimen.nombre === formValue.regimenFiscal)
             let InfoFiscal = {
                 razonSocial: formValue.razonSocial,
                 rfc: formValue.rfc,
                 ciec: formValue.ciec,
-                regimenFiscal: formValue.regimenFiscal,
+                regimenFiscal: findedRegimen.clave,
                 folio: formValue.folio,
                 telefono: formValue.telefono,
                 direccion: {
@@ -245,26 +246,26 @@ const InfoFiscal = () => {
                 },
                 contraFirma: formValue.contraFirmaAvan,
                 contraSello: formValue.contraSellosDig,
-                logotipoUrl: await IFCTRL.SubirFotoLogoTipo(formValue.logotipo,User.uid),
-                FirmaCerUrl: await IFCTRL.SubirArchivoCerKey(formValue.FirmaArchCer,User.uid,"FirmaCer"),
-                FirmaKeyUrl: await IFCTRL.SubirArchivoCerKey(formValue.FirmaArchKey,User.uid,"FirmaKey"),
-                SelloCerUrl: await IFCTRL.SubirArchivoCerKey(formValue.SelloArchCer,User.uid,"SelloCer"),
-                SelloKeyUrl: await IFCTRL.SubirArchivoCerKey(formValue.SelloArchKey,User.uid,"SelloKey"),
+                logotipoUrl: await IFCTRL.SubirFotoLogoTipo(formValue.logotipo, User.uid),
+                FirmaCerUrl: await IFCTRL.SubirArchivoCerKey(formValue.FirmaArchCer, User.uid, "FirmaCer"),
+                FirmaKeyUrl: await IFCTRL.SubirArchivoCerKey(formValue.FirmaArchKey, User.uid, "FirmaKey"),
+                SelloCerUrl: await IFCTRL.SubirArchivoCerKey(formValue.SelloArchCer, User.uid, "SelloCer"),
+                SelloKeyUrl: await IFCTRL.SubirArchivoCerKey(formValue.SelloArchKey, User.uid, "SelloKey"),
             }
 
-            const resp = await IFCTRL.createInfoFiscal(User.uid,InfoFiscal)
+            const resp = await IFCTRL.createInfoFiscal(User.uid, InfoFiscal)
 
-            if(resp){
+            if (resp) {
                 toast({
                     title: "Datos Agregados Exitosamente",
-                  });
+                });
 
                 navigate("/micuenta")
-            }else{
+            } else {
                 toast({
                     variant: "destructive",
                     title: "Error al Subir Datos",
-                  });
+                });
             }
         }
     })
@@ -375,38 +376,26 @@ const InfoFiscal = () => {
                                     <Select
                                         key={1}
                                         className="border-none ring-0 focus:ring-0 text-black placeholder:text-black"
-                                        onValueChange={(e) => { setRegimenFiscal(e) }}
+                                        onValueChange={(e)=> {
+                                            setRegimenFiscal(e)
+                                            formik.setFieldValue("regimenFiscal",e)
+                                        }}
                                         value={RegimenFiscal}
                                     >
                                         <SelectTrigger className="w-full border-2 border-gray-500 ">
-                                            <SelectValue placeholder="" />
+                                            <SelectValue placeholder="Selecciona" />
                                         </SelectTrigger>
                                         <SelectContent className="h-fit px-0">
-
-                                            <SelectItem
-                                                // key={mes}
-                                                value={`Régimen Personas Físicas con Actividades Empresariales y Profesionales`}
-                                            >
-                                                Régimen Personas Físicas con  Actividades Empresariales y Profesionales
-                                            </SelectItem>
-                                            <SelectItem
-                                                // key={mes}
-                                                value={`Régimen de Incorporación Fiscal`}
-                                            >
-                                                Régimen de Incorporación Fiscal
-                                            </SelectItem>
-                                            <SelectItem
-                                                // key={mes}
-                                                value={`Régimen de las Actividades Empresariales con Ingresos a través de Plataformas Tecnológicas`}
-                                            >
-                                                Régimen de las Actividades Empresariales con Ingresos a través de Plataformas Tecnológicas
-                                            </SelectItem>
-                                            <SelectItem
-                                                // key={mes}
-                                                value={`Régimen Simplificado de Confianza`}
-                                            >
-                                                Régimen Simplificado de Confianza
-                                            </SelectItem>
+                                            {
+                                                RegimenFiscalInfo.map((regimen,index) => (
+                                                    <SelectItem
+                                                        key={index}
+                                                        value={regimen.nombre}
+                                                    >
+                                                        {regimen.nombre}
+                                                    </SelectItem>
+                                                ))
+                                            }
                                         </SelectContent>
                                     </Select>
                                 </div>
@@ -735,10 +724,10 @@ const InfoFiscal = () => {
                             Terminar después
                         </Link>
 
-                        <button 
-                        type='submit' 
-                        disabled={formik.isValid || !formik.isSubmitting ? false : true} 
-                        className='bg-LogoBlue disabled:opacity-50 py-3 px-10 text-white '>
+                        <button
+                            type='submit'
+                            disabled={formik.isValid || !formik.isSubmitting ? false : true}
+                            className='bg-LogoBlue disabled:opacity-50 py-3 px-10 text-white '>
                             {formik.isSubmitting ? (<div className="flex justify-center transition-transform animate-spin"><Loader2 /></div>) : "Finalizar"}
                         </button>
                     </div>

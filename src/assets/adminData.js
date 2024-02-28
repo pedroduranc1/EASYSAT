@@ -2258,3 +2258,191 @@ export const recibidasPrueba = [
       "domiciliofiscalreceptor": "22230"
   }
 ]
+
+export const RegimenFiscalInfo = [
+  {
+      clave: 605,
+      nombre: "Sueldos y Salarios e Ingresos Asimilados a Salarios"
+  },
+  {
+      clave: 606,
+      nombre: "Arrendamiento"
+  },
+  {
+      clave: 608,
+      nombre: "Demás Ingresos"
+  },
+  {
+      clave: 611,
+      nombre: "Ingresos por Dividendos (socios y accionistas)"
+  },
+  {
+      clave: 612,
+      nombre: "Personas Físicas con Actividades Empresariales y Profesionales"
+  },
+  {
+      clave: 614,
+      nombre: "Ingresos por intereses"
+  },
+  {
+      clave: 615,
+      nombre: "Régimen de los ingresos por obtención de premios"
+  },
+  {
+      clave: 616,
+      nombre: "Sin obligaciones fiscales"
+  },
+  {
+      clave: 621,
+      nombre: "Información Fiscal"
+  },
+  {
+      clave: 622,
+      nombre: "Actividades Agrícolas, Ganaderas, Silvícolas y Pesqueras"
+  },
+  {
+      clave: 626,
+      nombre: "Régimen Simplificado de Confianza"
+  },
+  {
+      clave: 629,
+      nombre: "De los Regímenes Fiscales Preferentes y de las Empresas Multinacionales"
+  },
+  {
+      clave: 630,
+      nombre: "Enajenación de acciones en bolsa de valores"
+  }
+]
+
+export const MetodoDePago = [
+  {
+    clave: "PUE",
+    nombre: "Pago en una sola Exhibicion"
+  },
+  {
+    clave: "PIP",
+    nombre: "Pago Inicial y en parcialidades"
+  },
+  {
+    clave: "PPD",
+    nombre: "Pago en parcialidades o diferido"
+  }
+]
+
+export const FormaDePago = [
+  {
+    clave: "01",
+    nombre: "Efectivo"
+  },
+  {
+    clave: "02",
+    nombre: "Cheque nominativo"
+  },
+  {
+    clave: "03",
+    nombre: "Transferencia electrónica de fondos"
+  },
+  {
+    clave: "04",
+    nombre: "Tarjeta de crédito"
+  },
+  {
+    clave: "05",
+    nombre: "Monedero electrónico"
+  },
+  {
+    clave: "06",
+    nombre: "Dinero electrónico"
+  },
+  {
+    clave: "08",
+    nombre: "Vales de despensa"
+  },
+  {
+    clave: "12",
+    nombre: "Dación de pago"
+  },
+  {
+    clave: "13",
+    nombre: "Pago por subrogación"
+  },
+  {
+    clave: "14",
+    nombre: "Pago por consignación"
+  },
+  {
+    clave: "15",
+    nombre: "Condonación"
+  },
+  {
+    clave: "17",
+    nombre: "Compensación"
+  },
+  {
+    clave: "23",
+    nombre: "Novación"
+  },
+  {
+    clave: "24",
+    nombre: "Confisión"
+  },
+  {
+    clave: "25",
+    nombre: "Remisión de deuda"
+  },
+  {
+    clave: "26",
+    nombre: "Prescripción o caducidad"
+  },
+
+  {
+    clave: "27",
+    nombre: "A satisfacción de acreedor"
+  },
+  {
+    clave: "28",
+    nombre: "Tarjeta de débito"
+  },
+  {
+    clave: "29",
+    nombre: "Tarjeta de servicios"
+  },
+  {
+    clave: "30",
+    nombre: "Aplicación de anticipos"
+  },
+  {
+    clave: "31",
+    nombre: "Intermediario pagos"
+  },
+  {
+    clave: "99",
+    nombre: "Por definir"
+  },
+]
+
+export const Moneda = [
+  {
+    clave: 'MXN',
+    nombre: "Peso Mexicano"
+  },
+  {
+    clave: "USD",
+    nombre: "Dolar Americano"
+  }
+]
+
+export const TipoDePago = [
+  {
+    clave: "E",
+    nombre: "Egreso"
+  },
+  {
+    clave: "P",
+    nombre: "Pago"
+  },
+  {
+    clave: "I",
+    nombre: "Ingreso"
+  },
+]
