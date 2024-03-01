@@ -17,6 +17,13 @@ import {
 import { useFormik } from 'formik'
 import { InfoFiscal as INF } from "../../api/infoFiscal";
 import { useToast } from '../../components/ui/use-toast'
+import {
+    Tooltip,
+    TooltipContent,
+    TooltipProvider,
+    TooltipTrigger,
+}
+    from "../../components/ui/tooltip";
 
 const IFCTRL = new INF()
 const InfoFiscal = () => {
@@ -376,9 +383,9 @@ const InfoFiscal = () => {
                                     <Select
                                         key={1}
                                         className="border-none ring-0 focus:ring-0 text-black placeholder:text-black"
-                                        onValueChange={(e)=> {
+                                        onValueChange={(e) => {
                                             setRegimenFiscal(e)
-                                            formik.setFieldValue("regimenFiscal",e)
+                                            formik.setFieldValue("regimenFiscal", e)
                                         }}
                                         value={RegimenFiscal}
                                     >
@@ -387,7 +394,7 @@ const InfoFiscal = () => {
                                         </SelectTrigger>
                                         <SelectContent className="h-fit px-0">
                                             {
-                                                RegimenFiscalInfo.map((regimen,index) => (
+                                                RegimenFiscalInfo.map((regimen, index) => (
                                                     <SelectItem
                                                         key={index}
                                                         value={regimen.nombre}
@@ -552,10 +559,50 @@ const InfoFiscal = () => {
                         <p className='text-gray-600'>*Es importante que subas tus sellos digitales, ya que sin ellos no podrás emitir facturas.</p>
                     </div>
 
+                    <div className='w-full h-4 flex justify-between mt-4 px-2'>
+                        <div className='md:w-1/2 w-full px-2 gap-x-2 flex items-center '>
+                            <span className='text-LogoBlueDark font-bold'>E.firma</span>
+                            <TooltipProvider>
+                                <Tooltip>
+                                    <TooltipTrigger><span className='text-LogoBlueDark border-2 rounded-full border-LogoBlueDark px-[3px] text-[10px]'>?</span></TooltipTrigger>
+                                    <TooltipContent className="py-6 px-4 text-black font-semibold">
+                                        <p>La e.firma es un archivo digital que contiene la clave <br /> 
+                                        privada del contribuyente y se utiliza para firmar <br />
+                                        electrónicamente documentos fiscales, como la <br />
+                                        presentación de declaraciones y la realización de <br />
+                                        trámites ante el SAT
+                                        </p>
+                                    </TooltipContent>
+                                </Tooltip>
+                            </TooltipProvider>
+                        </div>
+
+                        <div className='md:w-1/2 w-full px-2 gap-x-2 flex items-center '>
+                            <span className='text-LogoBlueDark font-bold'>Certificado de sellos digitales</span>
+                            <TooltipProvider>
+                                <Tooltip>
+                                    <TooltipTrigger><span className='text-LogoBlueDark border-2 rounded-full border-LogoBlueDark px-[3px] text-[10px]'>?</span></TooltipTrigger>
+                                    <TooltipContent className="py-6 px-4 gap-y-3">
+                                        <p>Se trata de un archivo electrónico que sirve para firmar/sellar <br />
+                                            los Comprobantes Fiscales (CDFI) emitidos por los <br />
+                                            contribuyentes, con el fin de autenticarlos mediante <br />
+                                            una cadena original y otorgarles legalidad.
+                                        </p>
+                                        <p className='font-bold mt-3'>
+                                            Recuerda que para poder solicitar tu Certificado de <br />
+                                            Sello Digital es necesario que tu e.firma esté vigente, <br />
+                                            pues las necesitarás para firmar tu solicitud
+                                        </p>
+                                    </TooltipContent>
+                                </Tooltip>
+                            </TooltipProvider>
+                        </div>
+                    </div>
 
                     <div className='w-full flex md:flex-row flex-col gap-y-3 md:gap-y-0 items-center justify-between py-4 px-2 gap-x-5'>
                         <div className='w-full md:w-1/2  border-gray-500 rounded-sm border-2 px-9 py-5'>
                             <label htmlFor="Estado">Sube tu archivo .CER</label>
+
                             <div
                                 onClick={handleClickCER}
                                 className={`w-full border-2 border-gray-500 flex overflow-hidden mt-3 rounded-md items-center justify-end ${formik.errors.FirmaArchCer

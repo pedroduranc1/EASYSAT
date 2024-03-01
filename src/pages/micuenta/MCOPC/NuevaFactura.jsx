@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {
   Dialog,
   DialogContent,
@@ -14,6 +14,15 @@ import { useFormik } from 'formik';
 import * as Yup from "yup";
 import { InfoFiscal } from "../../../api/infoFiscal";
 import { useAuth } from "../../../hooks/useAuth";
+import { useQuery } from 'react-query';
+import { ChevronsUpDown, Plus, Search } from 'lucide-react';
+
+import { Popover, PopoverContent, PopoverTrigger } from "../../../components/ui/popover";
+import { Command, CommandDialog, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList, CommandSeparator, CommandShortcut, } from "../../../components/ui/command";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '../../../components/ui/table';
+
+import EditarSVG from "../../../assets/Editar.svg";
+import EliminarSVG from "../../../assets/Eliminar.svg";
 
 // Calcula la fecha de hace 3 días
 const fechaActual = new Date();
@@ -23,6 +32,56 @@ const InfoFisCtrl = new InfoFiscal()
 const NuevaFactura = () => {
   const [DatosJSON, setDatosJSON] = useState(null)
   const { User } = useAuth()
+  const [open, setOpen] = useState(false)
+  const [showAddDialog, setShowAddDialog] = useState(false);
+  const [Value, setValue] = useState(null)
+
+  const [OpenCliente, setOpenCliente] = useState(false)
+  const [OpenProductos, setOpenProductos] = useState(false)
+
+  const [ShowClienteDialog, setShowClienteDialog] = useState(false)
+  const [ShowProductoDialog, setShowProductoDialog] = useState(false)
+
+  const [startIndex, setstartIndex] = useState(0)
+  //const [isValidIni, setisValidIni] = useState(false)
+
+
+
+  const HeadersEmitidas = [
+    'Cant',
+    'Claves',
+    'Descripción',
+    'Valor Unitario',
+    'Subtotal',
+    'Descuentos',
+    'Impuestos',
+    'Total',
+  ]
+
+  const clientesPrueba = [
+    {
+      nombre: "PUBLICO EN GENERAL",
+      rfc: "XEX1555681MSD"
+    },
+    {
+      nombre: "MEXICO",
+      rfc: "ME3943984NW2"
+    },
+  ]
+
+  const productosPrueba = [
+    {
+      nombre: "Producto 1"
+    },
+    {
+      nombre: "Producto 2"
+    },
+    {
+      nombre: "Producto 3"
+    },
+  ]
+
+  const { data: InfoFiscalData } = useQuery(`${User.uid}-InfoFiscal`, () => InfoFisCtrl.getInfoFiscal(User.uid))
 
   const handleChange = (event) => {
     // Extraer el valor actual del input
@@ -113,7 +172,6 @@ const NuevaFactura = () => {
       let findedTipoPago = TDF.find(tdf => tdf.nombre === formvalue.TipoDeFactura)
       let findedMoneda = Coin.find(coin => coin.nombre === formvalue.Moneda)
 
-      const InfoFiscalData = await InfoFisCtrl.getInfoFiscal(User.uid)
       let DataApiFormatted = {
         "Comprobante": {
           "Version": "4.0",
@@ -138,7 +196,7 @@ const NuevaFactura = () => {
         },
       }
 
-      const myJSON = JSON.stringify(DataApiFormatted,null,2)
+      const myJSON = JSON.stringify(DataApiFormatted, null, 2)
 
       setDatosJSON(myJSON)
     }
@@ -147,32 +205,63 @@ const NuevaFactura = () => {
   return (
     <form onSubmit={formik.handleSubmit} className='w-full h-full pr-[4%] pt-[1%]'>
       <div className='md:flex hidden md:h-[41dvh] gap-x-6 justify-between items-center'>
-        <div className='w-1/2 h-full flex justify-center items-center bg-white rounded-md'>
-          <Dialog key={1}>
-            <DialogTrigger asChild>
-              <button className='py-2 w-[60%] rounded-md cursor-pointer bg-gray-200'>Seleccionar Cliente</button>
-            </DialogTrigger>
-            <DialogContent className="sm:max-w-[425px] overflow-y-auto overflow-x-hidden max-h-[400px]">
-              <div className='w-full h-full flex gap-y-3 flex-col '>
-                <DialogTrigger asChild>
-                  <button className='w-full py-2 bg-gray-100 transition-all hover:bg-gray-300 cursor-pointer'>Pedro Duran</button>
-                </DialogTrigger>
-                <DialogTrigger asChild>
-                  <button className='w-full py-2 bg-gray-100 transition-all hover:bg-gray-300 cursor-pointer'>Pedro Duran</button>
-                </DialogTrigger>
-                <DialogTrigger asChild>
-                  <button className='w-full py-2 bg-gray-100 transition-all hover:bg-gray-300 cursor-pointer'>Pedro Duran</button>
-                </DialogTrigger>
-                <DialogTrigger asChild>
-                  <button className='w-full py-2 bg-gray-100 transition-all hover:bg-gray-300 cursor-pointer'>Pedro Duran</button>
-                </DialogTrigger>
+        {/* CLIENTES */}
+        <div className='w-1/2 h-full flex flex-col bg-white '>
+          <h3 className='w-[80%] mx-auto mt-[3%] text-LogoBlueDark font-semibold'>Cliente</h3>
+          <Popover key={'popdelcliente'} open={OpenCliente} onOpenChange={setOpenCliente}>
+            <PopoverTrigger asChild>
+              <button
+                aria-expanded={OpenCliente}
+                className="w-[80%] mx-auto border-[1px] border-gray-200 text-black py-2 px-3  flex items-center justify-between"
+              >
+                {Value || "Buscar o agregar Cliente"}
+              </button>
+            </PopoverTrigger>
+            <PopoverContent className="w-[400px] h-[30dvh] p-0">
+              <Command>
+                <CommandInput
+                  placeholder="Buscar o agregar Cliente"
+                  value={Value}
+                  onValueChange={(e) => {
+                    setValue(e);
+                  }}
+                />
+                <CommandEmpty>No se encontraron clientes.</CommandEmpty>
+                <CommandGroup className="overflow-y-auto">
+                  <Dialog key={'agregarcliente'} open={ShowClienteDialog} onClose={() => setShowClienteDialog(false)}>
 
-              </div>
-
-
-            </DialogContent>
-          </Dialog>
+                    <DialogContent className="sm:max-w-[425px] overflow-y-auto overflow-x-hidden max-h-[400px]">
+                      <div className='w-full h-full flex gap-y-3 flex-col '>
+                        Datos del cliente
+                      </div>
+                      <div className='flex gap-x-3 items-center justify-end'>
+                        <button onClick={() => { setShowClienteDialog(false) }}>Cancelar</button>
+                        <button onClick={() => { setShowClienteDialog(false) }}>Guardar</button>
+                      </div>
+                    </DialogContent>
+                  </Dialog>
+                  <CommandItem onSelect={(currentValue) => {
+                    setShowClienteDialog(true)
+                  }} className="flex items-center gap-x-2">
+                    <Plus /> Agregar
+                  </CommandItem>
+                  {clientesPrueba?.map(cliente => (
+                    <CommandItem
+                      key={cliente?.rfc}
+                      value={cliente?.nombre}
+                      onSelect={(currentValue) => {
+                        console.log(currentValue)
+                      }}
+                    >
+                      {cliente.nombre} {cliente.rfc}
+                    </CommandItem>
+                  ))}
+                </CommandGroup>
+              </Command>
+            </PopoverContent>
+          </Popover>
         </div>
+        {/* INFO FACTURA */}
         <div className='w-1/2 px-[5%] h-full bg-white rounded-md'>
           <div className='mt-5 flex justify-between items-center'>
             <h3 className='w-[75%]'>Fecha de Emision</h3>
@@ -278,10 +367,31 @@ const NuevaFactura = () => {
             <div className='w-[20%] ml-5'></div>
           </div>
 
+          <div className='mt-3 flex w-[85%] gap-x-2 justify-between items-center'>
+            <div className='mt-3 flex w-1/2 justify-between items-center'>
+              <h3 className='w-[60%]'>Serie</h3>
+              <input type="number" className={` w-full py-1 pl-3  bg-gray-200 rounded-md
+                ${formik.errors.TipoDeCambio && formik.errors.TipoDeCambio ?
+                  "border-red-500 border-2  placeholder:text-red-600"
+                  : "border-none "
+                }
+                `} />
+            </div>
+            <div className='mt-3 flex w-1/2 justify-between items-center'>
+              <h3 className='w-[60%]'>Folio</h3>
+              <input type="number" className={` w-full py-1 pl-3  bg-gray-200 rounded-md
+                ${formik.errors.TipoDeCambio && formik.errors.TipoDeCambio ?
+                  "border-red-500 border-2  placeholder:text-red-600"
+                  : "border-none "
+                }
+                `} />
+            </div>
+          </div>
+
 
           <div className='mt-3 flex w-[85%] gap-x-2 justify-between items-center'>
             <div className='mt-3 flex w-1/2 justify-between items-center'>
-              <h3 className='w-[75%]'>Moneda</h3>
+              <h3 className='w-[60%] mr-3'>Moneda</h3>
               <Select
                 key={`Moneda`}
                 className={`border-none outline-none ring-0 focus:ring-0 text-black placeholder:text-black
@@ -313,7 +423,7 @@ const NuevaFactura = () => {
             </div>
             {
               formik.values.Moneda != "Peso Mexicano" && (<div className='mt-3 flex w-1/2  items-center'>
-                <h3 className='w-full text-[12px]'>Tipo de cambio</h3>
+                <h3 className='w-[60%] text-[12px]'>Tipo de cambio</h3>
                 <input
                   type="text"
                   className={` w-full py-1 pl-3  bg-gray-200 rounded-md
@@ -333,56 +443,136 @@ const NuevaFactura = () => {
         </div>
       </div>
 
+      {/* PRODUCTOS */}
       <div className='w-full md:flex flex-col hidden md:h-[33dvh] px-[5%] bg-white rounded-md py-[1%] my-[2%]'>
         <div className='w-1/3'>
-          <Dialog key={2}>
-            <DialogTrigger asChild>
-              <button className='py-2 w-[100%] rounded-md cursor-pointer bg-gray-200'>Seleccionar Producto</button>
-            </DialogTrigger>
-            <DialogContent className="sm:max-w-[425px] overflow-y-auto overflow-x-hidden max-h-[400px]">
-              <div className='w-full h-full flex gap-y-3 flex-col '>
-                <DialogTrigger asChild>
-                  <button className='w-full py-2 bg-gray-100 transition-all hover:bg-gray-300 cursor-pointer'>Pedro Duran</button>
-                </DialogTrigger>
-                <DialogTrigger asChild>
-                  <button className='w-full py-2 bg-gray-100 transition-all hover:bg-gray-300 cursor-pointer'>Pedro Duran</button>
-                </DialogTrigger>
-                <DialogTrigger asChild>
-                  <button className='w-full py-2 bg-gray-100 transition-all hover:bg-gray-300 cursor-pointer'>Pedro Duran</button>
-                </DialogTrigger>
-                <DialogTrigger asChild>
-                  <button className='w-full py-2 bg-gray-100 transition-all hover:bg-gray-300 cursor-pointer'>Pedro Duran</button>
-                </DialogTrigger>
+          <Popover key={'popdelproducto'} open={OpenProductos} onOpenChange={setOpenProductos}>
+            <PopoverTrigger asChild>
+              <button
+                aria-expanded={OpenProductos}
+                className="w-full border-[1px] border-gray-200 text-black py-2 px-3  flex items-center justify-between"
+              >
+                {Value || "Buscar o agregar Producto"}
+              </button>
+            </PopoverTrigger>
+            <PopoverContent className="w-[400px] h-[25dvh] p-0">
+              <Command>
+                <CommandInput
+                  placeholder="Buscar o agregar Producto"
+                  value={Value}
+                  onValueChange={(e) => {
+                    setValue(e);
+                  }}
+                />
+                <CommandEmpty>No se encontraron clientes.</CommandEmpty>
+                <CommandGroup className="overflow-y-auto">
+                  <Dialog key={'agregarcliente'} open={ShowProductoDialog} onClose={() => setShowProductoDialog(false)}>
 
-              </div>
-
-
-            </DialogContent>
-          </Dialog>
+                    <DialogContent className="sm:max-w-[425px] overflow-y-auto overflow-x-hidden max-h-[400px]">
+                      <div className='w-full h-full flex gap-y-3 flex-col '>
+                        Datos del Producto
+                      </div>
+                      <div className='flex gap-x-3 items-center justify-end'>
+                        <button onClick={() => { setShowProductoDialog(false) }}>Cancelar</button>
+                        <button onClick={() => { setShowProductoDialog(false) }}>Guardar</button>
+                      </div>
+                    </DialogContent>
+                  </Dialog>
+                  <CommandItem onSelect={(currentValue) => {
+                    setShowProductoDialog(true)
+                  }} className="flex items-center gap-x-2">
+                    <Plus /> Agregar
+                  </CommandItem>
+                  {productosPrueba?.map(cliente => (
+                    <CommandItem
+                      key={cliente?.rfc}
+                      value={cliente?.nombre}
+                      onSelect={(currentValue) => {
+                        console.log(currentValue)
+                      }}
+                    >
+                      {cliente.nombre} {cliente.rfc}
+                    </CommandItem>
+                  ))}
+                </CommandGroup>
+              </Command>
+            </PopoverContent>
+          </Popover>
         </div>
-        <div className='w-full h-[70%] mt-2 bg-gray-200 rounded-md'>
+        <div className='w-full h-[70%] mt-2 border-2 border-gray-200 rounded-md'>
+          <Table className="w-full overflow-x-hidden">
+            <TableHeader>
+              <TableRow>
+                <TableHead className="text-[13px] w-fit text-center">{HeadersEmitidas[startIndex]}</TableHead>
+                <TableHead className="text-[13px] w-fit text-center">{HeadersEmitidas[startIndex + 1]}</TableHead>
+                <TableHead className="text-[13px] w-fit text-center">{HeadersEmitidas[startIndex + 2]}</TableHead>
+                <TableHead className="text-[13px] w-fit text-center">{HeadersEmitidas[startIndex + 3]}</TableHead>
+                <TableHead className="text-[13px] w-fit text-center">{HeadersEmitidas[startIndex + 4]}</TableHead>
+                <TableHead className="text-[13px] w-fit text-center">{HeadersEmitidas[startIndex + 5]}</TableHead>
+                <TableHead className="text-[13px] w-fit text-center">{HeadersEmitidas[startIndex + 6]}</TableHead>
+                <TableHead className="text-[13px] w-fit text-center">{HeadersEmitidas[startIndex + 7]}</TableHead>
+                <TableHead className="text-[13px] w-fit text-center">{HeadersEmitidas[startIndex + 8]}</TableHead>
+                <TableHead className="text-[13px] w-fit text-center"></TableHead>
 
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              <TableRow >
+                <TableCell className="text-center text-[12px]">prueba</TableCell>
+                <TableCell className="text-center text-[12px]">prueba</TableCell>
+                <TableCell className="text-center text-[12px]">prueba</TableCell>
+                <TableCell className="text-center text-[12px]">prueba</TableCell>
+                <TableCell className="text-center text-[12px]">prueba</TableCell>
+                <TableCell className="text-center text-[12px]">prueba</TableCell>
+                <TableCell className="text-center text-[12px]">prueba</TableCell>
+                <TableCell className="text-center text-[12px]">prueba</TableCell>
+                <TableCell className="text-center text-[12px] flex items-center gap-x-3">
+                  <img className='w-6 h-6 cursor-pointer' src={EditarSVG} />
+                  <img className='w-6 h-6 cursor-pointer' src={EliminarSVG} />
+                </TableCell>
+              </TableRow>
+            </TableBody>
+          </Table>
         </div>
         <div className='flex justify-end items-center'>
+
+        </div>
+
+      </div>
+      {/* CONTENIDO DE INFOFISCAL Y VISTA PREVIA */}
+      <div className='w-full  pt-3 h-4'>
+        <div className='w-fit flex items-center gap-x-3  h-4 ml-auto'>
+          <div className='px-4 py-[1px] w-fit rounded-md bg-esatDark'>
+            <h5 className='text-white text-end'>Subtotal</h5>
+            <span className='text-white'>$0,000.00</span>
+          </div>
+          <div className='px-4 py-[1px] w-fit rounded-md bg-esatDark'>
+            <h5 className='text-white text-end'>IVA</h5>
+            <span className='text-white'>$0,000.00</span>
+          </div>
+          <div className='px-4 py-[1px] w-fit rounded-md bg-esatDark'>
+            <h5 className='text-white text-end'>ISR</h5>
+            <span className='text-white'>$0,000.00</span>
+          </div>
+          <div className='px-4 py-[1px] w-fit rounded-md bg-esatDark'>
+            <h5 className='text-white text-end'>IVA RET</h5>
+            <span className='text-white'>$0,000.00</span>
+          </div>
+          <div className='px-4 py-[1px] w-fit rounded-md bg-LogoBlue'>
+            <h5 className='text-white text-end'>Total</h5>
+            <span className='text-white'>$0,000.00</span>
+          </div>
+
           <Dialog key={`dialog de confirmacion`}>
             <DialogTrigger asChild>
-              <button
-                type='submit'
-                //disabled={!formik.isValid || formik.isSubmitting ? true : false}
-                className='py-2 disabled:opacity-50 cursor-pointer my-2 px-4 rounded-md bg-gray-200'>Emitir Factura</button>
+              <button className='py-1 px-4 rounded-md my-2 border-2 border-gray-400 flex items-center group gap-x-2 bg-gray-200 transition-all hover:bg-LogoBlueDark hover:text-white hover:border-LogoBlueDark text-LogoBlueDark'><Search className='w-4 h-4 text-LogoBlueDark group-hover:text-white' /> Vista Previa</button>
             </DialogTrigger>
             <DialogContent className="w-[600px] max-h-[600px]">
               <div className='w-full h-full flex gap-y-3 flex-col '>
                 <textarea contentEditable="false" className='w-[480px] h-[300px] resize-none mt-5' value={DatosJSON} ></textarea>
-                
               </div>
-              <DialogTrigger asChild>
-               <button className='w-fit px-3 py-2 rounded-md bg-gray-200'>Confirmar</button>
-              </DialogTrigger>
-
             </DialogContent>
           </Dialog>
-
         </div>
       </div>
     </form>
