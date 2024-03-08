@@ -9,13 +9,13 @@ import {
   DialogTrigger,
 } from "../../../components/ui/dialog"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../../../components/ui/select'
-import { MetodoDePago as MDP, Moneda as Coin, FormaDePago as FDP, TipoDePago as TDF, Moneda } from "../../../assets/adminData";
+import { MetodoDePago as MDP, Moneda as Coin, FormaDePago as FDP, TipoDePago as TDF, Moneda, RegimenFiscalInfo, UsoCDFI, FormaDePago } from "../../../assets/adminData";
 import { useFormik } from 'formik';
 import * as Yup from "yup";
 import { InfoFiscal } from "../../../api/infoFiscal";
 import { useAuth } from "../../../hooks/useAuth";
 import { useQuery } from 'react-query';
-import { ChevronsUpDown, Plus, Search } from 'lucide-react';
+import { Search } from 'lucide-react';
 
 import { Popover, PopoverContent, PopoverTrigger } from "../../../components/ui/popover";
 import { Command, CommandDialog, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList, CommandSeparator, CommandShortcut, } from "../../../components/ui/command";
@@ -23,6 +23,11 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '.
 
 import EditarSVG from "../../../assets/Editar.svg";
 import EliminarSVG from "../../../assets/Eliminar.svg";
+
+import { UpdateClienteFom } from '../../../components/NuevaFactura/UpdCliFiscal';
+import { CreaCliFiscal } from '../../../components/NuevaFactura/CreaCliFiscal';
+import { CreaProdFiscal } from '../../../components/NuevaFactura/CreaProdFiscal';
+import { useToast } from '../../../components/ui/use-toast';
 
 // Calcula la fecha de hace 3 días
 const fechaActual = new Date();
@@ -32,20 +37,33 @@ const InfoFisCtrl = new InfoFiscal()
 const NuevaFactura = () => {
   const [DatosJSON, setDatosJSON] = useState(null)
   const { User } = useAuth()
-  const [open, setOpen] = useState(false)
-  const [showAddDialog, setShowAddDialog] = useState(false);
   const [Value, setValue] = useState(null)
+  const [ValueProduc, setValueProduc] = useState(null)
+  const [searchTerm, setSearchTerm] = useState('');
+  const [searchProd, setsearchProd] = useState('')
+
+  const { toast } = useToast()
+
+  const [OpenPreview, setOpenPreview] = useState(false)
 
   const [OpenCliente, setOpenCliente] = useState(false)
   const [OpenProductos, setOpenProductos] = useState(false)
 
-  const [ShowClienteDialog, setShowClienteDialog] = useState(false)
-  const [ShowProductoDialog, setShowProductoDialog] = useState(false)
-
   const [startIndex, setstartIndex] = useState(0)
-  //const [isValidIni, setisValidIni] = useState(false)
 
+  const [shoClienteUpdateDialog, setshoClienteUpdateDialog] = useState(false)
 
+  const [ClienteSelected, setClienteSelected] = useState(null)
+
+  const [tabla, settabla] = useState([])
+
+  const [SubTotal, setSubTotal] = useState(0)
+  const [iva, setiva] = useState(0)
+  const [isr, setisr] = useState(0)
+  const [ivaret, setivaret] = useState(0)
+  const [total, settotal] = useState(0)
+
+  const [showProductDel, setshowProductDel] = useState(false)
 
   const HeadersEmitidas = [
     'Cant',
@@ -58,30 +76,12 @@ const NuevaFactura = () => {
     'Total',
   ]
 
-  const clientesPrueba = [
-    {
-      nombre: "PUBLICO EN GENERAL",
-      rfc: "XEX1555681MSD"
-    },
-    {
-      nombre: "MEXICO",
-      rfc: "ME3943984NW2"
-    },
-  ]
+  const { data: InfoFiscalData, refetch } = useQuery(`${User.uid}-InfoFiscal`, () => InfoFisCtrl.getInfoFiscal(User.uid))
+  const { data: MisClientes } = useQuery(`clientes-${User.uid}`, () => InfoFisCtrl.getInfoMisClientes(User.uid))
+  const { data: MisProductos } = useQuery(`productos-${User.uid}`, () => InfoFisCtrl.getInfoMisProductos(User.uid))
 
-  const productosPrueba = [
-    {
-      nombre: "Producto 1"
-    },
-    {
-      nombre: "Producto 2"
-    },
-    {
-      nombre: "Producto 3"
-    },
-  ]
+  let folio = InfoFiscalData ? InfoFiscalData?.folio : 0
 
-  const { data: InfoFiscalData } = useQuery(`${User.uid}-InfoFiscal`, () => InfoFisCtrl.getInfoFiscal(User.uid))
 
   const handleChange = (event) => {
     // Extraer el valor actual del input
@@ -146,25 +146,27 @@ const NuevaFactura = () => {
 
   const formik = useFormik({
     initialValues: {
-      // cliente: null,
-      // producto: null,
+      cliente: null,
       fechaDeEmision: "",
       TipoDeFactura: null,
       FormaDePago: null,
       MetodoDePago: null,
       Moneda: null,
-      TipoDeCambio: null
+      TipoDeCambio: null,
+      Serie: null,
+      Folio: folio
     },
     validationSchema: Yup.object({
-      // cliente: Yup.object().required(),
-      // producto: Yup.object().required(),
+      cliente: Yup.object().required(),
       fechaDeEmision: Yup.date()
         .min(tresDiasAtras, 'La fecha de emisión debe ser dentro de los últimos 3 días')
         .required('Este campo es obligatorio'),
       TipoDeFactura: Yup.string().required(),
       FormaDePago: Yup.string().required(),
       MetodoDePago: Yup.string().required(),
-      Moneda: Yup.string().required()
+      Moneda: Yup.string().required(),
+      Serie: Yup.string().required(),
+      Folio: Yup.number().required()
     }),
     validateOnChange: true,
     onSubmit: async (formvalue) => {
@@ -172,35 +174,239 @@ const NuevaFactura = () => {
       let findedTipoPago = TDF.find(tdf => tdf.nombre === formvalue.TipoDeFactura)
       let findedMoneda = Coin.find(coin => coin.nombre === formvalue.Moneda)
 
-      let DataApiFormatted = {
-        "Comprobante": {
-          "Version": "4.0",
-          "Serie": "falta",
-          "Folio": InfoFiscalData?.folio,
-          "Fecha": formvalue.fechaDeEmision,
-          "NoCertificado": "falta",
-          "SubTotal": "falta",
-          "Descuento": "falta",
-          "Moneda": findedMoneda.clave,
-          "Total": "falta",
-          "TipoDeComprobante": findedTipoPago.clave,
-          "MetodoPago": findedMetodoPago.clave,
-          "Exportacion": "falta",
-          "LugarExpedicion": InfoFiscalData?.direccion.codigoPostal,
-        },
-        "Emisor":
-        {
-          "Rfc": InfoFiscalData?.rfc,
-          "Nombre": InfoFiscalData?.razonSocial,
-          "RegimenFiscal": InfoFiscalData?.regimenFiscal
-        },
+      let clienteData = MisClientes.find(cli => cli.rfc === ClienteSelected?.rfc)
+
+
+      if (tabla.length == 0) {
+        toast({
+          variant: "destructive",
+          title: "Debe agregar productos a su factura",
+        });
+      } else {
+        let conceptos = tabla.map((producto)=>{
+          return {
+            "ClaveProdServ": producto.datosAdi.codigoSat,
+            "Cantidad": producto.cantidad,
+            "ClaveUnidad": producto.datosAdi.claveUnidad,
+            "Unidad": producto.datosAdi.unidad,
+            "Descripcion": producto.descripcion,
+            "ValorUnitario": producto.datosAdi.precio.replace("$",""),
+            "Importe": producto.subtotal,
+            "Descuento": "0.00",
+            "ObjetoImp": "02",
+            "Impuestos":
+            {
+              "Traslados":
+                [
+                  {
+                    "Base": producto.subtotal,
+                    "Impuesto": "002",
+                    "TipoFactor": "Tasa",
+                    "TasaOCuota": `${producto.impuestosPorcentaje}`,
+                    "Importe": `${producto.impuestosTotal}`
+                  }
+                ]
+            }
+          }
+        })
+        setOpenPreview(true)
+        let DataApiFormatted = {
+          "Comprobante": {
+            "Version": "4.0",
+            "Serie": formvalue.Serie,
+            "Folio": formvalue.Folio,
+            "Fecha": formvalue.fechaDeEmision,
+            "NoCertificado": "falta",
+            "SubTotal": formatToCurrency(SubTotal).replace("$", ""),
+            "Descuento": "0.00",
+            "Moneda": findedMoneda.clave,
+            "Total": formatToCurrency(total).replace("$",""),
+            "TipoDeComprobante": findedTipoPago.clave,
+            "MetodoPago": findedMetodoPago.clave,
+            "Exportacion": "falta",
+            "LugarExpedicion": InfoFiscalData?.direccion.codigoPostal,
+          },
+          "Emisor":
+          {
+            "Rfc": InfoFiscalData?.rfc,
+            "Nombre": InfoFiscalData?.razonSocial,
+            "RegimenFiscal": InfoFiscalData?.regimenFiscal
+          },
+          "Receptor":
+          {
+            "Rfc": clienteData?.rfc,
+            "Nombre": clienteData?.razonSocial,
+            "UsoCFDI": clienteData?.usoCFDI,
+            "DomicilioFiscalReceptor": clienteData?.codigoPostal,
+            "RegimenFiscalReceptor": clienteData?.regimenFiscal,
+          },
+          "Conceptos":conceptos,
+          "Impuestos":
+          {
+            "TotalImpuestosTrasladados": `${formatToCurrency(iva + isr + ivaret).replace("$","")}`,
+            "Traslados":
+              [
+                {
+                  "Base": `${ formatToCurrency(SubTotal).replace("$","") }`,
+                  "Impuesto": "002",
+                  "TipoFactor": "Tasa",
+                  "TasaOCuota": "0.160000",
+                  "Importe": `${formatToCurrency(total - SubTotal).replace("$","")}`
+                }
+              ]
+          },
+          "CamposPDF": {
+            "tipoComprobante": "NOTA DE CRÉDITO",
+            "Comentarios": "Ninguno"
+          },
+          "logo": ""
+        }
+        const myJSON = JSON.stringify(DataApiFormatted, null, 2)
+        setDatosJSON(myJSON)
       }
-
-      const myJSON = JSON.stringify(DataApiFormatted, null, 2)
-
-      setDatosJSON(myJSON)
     }
   })
+
+  const AgregarProducto = (producto) => {
+    const cantidad = 1;
+    const claves = producto.claveUnidad;
+    const descripcion = producto.descripcion;
+
+    // Convertir el precio a número eliminando el símbolo "$"
+    const precioNumerico = parseFloat(producto.precio.replace("$", ""));
+    const valorUnitario = isNaN(precioNumerico) ? 0 : precioNumerico;
+
+    // Calcular el subtotal
+    const subtotal = cantidad * valorUnitario;
+
+    // Convertir los impuestos a números
+    const ivaPorcentaje = parseFloat(producto.iva) || 0;
+    const isrPorcentaje = parseFloat(producto.isr) || 0;
+    const ivaretPorcentaje = parseFloat(producto.ivaret) || 0;
+
+    // Calcular los impuestos individuales (IVA, ISR, IVA Retenido)
+    const iva = subtotal * ivaPorcentaje;
+    const isr = subtotal * isrPorcentaje;
+    const ivaret = subtotal * ivaretPorcentaje;
+
+    // Calcular la suma de los impuestos totales (IVA + ISR + IVA Retenido)
+    const impuestosTotal = iva + isr + ivaret;
+    const impuestosPorcentaje = ivaPorcentaje + isrPorcentaje + ivaretPorcentaje
+
+    // Calcular el total del producto (subtotal + impuestos)
+    const total = subtotal + impuestosTotal;
+
+    let dataTabla = {
+      cantidad,
+      claves,
+      descripcion,
+      valorUnitario,
+      subtotal,
+      descuento: 0,
+      iva,
+      isr,
+      ivaret,
+      impuestosTotal,
+      impuestosPorcentaje,
+      total,
+      datosAdi: producto
+    };
+
+    setOpenProductos(false)
+    settabla([...tabla, dataTabla])
+  };
+
+  const handleCantidadChange = (newValue, index) => {
+    // Convertir el nuevo valor a número
+    const newCantidad = parseInt(newValue);
+
+    // Verificar si el nuevo valor es un número válido
+    if (!isNaN(newCantidad)) {
+      // Actualizar la cantidad en la tabla
+      const updatedTabla = [...tabla];
+      updatedTabla[index].cantidad = newCantidad;
+
+      // Recalcular subtotal y total para la fila actual
+
+      const subtotal = newCantidad * updatedTabla[index].valorUnitario;
+      const impuestos = subtotal * updatedTabla[index].impuestosPorcentaje;
+      const total = subtotal + impuestos;
+
+      updatedTabla[index].subtotal = subtotal;
+      updatedTabla[index].impuestosTotal = impuestos;
+      updatedTabla[index].total = total;
+
+      // Actualizar el estado con la nueva tabla
+      settabla(updatedTabla);
+    }
+
+    ActualizarValoresGlobales()
+  };
+
+  const ActualizarValoresGlobales = () => {
+    const subtotalCalculado = tabla.reduce((acc, curr) => {
+      // Verificar si curr.subtotal es un número válido antes de agregarlo al acumulador
+      if (!isNaN(curr.subtotal)) {
+        return acc + parseFloat(curr.subtotal);
+      } else {
+        return acc;
+      }
+    }, 0);
+    setSubTotal(subtotalCalculado);
+
+    const ivaCalculado = tabla.reduce((acc, curr) => {
+      // Verificar si curr.subtotal es un número válido antes de agregarlo al acumulador
+      if (!isNaN(curr.iva)) {
+        let totalIva = curr.cantidad * curr.iva;
+        return acc + parseFloat(totalIva);
+      } else {
+        return acc;
+      }
+    }, 0);
+    setiva(ivaCalculado)
+
+    const isrCalculado = tabla.reduce((acc, curr) => {
+      // Verificar si curr.subtotal es un número válido antes de agregarlo al acumulador
+      if (!isNaN(curr.isr)) {
+        let totalIva = curr.cantidad * curr.isr;
+        return acc + parseFloat(totalIva);
+      } else {
+        return acc;
+      }
+    }, 0);
+    setisr(isrCalculado)
+
+    const ivaretCalculado = tabla.reduce((acc, curr) => {
+      // Verificar si curr.subtotal es un número válido antes de agregarlo al acumulador
+      if (!isNaN(curr.ivaret)) {
+        let totalIva = curr.cantidad * curr.ivaret;
+        return acc + parseFloat(totalIva);
+      } else {
+        return acc;
+      }
+    }, 0);
+    setivaret(ivaretCalculado)
+
+    const totalCalculado = tabla.reduce((acc, curr) => {
+      // Verificar si curr.subtotal es un número válido antes de agregarlo al acumulador
+      if (!isNaN(curr.total)) {
+        return acc + parseFloat(curr.total);
+      } else {
+        return acc;
+      }
+    }, 0);
+    settotal(totalCalculado);
+
+  }
+
+  useEffect(() => {
+
+    ActualizarValoresGlobales()
+    formik.setFieldValue("producto", tabla)
+  }, [tabla])
+
+
+
 
   return (
     <form onSubmit={formik.handleSubmit} className='w-full h-full pr-[4%] pt-[1%]'>
@@ -208,58 +414,89 @@ const NuevaFactura = () => {
         {/* CLIENTES */}
         <div className='w-1/2 h-full flex flex-col bg-white '>
           <h3 className='w-[80%] mx-auto mt-[3%] text-LogoBlueDark font-semibold'>Cliente</h3>
-          <Popover key={'popdelcliente'} open={OpenCliente} onOpenChange={setOpenCliente}>
-            <PopoverTrigger asChild>
-              <button
-                aria-expanded={OpenCliente}
-                className="w-[80%] mx-auto border-[1px] border-gray-200 text-black py-2 px-3  flex items-center justify-between"
-              >
-                {Value || "Buscar o agregar Cliente"}
-              </button>
-            </PopoverTrigger>
-            <PopoverContent className="w-[400px] h-[30dvh] p-0">
-              <Command>
-                <CommandInput
-                  placeholder="Buscar o agregar Cliente"
-                  value={Value}
-                  onValueChange={(e) => {
-                    setValue(e);
-                  }}
-                />
-                <CommandEmpty>No se encontraron clientes.</CommandEmpty>
-                <CommandGroup className="overflow-y-auto">
-                  <Dialog key={'agregarcliente'} open={ShowClienteDialog} onClose={() => setShowClienteDialog(false)}>
-
-                    <DialogContent className="sm:max-w-[425px] overflow-y-auto overflow-x-hidden max-h-[400px]">
-                      <div className='w-full h-full flex gap-y-3 flex-col '>
-                        Datos del cliente
-                      </div>
-                      <div className='flex gap-x-3 items-center justify-end'>
-                        <button onClick={() => { setShowClienteDialog(false) }}>Cancelar</button>
-                        <button onClick={() => { setShowClienteDialog(false) }}>Guardar</button>
-                      </div>
-                    </DialogContent>
-                  </Dialog>
-                  <CommandItem onSelect={(currentValue) => {
-                    setShowClienteDialog(true)
-                  }} className="flex items-center gap-x-2">
-                    <Plus /> Agregar
-                  </CommandItem>
-                  {clientesPrueba?.map(cliente => (
-                    <CommandItem
-                      key={cliente?.rfc}
-                      value={cliente?.nombre}
-                      onSelect={(currentValue) => {
-                        console.log(currentValue)
+          {
+            !ClienteSelected ? (
+              <Popover key={'popdelcliente'} open={OpenCliente} onOpenChange={setOpenCliente}>
+                <PopoverTrigger asChild>
+                  <button
+                    aria-expanded={OpenCliente}
+                    className="w-[80%] mx-auto border-[1px] border-gray-200 text-black py-2 px-3  flex items-center justify-between"
+                  >
+                    {Value || "Buscar o agregar Cliente"}
+                  </button>
+                </PopoverTrigger>
+                <PopoverContent className="w-[400px] h-[30dvh] p-0">
+                  <Command>
+                    <CommandInput
+                      placeholder="Buscar o agregar Cliente"
+                      value={Value}
+                      onValueChange={(e) => {
+                        setValue(e);
+                        setSearchTerm(e);
                       }}
-                    >
-                      {cliente.nombre} {cliente.rfc}
-                    </CommandItem>
-                  ))}
-                </CommandGroup>
-              </Command>
-            </PopoverContent>
-          </Popover>
+                    />
+                    <CommandEmpty>No se encontraron clientes.</CommandEmpty>
+                    <CommandGroup className="overflow-y-auto">
+                      <CreaCliFiscal />
+
+                      {MisClientes?.filter(cliente =>
+                        cliente.razonSocial.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                        cliente.rfc.toLowerCase().includes(searchTerm.toLowerCase())
+                      ).map(cliente => (
+                        <CommandItem
+                          key={cliente.id} // Asegúrate de tener una clave única para cada CommandItem
+                          onSelect={(currentValue) => {
+                            let data = currentValue.split(" ");
+                            let findedCli = MisClientes.find(cli => cli.rfc.toLowerCase() === data[2].toLowerCase());
+                            let dataNew = {
+                              id: findedCli.id,
+                              codigoPostal: findedCli.codigoPostal,
+                              email: findedCli.email,
+                              formaDePago: FormaDePago.find(regimen => regimen.clave === findedCli.formaDePago)?.nombre,
+                              razonSocial: findedCli.razonSocial,
+                              rfc: findedCli.rfc,
+                              regimenFiscal: RegimenFiscalInfo.find(regimen => regimen.clave === findedCli.regimenFiscal)?.nombre,
+                              usoCFDI: UsoCDFI.find(regimen => regimen.clave === findedCli.usoCFDI)?.nombre,
+                              direccion: findedCli.direccion
+                            }
+                            formik.setFieldValue("cliente", dataNew)
+                            setClienteSelected(dataNew);
+
+                          }}
+                        >
+                          {cliente && typeof cliente.razonSocial === 'string' ? cliente.razonSocial : ''} {cliente && typeof cliente.rfc === 'string' ? cliente.rfc : ''}
+                        </CommandItem>
+                      ))}
+                    </CommandGroup>
+                  </Command>
+                </PopoverContent>
+              </Popover>)
+              :
+              (<>
+                <div className='w-[80%] mt-3 gap-y-2 flex flex-col mx-auto'>
+                  <h2>Datos del Receptor</h2>
+                  <div className='w-full flex items-center gap-x-3'>
+                    <h2 className='w-[35%]'>Razón Social</h2> <h4>{ClienteSelected.razonSocial}</h4>
+                  </div>
+                  <div className='w-full flex items-center gap-x-3'>
+                    <h2 className='w-[35%]'>RFC</h2> <h4>{ClienteSelected.rfc}</h4>
+                  </div>
+                  <div className='w-full flex items-center gap-x-3'>
+                    <h2 className='w-[35%]'>Código Postal</h2> <h4>{ClienteSelected.codigoPostal}</h4>
+                  </div>
+                  <div className='w-full flex items-center gap-x-3'>
+                    <h2 className='w-[35%]'>Régimen fiscal</h2> <h4>{ClienteSelected.regimenFiscal}</h4>
+                  </div>
+
+                  <div className='w-full flex items-center gap-x-3'>
+                    <h2 className='w-[35%]'>Uso CDFI</h2> <h4>{ClienteSelected.usoCFDI}</h4>
+                  </div>
+
+                  <UpdateClienteFom ClienteSelected={ClienteSelected} setClienteSelected={setClienteSelected} refetch={refetch} setshoClienteUpdateDialog={setshoClienteUpdateDialog} shoClienteUpdateDialog={shoClienteUpdateDialog} />
+                </div>
+              </>)
+          }
+
         </div>
         {/* INFO FACTURA */}
         <div className='w-1/2 px-[5%] h-full bg-white rounded-md'>
@@ -370,21 +607,28 @@ const NuevaFactura = () => {
           <div className='mt-3 flex w-[85%] gap-x-2 justify-between items-center'>
             <div className='mt-3 flex w-1/2 justify-between items-center'>
               <h3 className='w-[60%]'>Serie</h3>
-              <input type="number" className={` w-full py-1 pl-3  bg-gray-200 rounded-md
-                ${formik.errors.TipoDeCambio && formik.errors.TipoDeCambio ?
+              <input type="text" className={` w-full py-1 pl-3  bg-gray-200 rounded-md
+                ${formik.errors.Serie && formik.errors.Serie ?
                   "border-red-500 border-2  placeholder:text-red-600"
                   : "border-none "
                 }
-                `} />
+                `}
+                name="Serie"
+                onChange={formik.handleChange}
+              />
             </div>
             <div className='mt-3 flex w-1/2 justify-between items-center'>
               <h3 className='w-[60%]'>Folio</h3>
               <input type="number" className={` w-full py-1 pl-3  bg-gray-200 rounded-md
-                ${formik.errors.TipoDeCambio && formik.errors.TipoDeCambio ?
+                ${formik.errors.Folio && formik.errors.Folio ?
                   "border-red-500 border-2  placeholder:text-red-600"
                   : "border-none "
                 }
-                `} />
+                `}
+                name="Folio"
+                onChange={formik.handleChange}
+                value={formik.values.Folio}
+              />
             </div>
           </div>
 
@@ -444,7 +688,7 @@ const NuevaFactura = () => {
       </div>
 
       {/* PRODUCTOS */}
-      <div className='w-full md:flex flex-col hidden md:h-[33dvh] px-[5%] bg-white rounded-md py-[1%] my-[2%]'>
+      <div className='w-full md:flex flex-col hidden md:h-[33dvh]  px-[5%] bg-white rounded-md py-[1%] my-[2%]'>
         <div className='w-1/3'>
           <Popover key={'popdelproducto'} open={OpenProductos} onOpenChange={setOpenProductos}>
             <PopoverTrigger asChild>
@@ -452,46 +696,32 @@ const NuevaFactura = () => {
                 aria-expanded={OpenProductos}
                 className="w-full border-[1px] border-gray-200 text-black py-2 px-3  flex items-center justify-between"
               >
-                {Value || "Buscar o agregar Producto"}
+                {ValueProduc || "Buscar o agregar Producto"}
               </button>
             </PopoverTrigger>
             <PopoverContent className="w-[400px] h-[25dvh] p-0">
               <Command>
                 <CommandInput
                   placeholder="Buscar o agregar Producto"
-                  value={Value}
+                  value={ValueProduc}
                   onValueChange={(e) => {
-                    setValue(e);
+                    setValueProduc(e);
+                    setsearchProd(e);
                   }}
                 />
-                <CommandEmpty>No se encontraron clientes.</CommandEmpty>
                 <CommandGroup className="overflow-y-auto">
-                  <Dialog key={'agregarcliente'} open={ShowProductoDialog} onClose={() => setShowProductoDialog(false)}>
-
-                    <DialogContent className="sm:max-w-[425px] overflow-y-auto overflow-x-hidden max-h-[400px]">
-                      <div className='w-full h-full flex gap-y-3 flex-col '>
-                        Datos del Producto
-                      </div>
-                      <div className='flex gap-x-3 items-center justify-end'>
-                        <button onClick={() => { setShowProductoDialog(false) }}>Cancelar</button>
-                        <button onClick={() => { setShowProductoDialog(false) }}>Guardar</button>
-                      </div>
-                    </DialogContent>
-                  </Dialog>
-                  <CommandItem onSelect={(currentValue) => {
-                    setShowProductoDialog(true)
-                  }} className="flex items-center gap-x-2">
-                    <Plus /> Agregar
-                  </CommandItem>
-                  {productosPrueba?.map(cliente => (
+                  <CreaProdFiscal />
+                  {MisProductos?.filter(prod =>
+                    prod.nombreInterno.toLowerCase().includes(searchProd.toLowerCase())
+                  ).map((producto, index) => (
                     <CommandItem
-                      key={cliente?.rfc}
-                      value={cliente?.nombre}
+                      key={index}
+                      value={producto}
                       onSelect={(currentValue) => {
-                        console.log(currentValue)
+                        AgregarProducto(producto)
                       }}
                     >
-                      {cliente.nombre} {cliente.rfc}
+                      {producto.nombreInterno}
                     </CommandItem>
                   ))}
                 </CommandGroup>
@@ -499,8 +729,8 @@ const NuevaFactura = () => {
             </PopoverContent>
           </Popover>
         </div>
-        <div className='w-full h-[70%] mt-2 border-2 border-gray-200 rounded-md'>
-          <Table className="w-full overflow-x-hidden">
+        <div className='w-full h-[30dvh] overflow-y-auto mt-2 border-2 border-gray-200 rounded-md'>
+          <Table className="w-full overflow-y-auto overflow-x-hidden">
             <TableHeader>
               <TableRow>
                 <TableHead className="text-[13px] w-fit text-center">{HeadersEmitidas[startIndex]}</TableHead>
@@ -517,20 +747,37 @@ const NuevaFactura = () => {
               </TableRow>
             </TableHeader>
             <TableBody>
-              <TableRow >
-                <TableCell className="text-center text-[12px]">prueba</TableCell>
-                <TableCell className="text-center text-[12px]">prueba</TableCell>
-                <TableCell className="text-center text-[12px]">prueba</TableCell>
-                <TableCell className="text-center text-[12px]">prueba</TableCell>
-                <TableCell className="text-center text-[12px]">prueba</TableCell>
-                <TableCell className="text-center text-[12px]">prueba</TableCell>
-                <TableCell className="text-center text-[12px]">prueba</TableCell>
-                <TableCell className="text-center text-[12px]">prueba</TableCell>
-                <TableCell className="text-center text-[12px] flex items-center gap-x-3">
-                  <img className='w-6 h-6 cursor-pointer' src={EditarSVG} />
-                  <img className='w-6 h-6 cursor-pointer' src={EliminarSVG} />
-                </TableCell>
-              </TableRow>
+              <>
+                {
+                  tabla.map((table, index) => (
+                    <TableRow>
+                      <TableCell className="text-center text-[12px]">
+                        {/* Control de entrada para la cantidad */}
+                        <input
+                          type="number"
+                          className="w-full h-full bg-transparent text-center outline-none"
+                          value={table.cantidad}
+                          onChange={(e) => handleCantidadChange(Math.max(1, parseInt(e.target.value)), index)}
+                        />
+
+                      </TableCell>
+                      <TableCell className="text-center text-[12px]">{table.claves}</TableCell>
+                      <TableCell className="text-center text-[12px]">{table.descripcion}</TableCell>
+                      <TableCell className="text-center text-[12px]">${table.valorUnitario}</TableCell>
+                      <TableCell className="text-center text-[12px]">${table.subtotal}</TableCell>
+                      <TableCell className="text-center text-[12px]">{table.descuento}</TableCell>
+                      <TableCell className="text-center text-[12px]">{formatToCurrency(table.impuestosTotal)}</TableCell>
+                      <TableCell className="text-center text-[12px]">{formatToCurrency(table.total)}</TableCell>
+                      <TableCell className="text-center text-[12px] flex items-center gap-x-3">
+
+                        <img className='w-5 h-5 cursor-pointer' src={EditarSVG} />
+                        <img className='w-5 h-5 cursor-pointer' src={EliminarSVG} />
+                      </TableCell>
+                    </TableRow>
+                  ))
+                }
+
+              </>
             </TableBody>
           </Table>
         </div>
@@ -544,28 +791,28 @@ const NuevaFactura = () => {
         <div className='w-fit flex items-center gap-x-3  h-4 ml-auto'>
           <div className='px-4 py-[1px] w-fit rounded-md bg-esatDark'>
             <h5 className='text-white text-end'>Subtotal</h5>
-            <span className='text-white'>$0,000.00</span>
+            <span className='text-white'>{formatToCurrency(SubTotal)}</span>
           </div>
           <div className='px-4 py-[1px] w-fit rounded-md bg-esatDark'>
             <h5 className='text-white text-end'>IVA</h5>
-            <span className='text-white'>$0,000.00</span>
+            <span className='text-white'>{formatToCurrency(iva)}</span>
           </div>
           <div className='px-4 py-[1px] w-fit rounded-md bg-esatDark'>
             <h5 className='text-white text-end'>ISR</h5>
-            <span className='text-white'>$0,000.00</span>
+            <span className='text-white'>{formatToCurrency(isr)}</span>
           </div>
           <div className='px-4 py-[1px] w-fit rounded-md bg-esatDark'>
             <h5 className='text-white text-end'>IVA RET</h5>
-            <span className='text-white'>$0,000.00</span>
+            <span className='text-white'>{formatToCurrency(ivaret)}</span>
           </div>
           <div className='px-4 py-[1px] w-fit rounded-md bg-LogoBlue'>
             <h5 className='text-white text-end'>Total</h5>
-            <span className='text-white'>$0,000.00</span>
+            <span className='text-white'>{formatToCurrency(total)}</span>
           </div>
 
-          <Dialog key={`dialog de confirmacion`}>
+          <Dialog open={OpenPreview} onOpenChange={() => setOpenPreview(false)} key={`dialog de confirmacion`}>
             <DialogTrigger asChild>
-              <button className='py-1 px-4 rounded-md my-2 border-2 border-gray-400 flex items-center group gap-x-2 bg-gray-200 transition-all hover:bg-LogoBlueDark hover:text-white hover:border-LogoBlueDark text-LogoBlueDark'><Search className='w-4 h-4 text-LogoBlueDark group-hover:text-white' /> Vista Previa</button>
+              <button type='submit' className='py-1 px-4 rounded-md my-2 border-2 border-gray-400 flex items-center group gap-x-2 bg-gray-200 transition-all hover:bg-LogoBlueDark hover:text-white hover:border-LogoBlueDark text-LogoBlueDark'><Search className='w-4 h-4 text-LogoBlueDark group-hover:text-white' /> Vista Previa</button>
             </DialogTrigger>
             <DialogContent className="w-[600px] max-h-[600px]">
               <div className='w-full h-full flex gap-y-3 flex-col '>

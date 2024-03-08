@@ -2446,3 +2446,231 @@ export const TipoDePago = [
     nombre: "Ingreso"
   },
 ]
+
+export const UsoCDFI = [
+  {
+    clave: "G01",
+    nombre: "Adquisición de mercancías"
+  },
+  {
+    clave: "G02",
+    nombre: "Devoluciones, descuentos o bonificaciones"
+  },
+  {
+    clave: "G03",
+    nombre: "Gastos en general"
+  },
+  {
+    clave: "I01",
+    nombre: "Construcciones"
+  },
+
+  {
+    clave: "I02",
+    nombre: "Mobiliario y equipo de oficina por inversiones"
+  },
+  {
+    clave: "I03",
+    nombre: "Equipo de transporte"
+  },
+  {
+    clave: "I04",
+    nombre: "Equipo de cómputo y accesorios"
+  },
+  {
+    clave: "I05",
+    nombre: "Dados, troqueles, moldes, matrices y herramental"
+  },
+  {
+    clave: "I06",
+    nombre: "Comunicaciones telefónicas"
+  },
+  {
+    clave: "I07",
+    nombre: "Comunicaciones satelitales"
+  },
+  {
+    clave: "I08",
+    nombre: "Otra maquinaria y equipo"
+  },
+  {
+    clave: "D01",
+    nombre: "Honorarios médicos, dentales y gastos hospitalarios."
+  },
+  {
+    clave: "D02",
+    nombre: "Gastos médicos por incapacidad o discapacidad"
+  },
+  {
+    clave: "D03",
+    nombre: "Gastos funerales."
+  },
+  {
+    clave: "D04",
+    nombre: "Donativos"
+  },
+  {
+    clave: "D05",
+    nombre: "Intereses reales efectivamente pagados por créditos hipotecarios (casa habitación)."
+  },
+  {
+    clave: "D06",
+    nombre: "Aportaciones voluntarias al SAR."
+  },
+  {
+    clave: "D07",
+    nombre: "Primas por seguros de gastos médicos."
+  },
+  {
+    clave: "D08",
+    nombre: "Gastos de transportación escolar obligatoria."
+  },
+  {
+    clave: "D09",
+    nombre: "Depósitos en cuentas para el ahorro, primas que tengan como base planes de pensiones."
+  },
+  {
+    clave: "D10",
+    nombre: "Pagos por servicios educativos (colegiaturas)"
+  },
+  {
+    clave: "CP01",
+    nombre: "Pagos"
+  },
+  {
+    clave: "CN01",
+    nombre: "Nómina"
+  },
+
+  {
+    clave: "S01",
+    nombre: "Sin Efectos Fiscales"
+  },
+]
+
+export const CatUniData = [
+  {
+    clave: "H87",
+    nombre: "Pieza"
+  },
+  {
+    clave: "E48",
+    nombre: "Unidad de Servicio"
+  },
+  {
+    clave: "EA",
+    nombre: "Elemento"
+  },
+  {
+    clave: "ACT",
+    nombre: "Actividad"
+  },
+  {
+    clave: "KGM",
+    nombre: "Kilogramo"
+  },
+  {
+    clave: "E51",
+    nombre: "Trabajo"
+  },
+  {
+    clave: "A9",
+    nombre: "Tarifa"
+  },
+  {
+    clave: "MTR",
+    nombre: "Metro"
+  },
+  {
+    clave: "AB",
+    nombre: "Paquete a granel"
+  },
+  {
+    clave: "BB",
+    nombre: "Caja base"
+  },
+  {
+    clave: "KT",
+    nombre: "Kit"
+  },
+  {
+    clave: "SET",
+    nombre: "Conjunto"
+  },
+  {
+    clave: "LTR",
+    nombre: "Litro"
+  },
+  {
+    clave: "XBX",
+    nombre: "Caja"
+  },
+  {
+    clave: "MON",
+    nombre: "Mes"
+  },
+  {
+    clave: "HUR",
+    nombre: "Hora"
+  },
+  {
+    clave: "MTK",
+    nombre: "Metro cuadrado"
+  },
+  {
+    clave: "11",
+    nombre: "Equipos"
+  },
+  {
+    clave: "MGM",
+    nombre: "Miligramo"
+  },
+  {
+    clave: "XPK",
+    nombre: "Paquete"
+  },
+  {
+    clave: "XKI",
+    nombre: "Kit (Conjunto de piezas)"
+  },
+  {
+    clave: "AS",
+    nombre: "Variedad"
+  },
+  {
+    clave: "GRM",
+    nombre: "Gramo"
+  },
+  {
+    clave: "PR",
+    nombre: "Par"
+  },
+  {
+    clave: "DPC",
+    nombre: "Docenas de piezas"
+  },
+  {
+    clave: "xun",
+    nombre: "Unidad"
+  },
+  {
+    clave: "DAY",
+    nombre: "Día"
+  },
+  {
+    clave: "XLT",
+    nombre: "Lote"
+  },
+  {
+    clave: "10",
+    nombre: "Grupos"
+  },
+  {
+    clave: "MLT",
+    nombre: "Mililitro"
+  },
+  {
+    clave: "E54",
+    nombre: "Viaje"
+  },
+]

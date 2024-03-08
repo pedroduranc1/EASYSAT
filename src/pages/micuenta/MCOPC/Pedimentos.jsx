@@ -82,7 +82,6 @@ const Pedimentos = () => {
     return formattedValue
   };
 
-
   const formatToCurrency = (amount) => {
     // Convertir el string a número para formatear correctamente
     const numberAmount = Number(amount) || 0;

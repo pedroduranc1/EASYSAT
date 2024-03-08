@@ -1,4 +1,4 @@
-import { doc, getDoc, setDoc } from "firebase/firestore";
+import { collection, doc, getDoc, getDocs, query, setDoc, updateDoc, where } from "firebase/firestore";
 import { db, storage } from "../../utils/firebase";
 import {
   deleteObject,
@@ -98,6 +98,67 @@ export class InfoFiscal {
       return true;
     } catch (error) {
       console.log(error);
+      return false;
+    }
+  }
+
+  async createInfoCliente(uid, InfoFiscal) {
+    try {
+      const blogRef = doc(db, "InfoFiscalClientes", uid);
+      await setDoc(blogRef, InfoFiscal);
+      return true;
+    } catch (error) {
+      console.log(error);
+      return false;
+    }
+  }
+
+  async getInfoMisClientes(id) {
+    const usersRef = collection(db, 'InfoFiscalClientes');
+
+    const q = query(usersRef, where("clienteDe", "==", id))
+
+    const querySnapshot = await getDocs(q);
+    const users = [];
+
+    querySnapshot.forEach((doc) => {
+      users.push({ id: doc.id, ...doc.data() });
+    });
+
+    return users;
+  }
+
+  async updateInfoMisClientes(id, ClientData) {
+    try {
+      const blogRef = doc(db, "InfoFiscalClientes", id);
+      await updateDoc(blogRef, ClientData);
+      return true;
+    } catch (error) {
+      return false;
+    }
+  }
+
+  async getInfoMisProductos(id) {
+    const usersRef = collection(db, 'InfoFiscalProducts');
+
+    const q = query(usersRef, where("productoDe", "==", id))
+
+    const querySnapshot = await getDocs(q);
+    const users = [];
+
+    querySnapshot.forEach((doc) => {
+      users.push({ id: doc.id, ...doc.data() });
+    });
+
+    return users;
+  }
+
+  async createInfoProduct(uid, InfoFiscal) {
+    try {
+      const blogRef = doc(db, "InfoFiscalProducts", uid);
+      await setDoc(blogRef, InfoFiscal);
+      return true;
+    } catch (error) {
       return false;
     }
   }
